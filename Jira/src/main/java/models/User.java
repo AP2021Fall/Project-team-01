@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class User {
     private static ArrayList<User> allUsers = new ArrayList<>();
+    private static ArrayList<String> allEmails = new ArrayList<>();
     private ArrayList<Team> teamsOfUser;
     private ArrayList<String> notifications;
     private ArrayList<LocalDateTime> loginTimes;
@@ -23,10 +24,39 @@ public class User {
         this.notifications = new ArrayList<>();
         this.loginTimes = new ArrayList<>();
         allUsers.add(this);
+        allEmails.add(email);
+    }
+
+    public static ArrayList<String> getAllEmails() {
+        return allEmails;
     }
 
     public static ArrayList<User> getAllUsers() {
         return allUsers;
+    }
+
+    public static User getUserByUsername(String username) {
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username))
+                return user;
+        }
+        return null;
+    }
+
+    public static boolean isEmailTaken(String email) {
+        for (String emailString : allEmails) {
+            if (emailString.equals(email))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isUsernameTaken(String username){
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username))
+                return true;
+        }
+        return false;
     }
 
     public ArrayList<Team> getTeamsOfUser() {
