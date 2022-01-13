@@ -28,6 +28,34 @@ public class Task {
         return allTasks;
     }
 
+    public static Task getTaskByTaskId(int id){
+        for(Task task : allTasks){
+            if(task.getId()==id)
+                return task;
+        }
+        return null;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public void setDeadLineDate(LocalDateTime deadLineDate) {
+        this.deadLineDate = deadLineDate;
+    }
+
+    public void setAssignedUsers(ArrayList<User> assignedUsers) {
+        this.assignedUsers = assignedUsers;
+    }
+
     public int getId() {
         return id;
     }
