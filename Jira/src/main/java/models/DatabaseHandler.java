@@ -54,4 +54,20 @@ public class DatabaseHandler {
     }
     
 
+    public static boolean doesUsernameExist(String username){}
+    public static boolean doesEmailExist(String email){}
+    public static String getPasswordByUsername(String username){}
+    public static String getEmailByUsername(String username){}
+    public static String getRoleByUsername(String username){}
+    public static void changePassword(String username, String newPassword){}
+    public static void changeUsername(String oldUsername, String newPassword){}
+
+    //string or whatever!
+    public static String getLogsByUsername(String username){}
+    public static String getNotifications(String username){}
+
+    public static String[] getUserTeams(String username){}
+
+    public static String getLeaderByTeamName(String teamName){}
+    public static String[] getMembersByTeamName(String teamName){}
 }
