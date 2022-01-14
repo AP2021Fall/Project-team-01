@@ -2,11 +2,9 @@ package models;
 
 import com.google.gson.Gson;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class DatabaseHandler {
     private static final String JDB_URL = "jdbc:mysql://localhost:3306/apjira";
@@ -65,8 +63,15 @@ public class DatabaseHandler {
     public static String getLogsByUsername(String username){}
     public static String getNotifications(String username){}
 
-    public static String[] getUserTeams(String username){}
+    public static ArrayList<String> getUserTeams(String username){}
 
     public static String getLeaderByTeamName(String teamName){}
-    public static String[] getMembersByTeamName(String teamName){}
+    public static ArrayList<String> getMembersByTeamName(String teamName){}
+
+    public static boolean doesTaskExist(int id){}
+    public static boolean getTaskLeaderByTaskId(int id){}
+    public static void changeTaskTitle(int id, String newTitle){}
+    public static void changeTaskDescription(int id, String newDescription){}
+    public static void changeTaskPriority(int id, String newPriority) {
+    }
 }
