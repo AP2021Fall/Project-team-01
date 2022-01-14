@@ -52,5 +52,6 @@ public class DatabaseHandler {
         String sql = Queries.CREATE_BOARD;
         connectAndInsert(sql);
     }
+    
 
 }
