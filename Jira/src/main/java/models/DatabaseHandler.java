@@ -1,10 +1,12 @@
 package models;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler {
     private static final String JDB_URL = "jdbc:mysql://localhost:3306/apjira";
@@ -30,9 +32,9 @@ public class DatabaseHandler {
         connectAndInsert(sql);
     }
 
-    public static void createTeam(String name, LocalDateTime creatingDate) throws SQLException {
+    public static void createTeam(String name, LocalDateTime creatingDate, String leader) throws SQLException {
         String creatingDateJson = new Gson().toJson(creatingDate);
-        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateJson);
+        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateJson, leader);
         connectAndInsert(sql);
     }
 
@@ -50,28 +52,109 @@ public class DatabaseHandler {
         String sql = Queries.CREATE_BOARD;
         connectAndInsert(sql);
     }
+    
 
-    public static boolean doesUsernameExist(String username){}
-    public static boolean doesEmailExist(String email){}
-    public static String getPasswordByUsername(String username){}
-    public static String getEmailByUsername(String username){}
-    public static String getRoleByUsername(String username){}
-    public static void changePassword(String username, String newPassword){}
-    public static void changeUsername(String oldUsername, String newPassword){}
+    public static boolean doesUsernameExist(String username) throws SQLException {
+        connect();
+        String sql = String.format(Queries.DOES_USERNAME_EXIST, username);
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
+        statement.close();
+        connection.close();
+        return bool;
+    }
+    public static boolean doesEmailExist(String email) throws SQLException {
+        String sql = String.format(Queries.DOES_Email_EXIST, email);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
+        statement.close();
+        connection.close();
+        return bool;
+    }
+    public static String getPasswordByUsername(String username) throws SQLException {
+        return getSell("users", "password", "username", username);
+    }
+    public static String getEmailByUsername(String username) throws SQLException {
+        return getSell("users", "email", "username", username);
+    }
+    public static String getRoleByUsername(String username) throws SQLException {
+        return getSell("users", "role", "username", username);
+    }
 
-    //string or whatever!
-    public static String getLogsByUsername(String username){}
-    public static String getNotifications(String username){}
+    public static String getLeaderByTeamName(String teamName) throws SQLException {
+        return getSell("teams", "leader", "name", teamName);
+    }
 
-    public static ArrayList<String> getUserTeams(String username){}
+    public static String getSell(String table, String column, String conditionalColumn, String condition) throws SQLException {
+        String sql = String.format(Queries.GET_SELL, column, table, conditionalColumn, condition);
+        String answer = null;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next())
+            answer = result.getString(1);
+        statement.close();
+        connection.close();
+        return answer;
+    }
 
-    public static String getLeaderByTeamName(String teamName){}
-    public static ArrayList<String> getMembersByTeamName(String teamName){}
+    public static void changePassword(String username, String newPassword) throws SQLException {
+        String sql = String.format(Queries.CHANGE_PASSWORD, newPassword, username);
+        connectAndInsert(sql);
+    }
+    public static void changeUsername(String oldUsername, String newUsername) throws SQLException {
+        String sql = String.format(Queries.CHANGE_USERNAME, newUsername, oldUsername);
+        connectAndInsert(sql);
+    }
+//    //string or whatever!
+    public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.GET_LOGS, username);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        result.next();
+        String json = result.getString(1);
+        ArrayList<LocalDateTime> arraylist = new Gson().fromJson(json,
+                new TypeToken<List<LocalDateTime>>() {}.getType());
+        statement.close();
+        connection.close();
+        return arraylist;
+    }
+    public static ArrayList<String> getNotifications(String username) throws SQLException {
+        String sql = String.format(Queries.GET_NOTIFICATION, username);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        result.next();
+        String json = result.getString(1);
+        ArrayList<String> arraylist = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {}.getType());
+        statement.close();
+        connection.close();
+        return arraylist;
+    }
+    public static ArrayList<String> getUserTeams(String username) throws SQLException {
+        return getTeamsOrMembers("name", "username", username);
+    }
 
-    public static boolean doesTaskExist(int id){}
-    public static boolean getTaskLeaderByTaskId(int id){}
-    public static void changeTaskTitle(int id, String newTitle){}
-    public static void changeTaskDescription(int id, String newDescription){}
-    public static void changeTaskPriority(int id, String newPriority) {
+    public static ArrayList<String> getMembersByTeamName(String teamName) throws SQLException {
+        return getTeamsOrMembers("username", "name", teamName);
+    }
+
+    public static ArrayList<String> getTeamsOrMembers(String column, String conditionColumn, String condition) throws SQLException {
+        String sql = String.format(Queries.GET_TEAMS_MEMBERS, column, conditionColumn, condition);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getString(1));
+        }
+        statement.close();
+        connection.close();
+        return answer;
     }
 }

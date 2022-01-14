@@ -4,9 +4,11 @@ import models.DatabaseHandler;
 import models.User;
 import view.Regex;
 
+import java.sql.SQLException;
+
 public class ProfileMenuController {
 
-    public static String changePassword(String oldPassword, String newPassword){
+    public static String changePassword(String oldPassword, String newPassword) throws SQLException {
         if(!LoginController.getActiveUser().getPassword().equals(oldPassword)){
             return "wrong old password";
         }else if(oldPassword.equals(newPassword)){
@@ -20,7 +22,7 @@ public class ProfileMenuController {
         }
     }
 
-    public static String changeUsername(String newUsername){
+    public static String changeUsername(String newUsername) throws SQLException {
         if(newUsername.length()<4)
             return "Your new username must include at least 4 characters!";
         else if(DatabaseHandler.doesUsernameExist(newUsername))
@@ -37,11 +39,11 @@ public class ProfileMenuController {
     }
 
     //be tartib alephba va esm user avval biyad
-    public static void showTeams(){
+    public static void showTeams() throws SQLException {
         System.out.println( DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername())) ;
     }
 
-    public void showTeam(String teamName){
+    public void showTeam(String teamName) throws SQLException {
         System.out.println(teamName + ":");
         System.out.println("leader: "+ DatabaseHandler.getLeaderByTeamName(teamName));
         System.out.println("members:" + DatabaseHandler.getMembersByTeamName(teamName));
@@ -54,11 +56,11 @@ public class ProfileMenuController {
         //birthdate and name?
     }
 
-    public void showLogs(){
+    public void showLogs() throws SQLException {
         System.out.println(DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername()));
     }
 
-    public void shoeNotifications(){
+    public void shoeNotifications() throws SQLException {
         System.out.println(DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
     }
 }

@@ -16,10 +16,10 @@ public class LoginController {
     }
 
     public void setActiveUser(User activeUser) {
-        this.activeUser = activeUser;
+        LoginController.activeUser = activeUser;
     }
 
-    public String loginUser(String username, String password) {
+    public String loginUser(String username, String password) throws SQLException {
         if (!DatabaseHandler.doesUsernameExist(username))
             return ("There is not any user with username: " + username + "!");
         else if (!DatabaseHandler.getPasswordByUsername(username).equals(password))
