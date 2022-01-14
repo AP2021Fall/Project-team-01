@@ -9,13 +9,13 @@ import java.sql.SQLException;
 public class ProfileMenuController {
 
     public static String changePassword(String oldPassword, String newPassword) throws SQLException {
-        if(!LoginController.getActiveUser().getPassword().equals(oldPassword)){
+        if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
             return "wrong old password";
-        }else if(oldPassword.equals(newPassword)){
+        } else if (oldPassword.equals(newPassword)) {
             return "please enter a new password";
-        }else if(!Regex.isPasswordStrong(newPassword)){
+        } else if (!Regex.isPasswordStrong(newPassword)) {
             return "Please Choose A strong Password (Containing at least 8 characters including 1 digit and 1 Capital Letter)";
-        }else{
+        } else {
             DatabaseHandler.changePassword(LoginController.getActiveUser().getUsername(), newPassword);
             LoginController.getActiveUser().setPassword(newPassword);
             return "password changed successfully";
@@ -23,15 +23,15 @@ public class ProfileMenuController {
     }
 
     public static String changeUsername(String newUsername) throws SQLException {
-        if(newUsername.length()<4)
+        if (newUsername.length() < 4)
             return "Your new username must include at least 4 characters!";
-        else if(DatabaseHandler.doesUsernameExist(newUsername))
+        else if (DatabaseHandler.doesUsernameExist(newUsername))
             return "username already taken!";
-        else if(!Regex.getCommandMatcher(newUsername, "([\\w\\d_]{4,})").matches())
+        else if (!Regex.getCommandMatcher(newUsername, "([\\w\\d_]{4,})").matches())
             return "New username contains Special Characters! Please remove them and try again";
-        else if(LoginController.getActiveUser().getUsername().equals(newUsername))
+        else if (LoginController.getActiveUser().getUsername().equals(newUsername))
             return "you already have this username !";
-        else{
+        else {
             DatabaseHandler.changeUsername(LoginController.getActiveUser().getUsername(), newUsername);
             LoginController.getActiveUser().setUsername(newUsername);
             return "username successfully changed";
@@ -40,19 +40,19 @@ public class ProfileMenuController {
 
     //be tartib alephba va esm user avval biyad
     public static void showTeams() throws SQLException {
-        System.out.println( DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername())) ;
+        System.out.println(DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
     }
 
     public void showTeam(String teamName) throws SQLException {
         System.out.println(teamName + ":");
-        System.out.println("leader: "+ DatabaseHandler.getLeaderByTeamName(teamName));
+        System.out.println("leader: " + DatabaseHandler.getLeaderByTeamName(teamName));
         System.out.println("members:" + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
 
-    public void showMyProfile(){
+    public void showMyProfile() {
         User user = LoginController.getActiveUser();
-        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() +"role: " + user.getRole()) ;
+        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + "role: " + user.getRole());
         //birthdate and name?
     }
 
