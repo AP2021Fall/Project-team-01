@@ -20,6 +20,9 @@ public class MenuController {
                 case PROFILE_MENU:
                     ProfileMenu.execute(command);
                     break;
+                case TASKS_PAGE:
+                    TasksPageMenu.execute(command);
+                    break;
             }
         }
     }
