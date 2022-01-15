@@ -29,7 +29,7 @@ public class LoginController {
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
         setActiveUser(currentUser);
         isLoggedIn = true;
-        //save log in database
+        //log in database
 
         return ("user logged in successfully!");
     }

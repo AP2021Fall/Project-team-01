@@ -59,6 +59,10 @@ public class User {
         return false;
     }
 
+    public void setLoginTimes(ArrayList<LocalDateTime> loginTimes) {
+        this.loginTimes = loginTimes;
+    }
+
     public ArrayList<Team> getTeamsOfUser() {
         return teamsOfUser;
     }

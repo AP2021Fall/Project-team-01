@@ -157,4 +157,10 @@ public class DatabaseHandler {
         connection.close();
         return answer;
     }
+
+    public static LocalDateTime getCreationDateByTaskId(int taskId){}
+    public static setDeadline(int taskId, LocalDateTime newDeadline){}
+    public static assignUser(int taskId, String username){}
+    public static removeUserFromTask(int taskId, String username){}
+    public static isUsernameAssigned(int taskId, String username){}
 }

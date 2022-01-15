@@ -40,6 +40,7 @@ public class ProfileMenuController {
 
     //be tartib alephba va esm user avval biyad
     public static void showTeams() throws SQLException {
+//        Arraylist<User> members = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());
         System.out.println(DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
     }
 
@@ -60,7 +61,7 @@ public class ProfileMenuController {
         System.out.println(DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername()));
     }
 
-    public void shoeNotifications() throws SQLException {
+    public void showNotifications() throws SQLException {
         System.out.println(DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
     }
 }
