@@ -14,13 +14,28 @@ public class Regex {
     public static final String EDIT_DEADLINE = "^edit\\s--task\\s--id(.+)\\s--deadline\\s(.+)$";
     public static final String REMOVE_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--remove$";
     public static final String ADD_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--add$";
-    public static String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s" +
+    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s" +
             "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
-    public static String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
+    public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
             "--newpassword\\s(.+)";
-    public static String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)";
-    public static String SHOW_TEAMS = "^Profile\\s--showTeams";
-    public static String SHOW_TEAM = "^Profile\\s--showTeam\\s(.+)";
+    public static final String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)";
+    public static final String SHOW_TEAMS = "^Profile\\s--showTeams";
+    public static final String SHOW_TEAM = "^Profile\\s--showTeam\\s(.+)";
+    public static final String CREATE_BOARD = "^board --new --name (.+)$";
+    public static final String REMOVE_BOARD = "^board --remove --name (.+)$";
+    public static final String SELECT_BOARD = "^board --select --name (.+)$";
+    public static final String DESELECT_BOARD = "^board --deselect$";
+    public static final String ADD_CATEGORY = "^board --new --category (.+) --name (.+)$";
+    public static final String ADD_CATEGORY_TO_COLUMN = "^board --new --category (.+) --column (.+) --name (.+)$";
+    public static final String COMPLETE_BOARD_FIRST_STEP = "^board --done --name (.+)$";
+    public static final String ADD_TASK_TO_BOARD = "^board --add (.+) --name (.+)$";
+    public static final String ASSIGN_TASK_TO_MEMBER = "^board --assign (.+) --task (.+) --name (.+)$";
+    public static final String FORCE_TASK_TO_CATEGORY = "^board --force --category (.+) --task (.+) --name (.+)$";
+    public static final String TASK_TO_NEXT = "^board --category next --task (.+) --name (.+)$";
+    public static final String SHOW_TASKS_IN_CATEGORY = "^board --show --category (.+) --board (.+)$";
+    public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
+    public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
+    public static final String SHOW_BOARD = "^Board --show --name (.+)$";
 
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
