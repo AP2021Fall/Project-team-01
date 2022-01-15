@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,12 @@ public class DatabaseHandler {
     }
 
     public static void createTeam(String name, LocalDateTime creatingDate, String leader) throws SQLException {
-        String creatingDateJson = new Gson().toJson(creatingDate);
-        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateJson, leader);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm:ss");
+        String creatingDateString = formatter.format(creatingDate);
+        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
         connectAndInsert(sql);
     }
+
 
     public static void createTask(String title, String description, String priority, LocalDateTime creatingDate,
                                   LocalDateTime deadlineDate, String category) throws SQLException {
@@ -88,7 +91,7 @@ public class DatabaseHandler {
         return getSell("teams", "leader", "name", teamName);
     }
 
-    public static String getSell(String table, String column, String conditionalColumn, String condition) throws SQLException {
+    private static String getSell(String table, String column, String conditionalColumn, String condition) throws SQLException {
         String sql = String.format(Queries.GET_SELL, column, table, conditionalColumn, condition);
         String answer = null;
         connect();
@@ -136,15 +139,16 @@ public class DatabaseHandler {
         connection.close();
         return arraylist;
     }
-    public static ArrayList<String> getUserTeams(String username) throws SQLException {
-        return getTeamsOrMembers("name", "username", username);
+    public static ArrayList<String> getUserTeams (String username) throws SQLException {
+        return getTeamsOrMembers("name", "username", username, "creating date");
     }
 
     public static ArrayList<String> getMembersByTeamName(String teamName) throws SQLException {
-        return getTeamsOrMembers("username", "name", teamName);
+        return getTeamsOrMembers("username", "name", teamName, "username");
     }
 
-    public static ArrayList<String> getTeamsOrMembers(String column, String conditionColumn, String condition) throws SQLException {
+    private static ArrayList<String> getTeamsOrMembers(String column, String conditionColumn,
+                                                      String condition, String order) throws SQLException {
         String sql = String.format(Queries.GET_TEAMS_MEMBERS, column, conditionColumn, condition);
         ArrayList<String> answer = new ArrayList<>();
         connect();
@@ -158,9 +162,10 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static LocalDateTime getCreationDateByTaskId(int taskId){}
-    public static setDeadline(int taskId, LocalDateTime newDeadline){}
-    public static assignUser(int taskId, String username){}
-    public static removeUserFromTask(int taskId, String username){}
-    public static isUsernameAssigned(int taskId, String username){}
+
+//    public static LocalDateTime getCreationDateByTaskId(int taskId){}
+//    public static setDeadline(int taskId, LocalDateTime newDeadline){}
+//    public static assignUser(int taskId, String username){}
+//    public static removeUserFromTask(int taskId, String username){}
+//    public static isUsernameAssigned(int taskId, String username){}
 }
