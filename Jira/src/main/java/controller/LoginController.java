@@ -4,6 +4,7 @@ import models.DatabaseHandler;
 import models.User;
 import view.Regex;
 
+import javax.swing.plaf.IconUIResource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -15,11 +16,11 @@ public class LoginController {
         return activeUser;
     }
 
-    public void setActiveUser(User activeUser) {
+    public static void setActiveUser(User activeUser) {
         LoginController.activeUser = activeUser;
     }
 
-    public String loginUser(String username, String password) throws SQLException {
+    public static String loginUser(String username, String password) throws SQLException {
         if (!DatabaseHandler.doesUsernameExist(username))
             return ("There is not any user with username: " + username + "!");
         else if (!DatabaseHandler.getPasswordByUsername(username).equals(password))
@@ -34,7 +35,7 @@ public class LoginController {
         return ("user logged in successfully!");
     }
 
-    public String createUser(String username, String password, String confirmPassword, String email, String role) throws SQLException {
+    public static String createUser(String username, String password, String confirmPassword, String email, String role) throws SQLException {
         String EMAIL_FORMAT = "^[a-zA-Z0-9.]+@(gmail||yahoo).com$";
 
         if (DatabaseHandler.doesUsernameExist(username))
@@ -49,7 +50,6 @@ public class LoginController {
             DatabaseHandler.createUser(username, password, email, role);
             return ("user created successfully!");
         }
-
     }
 
 }
