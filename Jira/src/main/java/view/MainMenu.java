@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 
 public class MainMenu {
     public static void execute(String command) throws SQLException {
-        Matcher matcher = Regex.getCommandMatcher(command, "^enter\\smenu\\s(*+)$");
+        Matcher matcher = Regex.getCommandMatcher(command, "^enter\\smenu\\s(.+)$");
         if (matcher.find()) {
             String menu = matcher.group(1);
             switch (menu){
