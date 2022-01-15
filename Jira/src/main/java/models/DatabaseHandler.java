@@ -28,7 +28,7 @@ public class DatabaseHandler {
 
 
     public static void createUser(String username, String password, String email, String role) throws SQLException {
-        String sql = String.format(Queries.CREATE_USER, username,password,email,role);
+        String sql = String.format(Queries.CREATE_USER, username, password, email, role);
         connectAndInsert(sql);
     }
 
@@ -42,7 +42,7 @@ public class DatabaseHandler {
                                   LocalDateTime deadlineDate, String category) throws SQLException {
         String creatingDateJson = new Gson().toJson(creatingDate);
         String deadlineDateJson = new Gson().toJson(deadlineDate);
-        String sql = String.format(Queries.CREATE_TASK,title,description,priority,creatingDateJson,deadlineDateJson,
+        String sql = String.format(Queries.CREATE_TASK, title, description, priority, creatingDateJson, deadlineDateJson,
                 category);
         connectAndInsert(sql);
     }
@@ -52,7 +52,7 @@ public class DatabaseHandler {
         String sql = Queries.CREATE_BOARD;
         connectAndInsert(sql);
     }
-    
+
 
     public static boolean doesUsernameExist(String username) throws SQLException {
         connect();
@@ -64,6 +64,7 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
+
     public static boolean doesEmailExist(String email) throws SQLException {
         String sql = String.format(Queries.DOES_Email_EXIST, email);
         connect();
@@ -74,12 +75,15 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
+
     public static String getPasswordByUsername(String username) throws SQLException {
         return getSell("users", "password", "username", username);
     }
+
     public static String getEmailByUsername(String username) throws SQLException {
         return getSell("users", "email", "username", username);
     }
+
     public static String getRoleByUsername(String username) throws SQLException {
         return getSell("users", "role", "username", username);
     }
@@ -105,11 +109,13 @@ public class DatabaseHandler {
         String sql = String.format(Queries.CHANGE_PASSWORD, newPassword, username);
         connectAndInsert(sql);
     }
+
     public static void changeUsername(String oldUsername, String newUsername) throws SQLException {
         String sql = String.format(Queries.CHANGE_USERNAME, newUsername, oldUsername);
         connectAndInsert(sql);
     }
-//    //string or whatever!
+
+    //    //string or whatever!
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.GET_LOGS, username);
         connect();
@@ -118,11 +124,13 @@ public class DatabaseHandler {
         result.next();
         String json = result.getString(1);
         ArrayList<LocalDateTime> arraylist = new Gson().fromJson(json,
-                new TypeToken<List<LocalDateTime>>() {}.getType());
+                new TypeToken<List<LocalDateTime>>() {
+                }.getType());
         statement.close();
         connection.close();
         return arraylist;
     }
+
     public static ArrayList<String> getNotifications(String username) throws SQLException {
         String sql = String.format(Queries.GET_NOTIFICATION, username);
         connect();
@@ -131,11 +139,13 @@ public class DatabaseHandler {
         result.next();
         String json = result.getString(1);
         ArrayList<String> arraylist = new Gson().fromJson(json,
-                new TypeToken<List<String>>() {}.getType());
+                new TypeToken<List<String>>() {
+                }.getType());
         statement.close();
         connection.close();
         return arraylist;
     }
+
     public static ArrayList<String> getUserTeams(String username) throws SQLException {
         return getTeamsOrMembers("name", "username", username);
     }
@@ -158,9 +168,34 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static LocalDateTime getCreationDateByTaskId(int taskId){}
-    public static setDeadline(int taskId, LocalDateTime newDeadline){}
-    public static assignUser(int taskId, String username){}
-    public static removeUserFromTask(int taskId, String username){}
-    public static isUsernameAssigned(int taskId, String username){}
+    public static LocalDateTime getCreationDateByTaskId(int taskId) {
+    }
+
+    public static void setDeadline(int taskId, LocalDateTime newDeadline) {
+    }
+
+    public static void assignUser(int taskId, String username) {
+    }
+
+    public static void removeUserFromTask(int taskId, String username) {
+    }
+
+    public static boolean isUsernameAssigned(int taskId, String username) {
+    }
+
+    public static boolean doesTaskExist(int taskId) {
+    }
+
+    public static String getTaskLeaderByTaskId(int taskId) {
+    }
+
+    public static void changeTaskPriority(int id, String newPriority) {
+
+    }
+
+    public static void changeTaskDescription(int id, String newDescription) {
+    }
+
+    public static void changeTaskTitle(int id, String newTitle) {
+    }
 }

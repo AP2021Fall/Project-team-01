@@ -2,6 +2,11 @@ package controller;
 
 import models.DatabaseHandler;
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class TasksPageController {
     public static String editTitle(int id, String newTitle) {
         if (DatabaseHandler.doesTaskExist(id)) {
@@ -37,8 +42,8 @@ public class TasksPageController {
     }
 
     public static String editDeadline(int taskId, String newdeadline) {
-        if (DatabaseHandler.doesTaskExist(id)) {
-            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
+        if (DatabaseHandler.doesTaskExist(taskId)) {
+            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newdeadline) != null) {
                     DatabaseHandler.setDeadline(taskId, isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newdeadline));
                     return "deadline changed successfully";
@@ -47,12 +52,12 @@ public class TasksPageController {
             }
             return "you don't have access to do this action!";
         }
-        return "task with id: " + id + " doesn't exist!";
+        return "task with id: " + taskId + " doesn't exist!";
     }
 
-    public static String addAssignedUser(int taskId, String username) {
-        if (DatabaseHandler.doesTaskExist(id)) {
-            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
+    public static String addAssignedUser(int taskId, String username) throws SQLException {
+        if (DatabaseHandler.doesTaskExist(taskId)) {
+            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (DatabaseHandler.doesUsernameExist(username)) {
                     if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
                         DatabaseHandler.assignUser(taskId, username);
@@ -65,12 +70,12 @@ public class TasksPageController {
             }
             return "you don't have access to do this action!";
         }
-        return "task with id: " + id + " doesn't exist!";
+        return "task with id: " + taskId + " doesn't exist!";
     }
 
     public static String removeAssignedUser(int taskId, String username) {
-        if (DatabaseHandler.doesTaskExist(id)) {
-            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
+        if (DatabaseHandler.doesTaskExist(taskId)) {
+            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (DatabaseHandler.isUsernameAssigned(taskId, username)) {
                     DatabaseHandler.removeUserFromTask(taskId, username);
                     return "user:" + username + "removed successfully!";
@@ -79,7 +84,7 @@ public class TasksPageController {
             }
             return "you don't have access to do this action!";
         }
-        return "task with id: " + id + " doesn't exist!";
+        return "task with id: " + taskId + " doesn't exist!";
     }
 
     //for edit deadline func
@@ -91,7 +96,7 @@ public class TasksPageController {
             LocalDateTime dead = LocalDateTime.parse(deadline, formatter);
             if (dead.isBefore(now))
                 return null;
-            if (dead.isBefore(creationDateTime))
+            if (dead.isBefore(creationDate))
                 return null;
 
             return dead;
