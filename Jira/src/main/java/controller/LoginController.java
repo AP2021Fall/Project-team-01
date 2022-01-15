@@ -5,10 +5,10 @@ import models.User;
 import view.Regex;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class LoginController {
-    public static User currentUser;
-    public static boolean isLoggedIn = false;
+//    public static boolean isLoggedIn = false;
     private static User activeUser;
 
     public static User getActiveUser() {
@@ -28,13 +28,13 @@ public class LoginController {
         String currentUserRole = DatabaseHandler.getRoleByUsername(username);
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
         setActiveUser(currentUser);
-        isLoggedIn = true;
+//        isLoggedIn = true;
         //log in database
-
+        DatabaseHandler.logLogin(activeUser.getUsername(), LocalDateTime.now());
         return ("user logged in successfully!");
     }
 
-    public String createUser(String username, String password, String confirmPassword, String email) throws SQLException {
+    public String createUser(String username, String password, String confirmPassword, String email, String role) throws SQLException {
         String EMAIL_FORMAT = "^[a-zA-Z0-9.]+@(gmail||yahoo).com$";
 
         if (DatabaseHandler.doesUsernameExist(username))
@@ -46,7 +46,7 @@ public class LoginController {
         else if (!Regex.getCommandMatcher(email, EMAIL_FORMAT).matches())
             return ("Email address is invalid!");
         else {
-            DatabaseHandler.createUser(username, password, email, "Team Member");
+            DatabaseHandler.createUser(username, password, email, role);
             return ("user created successfully!");
         }
 

@@ -198,4 +198,6 @@ public class DatabaseHandler {
 
     public static void changeTaskTitle(int id, String newTitle) {
     }
+
+    public static void logLogin (String username, LocalDateTime log){}
 }
