@@ -22,7 +22,7 @@ public class Queries {
     public static final String GET_SELL =
             "SELECT %s FROM %s WHERE %s = '%s'";
     public static final String GET_TEAMS_MEMBERS =
-            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s'";
+            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s' ORDER BY %s";
     public static final String GET_LOGS =
             "SELECT logs FROM users WHERE username = '%s'";
 }

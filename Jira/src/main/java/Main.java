@@ -1,6 +1,9 @@
-public class Main {
-    public static void main(String[] args) {
+import view.MenuController;
 
-        System.out.println("");
+import java.sql.SQLException;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        MenuController.execute();
     }
 }

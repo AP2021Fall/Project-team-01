@@ -12,5 +12,9 @@ public class Regex {
     }
 
     public static boolean isPasswordStrong(String newPassword) {
+        if(newPassword.length() >= 8 && newPassword.matches(".*[A-Z].*")
+                && newPassword.matches(".*[a-z].*") && newPassword.matches(".*[0-9].*"))
+            return true;
+        return false;
     }
 }
