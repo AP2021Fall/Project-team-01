@@ -23,6 +23,9 @@ public class MenuController {
                 case TASKS_PAGE:
                     TasksPageMenu.execute(command);
                     break;
+                case TEAM_MENU:
+                    TeamMenu.execute(command);
+                    break;
             }
         }
     }
