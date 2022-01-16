@@ -9,7 +9,7 @@ public class Regex {
     public static final String SHOW_LOG = "^Profile\\s--show\\slogs$";
     public static final String SHOW_NOTIFICATIONS = "^Profile\\s--show\\snotifications$";
     public static final String EDIT_TITLE = "^edit\\s--task\\s--id(.+)\\s--title\\s(.+)$";
-    public static final String EDIT_DISCRIPTION = "^edit\\s--task\\s--id(.+)\\s--description\\s(.+)$";
+    public static final String EDIT_DESCRIPTION = "^edit\\s--task\\s--id(.+)\\s--description\\s(.+)$";
     public static final String EDIT_PRIORITY = "^edit\\s--task\\s--id(.+)\\s--priority\\s(.+)$";
     public static final String EDIT_DEADLINE = "^edit\\s--task\\s--id(.+)\\s--deadline\\s(.+)$";
     public static final String REMOVE_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--remove$";

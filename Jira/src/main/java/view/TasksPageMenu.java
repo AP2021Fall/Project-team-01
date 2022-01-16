@@ -11,7 +11,7 @@ public class TasksPageMenu {
 
         if ((matcher = Regex.getCommandMatcher(command, Regex.EDIT_TITLE)).matches()) {
             System.out.println(TasksPageController.editTitle(Integer.parseInt(matcher.group(1)), matcher.group(2)));
-        } else if ((matcher = Regex.getCommandMatcher(command, Regex.EDIT_DISCRIPTION)).matches()) {
+        } else if ((matcher = Regex.getCommandMatcher(command, Regex.EDIT_DESCRIPTION)).matches()) {
             System.out.println(TasksPageController.editDescription(Integer.parseInt(matcher.group(1)), matcher.group(2)));
         } else if ((matcher = Regex.getCommandMatcher(command, Regex.EDIT_PRIORITY)).matches()) {
             System.out.println(TasksPageController.editPriority(Integer.parseInt(matcher.group(1)), matcher.group(2)));
