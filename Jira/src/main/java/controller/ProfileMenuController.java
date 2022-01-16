@@ -44,24 +44,24 @@ public class ProfileMenuController {
         System.out.println(DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
     }
 
-    public void showTeam(String teamName) throws SQLException {
+    public static void showTeam(String teamName) throws SQLException {
         System.out.println(teamName + ":");
         System.out.println("leader: " + DatabaseHandler.getLeaderByTeamName(teamName));
         System.out.println("members:" + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
 
-    public void showMyProfile() {
+    public static void showMyProfile() {
         User user = LoginController.getActiveUser();
         System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + "role: " + user.getRole());
         //birthdate and name?
     }
 
-    public void showLogs() throws SQLException {
+    public static void showLogs() throws SQLException {
         System.out.println(DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername()));
     }
 
-    public void showNotifications() throws SQLException {
+    public static void showNotifications() throws SQLException {
         System.out.println(DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
     }
 }
