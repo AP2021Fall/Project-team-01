@@ -68,13 +68,14 @@ public class DatabaseHandler {
     public static boolean doesTeamExist(String teamName, String username) throws SQLException {
         
         String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, teamName);
+        boolean bool = false;
         connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
             String leader = result.getString(1);
-
-        }else {
+            if (username.equals(leader))
+                bool = true;
         }
         statement.close();
         connection.close();
@@ -149,29 +150,24 @@ public class DatabaseHandler {
 
     public static ArrayList<String> getNotifications(String username) throws SQLException {
         String sql = String.format(Queries.GET_NOTIFICATION, username);
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        result.next();
-        String json = result.getString(1);
-        ArrayList<String> arraylist = new Gson().fromJson(json,
-                new TypeToken<List<String>>() {
-                }.getType());
-        statement.close();
-        connection.close();
-        return arraylist;
+        return getArraylistString(sql);
     }
 
     public static ArrayList<String> getUserTeams(String username) throws SQLException {
-        return getTeamsOrMembers("name", "username", username);
+        return getTeamsOrMembers("name", "username", username, "creating date");
     }
 
     public static ArrayList<String> getMembersByTeamName(String teamName) throws SQLException {
-        return getTeamsOrMembers("username", "name", teamName);
+        return getTeamsOrMembers("username", "name", teamName, "username");
     }
 
-    public static ArrayList<String> getTeamsOrMembers(String column, String conditionColumn, String condition) throws SQLException {
-        String sql = String.format(Queries.GET_TEAMS_MEMBERS, column, conditionColumn, condition);
+    public static ArrayList<String> getTeamsOrMembers(String column, String conditionColumn,
+                                                      String condition, String orderedBy) throws SQLException {
+        String sql = String.format(Queries.GET_TEAMS_MEMBERS, column, conditionColumn, condition, orderedBy);
+        return getArraylistString(sql);
+    }
+
+    private static ArrayList<String> getArraylistString(String sql) throws SQLException {
         ArrayList<String> answer = new ArrayList<>();
         connect();
         Statement statement = connection.createStatement();
@@ -184,36 +180,48 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static LocalDateTime getCreationDateByTaskId(int taskId) {
+    public static void sendNotificationToUser(String notification, String username) throws SQLException {
+        String sql = String.format(Queries.SEND_NOTIFICATION_TO_USER, username, username);
+        connectAndInsert(sql);
     }
 
-    public static void setDeadline(int taskId, LocalDateTime newDeadline) {
+    public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
+        ArrayList<String> members = getMembersByTeamName(teamName);
+        for (String i : members) {
+            sendNotificationToUser(notification, i);
+        }
     }
 
-    public static void assignUser(int taskId, String username) {
-    }
-
-    public static void removeUserFromTask(int taskId, String username) {
-    }
-
-    public static boolean isUsernameAssigned(int taskId, String username) {
-    }
-
-    public static boolean doesTaskExist(int taskId) {
-    }
-
-    public static String getTaskLeaderByTaskId(int taskId) {
-    }
-
-    public static void changeTaskPriority(int id, String newPriority) {
-
-    }
-
-    public static void changeTaskDescription(int id, String newDescription) {
-    }
-
-    public static void changeTaskTitle(int id, String newTitle) {
-    }
-
-    public static void logLogin (String username, LocalDateTime log){}
+//    public static LocalDateTime getCreationDateByTaskId(int taskId) {
+//    }
+//
+//    public static void setDeadline(int taskId, LocalDateTime newDeadline) {
+//    }
+//
+//    public static void assignUser(int taskId, String username) {
+//    }
+//
+//    public static void removeUserFromTask(int taskId, String username) {
+//    }
+//
+//    public static boolean isUsernameAssigned(int taskId, String username) {
+//    }
+//
+//    public static boolean doesTaskExist(int taskId) {
+//    }
+//
+//    public static String getTaskLeaderByTaskId(int taskId) {
+//    }
+//
+//    public static void changeTaskPriority(int id, String newPriority) {
+//
+//    }
+//
+//    public static void changeTaskDescription(int id, String newDescription) {
+//    }
+//
+//    public static void changeTaskTitle(int id, String newTitle) {
+//    }
+//
+//    public static void logLogin (String username, LocalDateTime log){}
 }

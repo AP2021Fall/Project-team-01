@@ -4,6 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
+    //TODO team name in page 34 doc
+    public static final String TEAM_NAME = "";
+
     public static final String LOGIN_USER = "^user\\slogin\\s--username\\s(.+)--password\\s(.+)\\s";
     public static final String SHOW_PROFILE = "^Profile\\s--show\\s--myProfile$";
     public static final String SHOW_LOG = "^Profile\\s--show\\slogs$";

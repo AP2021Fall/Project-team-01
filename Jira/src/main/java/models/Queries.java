@@ -20,11 +20,13 @@ public class Queries {
     public static final String CHANGE_USERNAME =
             "UPDATE users SET username = '%s' WHERE username = '%s'";
     public static final String GET_NOTIFICATION =
-            "SELECT notification FROM users WHERE username = '%s'";
+            "SELECT message FROM notification WHERE username = '%s'";
     public static final String GET_SELL =
             "SELECT %s FROM %s WHERE %s = '%s'";
     public static final String GET_TEAMS_MEMBERS =
             "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s' ORDER BY %s";
     public static final String GET_LOGS =
             "SELECT logs FROM users WHERE username = '%s'";
+    public static final String SEND_NOTIFICATION_TO_USER =
+            "INSERT INTO notification (username, message) VALUES ('%s', '%s')";
 }

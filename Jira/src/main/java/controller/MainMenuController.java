@@ -2,9 +2,12 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
+import view.Regex;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 public class MainMenuController {
 
@@ -26,11 +29,45 @@ public class MainMenuController {
         }
     }
 
-    public static void showTeam(String teamName) {
+    public static void createTeam(String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
-
+            if (DatabaseHandler.doesTeamExist(teamName, LoginController.getActiveUser().getUsername()))
+                System.out.println("There is another team with this name!");
+            else {
+                Matcher matcher = Regex.getCommandMatcher(teamName, Regex.TEAM_NAME);
+                if (matcher.find()) {
+                    DatabaseHandler.createTeam(teamName, LocalDateTime.now(), LoginController.getActiveUser().getUsername());
+                    System.out.println("Team created successfully! Waiting For Admin’s confirmation…");
+                } else {
+                    System.out.println("Team name is invalid!");
+                }
+            }
         } else {
             System.out.println("you are not leader");
+        }
+    }
+
+    public static void sendNotificationToUser(String notification, String username) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("leader")){
+            if (!DatabaseHandler.doesUsernameExist(username))  {
+                System.out.println("No user exists with this username !");
+            } else {
+                DatabaseHandler.sendNotificationToUser(notification, username);
+                System.out.println("notification sent successfully");
+            }
+        } else
+            System.out.println("you are not leader");
+
+    }
+
+    public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
+            if (DatabaseHandler.doesTeamExist(teamName, LoginController.getActiveUser().getUsername())) {
+                DatabaseHandler.sendNotificationToTeam(notification, teamName);
+                System.out.println("notification sent successfully");
+            } else {
+                System.out.println("No team exists with this name !");
+            }
         }
     }
 }
