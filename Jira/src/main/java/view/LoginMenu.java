@@ -14,6 +14,7 @@ public class LoginMenu {
                     matcher.group(5)));
         } else if((matcher = Regex.getCommandMatcher(command, Regex.LOGIN_USER)).matches()){
             System.out.println(LoginController.loginUser(matcher.group(1), matcher.group(2)));
+            MainMenu.show();
             MenuController.currentMenu = Menus.MAIN_MENU;
         } else if (command.equals("exit")) {
             MenuController.currentMenu = Menus.EXIT;

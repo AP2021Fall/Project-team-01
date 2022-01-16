@@ -70,4 +70,28 @@ public class MainMenuController {
             }
         }
     }
+
+    public static void showProfile(String username) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            if (DatabaseHandler.doesUsernameExist(username)) {
+                System.out.println("username: " + username + "email address: " +
+                        DatabaseHandler.getEmailByUsername(username) + "role: " +
+                        DatabaseHandler.getRoleByUsername(username));
+            } else {
+                System.out.println("There is no user with this username");
+            }
+        } else
+            System.out.println("You do not have access to this section");
+    }
+
+    public static void banUser(String username) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            if (DatabaseHandler.doesUsernameExist(username)) {
+                DatabaseHandler.banUser(username);
+                System.out.println("username banned");
+            } else
+                System.out.println("There is no user with this username");
+        } else
+            System.out.println("You do not have access to this section");
+    }
 }

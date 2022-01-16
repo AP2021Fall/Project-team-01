@@ -13,9 +13,11 @@ public class MainMenu {
                 "send --notification (.+) --username (.+)");
         Matcher sendNotificationToTeam = Regex.getCommandMatcher(command,
                 "send --notification (.+) --team (.+)");
+        Matcher showProfile = Regex.getCommandMatcher(command, "show profile --username (.+)");
+        Matcher banUser = Regex.getCommandMatcher(command, "ban user --user (.+)");
         if (showTeamsMatcher.find()) {
             String menu = showTeamsMatcher.group(1);
-            switch (menu){
+            switch (menu) {
                 case "profile menu":
                     MenuController.currentMenu = Menus.PROFILE_MENU;
                     break;
@@ -29,7 +31,7 @@ public class MainMenu {
                     MenuController.currentMenu = Menus.CALENDAR_MENU;
                     break;
             }
-        } else if(command.equals("show --teams")) {
+        } else if (command.equals("show --teams")) {
             MainMenuController.showTeams();
         } else if (createTeam.find()) {
             MainMenuController.createTeam(createTeam.group(1));
@@ -37,6 +39,14 @@ public class MainMenu {
             MainMenuController.sendNotificationToUser(sendNotificationToUser.group(1), sendNotificationToUser.group(2));
         } else if (sendNotificationToTeam.find()) {
             MainMenuController.sendNotificationToTeam(sendNotificationToTeam.group(1), sendNotificationToTeam.group(2));
+        } else if (command.equals("exit")) {
+            MenuController.currentMenu = Menus.EXIT;
+        } else if (showProfile.find()) {
+            MainMenuController.showProfile(showProfile.group(1));
+        } else if (banUser.find()) {
+            MainMenuController.banUser(banUser.group(1));
+        } else {
+            System.out.println("invalid command");
         }
 
     }

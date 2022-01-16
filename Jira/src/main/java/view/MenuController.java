@@ -1,5 +1,8 @@
 package view;
 
+import controller.LoginController;
+import models.DatabaseHandler;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -27,3 +30,5 @@ public class MenuController {
         }
     }
 }
+
+

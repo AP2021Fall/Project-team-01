@@ -192,6 +192,36 @@ public class DatabaseHandler {
         }
     }
 
+    public static ArrayList<Integer> getTeamsIdByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME, username);
+        return getIntArraylist(sql);
+    }
+
+    public static ArrayList<Integer> getTasksIdByTeamId(int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_ID_BY_TEAM_ID, teamId);
+        return getIntArraylist(sql);
+    }
+
+    private static ArrayList<Integer> getIntArraylist(String sql) throws SQLException {
+        ArrayList<Integer> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getInt(1));
+        }
+        statement.close();
+        connection.close();
+        return answer;
+    }
+
+    public static void banUser(String username) throws SQLException {
+        ArrayList<Integer> teamIds = getTeamsIdByUsername(username);
+        for (int i : teamIds) {
+
+        }
+    }
+
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }
 //
