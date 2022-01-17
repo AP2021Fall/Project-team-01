@@ -1,5 +1,10 @@
 package view;
 
+import view.TeamMenu.Roadmap;
+import view.TeamMenu.ScoreBoard;
+import view.TeamMenu.TeamMenu;
+import view.TeamMenu.TeamSelection;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -8,9 +13,6 @@ public class MenuController {
     public static Menus currentMenu = Menus.LOGIN_MENU;
 
     public static void execute() throws SQLException {
-//        System.out.println("welcome to Jira (v.1)");
-//        System.out.println("..........Start Menu..........\nfor login: user login --username <username> --password <password>\n" +
-//                "for sign up: user create --username <username> --password1 <password> --password2 <password> --email Address <email> --role <role(member/leader/admin)>");
         while (currentMenu != Menus.EXIT) {
             String command = sc.nextLine();
             switch (currentMenu) {
@@ -26,8 +28,17 @@ public class MenuController {
                 case TASKS_PAGE:
                     TasksPageMenu.execute(command);
                     break;
-                case CALENDAR_MENU:
-                    CalendarMenu.execute(command);
+                case TEAM_MENU:
+                    TeamMenu.execute(command);
+                    break;
+                case TEAM_SELECTION:
+                    TeamSelection.execute(command);
+                    break;
+                case SCOREBOARD:
+                    ScoreBoard.execute(command);
+                    break;
+                case ROADMAP:
+                    Roadmap.execute(command);
                     break;
             }
         }

@@ -11,6 +11,8 @@ public class Queries {
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
             "SELECT username FROM users WHERE username = '%s'";
+    public static final String DOES_TEAM_EXIST_FOR_USER =
+            "SELECT leader FROM teams WHERE name = '%s'";
     public static final String DOES_Email_EXIST =
             "SELECT email FROM users WHERE email = '%s'";
     public static final String CHANGE_PASSWORD =

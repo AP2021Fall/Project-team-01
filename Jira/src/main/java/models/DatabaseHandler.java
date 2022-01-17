@@ -65,6 +65,22 @@ public class DatabaseHandler {
         return bool;
     }
 
+    public static boolean doesTeamExist(String teamName, String username) throws SQLException {
+
+        String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, teamName);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String leader = result.getString(1);
+
+        }else {
+        }
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
     public static boolean doesEmailExist(String email) throws SQLException {
         String sql = String.format(Queries.DOES_Email_EXIST, email);
         connect();
@@ -208,5 +224,9 @@ public class DatabaseHandler {
 
     //please return them with the username of commenter :)
     public static ArrayList<String> showCommentsByTaskId(int taskId) {
+    }
+
+    public static ArrayList<String> getTeamByUsername (String username){
+
     }
 }

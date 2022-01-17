@@ -4,9 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-    public static final String LOGIN_USER = "^user\\slogin\\s--username\\s(.+)--password\\s(.+)$";
-    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s$" +
-            "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
+    public static final String LOGIN_USER = "^user\\slogin\\s--username\\s(.+)--password\\s(.+)\\s";
     public static final String SHOW_PROFILE = "^Profile\\s--show\\s--myProfile$";
     public static final String SHOW_LOG = "^Profile\\s--show\\slogs$";
     public static final String SHOW_NOTIFICATIONS = "^Profile\\s--show\\snotifications$";
@@ -16,7 +14,9 @@ public class Regex {
     public static final String EDIT_DEADLINE = "^edit\\s--task\\s--id(.+)\\s--deadline\\s(.+)$";
     public static final String REMOVE_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--remove$";
     public static final String ADD_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--add$";
-    public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s$" +
+    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s" +
+            "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
+    public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
             "--newpassword\\s(.+)";
     public static final String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)$";
     public static final String SHOW_TEAMS = "^Profile\\s--showTeams$";
@@ -42,6 +42,11 @@ public class Regex {
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
     public static final String INVALID_COMMAND = "^invalid command!$";
 
+    public static final String ENTER_TEAM = "^Enter Team (.+)$";
+    public static final String ENTER_MENU = "^Enter Menu (.+)$";
+    public static final String SHOW_SCOREBOARD = "^Scoreboard --show$";
+    public static final String BACK = "^back$";
+    public static final String SHOW_ROADMAP = "^Roadmap --show$";
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input.trim());

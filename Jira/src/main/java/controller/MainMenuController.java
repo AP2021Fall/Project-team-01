@@ -25,4 +25,12 @@ public class MainMenuController {
             System.out.println("you are not leader");
         }
     }
+
+    public static void showTeam(String teamName) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
+
+        } else {
+            System.out.println("you are not leader");
+        }
+    }
 }

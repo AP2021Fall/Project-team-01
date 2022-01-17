@@ -26,7 +26,7 @@ public class Board {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public ArrayList<Category> getCategories() {
