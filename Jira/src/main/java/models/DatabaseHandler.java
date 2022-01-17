@@ -115,7 +115,6 @@ public class DatabaseHandler {
         connectAndInsert(sql);
     }
 
-    //    //string or whatever!
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.GET_LOGS, username);
         connect();
@@ -190,7 +189,6 @@ public class DatabaseHandler {
     }
 
     public static void changeTaskPriority(int id, String newPriority) {
-
     }
 
     public static void changeTaskDescription(int id, String newDescription) {
@@ -200,4 +198,15 @@ public class DatabaseHandler {
     }
 
     public static void logLogin (String username, LocalDateTime log){}
+
+    public static String getDeadlinesByUsername (String username){}
+
+    //remove expired deadlines
+    public static void updateDeadlines() {}
+
+    public static void addCommentByTaskId (int taskId, String comment, String username){}
+
+    //please return them with the username of commenter :)
+    public static ArrayList<String> showCommentsByTaskId(int taskId) {
+    }
 }
