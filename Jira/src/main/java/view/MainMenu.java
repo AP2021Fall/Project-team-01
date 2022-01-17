@@ -16,6 +16,7 @@ public class MainMenu {
             switch (menu){
                 case "profile menu":
                     MenuController.currentMenu = Menus.PROFILE_MENU;
+                    ProfileMenu.showProfileMenu();
                     break;
                 case "team menu":
                     MenuController.currentMenu = Menus.TEAM_SELECTION;
@@ -23,9 +24,11 @@ public class MainMenu {
                     break;
                 case "tasks page":
                     MenuController.currentMenu = Menus.TASKS_PAGE;
+                    TasksPageMenu.showTaskPageMenu();
                     break;
                 case "calendar menu":
                     MenuController.currentMenu = Menus.CALENDAR_MENU;
+                    CalendarMenu.showCalendarMenu();
                     break;
                 case "notification bar":
                     MenuController.currentMenu = Menus.NOTIFICATION_BAR;
@@ -39,4 +42,13 @@ public class MainMenu {
 
     }
 
+    public static void showMainMenu() {
+        System.out.println("..........Main Menu.........\n" +
+                "valid commands:\n" +
+                "enter menu profile menu\n" +
+                "enter menu team menu\n" +
+                "enter menu tasks page\n" +
+                "enter menu calendar menu\n" +
+                "show --teams");
+    }
 }
