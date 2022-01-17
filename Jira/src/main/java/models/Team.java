@@ -21,6 +21,13 @@ public class Team {
         creatingDate = LocalDateTime.now();
         id = idGenerator();
     }
+        public Team(){
+
+        }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public static ArrayList<Team> getAllTeams() {
         return allTeams;

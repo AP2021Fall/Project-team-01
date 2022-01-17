@@ -8,5 +8,8 @@ public enum Menus {
     TASKS_PAGE,
     CALENDAR_MENU,
     EXIT,
-    NOTIFICATION_BAR
+    NOTIFICATION_BAR,
+    TEAM_SELECTION,
+    SCOREBOARD,
+    ROADMAP
 }

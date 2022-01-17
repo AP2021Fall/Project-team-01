@@ -1,4 +1,4 @@
-package controller;
+package controller.TeamMenuController;
 
 import models.Board;
 

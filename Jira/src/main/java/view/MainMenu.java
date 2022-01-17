@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainMenuController;
+import controller.TeamMenuController.TeamSelectionController;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -17,7 +18,8 @@ public class MainMenu {
                     MenuController.currentMenu = Menus.PROFILE_MENU;
                     break;
                 case "team menu":
-                    MenuController.currentMenu = Menus.TEAM_MENU;
+                    MenuController.currentMenu = Menus.TEAM_SELECTION;
+                    TeamSelectionController.showTeams();
                     break;
                 case "tasks page":
                     MenuController.currentMenu = Menus.TASKS_PAGE;

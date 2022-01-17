@@ -216,4 +216,8 @@ public class DatabaseHandler {
     }
 
     public static void logLogin (String username, LocalDateTime log){}
+
+    public static ArrayList<String> getTeamByUsername (String username){
+
+    }
 }

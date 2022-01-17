@@ -1,5 +1,10 @@
 package view;
 
+import view.TeamMenu.Roadmap;
+import view.TeamMenu.ScoreBoard;
+import view.TeamMenu.TeamMenu;
+import view.TeamMenu.TeamSelection;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -25,6 +30,15 @@ public class MenuController {
                     break;
                 case TEAM_MENU:
                     TeamMenu.execute(command);
+                    break;
+                case TEAM_SELECTION:
+                    TeamSelection.execute(command);
+                    break;
+                case SCOREBOARD:
+                    ScoreBoard.execute(command);
+                    break;
+                case ROADMAP:
+                    Roadmap.execute(command);
                     break;
             }
         }

@@ -1,7 +1,7 @@
-package view;
+package view.TeamMenu;
 
-import controller.BoardMenuController;
-import models.Board;
+import controller.TeamMenuController.BoardMenuController;
+import view.Regex;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -39,6 +39,8 @@ public class BoardMenu {
             BoardMenuController.renewFailedTask();
         else if ((matcher = Regex.getCommandMatcher(command , Regex.SHOW_BOARD)).matches())
             BoardMenuController.showBoard();
+        else
+            System.out.println("Invalid Format");
     }
 
 }

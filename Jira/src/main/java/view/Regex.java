@@ -36,7 +36,11 @@ public class Regex {
     public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
     public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
-
+    public static final String ENTER_TEAM = "^Enter Team (.+)$";
+    public static final String ENTER_MENU = "^Enter Menu (.+)$";
+    public static final String SHOW_SCOREBOARD = "^Scoreboard --show$";
+    public static final String BACK = "^back$";
+    public static final String SHOW_ROADMAP = "^Roadmap --show$";
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input.trim());
