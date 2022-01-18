@@ -53,6 +53,8 @@ public class Queries {
             "DELETE FROM tasks WHERE id = %d";
     public static final String DELETE_BOARD_BY_TEAM_ID =
             "DELETE FROM tasks WHERE team_id = %d";
+    public static final String GET_ALL_USERNAMES =
+            "SELECT username FROM users";
 
 
 

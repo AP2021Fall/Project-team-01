@@ -14,6 +14,8 @@ public class MainMenu {
                 "send --notification (.+) --username (.+)");
         Matcher sendNotificationToTeam = Regex.getCommandMatcher(command,
                 "send --notification (.+) --team (.+)");
+        Matcher sendNotificationToAll = Regex.getCommandMatcher(command,
+                "send --notification (.+) --all");
         Matcher showProfile = Regex.getCommandMatcher(command, "show profile --username (.+)");
         Matcher banUser = Regex.getCommandMatcher(command, "ban user --user (.+)");
         if (showTeamsMatcher.find()) {
@@ -50,8 +52,8 @@ public class MainMenu {
             MainMenuController.showProfile(showProfile.group(1));
         } else if (banUser.find()) {
             MainMenuController.banUser(banUser.group(1));
-        } else {
-            System.out.println("invalid command");
+        } else if (sendNotificationToAll.find()) {
+            MainMenuController.sendNotificationToAll(sendNotificationToAll.group(1));
         }
 
     }

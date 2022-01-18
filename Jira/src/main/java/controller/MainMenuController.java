@@ -48,7 +48,8 @@ public class MainMenuController {
     }
 
     public static void sendNotificationToUser(String notification, String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")){
+        if (LoginController.getActiveUser().getRole().equals("leader") ||
+                LoginController.getActiveUser().getRole().equals("admin")){
             if (!DatabaseHandler.doesUsernameExist(username))  {
                 System.out.println("No user exists with this username !");
             } else {
@@ -56,18 +57,27 @@ public class MainMenuController {
                 System.out.println("notification sent successfully");
             }
         } else
-            System.out.println("you are not leader");
+            System.out.println("You do not have access to this section");
 
     }
 
     public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader") ||
+                LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesTeamExist(teamName, LoginController.getActiveUser().getUsername())) {
                 DatabaseHandler.sendNotificationToTeam(notification, teamName);
                 System.out.println("notification sent successfully");
             } else {
                 System.out.println("No team exists with this name !");
             }
+        } else
+            System.out.println("You do not have access to this section");
+    }
+
+    public static void sendNotificationToAll(String notification) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            DatabaseHandler.sendNotificationToAll(notification);
+            System.out.println("notification sent");
         }
     }
 

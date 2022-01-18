@@ -282,6 +282,18 @@ public class DatabaseHandler {
         deleteUsernameTeamIdByUsername(username);
     }
 
+    public static ArrayList<String> getAllUsers() throws SQLException {
+        String sql = Queries.GET_ALL_USERNAMES;
+        return getArraylistString(sql);
+    }
+
+    public static void sendNotificationToAll(String notification) throws SQLException {
+        ArrayList<String> usernames = getAllUsers();
+        for (String i : usernames) {
+            sendNotificationToUser(notification, i);
+        }
+    }
+
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }
 //
