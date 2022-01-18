@@ -325,6 +325,18 @@ public class DatabaseHandler {
 
     }
 
+    public static String rejectPendingTeams(String[] teams) throws SQLException {
+        for (String i : teams) {
+            if (!isTeamInPending(i))
+                return "Some teams are not in pending status! Try again";
+        }
+        for (String i : teams) {
+            String sql = String.format(Queries.REJECT_TEAM, i);
+            connectAndExecute(sql);
+        }
+        return "teams Rejected";
+    }
+
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }
 //

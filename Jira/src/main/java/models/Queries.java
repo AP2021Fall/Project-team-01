@@ -61,7 +61,6 @@ public class Queries {
             "SELECT * FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
     public static final String ACCEPT_TEAM =
             "UPDATE teams SET confirmation = 'yes' WHERE name = '%s'";
-
-
-
+    public static final String REJECT_TEAM =
+            "DELETE FROM teams WHERE name = '%s'";
 }

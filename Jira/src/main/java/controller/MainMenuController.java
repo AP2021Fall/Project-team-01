@@ -122,4 +122,13 @@ public class MainMenuController {
             System.out.println("You do not have access to this section");
         }
     }
+
+
+    public static void rejectTeams(String[] teams) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            System.out.println(DatabaseHandler.rejectPendingTeams(teams));
+        } else {
+            System.out.println("You do not have access to this section");
+        }
+    }
 }
