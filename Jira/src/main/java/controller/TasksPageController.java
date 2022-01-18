@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class TasksPageController {
-    public static String editTitle(int id, String newTitle) {
+    public static String editTitle(int id, String newTitle) throws SQLException {
         if (DatabaseHandler.doesTaskExist(id)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
                 DatabaseHandler.changeTaskTitle(id, newTitle);
@@ -19,7 +19,7 @@ public class TasksPageController {
         return "task with id: " + id + " doesn't exist!";
     }
 
-    public static String editDescription(int id, String newDescription) {
+    public static String editDescription(int id, String newDescription) throws SQLException {
         if (DatabaseHandler.doesTaskExist(id)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
                 DatabaseHandler.changeTaskDescription(id, newDescription);
@@ -30,7 +30,7 @@ public class TasksPageController {
         return "task with id: " + id + " doesn't exist!";
     }
 
-    public static String editPriority(int id, String newPriority) {
+    public static String editPriority(int id, String newPriority) throws SQLException {
         if (DatabaseHandler.doesTaskExist(id)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
                 DatabaseHandler.changeTaskPriority(id, newPriority);
@@ -41,7 +41,7 @@ public class TasksPageController {
         return "task with id: " + id + " doesn't exist!";
     }
 
-    public static String editDeadline(int taskId, String newdeadline) {
+    public static String editDeadline(int taskId, String newdeadline) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newdeadline) != null) {
@@ -72,7 +72,7 @@ public class TasksPageController {
         return "task with id: " + taskId + " doesn't exist!";
     }
 
-    public static String removeAssignedUser(int taskId, String username) {
+    public static String removeAssignedUser(int taskId, String username) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (DatabaseHandler.isUsernameAssigned(taskId, username)) {
