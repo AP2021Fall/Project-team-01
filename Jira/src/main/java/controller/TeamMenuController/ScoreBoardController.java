@@ -1,8 +1,15 @@
 package controller.TeamMenuController;
 
+import models.DatabaseHandler;
+
+import java.util.ArrayList;
+
 public class ScoreBoardController {
 
     public static void showScoreboard() {
+        ArrayList<String> show = DatabaseHandler.showScoreboard(TeamMenuController.getTeam().getName());
+        for (int i = 0; i < show.size();i++)
+            System.out.println(i + " " + show.get(i));
     }
 
     public static void showMenu(){

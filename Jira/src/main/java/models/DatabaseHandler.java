@@ -220,7 +220,6 @@ public class DatabaseHandler {
 
         }
     }
-
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }
 //
@@ -253,4 +252,21 @@ public class DatabaseHandler {
 //    }
 //
 //    public static void logLogin (String username, LocalDateTime log){}
+
+    //esm team ra begir va baraye khuruji be format username:point baraye hame aza team chap kon
+    //tartibi ke ruye arraylist mizari user ha bar asas point hashun az ziad be kam sort beshan
+    //public static ArrayList<String> showScoreboard(String teamName) throws SQLException{
+    //}
+
+    //public static ArrayList<String> showRoadmap(String teamName) throws SQLException{
+    //}
+    //public static void sendMessage( String teamName , String message){
+//  }
+
+    //public static ArrayList<String> showChatroom(String teamName) throws SQLException{
+    //}
+    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
+   //}
+    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
+    //}
 }

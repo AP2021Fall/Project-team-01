@@ -16,7 +16,7 @@ public class BoardMenuController {
     }
 
     public static void createBoard(String boardName) throws SQLException{
-
+        
     }
     public static void removeBoard(String boardName) throws SQLException{
 

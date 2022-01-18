@@ -50,6 +50,10 @@ public class Regex {
     public static final String SHOW_SCOREBOARD = "^Scoreboard --show$";
     public static final String BACK = "^back$";
     public static final String SHOW_ROADMAP = "^Roadmap --show$";
+    public static final String SHOW_CHAT = "^Chatroom --show$";
+    public static final String SEND_MESSAGE = "^send --message (.+)$";
+    public static final String SHOW_TASKS = "^show tasks$";
+    public static final String SHOW_TASK_BY_ID = "^show task --id (.+)$";
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input.trim());
