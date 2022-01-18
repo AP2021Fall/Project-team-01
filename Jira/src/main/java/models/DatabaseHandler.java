@@ -84,6 +84,18 @@ public class DatabaseHandler {
         return bool;
     }
 
+    public static boolean doesTeamExist(String teamName) throws SQLException {
+        String sql = String.format(Queries.DOES_TEAM_EXIST, teamName);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
+
     public static boolean isTeamInPending(String teamName) throws SQLException {
         String sql = String.format(Queries.IS_TEAM_IN_PENDING, teamName);
         connect();
@@ -335,6 +347,22 @@ public class DatabaseHandler {
             connectAndExecute(sql);
         }
         return "teams Rejected";
+    }
+
+    public static ArrayList<String> showScoreboard(String teamName) throws SQLException {
+        String sql = String.format(Queries.showScoreBoard, teamName);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int i = 1;
+        while (result.next()) {
+            answer.add(i + " " + result.getString(1) + " : " + result.getString(2));
+            i++;
+        }
+        statement.close();
+        connection.close();
+        return answer;
     }
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }

@@ -1,5 +1,6 @@
 package controller;
 
+import controller.TeamMenuController.TeamMenuController;
 import models.DatabaseHandler;
 import models.User;
 import view.Regex;
@@ -123,10 +124,22 @@ public class MainMenuController {
         }
     }
 
-
     public static void rejectTeams(String[] teams) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
             System.out.println(DatabaseHandler.rejectPendingTeams(teams));
+        } else {
+            System.out.println("You do not have access to this section");
+        }
+    }
+    public static void showScoreboard(String teamName) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            if (DatabaseHandler.doesTeamExist(teamName)) {
+                ArrayList<String> show = DatabaseHandler.showScoreboard(teamName);
+                for (int i = 0; i < show.size(); i++)
+                    System.out.println(i + " " + show.get(i));
+            } else {
+                System.out.println("team does not exist");
+            }
         } else {
             System.out.println("You do not have access to this section");
         }
