@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DatabaseHandler {
         connection = DriverManager.getConnection(JDB_URL, USER, PASSWORD);
     }
 
-    public static void connectAndInsert(String sql) throws SQLException {
+    public static void connectAndExecute(String sql) throws SQLException {
         connect();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.executeUpdate();
@@ -29,13 +30,14 @@ public class DatabaseHandler {
 
     public static void createUser(String username, String password, String email, String role) throws SQLException {
         String sql = String.format(Queries.CREATE_USER, username, password, email, role);
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
     public static void createTeam(String name, LocalDateTime creatingDate, String leader) throws SQLException {
-        String creatingDateJson = new Gson().toJson(creatingDate);
-        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateJson, leader);
-        connectAndInsert(sql);
+        DateTimeFormatter d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String creatingDateString = creatingDate.format(d);
+        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
+        connectAndExecute(sql);
     }
 
     public static void createTask(String title, String description, String priority, LocalDateTime creatingDate,
@@ -44,13 +46,13 @@ public class DatabaseHandler {
         String deadlineDateJson = new Gson().toJson(deadlineDate);
         String sql = String.format(Queries.CREATE_TASK, title, description, priority, creatingDateJson, deadlineDateJson,
                 category);
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
     //TODO when categories initialize
     public static void createBoard() throws SQLException {
         String sql = Queries.CREATE_BOARD;
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
 
@@ -65,9 +67,9 @@ public class DatabaseHandler {
         return bool;
     }
 
-    public static boolean doesTeamExist(String teamName, String username) throws SQLException {
+    public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
-        String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, teamName);
+        String sql = String.format(Queries.DOES_TEAM_EXIST, teamName);
         boolean bool = false;
         connect();
         Statement statement = connection.createStatement();
@@ -77,6 +79,17 @@ public class DatabaseHandler {
             if (username.equals(leader))
                 bool = true;
         }
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
+    public static boolean isTeamInPending(String teamName) throws SQLException {
+        String sql = String.format(Queries.IS_TEAM_IN_PENDING, teamName);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
         statement.close();
         connection.close();
         return bool;
@@ -124,12 +137,12 @@ public class DatabaseHandler {
 
     public static void changePassword(String username, String newPassword) throws SQLException {
         String sql = String.format(Queries.CHANGE_PASSWORD, newPassword, username);
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
     public static void changeUsername(String oldUsername, String newUsername) throws SQLException {
         String sql = String.format(Queries.CHANGE_USERNAME, newUsername, oldUsername);
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
@@ -181,7 +194,7 @@ public class DatabaseHandler {
 
     public static void sendNotificationToUser(String notification, String username) throws SQLException {
         String sql = String.format(Queries.SEND_NOTIFICATION_TO_USER, username, username);
-        connectAndInsert(sql);
+        connectAndExecute(sql);
     }
 
     public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
@@ -214,11 +227,114 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static void banUser(String username) throws SQLException {
+    private static void deleteBoardByTeamId(int teamId) throws SQLException {
+        String sql = String.format(Queries.DELETE_BOARD_BY_TEAM_ID, teamId);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteNotificationByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_NOTIFICATION, username);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteTaskByTaskID(int taskId) throws SQLException {
+        String sql = String.format(Queries.DELETE_TASKS, taskId);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteTeamByTeamId(int teamId) throws SQLException {
+        String sql = String.format(Queries.DELETE_TEAM, teamId);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteUsernameTaskIdByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_USERNAME_TASK_ID_BY_TASK_ID, taskId);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteUsernameTaskIdByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_USERNAME_TASK_ID_BY_USERNAME, username);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteUsernameTeamIdByTeamId(int teamId) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_USERNAME_TEAM_ID_BY_TEAM_ID, teamId);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteUsernameTeamIdByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_USERNAME_TEAM_ID_BY_USERNAME, username);
+        connectAndExecute(sql);
+    }
+
+    private static void deleteFromUsers(String username) throws SQLException {
+        String sql = String.format(Queries.DELETE_FROM_USERS, username);
+        connectAndExecute(sql);
+    }
+
+    public static void banLeader(String username) throws SQLException {
+        deleteFromUsers(username);
+        deleteNotificationByUsername(username);
         ArrayList<Integer> teamIds = getTeamsIdByUsername(username);
         for (int i : teamIds) {
-
+            deleteUsernameTeamIdByTeamId(i);
+            deleteTeamByTeamId(i);
+            deleteBoardByTeamId(i);
+            ArrayList<Integer> tasksId = getTasksIdByTeamId(i);
+            for (int j : tasksId) {
+                deleteTaskByTaskID(j);
+                deleteUsernameTaskIdByTaskId(j);
+            }
         }
+    }
+
+    public static void banMember(String username) throws SQLException {
+        deleteFromUsers(username);
+        deleteNotificationByUsername(username);
+        deleteUsernameTaskIdByUsername(username);
+        deleteUsernameTeamIdByUsername(username);
+    }
+
+    public static ArrayList<String> getAllUsers() throws SQLException {
+        String sql = Queries.GET_ALL_USERNAMES;
+        return getArraylistString(sql);
+    }
+
+    public static void sendNotificationToAll(String notification) throws SQLException {
+        ArrayList<String> usernames = getAllUsers();
+        for (String i : usernames) {
+            sendNotificationToUser(notification, i);
+        }
+    }
+
+    public static ArrayList<String> getPendingTeams() throws SQLException {
+        String sql = Queries.GET_PENDING_TEAMS;
+        return getArraylistString(sql);
+    }
+
+    public static String acceptPendingTeams(String[] teams) throws SQLException {
+        for (String i : teams) {
+            if (!isTeamInPending(i))
+                return "Some teams are not in pending status! Try again";
+        }
+        for (String i : teams) {
+           String sql = String.format(Queries.ACCEPT_TEAM, i);
+           connectAndExecute(sql);
+        }
+        return "teams Accepted";
+
+    }
+
+    public static String rejectPendingTeams(String[] teams) throws SQLException {
+        for (String i : teams) {
+            if (!isTeamInPending(i))
+                return "Some teams are not in pending status! Try again";
+        }
+        for (String i : teams) {
+            String sql = String.format(Queries.REJECT_TEAM, i);
+            connectAndExecute(sql);
+        }
+        return "teams Rejected";
     }
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {
 //    }
