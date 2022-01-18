@@ -5,7 +5,7 @@ import controller.CalendarMenuController;
 import java.sql.SQLException;
 
 public class CalendarMenu {
-    public static void execute(String command) {
+    public static void execute(String command) throws SQLException {
         if (Regex.getCommandMatcher(command, Regex.SHOW_DEADLINES).matches()){
             CalendarMenuController.showDeadlines();
         } else if (command.equals("exit")) {

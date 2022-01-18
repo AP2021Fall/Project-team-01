@@ -1,6 +1,8 @@
-package view;
+package view.ProfileMenu;
 
-import controller.ProfileMenuController;
+import controller.ProfileMenuController.ChangePasswordMenuController;
+import controller.ProfileMenuController.ProfileMenuController;
+import view.*;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -9,10 +11,11 @@ public class ProfileMenu {
 
     public static void execute(String command) throws SQLException {
         Matcher matcher;
+        if (!(matcher = Regex.getCommandMatcher(command,Regex.CHANGE_PASSWORD)).matches())
+            ChangePasswordMenuController.setCounter(0);
         if ((matcher = Regex.getCommandMatcher(command, Regex.CHANGE_PASSWORD)).matches()) {
-            System.out.println(ProfileMenuController.changePassword(matcher.group(1), matcher.group(2)));
-            MenuController.currentMenu = Menus.LOGIN_MENU;
-            LoginMenu.showLogin();
+            MenuController.currentMenu = Menus.CHANGE_PASSWORD_MENU;
+            ChangePasswordMenuController.showChangePasswordMenu();
         } else if ((matcher = Regex.getCommandMatcher(command, Regex.CHANGE_USERNAME)).matches()) {
             System.out.println(ProfileMenuController.changeUsername(matcher.group(1)));
         } else if (Regex.getCommandMatcher(command, Regex.SHOW_TEAMS).matches()) {

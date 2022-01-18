@@ -11,5 +11,6 @@ public enum Menus {
     NOTIFICATION_BAR,
     TEAM_SELECTION,
     SCOREBOARD,
-    ROADMAP
+    ROADMAP,
+    CHANGE_PASSWORD_MENU
 }

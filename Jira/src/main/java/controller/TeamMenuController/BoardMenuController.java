@@ -1,5 +1,6 @@
 package controller.TeamMenuController;
 
+import controller.LoginController;
 import models.Board;
 
 import java.sql.SQLException;
@@ -16,7 +17,10 @@ public class BoardMenuController {
     }
 
     public static void createBoard(String boardName) throws SQLException{
-        
+        if (LoginController.getActiveUser().getUsername().equals("leader")){
+
+        }else
+            System.out.println("");
     }
     public static void removeBoard(String boardName) throws SQLException{
 
@@ -57,7 +61,5 @@ public class BoardMenuController {
 
     public static void renewFailedTask() {
     }
-
-    public static void showBoard() {
-    }
+    
 }
