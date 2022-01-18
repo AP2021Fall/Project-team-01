@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,9 @@ public class DatabaseHandler {
     }
 
     public static void createTeam(String name, LocalDateTime creatingDate, String leader) throws SQLException {
-        String creatingDateJson = new Gson().toJson(creatingDate);
-        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateJson, leader);
+        DateTimeFormatter d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String creatingDateString = creatingDate.format(d);
+        String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
         connectAndExecute(sql);
     }
 
@@ -65,9 +67,9 @@ public class DatabaseHandler {
         return bool;
     }
 
-    public static boolean doesTeamExist(String teamName, String username) throws SQLException {
+    public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
-        String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, teamName);
+        String sql = String.format(Queries.DOES_TEAM_EXIST, teamName);
         boolean bool = false;
         connect();
         Statement statement = connection.createStatement();
@@ -77,6 +79,17 @@ public class DatabaseHandler {
             if (username.equals(leader))
                 bool = true;
         }
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
+    public static boolean isTeamInPending(String teamName) throws SQLException {
+        String sql = String.format(Queries.IS_TEAM_IN_PENDING, teamName);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
         statement.close();
         connection.close();
         return bool;
@@ -292,6 +305,24 @@ public class DatabaseHandler {
         for (String i : usernames) {
             sendNotificationToUser(notification, i);
         }
+    }
+
+    public static ArrayList<String> getPendingTeams() throws SQLException {
+        String sql = Queries.GET_PENDING_TEAMS;
+        return getArraylistString(sql);
+    }
+
+    public static String acceptPendingTeams(String[] teams) throws SQLException {
+        for (String i : teams) {
+            if (!isTeamInPending(i))
+                return "Some teams are not in pending status! Try again";
+        }
+        for (String i : teams) {
+           String sql = String.format(Queries.ACCEPT_TEAM, i);
+           connectAndExecute(sql);
+        }
+        return "teams Accepted";
+
     }
 
 //    public static LocalDateTime getCreationDateByTaskId(int taskId) {

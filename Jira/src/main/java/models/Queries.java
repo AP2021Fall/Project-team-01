@@ -11,8 +11,10 @@ public class Queries {
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
             "SELECT username FROM users WHERE username = '%s'";
-    public static final String DOES_TEAM_EXIST_FOR_USER =
+    public static final String DOES_TEAM_EXIST =
             "SELECT leader FROM teams WHERE name = '%s'";
+    public static final String IS_TEAM_IN_PENDING =
+            "SELECT leader FROM teams WHERE name = '%s' AND confirmation = 'no'";
     public static final String DOES_Email_EXIST =
             "SELECT email FROM users WHERE email = '%s'";
     public static final String CHANGE_PASSWORD =
@@ -55,6 +57,10 @@ public class Queries {
             "DELETE FROM tasks WHERE team_id = %d";
     public static final String GET_ALL_USERNAMES =
             "SELECT username FROM users";
+    public static final String GET_PENDING_TEAMS =
+            "SELECT * FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
+    public static final String ACCEPT_TEAM =
+            "UPDATE teams SET confirmation = 'yes' WHERE name = '%s'";
 
 
 

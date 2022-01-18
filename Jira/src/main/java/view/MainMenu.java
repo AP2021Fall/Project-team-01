@@ -18,6 +18,7 @@ public class MainMenu {
                 "send --notification (.+) --all");
         Matcher showProfile = Regex.getCommandMatcher(command, "show profile --username (.+)");
         Matcher banUser = Regex.getCommandMatcher(command, "ban user --user (.+)");
+        Matcher acceptTeams = Regex.getCommandMatcher(command, "accept --teams (.+)");
         if (showTeamsMatcher.find()) {
             String menu = showTeamsMatcher.group(1);
             switch (menu) {
@@ -54,6 +55,11 @@ public class MainMenu {
             MainMenuController.banUser(banUser.group(1));
         } else if (sendNotificationToAll.find()) {
             MainMenuController.sendNotificationToAll(sendNotificationToAll.group(1));
+        } else if (command.equals("show --pendingTeams")) {
+            MainMenuController.showPendingTeams();
+        } else if (acceptTeams.find()) {
+            String[] teams = acceptTeams.group(1).split("\\s+");
+            MainMenuController.acceptTeams(teams);
         }
 
     }

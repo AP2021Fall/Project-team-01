@@ -31,7 +31,7 @@ public class MainMenuController {
 
     public static void createTeam(String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
-            if (DatabaseHandler.doesTeamExist(teamName, LoginController.getActiveUser().getUsername()))
+            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername()))
                 System.out.println("There is another team with this name!");
             else {
                 Matcher matcher = Regex.getCommandMatcher(teamName, Regex.TEAM_NAME);
@@ -64,7 +64,7 @@ public class MainMenuController {
     public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader") ||
                 LoginController.getActiveUser().getRole().equals("admin")) {
-            if (DatabaseHandler.doesTeamExist(teamName, LoginController.getActiveUser().getUsername())) {
+            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())) {
                 DatabaseHandler.sendNotificationToTeam(notification, teamName);
                 System.out.println("notification sent successfully");
             } else {
@@ -106,5 +106,20 @@ public class MainMenuController {
                 System.out.println("There is no user with this username");
         } else
             System.out.println("You do not have access to this section");
+    }
+
+    public static void showPendingTeams() throws SQLException {
+        ArrayList<String> pendingTeams = DatabaseHandler.getPendingTeams();
+        for (String i : pendingTeams) {
+            System.out.println(i);
+        }
+    }
+
+    public static void acceptTeams(String[] teams) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            System.out.println(DatabaseHandler.acceptPendingTeams(teams));
+        } else {
+            System.out.println("You do not have access to this section");
+        }
     }
 }
