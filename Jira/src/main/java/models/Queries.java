@@ -51,7 +51,7 @@ public class Queries {
             "DELETE FROM teams WHERE id = %d";
     public static final String DELETE_TASKS =
             "DELETE FROM tasks WHERE id = %d";
-    public static final String DELETE_BOARD =
+    public static final String DELETE_BOARD_BY_TEAM_ID =
             "DELETE FROM tasks WHERE team_id = %d";
 
 

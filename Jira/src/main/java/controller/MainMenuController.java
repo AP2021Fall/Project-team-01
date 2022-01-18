@@ -87,7 +87,10 @@ public class MainMenuController {
     public static void banUser(String username) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
-                DatabaseHandler.banUser(username);
+                if (LoginController.getActiveUser().getRole().equals("leader"))
+                    DatabaseHandler.banLeader(username);
+                else if (LoginController.getActiveUser().getRole().equals("member"))
+                    DatabaseHandler.banMember(username);
                 System.out.println("username banned");
             } else
                 System.out.println("There is no user with this username");
