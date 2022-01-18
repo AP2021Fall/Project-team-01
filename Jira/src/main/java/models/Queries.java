@@ -63,4 +63,8 @@ public class Queries {
             "UPDATE teams SET confirmation = 'yes' WHERE name = '%s'";
     public static final String REJECT_TEAM =
             "DELETE FROM teams WHERE name = '%s'";
+    public static final String showScoreBoard =
+            "SELECT u.username, point FROM users u JOIN `username-team_id` u2 ON u.username = u2.username" +
+                    " JOIN teams t ON id = u2.team_id WHERE t.name = '%s' ORDER BY point DESC, username";
+
 }

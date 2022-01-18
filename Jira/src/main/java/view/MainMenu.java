@@ -20,6 +20,7 @@ public class MainMenu {
         Matcher banUser = Regex.getCommandMatcher(command, "ban user --user (.+)");
         Matcher acceptTeams = Regex.getCommandMatcher(command, "accept --teams (.+)");
         Matcher rejectTeams = Regex.getCommandMatcher(command, "reject --teams (.+)");
+        Matcher showScoreboard = Regex.getCommandMatcher(command, "show score board --team name (.+)");
         if (showTeamsMatcher.find()) {
             String menu = showTeamsMatcher.group(1);
             switch (menu) {
@@ -64,6 +65,8 @@ public class MainMenu {
         } else if (rejectTeams.find()) {
             String[] teams = rejectTeams.group(1).split("\\s+");
             MainMenuController.rejectTeams(teams);
+        } else if (showScoreboard.find()) {
+            MainMenuController.showScoreboard(showScoreboard.group(1));
         }
 
     }
