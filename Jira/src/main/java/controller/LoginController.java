@@ -4,12 +4,10 @@ import models.DatabaseHandler;
 import models.User;
 import view.Regex;
 
-import javax.swing.plaf.IconUIResource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class LoginController {
-//    public static boolean isLoggedIn = false;
     private static User activeUser;
 
     public static User getActiveUser() {
@@ -29,8 +27,6 @@ public class LoginController {
         String currentUserRole = DatabaseHandler.getRoleByUsername(username);
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
         setActiveUser(currentUser);
-//        isLoggedIn = true;
-        //log in database
         DatabaseHandler.logLogin(activeUser.getUsername(), LocalDateTime.now());
         return ("user logged in successfully!");
     }

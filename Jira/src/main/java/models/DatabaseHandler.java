@@ -66,7 +66,7 @@ public class DatabaseHandler {
     }
 
     public static boolean doesTeamExist(String teamName, String username) throws SQLException {
-        
+
         String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, teamName);
         boolean bool = false;
         connect();
@@ -132,7 +132,6 @@ public class DatabaseHandler {
         connectAndInsert(sql);
     }
 
-    //    //string or whatever!
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.GET_LOGS, username);
         connect();

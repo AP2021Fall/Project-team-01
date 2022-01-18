@@ -38,22 +38,21 @@ public class ProfileMenuController {
         }
     }
 
-    //be tartib alephba va esm user avval biyad
     public static void showTeams() throws SQLException {
-//        Arraylist<User> members = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());
         System.out.println(DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
     }
 
     public static void showTeam(String teamName) throws SQLException {
         System.out.println(teamName + ":");
         System.out.println("leader: " + DatabaseHandler.getLeaderByTeamName(teamName));
-        System.out.println("members:" + DatabaseHandler.getMembersByTeamName(teamName));
+        System.out.println("members: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
 
     public static void showMyProfile() {
         User user = LoginController.getActiveUser();
-        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + "role: " + user.getRole());
+        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + "role: " + user.getRole() +
+                "score: " + user.getPoint());
         //birthdate and name?
     }
 

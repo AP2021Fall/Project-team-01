@@ -21,9 +21,13 @@ public class Regex {
             "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
     public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
             "--newpassword\\s(.+)";
-    public static final String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)";
-    public static final String SHOW_TEAMS = "^Profile\\s--showTeams";
-    public static final String SHOW_TEAM = "^Profile\\s--showTeam\\s(.+)";
+    public static final String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)$";
+    public static final String SHOW_TEAMS = "^Profile\\s--showTeams$";
+    public static final String SHOW_TEAM = "^Profile\\s--showTeam\\s(.+)$";
+    public static final String SHOW_DEADLINES = "^calendar --show deadlines$";
+    public static final String SHOW_COMMENTS = "^task (\\d+) comments --show$";
+    public static final String ADD_COMMENT = "^task (\\d+) comment (.+) --add$";
+
     public static final String CREATE_BOARD = "^board --new --name (.+)$";
     public static final String REMOVE_BOARD = "^board --remove --name (.+)$";
     public static final String SELECT_BOARD = "^board --select --name (.+)$";
@@ -39,15 +43,20 @@ public class Regex {
     public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
     public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
+    public static final String INVALID_COMMAND = "^invalid command!$";
 
+    public static final String ENTER_TEAM = "^Enter Team (.+)$";
+    public static final String ENTER_MENU = "^Enter Menu (.+)$";
+    public static final String SHOW_SCOREBOARD = "^Scoreboard --show$";
+    public static final String BACK = "^back$";
+    public static final String SHOW_ROADMAP = "^Roadmap --show$";
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input.trim());
     }
 
     public static boolean isPasswordStrong(String newPassword) {
-        if (newPassword.length() >= 8 && newPassword.matches(".*[A-Z].*")
-                && newPassword.matches(".*[a-z].*") && newPassword.matches(".*[0-9].*"))
+        if (newPassword.length() >= 8 && newPassword.matches(".*[A-Z].*") && newPassword.matches(".*[0-9].*"))
             return true;
         return false;
     }

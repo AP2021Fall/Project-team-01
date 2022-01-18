@@ -62,7 +62,6 @@ public class TasksPageController {
                     if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
                         DatabaseHandler.assignUser(taskId, username);
                         return "user:" + username + "added successfully!";
-                        //send notif
                     }
                     return "username:" + username + "already assigned!";
                 }
@@ -87,22 +86,28 @@ public class TasksPageController {
         return "task with id: " + taskId + " doesn't exist!";
     }
 
-    //for edit deadline func
+    //null if newDeadline is invalid & LocalDateTime if is valid
     private static LocalDateTime isDeadlineValid(LocalDateTime creationDate, String deadline) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm");
-
         try {
             LocalDateTime dead = LocalDateTime.parse(deadline, formatter);
             if (dead.isBefore(now))
                 return null;
             if (dead.isBefore(creationDate))
                 return null;
-
             return dead;
         } catch (DateTimeParseException exception) {
             return null;
         }
+    }
+
+    public static void showComments(int taskId){
+        System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
+    }
+
+    public static void addComment(int taskId, String comment){
+        DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
     }
 
 }

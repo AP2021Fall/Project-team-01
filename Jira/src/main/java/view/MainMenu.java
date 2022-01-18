@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainMenuController;
+import controller.TeamMenuController.TeamSelectionController;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -20,15 +21,19 @@ public class MainMenu {
             switch (menu) {
                 case "profile menu":
                     MenuController.currentMenu = Menus.PROFILE_MENU;
+                    ProfileMenu.showProfileMenu();
                     break;
                 case "team menu":
-                    MenuController.currentMenu = Menus.TEAM_MENU;
+                    MenuController.currentMenu = Menus.TEAM_SELECTION;
+                    TeamSelectionController.showTeams();
                     break;
                 case "tasks page":
                     MenuController.currentMenu = Menus.TASKS_PAGE;
+                    TasksPageMenu.showTaskPageMenu();
                     break;
                 case "calendar menu":
                     MenuController.currentMenu = Menus.CALENDAR_MENU;
+                    CalendarMenu.showCalendarMenu();
                     break;
             }
         } else if (command.equals("show --teams")) {
@@ -59,4 +64,13 @@ public class MainMenu {
         System.out.println("calendar menu");
     }
 
+    public static void showMainMenu() {
+        System.out.println("..........Main Menu.........\n" +
+                "valid commands:\n" +
+                "enter menu profile menu\n" +
+                "enter menu team menu\n" +
+                "enter menu tasks page\n" +
+                "enter menu calendar menu\n" +
+                "show --teams");
+    }
 }

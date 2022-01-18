@@ -1,5 +1,10 @@
 package view;
 
+import view.TeamMenu.Roadmap;
+import view.TeamMenu.ScoreBoard;
+import view.TeamMenu.TeamMenu;
+import view.TeamMenu.TeamSelection;
+
 import controller.LoginController;
 import models.DatabaseHandler;
 
@@ -25,6 +30,18 @@ public class MenuController {
                     break;
                 case TASKS_PAGE:
                     TasksPageMenu.execute(command);
+                    break;
+                case TEAM_MENU:
+                    TeamMenu.execute(command);
+                    break;
+                case TEAM_SELECTION:
+                    TeamSelection.execute(command);
+                    break;
+                case SCOREBOARD:
+                    ScoreBoard.execute(command);
+                    break;
+                case ROADMAP:
+                    Roadmap.execute(command);
                     break;
             }
         }
