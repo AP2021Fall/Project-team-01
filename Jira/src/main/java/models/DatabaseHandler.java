@@ -50,7 +50,7 @@ public class DatabaseHandler {
     }
 
     //TODO when categories initialize
-    public static void createBoard() throws SQLException {
+    public static void createBoard(ArrayList<String> categories) throws SQLException {
         String sql = Queries.CREATE_BOARD;
         connectAndExecute(sql);
     }
@@ -364,26 +364,71 @@ public class DatabaseHandler {
         connection.close();
         return answer;
     }
-//    public static LocalDateTime getCreationDateByTaskId(int taskId) {
-//    }
-//
-//    public static void setDeadline(int taskId, LocalDateTime newDeadline) {
-//    }
-//
-//    public static void assignUser(int taskId, String username) {
-//    }
-//
-//    public static void removeUserFromTask(int taskId, String username) {
-//    }
-//
-//    public static boolean isUsernameAssigned(int taskId, String username) {
-//    }
-//
-//    public static boolean doesTaskExist(int taskId) {
-//    }
-//
-//    public static String getTaskLeaderByTaskId(int taskId) {
-//    }
+    public static LocalDateTime getCreationDateByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String creatingDate = result.getString(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            statement.close();
+            connection.close();
+            return LocalDateTime.parse(creatingDate, formatter);
+        } else {
+            statement.close();
+            connection.close();
+            return null;
+        }
+    }
+
+    public static void setDeadline(int taskId, LocalDateTime newDeadline) throws SQLException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String deadLine = newDeadline.format(formatter);
+        String sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadLine, taskId);
+        connectAndExecute(sql);
+    }
+
+    public static void assignUser(int taskId, String username) throws SQLException {
+        String sql = String.format(Queries.ASSIGN_USER, username, taskId);
+        connectAndExecute(sql);
+    }
+    public static void removeUserFromTask(int taskId, String username) throws SQLException {
+        String sql = String.format(Queries.REMOVE_USER_FROM_TASK, username, taskId);
+        connectAndExecute(sql);
+    }
+
+    public static boolean isUsernameAssigned(int taskId, String username) throws SQLException {
+        String sql = String.format(Queries.IS_USERNAME_ASSIGNED, username, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
+    public static boolean doesTaskExist(int taskId) throws SQLException {
+        String sql = String.format(Queries.DOES_TASK_EXIST, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        boolean bool = result.next();
+        statement.close();
+        connection.close();
+        return bool;
+    }
+
+    public static String getTaskLeaderByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_LEADER_BY_TASK_ID, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next())
+            return result.getString(1);
+        else return null;
+    }
 //
 //    public static void changeTaskPriority(int id, String newPriority) {
 //

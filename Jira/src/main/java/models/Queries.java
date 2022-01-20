@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Locale;
+
 public class Queries {
     public static final String CREATE_USER =
             "INSERT INTO users (username, password, email, role, notification) VALUES ('%s','%s','%s','%s','[]')";
@@ -67,4 +69,18 @@ public class Queries {
             "SELECT u.username, point FROM users u JOIN `username-team_id` u2 ON u.username = u2.username" +
                     " JOIN teams t ON id = u2.team_id WHERE t.name = '%s' ORDER BY point DESC, username";
 
+    public static final String GET_CREATING_DATE_BY_TASK_ID =
+            "SELECT `creation date` FROM tasks WHERE id = %d";
+    public static final String SET_DEAD_LINE_BY_TASK_ID =
+            "UPDATE tasks SET `deadline date` = '%s' WHERE id = %d";
+    public static final String ASSIGN_USER =
+            "INSERT INTO `username-task_id` (username, task_id) VALUES ('%s',%d)";
+    public static final String REMOVE_USER_FROM_TASK =
+            "DELETE FROM `username-task_id` WHERE username = '%s' AND task_id = %d";
+    public static final String IS_USERNAME_ASSIGNED =
+            "SELECT username FROM `username-task_id` WHERE username = '%s' AND task_id = %d";
+    public static final String DOES_TASK_EXIST =
+            "SELECT id FROM tasks WHERE id = %d";
+    public static final String GET_TASK_LEADER_BY_TASK_ID =
+            "";
 }
