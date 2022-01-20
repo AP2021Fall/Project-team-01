@@ -82,5 +82,20 @@ public class Queries {
     public static final String DOES_TASK_EXIST =
             "SELECT id FROM tasks WHERE id = %d";
     public static final String GET_TASK_LEADER_BY_TASK_ID =
-            "";
+            "SELECT leader FROM tasks JOIN teams ON tasks.team_id = teams.id WHERE id = %d";
+
+    //change task options
+    public static final String UPDATE_PRIORITY =
+            "UPDATE tasks SET priority = '%s' WHERE id = %d";
+    public static final String UPDATE_DESCRIPTION =
+            "UPDATE tasks SET description = '%s' WHERE id = %d";
+    public static final String UPDATE_TITLE =
+            "UPDATE tasks SET title = '%s' WHERE id = %d";
+
+    public static final String ADD_LOGS =
+            "UPDATE users SET logs = '%s' WHERE username = '%s'";
+
+    public static final String ROAD_MAP =
+            "SELECT GREATEST(LEAST(100*(now() - `creation date`)/(`deadline date` - `creation date`), 100),0) AS pecent FROM tasks WHERE team_id = %d ORDER BY `creation date` ASC, title";
+
 }
