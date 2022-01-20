@@ -1,5 +1,6 @@
-package controller;
+package controller.ProfileMenuController;
 
+import controller.LoginController;
 import models.DatabaseHandler;
 import models.User;
 import view.Regex;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 public class ProfileMenuController {
 
     public static String changePassword(String oldPassword, String newPassword) throws SQLException {
+
         if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
             return "wrong old password";
         } else if (oldPassword.equals(newPassword)) {

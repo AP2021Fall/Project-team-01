@@ -1,12 +1,10 @@
 package view;
 
+import view.ProfileMenu.ProfileMenu;
 import view.TeamMenu.Roadmap;
 import view.TeamMenu.ScoreBoard;
 import view.TeamMenu.TeamMenu;
 import view.TeamMenu.TeamSelection;
-
-import controller.LoginController;
-import models.DatabaseHandler;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -42,6 +40,9 @@ public class MenuController {
                     break;
                 case ROADMAP:
                     Roadmap.execute(command);
+                    break;
+                case CHANGE_PASSWORD_MENU:
+
                     break;
             }
         }
