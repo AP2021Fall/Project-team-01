@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ChatroomController {
 
     public static void showChatroom(){
-        ArrayList<String> show = DatabaseHandler.showChatroom(TeamMenuController.getTeam().getName());
+        ArrayList<String> show = DatabaseHandler.showChatroom(TeamMenuController.getTeam().getId());
         for (String s : show) {
             System.out.println(s);
         }
@@ -18,7 +18,7 @@ public class ChatroomController {
     public static void sendMessage(String message){
         String username = LoginController.getActiveUser().getUsername();
         String toPrint = " " + username + " : " + message;
-        DatabaseHandler.sendMessage( TeamMenuController.getTeam() , toPrint);
+        DatabaseHandler.sendMessage( TeamMenuController.getTeam().getId() , toPrint);
     }
     public static void showChatroomMenu(){
         System.out.println("type Chatroom -show to see chats");

@@ -20,7 +20,7 @@ public class BoardMenuController {
 
     public static void createBoard(String boardName) throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
-            if (!(DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())))
+            if (!(DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())))
                 DatabaseHandler.createBoard(boardName, TeamMenuController.getTeam().getId());
             else
                 System.out.println("There is already a board with this name");
@@ -64,7 +64,7 @@ public class BoardMenuController {
     public static void addCategory(String categoryName, String boardName) {
 
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
-            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName()))
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))
                 DatabaseHandler.addCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
             else
                 System.out.println("There is not a board with this name");
@@ -82,7 +82,7 @@ public class BoardMenuController {
 
     public static void addCategoryToColumn(String categoryName , String columnNum , String boardName) {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
-            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())) {
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 int help =  DatabaseHandler.numOfBoardCategories(boardName , TeamMenuController.getTeam().getId());
                 if ( help >= Integer.parseInt(columnNum)- 1 && help > 0)
                 DatabaseHandler.addCategoryToColumn(categoryName, columnNum, boardName, TeamMenuController.getTeam().getId());
@@ -113,15 +113,60 @@ public class BoardMenuController {
         } else
             System.out.println("You do not have the permission to do this action!");
     }
-    public static void addTaskToBoardSelect(){
+    public static void addTaskToBoardSelect(String taskId) throws SQLException {
+        String take = BoardMenuController.getActiveBoard();
+        if (take != null)
+            addTaskToBoard(taskId,take);
+        else
+            System.out.println("No board is selected");
+    }
+    public static void addTaskToBoard(String taskId, String boardName) throws SQLException {
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            int taskNum = Integer.parseInt(taskId);
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.doesTaskExist(taskNum)) {
+                    if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskNum))) {
+                        if (!(DatabaseHandler.doesTaskAddedToBoard(taskNum , boardName))){
+                            if (!(DatabaseHandler.doesDeadlinePassed(taskNum))) {
+                                if (DatabaseHandler.doesTasmAssigned(taskNum)) {
+                                    DatabaseHandler.addTaskToBoard(taskNum, boardName);
+                                }else
+                                    System.out.println("Please assign this task to someone first");
+                            }else
+                                System.out.println("The deadline of this task has already passed");
+                        }else
+                            System.out.println("This task has already been added to this board");
+                    }else
+                    System.out.println("you don't have access to do this action!");
+                }else
+                    System.out.println("Invalid task id!");
+            }
+            else
+                System.out.println("There is not any board with that name in this team");
+        } else
+            System.out.println("You do not have the permission to do this action!");
 
     }
-    public static void addTaskToBoard() {
-    }
-    public static void assignTaskToMemberSelect(){
+    public static void assignTaskToMemberSelect(String teamMember , String taskId){
 
     }
-    public static void assignTaskToMember() {
+    public static void assignTaskToMember(String teamMember , String taskId , String boardName) {
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            int taskNum = Integer.parseInt(taskId);
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.doesTaskExist(taskNum)) {
+                    if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskNum))) {
+                        if ()
+                        DatabaseHandler.addTaskToBoard(taskNum, BoardMenuController.getActiveBoard());
+                    }else
+                        System.out.println("you don't have access to do this action!");
+                }else
+                    System.out.println("no task with this id is existing");
+            }
+            else
+                System.out.println("There is not any board with that name in this team");
+        } else
+            System.out.println("You do not have the permission to do this action!");
     }
     public static void forceTaskToCategorySelect(){
 

@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class TasksController {
     public static void showTasks(){
-        ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getName());
+        ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
         for (int i = 0 ; i < show.size(); i++ )
-            System.out.println(i + " " + show.get(i));
+            System.out.println( show.get(i));
         if (show.size()==0)
             System.out.println("no task yet");
 
     }
     public static void showTaskById( String taskId){
-        String show = DatabaseHandler.getTeamTasksByTaskId(Integer.parseInt(taskId) , TeamMenuController.getTeam().getName());
+        String show = DatabaseHandler.getTeamTasksByTaskId(Integer.parseInt(taskId) , TeamMenuController.getTeam().getId());
         if (show != null)
             System.out.println(show);
         else

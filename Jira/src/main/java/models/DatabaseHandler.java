@@ -561,4 +561,12 @@ public class DatabaseHandler {
     // change finish field of a board
     // public static void finishBoard(String boardName, int teamId){
     // }
+    //public static void addTaskToBoard (int taskId , String boardName){
+    //}
+    // public static void doesTaskAddedToBoard(int taskId , String boardName){
+    // }
+    // public static void doesDeadlinePassed( int taskId ){
+    // }
+    // public static void doesTasmAssigned( int taskId){
+    // }
 }
