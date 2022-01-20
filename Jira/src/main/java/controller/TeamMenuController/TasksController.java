@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TasksController {
     public static void showTasks(){
-        ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamName(TeamMenuController.getTeam().getName());
+        ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getName());
         for (int i = 0 ; i < show.size(); i++ )
             System.out.println(i + " " + show.get(i));
         if (show.size()==0)

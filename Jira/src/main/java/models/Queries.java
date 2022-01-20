@@ -96,6 +96,15 @@ public class Queries {
             "UPDATE users SET logs = '%s' WHERE username = '%s'";
 
     public static final String ROAD_MAP =
-            "SELECT GREATEST(LEAST(100*(now() - `creation date`)/(`deadline date` - `creation date`), 100),0) AS pecent FROM tasks WHERE team_id = %d ORDER BY `creation date` ASC, title";
+            "SELECT title, GREATEST(LEAST(100*(now() - `creation date`)/(`deadline date` - `creation date`), 100),0) AS pecent " +
+                    "FROM tasks WHERE team_id = %d ORDER BY `creation date` ASC, title";
+    public static final String GET_CHATROOM =
+            "SELECT chatroom FROM teams WHERE id = %d";
 
+    public static final String ADD_CHAT =
+            "UPDATE teams SET chatroom = '%s' WHERE id = %d";
+    public static final String GET_TASKS_BY_TEAM_ID =
+            "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE team_id = %d";
+    public static final String GET_USERS_ASSIGNED_TASK =
+            "SELECT username FROM `username-task_id` WHERE task_id = %d";
 }

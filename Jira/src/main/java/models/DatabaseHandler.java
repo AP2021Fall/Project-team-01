@@ -458,7 +458,7 @@ public class DatabaseHandler {
         if (result.next()) {
             String logs = result.getString(1);
             ArrayList<LocalDateTime> localDateTimes = new Gson().fromJson(logs,
-                    new TypeToken<List<User>>(){}.getType());
+                    new TypeToken<List<LocalDateTime>>(){}.getType());
             localDateTimes.add(log);
             logs = new Gson().toJson(localDateTimes);
             sql = String.format(Queries.ADD_LOGS, logs, username);
@@ -472,17 +472,83 @@ public class DatabaseHandler {
 
     public static ArrayList<String> showRoadmap(int teamId) throws SQLException{
         String sql = String.format(Queries.ROAD_MAP, teamId);
-
+        ArrayList<String> roadMaps = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int i = 1;
+        while (result.next()) {
+            roadMaps.add(i + result.getString(1) + " : " + result.getString(2));
+        }
+        return roadMaps;
     }
-    //public static void sendMessage( String teamName , String message){
-//  }
 
-    //public static ArrayList<String> showChatroom(String teamName) throws SQLException{
-    //}
-    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
-    //}
-    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
-    //}
+
+    public static void sendMessage( int teamId , String message) throws SQLException {
+        String sql = String.format(Queries.GET_CHATROOM, teamId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            ArrayList<String> chats = new Gson().fromJson(json,
+                    new TypeToken<List<String>>(){}.getType());
+            chats.add(message);
+            json = new Gson().toJson(chats);
+            sql = String.format(Queries.ADD_CHAT, chats, teamId);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
+  }
+
+    public static ArrayList<String> showChatroom(int teamId) throws SQLException{
+        String sql = String.format(Queries.GET_CHATROOM, teamId);
+        ArrayList<String> chats = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+             = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        }
+        statement.close();
+        connection.close();
+        return chats;
+    }
+
+    public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException{
+        String sql = String.format(Queries.GET_TASKS_BY_TEAM_ID, teamId);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int i = 1;
+        while (result.next()) {
+            String taskTitle = result.getString(1);
+            int taskId = result.getInt(2);
+            String creatingDate = result.getString(3);
+            String deadlineDate = result.getString(4);
+            StringBuilder users = new StringBuilder();
+            String priority = result.getString(5);
+            sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, teamId);
+            Statement statement2 = connection.createStatement();
+            ResultSet result2 = statement2.executeQuery(sql);
+            while (result2.next()) {
+                users.append(" " + result2.getString(1));
+            }
+            statement2.close();
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:"+ users.toString() + ",priority: " + priority);
+            i++;
+        }
+        statement.close();
+        connection.close();
+        return answer;
+    }
     // public static boolean doesBoardExist(String boardName , int teamId)throws SQLException{
     //}
 
