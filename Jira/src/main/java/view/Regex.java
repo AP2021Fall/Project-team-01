@@ -38,13 +38,21 @@ public class Regex {
     public static final String ADD_CATEGORY_TO_COLUMN = "^board --new --category (.+) --column (.+) --name (.+)$";
     public static final String COMPLETE_BOARD_FIRST_STEP_SELECT = "^board --done$";
     public static final String COMPLETE_BOARD_FIRST_STEP = "^board --done --name (.+)$";
+    public static final String ADD_TASK_TO_BOARD_SELECT = "^board --add (.+)$";
     public static final String ADD_TASK_TO_BOARD = "^board --add (.+) --name (.+)$";
+    public static final String ASSIGN_TASK_TO_MEMBER_SELECT = "^board --assign (.+) --task (.+)$";
     public static final String ASSIGN_TASK_TO_MEMBER = "^board --assign (.+) --task (.+) --name (.+)$";
+    public static final String FORCE_TASK_TO_CATEGORY_SELECT = "^board --force --category (.+) --task (.+)$";
     public static final String FORCE_TASK_TO_CATEGORY = "^board --force --category (.+) --task (.+) --name (.+)$";
+    public static final String TASK_TO_NEXT_SELECT = "^board --category next --task (.+)$";
     public static final String TASK_TO_NEXT = "^board --category next --task (.+) --name (.+)$";
+    public static final String SHOW_TASKS_IN_CATEGORY_SELECT = "^board --show --category (.+)$";
     public static final String SHOW_TASKS_IN_CATEGORY = "^board --show --category (.+) --board (.+)$";
+    public static final String SHOW_FAILED_AND_DONE_SELECT = "^board --show (done|failed)$";
     public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
+    public static final String RENEW_FAILED_TASK_SELECT = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))?$";
     public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
+    public static final String SHOW_BOARD_SELECT = "^Board --show$";
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
     public static final String INVALID_COMMAND = "^invalid command!$";
 

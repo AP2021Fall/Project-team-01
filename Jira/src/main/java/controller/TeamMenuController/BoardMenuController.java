@@ -114,27 +114,44 @@ public class BoardMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
     public static void addTaskToBoardSelect(){
-        
+
     }
     public static void addTaskToBoard() {
     }
+    public static void assignTaskToMemberSelect(){
 
-    public static void assignTaskToMemeber() {
     }
+    public static void assignTaskToMember() {
+    }
+    public static void forceTaskToCategorySelect(){
 
+    }
     public static void forceTaskToCategory() {
     }
+    public static void taskToNextSelect(){
 
+    }
     public static void taskToNext() {
     }
+    public static void showTaskInCategorySelect(){
 
+    }
     public static void showTaskInCategory() {
     }
+    public static void showFailedAndDoneSelect(){
 
+    }
     public static void showFailedAndDone() {
     }
+    public static void renewFailedTaskSelect(){
 
+    }
     public static void renewFailedTask() {
     }
+    public static void showBoardDetailsSelect(){
 
+    }
+    public static void showBoardDetails(){
+
+    }
 }
