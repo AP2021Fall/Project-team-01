@@ -4,6 +4,7 @@ import controller.LoginController;
 import models.Board;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BoardMenuController {
     private static Board activeBoard;
@@ -61,5 +62,5 @@ public class BoardMenuController {
 
     public static void renewFailedTask() {
     }
-    
+
 }
