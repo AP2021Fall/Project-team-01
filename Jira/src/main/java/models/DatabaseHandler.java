@@ -51,9 +51,9 @@ public class DatabaseHandler {
 
     //TODO when categories initialize
     //ino eslah kon faghat nameBoardro migire va misaze intory tarif she
-    // public static void createBoard(String boardName , String teamName) throws SQLException {
+    // public static void createBoard(String boardName , int teamId) throws SQLException {
     //  }
-    public static void createBoard(ArrayList<String> categories) throws SQLException {
+    public static void createBoard(String boardName, int teamId) throws SQLException {
         String sql = Queries.CREATE_BOARD;
         connectAndExecute(sql);
     }
@@ -434,26 +434,46 @@ public class DatabaseHandler {
             return result.getString(1);
         else return null;
     }
-//
-//    public static void changeTaskPriority(int id, String newPriority) {
-//
-//    }
-//
-//    public static void changeTaskDescription(int id, String newDescription) {
-//    }
-//
-//    public static void changeTaskTitle(int id, String newTitle) {
-//    }
-//
-//    public static void logLogin (String username, LocalDateTime log){}
 
-    //esm team ra begir va baraye khuruji be format username:point baraye hame aza team chap kon
-    //tartibi ke ruye arraylist mizari user ha bar asas point hashun az ziad be kam sort beshan
-    //public static ArrayList<String> showScoreboard(String teamName) throws SQLException{
-    //}
+    public static void changeTaskPriority(int id, String newPriority) throws SQLException {
+        String sql = String.format(Queries.UPDATE_PRIORITY, newPriority, id);
+        connectAndExecute(sql);
+    }
 
-    //public static ArrayList<String> showRoadmap(String teamName) throws SQLException{
-    //}
+    public static void changeTaskDescription(int id, String newDescription) throws SQLException {
+        String sql = String.format(Queries.UPDATE_DESCRIPTION, newDescription, id);
+        connectAndExecute(sql);
+    }
+
+    public static void changeTaskTitle(int id, String newTitle) throws SQLException {
+        String sql = String.format(Queries.UPDATE_DESCRIPTION, newTitle, id);
+        connectAndExecute(sql);
+    }
+
+    public static void logLogin (String username, LocalDateTime log) throws SQLException {
+        String sql = String.format(Queries.GET_LOGS, username);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String logs = result.getString(1);
+            ArrayList<LocalDateTime> localDateTimes = new Gson().fromJson(logs,
+                    new TypeToken<List<User>>(){}.getType());
+            localDateTimes.add(log);
+            logs = new Gson().toJson(localDateTimes);
+            sql = String.format(Queries.ADD_LOGS, logs, username);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
+    }
+
+    public static ArrayList<String> showRoadmap(int teamId) throws SQLException{
+        String sql = String.format(Queries.ROAD_MAP, teamId);
+
+    }
     //public static void sendMessage( String teamName , String message){
 //  }
 
