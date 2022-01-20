@@ -21,7 +21,7 @@ public class BoardMenuController {
     public static void createBoard(String boardName) throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
             if (!(DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())))
-                DatabaseHandler.createBoard(boardName , TeamMenuController.getTeam().getName());
+                DatabaseHandler.createBoard(boardName, TeamMenuController.getTeam().getId());
             else
                 System.out.println("There is already a board with this name");
         } else
@@ -29,36 +29,55 @@ public class BoardMenuController {
     }
 
     public static void removeBoard(String boardName) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")){
-            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName()))
-                DatabaseHandler.removeBoard(boardName , TeamMenuController.getTeam().getName());
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))
+                DatabaseHandler.removeBoard(boardName, TeamMenuController.getTeam().getId());
             else
                 System.out.println("There is no board with this name");
-        }else
+        } else
             System.out.println("You do not have the permission to do this action!");
     }
 
     public static void selectBoard(String boardName) {
-        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName()))
+        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))
             setActiveBoard(boardName);
         else
             System.out.println("There is no board with this name");
     }
 
     public static void deselectBoard() {
-        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())) {
-            if(getActiveBoard() != null)
-            setActiveBoard(null);
+        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+            if (getActiveBoard() != null)
+                setActiveBoard(null);
             else
                 System.out.println("No board is selected");
         } else
             System.out.println("There is no board with this name");
     }
 
-    public static void addCategory() {
+    public static void addCategory(String categoryName, String boardName) {
+
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName()))
+                DatabaseHandler.addCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
+            else
+                System.out.println("There is not a board with this name");
+        } else
+            System.out.println("You do not have the permission to do this action!");
     }
 
-    public static void addCategoryToColumn() {
+    public static void addCategoryToColumn(String categoryName , String columnNum , String boardName) {
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())) {
+                int help =  numOfBoardCategories(boardName , TeamMenuController.getTeam().getId());
+                if ( help >= Integer.parseInt(columnNum)- 1 && help > 0)
+                DatabaseHandler.addCategoryToColumn(categoryName, columnNum, boardName, TeamMenuController.getTeam().getId());
+                else
+                    System.out.println("wrong column");
+            } else
+                System.out.println("There is not a board with this name");
+        } else
+            System.out.println("You do not have the permission to do this action!");
     }
 
     public static void completeBoardFirstStep() {

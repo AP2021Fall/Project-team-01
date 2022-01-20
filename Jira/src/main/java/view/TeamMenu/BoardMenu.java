@@ -18,9 +18,9 @@ public class BoardMenu {
         else if ((matcher = Regex.getCommandMatcher(command,Regex.DESELECT_BOARD)).matches())
             BoardMenuController.deselectBoard();
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_CATEGORY)).matches())
-            BoardMenuController.addCategory();
+            BoardMenuController.addCategory(matcher.group(1) , matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_CATEGORY_TO_COLUMN)).matches())
-            BoardMenuController.addCategoryToColumn();
+            BoardMenuController.addCategoryToColumn(matcher.group(1) , matcher.group(2) , matcher.group(3));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.COMPLETE_BOARD_FIRST_STEP)).matches())
             BoardMenuController.completeBoardFirstStep();
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_TASK_TO_BOARD)).matches())

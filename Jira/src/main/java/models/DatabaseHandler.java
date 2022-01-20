@@ -333,8 +333,8 @@ public class DatabaseHandler {
                 return "Some teams are not in pending status! Try again";
         }
         for (String i : teams) {
-           String sql = String.format(Queries.ACCEPT_TEAM, i);
-           connectAndExecute(sql);
+            String sql = String.format(Queries.ACCEPT_TEAM, i);
+            connectAndExecute(sql);
         }
         return "teams Accepted";
 
@@ -367,6 +367,7 @@ public class DatabaseHandler {
         connection.close();
         return answer;
     }
+
     public static LocalDateTime getCreationDateByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
         connect();
@@ -396,6 +397,7 @@ public class DatabaseHandler {
         String sql = String.format(Queries.ASSIGN_USER, username, taskId);
         connectAndExecute(sql);
     }
+
     public static void removeUserFromTask(int taskId, String username) throws SQLException {
         String sql = String.format(Queries.REMOVE_USER_FROM_TASK, username, taskId);
         connectAndExecute(sql);
@@ -458,12 +460,16 @@ public class DatabaseHandler {
     //public static ArrayList<String> showChatroom(String teamName) throws SQLException{
     //}
     //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
-   //}
+    //}
     //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
     //}
-    // public static boolean doesBoardExist(String boardName , String teamName)throws SQLException{
+    // public static boolean doesBoardExist(String boardName , int teamId)throws SQLException{
     //}
 
-    //  public static void removeBoard(String boardName , String teamName) throws SQLException {
+    //  public static void removeBoard(String boardName , int teamId ) throws SQLException {
     //      }
+    // public static void addCategory( String categoryName , String boardName , int teamId ){
+    //    }
+    // public static int numOfBoardCategories( String boardName , int teamId){
+    // }
 }
