@@ -22,6 +22,7 @@ public class MainMenu {
         Matcher acceptTeams = Regex.getCommandMatcher(command, "accept --teams (.+)");
         Matcher rejectTeams = Regex.getCommandMatcher(command, "reject --teams (.+)");
         Matcher showScoreboard = Regex.getCommandMatcher(command, "show score board --team name (.+)");
+        Matcher changeRole = Regex.getCommandMatcher(command, "^change role --user (.+) --role (.+)$");
         if (showTeamsMatcher.find()) {
             String menu = showTeamsMatcher.group(1);
             switch (menu) {
@@ -68,6 +69,8 @@ public class MainMenu {
             MainMenuController.rejectTeams(teams);
         } else if (showScoreboard.find()) {
             MainMenuController.showScoreboard(showScoreboard.group(1));
+        } else if (changeRole.find()){
+            MainMenuController.changeRole(changeRole.group(1));
         }
 
     }
@@ -87,6 +90,7 @@ public class MainMenu {
                 "enter menu team menu\n" +
                 "enter menu tasks page\n" +
                 "enter menu calendar menu\n" +
-                "show --teams");
+                "show --teams\n" +
+                "change role --user <username> --role <new role>");
     }
 }

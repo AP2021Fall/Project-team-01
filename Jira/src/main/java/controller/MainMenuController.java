@@ -131,7 +131,7 @@ public class MainMenuController {
             System.out.println("You do not have access to this section");
         }
     }
-    public static void showScoreboard(String teamName) throws SQLException {
+    public static void showScoreboard (String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesTeamExist(teamName)) {
                 ArrayList<String> show = DatabaseHandler.showScoreboard(teamName);
@@ -142,6 +142,18 @@ public class MainMenuController {
             }
         } else {
             System.out.println("You do not have access to this section");
+        }
+    }
+
+    public static void changeRole (String username) throws SQLException{
+        if (LoginController.getActiveUser().getRole().equals("admin")){
+            if (DatabaseHandler.doesUsernameExist(username)){
+
+            }else{
+                System.out.println("There is no user with this username");
+            }
+        }else {
+            System.out.println("you don't have access to this section");
         }
     }
 }
