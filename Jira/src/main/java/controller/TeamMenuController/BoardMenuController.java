@@ -54,7 +54,13 @@ public class BoardMenuController {
         } else
             System.out.println("There is no board with this name");
     }
-
+    public static void addCategorySelect(String categoryName){
+        String take = BoardMenuController.getActiveBoard();
+        if (take != null)
+           addCategory(categoryName , take);
+        else
+            System.out.println("No board is selected");
+    }
     public static void addCategory(String categoryName, String boardName) {
 
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
@@ -66,10 +72,18 @@ public class BoardMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
 
+    public static void addCategoryToColumnSelect(String categoryName , String columnNum){
+        String take = BoardMenuController.getActiveBoard();
+        if (take != null)
+            addCategoryToColumn(categoryName , columnNum , take);
+        else
+            System.out.println("No board is selected");
+    }
+
     public static void addCategoryToColumn(String categoryName , String columnNum , String boardName) {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getName())) {
-                int help =  numOfBoardCategories(boardName , TeamMenuController.getTeam().getId());
+                int help =  DatabaseHandler.numOfBoardCategories(boardName , TeamMenuController.getTeam().getId());
                 if ( help >= Integer.parseInt(columnNum)- 1 && help > 0)
                 DatabaseHandler.addCategoryToColumn(categoryName, columnNum, boardName, TeamMenuController.getTeam().getId());
                 else
@@ -79,11 +93,29 @@ public class BoardMenuController {
         } else
             System.out.println("You do not have the permission to do this action!");
     }
-
-    public static void completeBoardFirstStep() {
-
+    public static void completeBoardFirstStepSelect(){
+        String take = BoardMenuController.getActiveBoard();
+        if (take != null)
+            completeBoardFirstStep(take);
+        else
+            System.out.println("No board is selected");
     }
-
+    public static void completeBoardFirstStep( String boardName) {
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.numOfBoardCategories(boardName , TeamMenuController.getTeam().getId()) != 0)
+                DatabaseHandler.finishBoard(boardName, TeamMenuController.getTeam().getId());
+                else
+                    System.out.println("Please make a category first");
+            }
+            else
+                System.out.println("There is no board with this name");
+        } else
+            System.out.println("You do not have the permission to do this action!");
+    }
+    public static void addTaskToBoardSelect(){
+        
+    }
     public static void addTaskToBoard() {
     }
 

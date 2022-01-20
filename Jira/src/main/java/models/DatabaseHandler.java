@@ -472,4 +472,7 @@ public class DatabaseHandler {
     //    }
     // public static int numOfBoardCategories( String boardName , int teamId){
     // }
+    // change finish field of a board
+    // public static void finishBoard(String boardName, int teamId){
+    // }
 }

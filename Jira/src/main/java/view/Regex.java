@@ -32,8 +32,11 @@ public class Regex {
     public static final String REMOVE_BOARD = "^board --remove --name (.+)$";
     public static final String SELECT_BOARD = "^board --select --name (.+)$";
     public static final String DESELECT_BOARD = "^board --deselect$";
+    public static final String ADD_CATEGORY_SELECT = "^board --new --category (.+)$";
     public static final String ADD_CATEGORY = "^board --new --category (.+) --name (.+)$";
+    public static final String ADD_CATEGORY_TO_COLUMN_SELECT = "^board --new --category (.+) --column (.+)$";
     public static final String ADD_CATEGORY_TO_COLUMN = "^board --new --category (.+) --column (.+) --name (.+)$";
+    public static final String COMPLETE_BOARD_FIRST_STEP_SELECT = "^board --done$";
     public static final String COMPLETE_BOARD_FIRST_STEP = "^board --done --name (.+)$";
     public static final String ADD_TASK_TO_BOARD = "^board --add (.+) --name (.+)$";
     public static final String ASSIGN_TASK_TO_MEMBER = "^board --assign (.+) --task (.+) --name (.+)$";
