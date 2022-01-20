@@ -50,6 +50,9 @@ public class DatabaseHandler {
     }
 
     //TODO when categories initialize
+    //ino eslah kon faghat nameBoardro migire va misaze intory tarif she
+    // public static void createBoard(String boardName , String teamName) throws SQLException {
+    //  }
     public static void createBoard(ArrayList<String> categories) throws SQLException {
         String sql = Queries.CREATE_BOARD;
         connectAndExecute(sql);
@@ -458,4 +461,9 @@ public class DatabaseHandler {
    //}
     //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
     //}
+    // public static boolean doesBoardExist(String boardName , String teamName)throws SQLException{
+    //}
+
+    //  public static void removeBoard(String boardName , String teamName) throws SQLException {
+    //      }
 }
