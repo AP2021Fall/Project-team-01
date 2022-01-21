@@ -640,4 +640,19 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
+    //public static void addMemberToTeam(String username, int teamId) {
+    //}
+
+    // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
+    // }
+
+    // public static boolean doesTaskExist(String taskTitle){
+    // }
+    //public static boolean doesTeamHaveMember(int teamId){
+    // }
+    // public static Arraylist<String> showTeamMembers (int teamId){
+    // }
+
+    // public static boolean isUserMember ( String username){
+    // }
 }
