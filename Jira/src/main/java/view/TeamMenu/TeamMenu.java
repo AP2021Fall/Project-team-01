@@ -55,7 +55,7 @@ public class TeamMenu {
         else if ((matcher = Regex.getCommandMatcher(command,Regex.PROMOTE_MEMBER)).matches())
             TeamMenuController.promoteMember(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ASSIGN_MEMBER_TO_TASK_BY_LEADER)).matches())
-            TeamMenuController.assignMemberToTask(matcher.group(1));
+            TeamMenuController.assignMemberToTask(matcher.group(1) , matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.SHOW_SCOREBOARD_TO_LEADER)).matches())
             TeamMenuController.showScoreboardToLeader();
     }

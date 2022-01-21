@@ -2,6 +2,7 @@ package controller.TeamMenuController;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import controller.LoginController;
+import controller.MainMenuController;
 import models.DatabaseHandler;
 import models.Team;
 import view.Regex;
@@ -57,11 +58,11 @@ public class TeamMenuController {
                     int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
                     if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                         System.out.println("There is another task with this title!");
-                    }else {
-                        DatabaseHandler.createTaskLeader(taskTitle,creationDate,deadlineDate,TeamMenuController.getTeam().getId());
+                    } else {
+                        DatabaseHandler.createTaskLeader(taskTitle, creationDate, deadlineDate, TeamMenuController.getTeam().getId());
                     }
-                }else
-                    DatabaseHandler.createTaskLeader(taskTitle,creationDate,deadlineDate,TeamMenuController.getTeam().getId());
+                } else
+                    DatabaseHandler.createTaskLeader(taskTitle, creationDate, deadlineDate, TeamMenuController.getTeam().getId());
             } else
                 System.out.println("Invalid deadline");
         } else
@@ -70,42 +71,88 @@ public class TeamMenuController {
 
 
     public static void showMembersLeader() {
-        if ( DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getId())) {
+        if (DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getId())) {
             ArrayList<String> print = DatabaseHandler.showTeamMembers(TeamMenuController.getTeam().getId());
-            for ( String s : print)
+            for (String s : print)
                 System.out.println(s);
-        }
-        else
+        } else
             System.out.println("This team has no member");
     }
 
     public static void addMemberToTeam(String name) throws SQLException {
-        if (DatabaseHandler.doesUsernameExist(name)){
-            if(DatabaseHandler.isUserMember(name))
-                DatabaseHandler.addMemberToTeam(name , TeamMenuController.getTeam().getId());
+        if (DatabaseHandler.doesUsernameExist(name)) {
+            if (DatabaseHandler.isUserMember(name))
+                if ( ! (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getId())))
+                    DatabaseHandler.addMemberToTeam(name, TeamMenuController.getTeam().getId());
+                else
+                    System.out.println("This user is already in your team");
             else
                 System.out.println("This user has a leader role you cant add it to your team");
-        }else
+        } else
             System.out.println("no user with this username exists");
     }
 
     public static void deleteMemberFromTeam(String group) {
-
+        if (DatabaseHandler.doesUsernameExist(name)) {
+            if (DatabaseHandler.isUserMember(name))
+                if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getId()))
+                    DatabaseHandler.removeMemberFromTeam(name, TeamMenuController.getTeam().getId());
+                else
+                    System.out.println("This user is not in your team to remove it");
+            else
+                System.out.println("you cant remove yourself!");
+        } else
+            System.out.println("no user with this username exists");
     }
 
-    public static void suspendMember(String group) {
-
+    public static void suspendMember(String username) throws SQLException {
+        if (DatabaseHandler.doesUsernameExist(username)) {
+            if (DatabaseHandler.isUserMember(username))
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                    deleteMemberFromTeam(username);
+                    DatabaseHandler.addToSuspendedList(username , TeamMenuController.getTeam().getId());
+                }
+                else
+                    System.out.println("This user is not in your team to suspend it");
+            else
+                System.out.println("you cant suspend yourself!");
+        } else
+            System.out.println("no user with this username exists");
     }
 
-    public static void promoteMember(String group) {
-
+    public static void promoteMember(String username) throws SQLException {
+        if (DatabaseHandler.doesUsernameExist(username)) {
+            if (DatabaseHandler.isUserMember(username))
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                   MainMenuController.changeRole(username , "leader");
+                }
+                else
+                    System.out.println("This user is not in your team to promote it");
+            else
+                System.out.println("you cant promote yourself!");
+        } else
+            System.out.println("no user with this username exists");
     }
 
-    public static void assignMemberToTask(String group) {
-
+    public static void assignMemberToTask( String taskTitle , String username) throws SQLException {
+        if (DatabaseHandler.doesUsernameExist(username)) {
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                    if (DatabaseHandler.doesTaskExist(taskTitle)) {
+                        int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle , TeamMenuController.getTeam().getId());
+                        if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId)))
+                            DatabaseHandler.assignMemberToTaskByLeader(username, taskId);
+                        else
+                            System.out.println("this task doesnt belong to this team");
+                    }else
+                        System.out.println("no task exist with this id in any teams");
+                }
+                else
+                    System.out.println("This user is not in your team to assign");
+        } else
+            System.out.println("No user exists with this username!");
     }
 
-    public static void showScoreboardToLeader() {
-
+    public static void showScoreboardToLeader() throws SQLException {
+        ScoreBoardController.showScoreboard();
     }
 }

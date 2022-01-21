@@ -642,7 +642,8 @@ public class DatabaseHandler {
 
     //public static void addMemberToTeam(String username, int teamId) {
     //}
-
+    //public static void removeMemberFromTeam(String username, int teamId) {
+    //}
     // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
     // }
 
@@ -654,5 +655,12 @@ public class DatabaseHandler {
     // }
 
     // public static boolean isUserMember ( String username){
+    // }
+    // public static boolean isUserInTeam (String username , int teamId){
+    //}
+    // public static void addToSuspendedList (String username , int teamId){
+    // }
+
+    // public static void assignMemberToTaskByLeader ( String username , int taskId){
     // }
 }
