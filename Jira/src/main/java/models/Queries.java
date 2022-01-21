@@ -107,4 +107,26 @@ public class Queries {
             "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE team_id = %d";
     public static final String GET_USERS_ASSIGNED_TASK =
             "SELECT username FROM `username-task_id` WHERE task_id = %d";
+    public static final String DOES_BOARD_EXIST =
+            "SELECT * FROM boards WHERE team_id = %d AND name = '%s'";
+    public static final String REMOVE_BOARD =
+            "DELETE FROM boards WHERE team_id = %d AND name = '%s'";
+    public static final String GET_CATEGORIES =
+            "SELECT categories FROM boards WHERE team_id = %d AND name = '%s'";
+    public static final String ADD_CATEGORIES =
+            "UPDATE boards SET categories = '%s' WHERE team_id = %d AND name = '%s'";
+    public static final String UPDATE_FINISHED_BOARD =
+            "UPDATE boards SET finished = 'yes' WHERE team_id = %d AND name = '%s'";
+    public static final String ADD_TASK_TO_BOARD =
+            "UPDATE tasks SET board_name = '%s' WHERE id = %d";
+    public static final String DOES_TASK_ADDED_TO_BOARD =
+            "SELECT * FROM tasks WHERE id = %d AND board_name = '%s'";
+    public static final String DOES_DEADLINE_PASSED =
+            "SELECT * FROM tasks WHERE id = %d AND (`deadline date` > NOW())";
+    public static final String IS_TASK_ASSIGNED =
+            "SELECT * FROM `username-task_id` WHERE task_id = %d";
+    public static final String USER_TEAMS_NUMBER =
+            "SELECT team_id FROM `username-team_id` WHERE username = '%s'";
+    public static final String CHANGE_ROLE =
+            "UPDATE users SET role = '%s' WHERE username = '%s'";
 }

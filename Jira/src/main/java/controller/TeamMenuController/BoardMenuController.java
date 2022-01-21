@@ -100,7 +100,7 @@ public class BoardMenuController {
         else
             System.out.println("No board is selected");
     }
-    public static void completeBoardFirstStep( String boardName) {
+    public static void completeBoardFirstStep( String boardName) throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 if (DatabaseHandler.numOfBoardCategories(boardName , TeamMenuController.getTeam().getId()) != 0)
