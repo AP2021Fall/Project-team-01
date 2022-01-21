@@ -70,7 +70,7 @@ public class MainMenu {
         } else if (showScoreboard.find()) {
             MainMenuController.showScoreboard(showScoreboard.group(1));
         } else if (changeRole.find()){
-            MainMenuController.changeRole(changeRole.group(1));
+            MainMenuController.changeRole(changeRole.group(1), changeRole.group(2));
         }
 
     }

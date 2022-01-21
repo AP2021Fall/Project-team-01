@@ -458,4 +458,10 @@ public class DatabaseHandler {
    //}
     //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
     //}
+
+    //can be member or leader
+    public static int getNumberOfTeamsByUsername(String username){}
+
+    //change role from member to leader and leader to member
+    public static void changeRole(String username){}
 }

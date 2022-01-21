@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class MenuController {
     public static Scanner sc = new Scanner(System.in);
     public static Menus currentMenu = Menus.LOGIN_MENU;
+    private static String changeRoleUsername;
 
     public static void execute() throws SQLException {
         while (currentMenu != Menus.EXIT) {
@@ -44,8 +45,19 @@ public class MenuController {
                 case CHANGE_PASSWORD_MENU:
 
                     break;
+                case CHANGE_ROLE_MENU:
+                    ChangeRoleMenu.execute(command);
+                    break;
             }
         }
+    }
+
+    public static String getChangeRoleUsername() {
+        return changeRoleUsername;
+    }
+
+    public static void setChangeRoleUsername(String changeRoleUsername) {
+        MenuController.changeRoleUsername = changeRoleUsername;
     }
 }
 

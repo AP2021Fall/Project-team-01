@@ -3,8 +3,12 @@ package controller;
 import controller.TeamMenuController.TeamMenuController;
 import models.DatabaseHandler;
 import models.User;
+import view.ChangeRoleMenu;
+import view.MenuController;
+import view.Menus;
 import view.Regex;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -145,10 +149,30 @@ public class MainMenuController {
         }
     }
 
-    public static void changeRole (String username) throws SQLException{
+    public static void changeRole (String username, String newRole) throws SQLException{
         if (LoginController.getActiveUser().getRole().equals("admin")){
             if (DatabaseHandler.doesUsernameExist(username)){
-
+                if (DatabaseHandler.getNumberOfTeamsByUsername(username) > 1){
+                    if (newRole.equals("leader")){
+                        String teamName = DatabaseHandler.getUserTeams(username).get(0);
+                        String preLeader = DatabaseHandler.getLeaderByTeamName(teamName);
+                        if(DatabaseHandler.getNumberOfTeamsByUsername(preLeader)>1)
+                            System.out.println("previous leader is joined in more than one team");
+                        else{
+                            DatabaseHandler.changeRole(username);
+                            DatabaseHandler.changeRole(preLeader);
+                            System.out.println("User:" + username + "'s role changed to"+ newRole);
+                        }
+                    }
+                    else {
+                        System.out.println("now enter a username to replace with this leader in team");
+                        MenuController.currentMenu = Menus.CHANGE_ROLE_MENU;
+                        ChangeRoleMenu.showChangeRoleMenu();
+                        MenuController.setChangeRoleUsername(username);
+                    }
+                }else{
+                    System.out.println("this user is joined in more than one team");
+                }
             }else{
                 System.out.println("There is no user with this username");
             }
@@ -156,4 +180,20 @@ public class MainMenuController {
             System.out.println("you don't have access to this section");
         }
     }
+
+    public static void changeRoleToMember(String newLeaderUsername) throws SQLException {
+        if (!DatabaseHandler.doesUsernameExist(newLeaderUsername))
+            System.out.println("user not found!");
+        else {
+            if (DatabaseHandler.getNumberOfTeamsByUsername(newLeaderUsername)>1){
+                System.out.println("this user is a member of more than one team");
+            }else {
+                DatabaseHandler.changeRole(newLeaderUsername);
+                DatabaseHandler.changeRole(MenuController.getChangeRoleUsername());
+                System.out.println("Roles changed successfully!");
+            }
+        }
+    }
+
+
 }
