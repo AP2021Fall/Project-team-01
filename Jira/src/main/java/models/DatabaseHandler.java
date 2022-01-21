@@ -567,6 +567,6 @@ public class DatabaseHandler {
     // }
     // public static void doesDeadlinePassed( int taskId ){
     // }
-    // public static void doesTasmAssigned( int taskId){
+    // public static void isTaskAssigned( int taskId){
     // }
 }

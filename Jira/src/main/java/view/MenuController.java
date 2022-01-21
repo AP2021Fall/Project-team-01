@@ -1,10 +1,8 @@
 package view;
 
+import view.ProfileMenu.ChangePasswordMenu;
 import view.ProfileMenu.ProfileMenu;
-import view.TeamMenu.Roadmap;
-import view.TeamMenu.ScoreBoard;
-import view.TeamMenu.TeamMenu;
-import view.TeamMenu.TeamSelection;
+import view.TeamMenu.*;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -42,7 +40,19 @@ public class MenuController {
                     Roadmap.execute(command);
                     break;
                 case CHANGE_PASSWORD_MENU:
-
+                    ChangePasswordMenu.execute(command);
+                    break;
+                case BOARD_MENU:
+                    BoardMenu.execute(command);
+                    break;
+                case CHATROOM:
+                    Chatroom.execute(command);
+                    break;
+                case TEAM_TASKS:
+                    Tasks.execute(command);
+                    break;
+                case CALENDAR_MENU:
+                    CalendarMenu.execute(command);
                     break;
             }
         }

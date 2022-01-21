@@ -20,8 +20,8 @@ public class TeamSelectionController {
     }
     public static void showTeams() throws SQLException {
         ArrayList<String> teamsOfUser = DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername());
-        for (int i = 0 ; i < teamsOfUser.size() ; i++){
-            System.out.println((i+1 )+ " "+ teamsOfUser.get(i));
+        for (String s : teamsOfUser) {
+            System.out.println(s);
         }
     }
 

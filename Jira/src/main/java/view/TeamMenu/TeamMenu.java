@@ -1,7 +1,10 @@
 package view.TeamMenu;
 
+import controller.TeamMenuController.ChatroomController;
 import controller.TeamMenuController.RoadmapController;
 import controller.TeamMenuController.ScoreBoardController;
+import controller.TeamMenuController.TasksController;
+import view.MainMenu;
 import view.MenuController;
 import view.Menus;
 import view.Regex;
@@ -22,10 +25,22 @@ public class TeamMenu {
                     RoadmapController.showRoadmapMenu();
                     MenuController.currentMenu = Menus.ROADMAP;
                     break;
-
-
-
-
+                case "BoardMenu":
+                    BoardMenu.showBoardMenu();
+                    MenuController.currentMenu = Menus.BOARD_MENU;
+                    break;
+                case "Chatroom":
+                    ChatroomController.showChatroomMenu();
+                    MenuController.currentMenu = Menus.CHATROOM;
+                    break;
+                case "Tasks":
+                    TasksController.showTaskMenu();
+                    MenuController.currentMenu = Menus.TEAM_TASKS;
+                    break;
+                case "back":
+                    MainMenu.showMainMenu();
+                    MenuController.currentMenu = Menus.MAIN_MENU;
+                    break;
             }
 
     }
