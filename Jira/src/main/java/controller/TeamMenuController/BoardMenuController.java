@@ -183,7 +183,30 @@ public class BoardMenuController {
     public static void forceTaskToCategorySelect(){
 
     }
-    public static void forceTaskToCategory() {
+    //nagese inja takmil nashode
+    public static void forceTaskToCategory(String category , String taskTitle , String boardName) throws SQLException {
+
+        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+            if (DatabaseHandler.doesTaskExist(taskNum)) {
+                int taskNum = DatabaseHandler.getTaskIdByTaskTitle(taskTitle , TeamMenuController.getTeam().getId())
+                if (DatabaseHandler.isUsernameAssigned(taskNum , LoginController.getActiveUser().getUsername())) {
+                    if ((DatabaseHandler.doesTaskAddedToBoard(taskNum , boardName))){
+                        if (!(DatabaseHandler.isTaskInDoneCategory(taskNum))) {
+                            if (DatabaseHandler.doesTeamExistForUser(TeamMenuController.getTeam().getName() , teamMember))
+                                DatabaseHandler.assignUser(taskNum , teamMember);
+                            else
+                                System.out.println("Invalid teammate");
+                        }else
+                            System.out.println("This task has already finished");
+                    }else
+                        System.out.println("This task has not added to this board");
+                }else
+                    System.out.println("This task is not assigned to you!");
+            }else
+                System.out.println("There is no task with given information");
+        }
+        else
+            System.out.println("There is not any board with that name in this team");
     }
     public static void taskToNextSelect(){
 

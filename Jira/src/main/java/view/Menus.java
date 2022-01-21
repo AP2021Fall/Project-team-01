@@ -13,11 +13,9 @@ public enum Menus {
     SCOREBOARD,
     ROADMAP,
     CHANGE_PASSWORD_MENU,
-<<<<<<< HEAD
     BOARD_MENU,
     CHATROOM,
-    TEAM_TASKS
-=======
+    TEAM_TASKS,
     CHANGE_ROLE_MENU
->>>>>>> b4e50c362256f587e6c18bd8f7b6e6898e06cdc0
+
 }

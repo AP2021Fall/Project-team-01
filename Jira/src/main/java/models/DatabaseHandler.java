@@ -601,7 +601,9 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
-
+    // title task va id team ro migire va id task mored nazar ro bar migardune
+     // public static void getTaskIdByTaskTitle( String taskTitle , int teamId){
+    //  }
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);

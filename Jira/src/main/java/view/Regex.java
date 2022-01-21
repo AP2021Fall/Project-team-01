@@ -54,6 +54,13 @@ public class Regex {
     public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
     public static final String SHOW_BOARD_SELECT = "^Board --show$";
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
+    public static final String SHOW_ALL_TASKS_FOR_LEADER = "^sudo show --all --tasks$";
+    public static final String CREATE_TASK = "^create task --title (.+) --startTime (.+) --deadline (.+)$";
+    public static final String SHOW_MEMBERS_FOR_LEADER = "^show --members$";
+    public static final String ADD_MEMBER_TO_TEAM = "^Add member --username(.+)$";
+    public static final String DELETE_MEMBER_FROM_TEAM = "^delete member --username (.+)$$";
+    public static final String SUSPEND_MEMBER = "^delete member --username (.+)$";
+    public static final String PROMOTE_MEMBER = "^suspend member --username (.+)$";
     public static final String INVALID_COMMAND = "^invalid command!$";
 
     public static final String ENTER_TEAM = "^Enter Team (.+)$";
