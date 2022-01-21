@@ -738,13 +738,13 @@ public class DatabaseHandler {
         connection.close();
         return "";
     }
+
     //public static void addMemberToTeam(String username, int teamId) {
     //}
     //public static void removeMemberFromTeam(String username, int teamId) {
     //}
     // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
     // }
-
     // public static boolean doesTaskExist(String taskTitle){
     // }
     //public static boolean doesTeamHaveMember(int teamId){
