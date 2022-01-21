@@ -601,9 +601,23 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
-     // title task va id team ro migire va id task mored nazar ro bar migardune
-      //public static int getTaskIdByTaskTitle( String taskTitle , int teamId){
-      // }
+
+    // title task va id team ro migire va id task mored nazar ro bar migardune
+      public static int getTaskIdByTaskTitle( String taskTitle , int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_ID_BY_TASK_TITLE, teamId, taskTitle);
+        int a = 0;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            a = result.getInt(1);
+        }
+        statement.close();
+        connection.close();
+        return a;
+      }
+
+
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);
@@ -626,19 +640,4 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
-    //public static void addMemberToTeam(String username, int teamId) {
-    //}
-
-    // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
-    // }
-
-    // public static boolean doesTaskExist(String taskTitle){
-    // }
-    //public static boolean doesTeamHaveMember(int teamId){
-    // }
-    // public static Arraylist<String> showTeamMembers (int teamId){
-    // }
-
-    // public static boolean isUserMember ( String username){
-    // }
 }
