@@ -31,7 +31,8 @@ public class LoginController {
         return ("user logged in successfully!");
     }
 
-    public static String createUser(String username, String password, String confirmPassword, String email, String role) throws SQLException {
+    public static String createUser(String username, String password, String confirmPassword,
+                                    String email, String role) throws SQLException {
         String EMAIL_FORMAT = "^[a-zA-Z0-9.]+@(gmail||yahoo).com$";
 
         if (DatabaseHandler.doesUsernameExist(username))
@@ -47,5 +48,4 @@ public class LoginController {
             return ("user created successfully!");
         }
     }
-
 }

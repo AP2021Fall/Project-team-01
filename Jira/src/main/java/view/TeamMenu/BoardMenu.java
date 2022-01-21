@@ -17,16 +17,26 @@ public class BoardMenu {
             BoardMenuController.selectBoard(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.DESELECT_BOARD)).matches())
             BoardMenuController.deselectBoard();
+        else if ((matcher= Regex.getCommandMatcher(command,Regex.ADD_CATEGORY_SELECT)).matches())
+            BoardMenuController.addCategorySelect(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_CATEGORY)).matches())
-            BoardMenuController.addCategory();
+            BoardMenuController.addCategory(matcher.group(1) , matcher.group(2));
+        else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_CATEGORY_TO_COLUMN_SELECT)).matches())
+            BoardMenuController.addCategoryToColumnSelect(matcher.group(1),matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_CATEGORY_TO_COLUMN)).matches())
-            BoardMenuController.addCategoryToColumn();
+            BoardMenuController.addCategoryToColumn(matcher.group(1) , matcher.group(2) , matcher.group(3));
+        else if ((matcher = Regex.getCommandMatcher(command,Regex.COMPLETE_BOARD_FIRST_STEP_SELECT)).matches())
+            BoardMenuController.completeBoardFirstStepSelect();
         else if ((matcher = Regex.getCommandMatcher(command,Regex.COMPLETE_BOARD_FIRST_STEP)).matches())
-            BoardMenuController.completeBoardFirstStep();
+            BoardMenuController.completeBoardFirstStep(matcher.group(1));
+        else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_TASK_TO_BOARD_SELECT)).matches())
+            BoardMenuController.addTaskToBoardSelect(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ADD_TASK_TO_BOARD)).matches())
-            BoardMenuController.addTaskToBoard();
+            BoardMenuController.addTaskToBoard(matcher.group(1),matcher.group(2));
+        else if ((matcher = Regex.getCommandMatcher(command,Regex.ASSIGN_TASK_TO_MEMBER_SELECT)).matches())
+            BoardMenuController.assignTaskToMemberSelect(matcher.group(1),matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.ASSIGN_TASK_TO_MEMBER)).matches())
-            BoardMenuController.assignTaskToMemeber();
+            BoardMenuController.assignTaskToMember(matcher.group(1), matcher.group(2) , matcher.group(3));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.FORCE_TASK_TO_CATEGORY)).matches())
             BoardMenuController.forceTaskToCategory();
         else if ((matcher = Regex.getCommandMatcher(command,Regex.TASK_TO_NEXT)).matches())

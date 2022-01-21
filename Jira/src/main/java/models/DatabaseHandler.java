@@ -50,7 +50,10 @@ public class DatabaseHandler {
     }
 
     //TODO when categories initialize
-    public static void createBoard(ArrayList<String> categories) throws SQLException {
+    //ino eslah kon faghat nameBoardro migire va misaze intory tarif she
+    // public static void createBoard(String boardName , int teamId) throws SQLException {
+    //  }
+    public static void createBoard(String boardName, int teamId) throws SQLException {
         String sql = Queries.CREATE_BOARD;
         connectAndExecute(sql);
     }
@@ -330,8 +333,8 @@ public class DatabaseHandler {
                 return "Some teams are not in pending status! Try again";
         }
         for (String i : teams) {
-           String sql = String.format(Queries.ACCEPT_TEAM, i);
-           connectAndExecute(sql);
+            String sql = String.format(Queries.ACCEPT_TEAM, i);
+            connectAndExecute(sql);
         }
         return "teams Accepted";
 
@@ -364,6 +367,7 @@ public class DatabaseHandler {
         connection.close();
         return answer;
     }
+
     public static LocalDateTime getCreationDateByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
         connect();
@@ -393,6 +397,7 @@ public class DatabaseHandler {
         String sql = String.format(Queries.ASSIGN_USER, username, taskId);
         connectAndExecute(sql);
     }
+
     public static void removeUserFromTask(int taskId, String username) throws SQLException {
         String sql = String.format(Queries.REMOVE_USER_FROM_TASK, username, taskId);
         connectAndExecute(sql);
@@ -429,39 +434,146 @@ public class DatabaseHandler {
             return result.getString(1);
         else return null;
     }
-//
-//    public static void changeTaskPriority(int id, String newPriority) {
-//
-//    }
-//
-//    public static void changeTaskDescription(int id, String newDescription) {
-//    }
-//
-//    public static void changeTaskTitle(int id, String newTitle) {
-//    }
-//
-//    public static void logLogin (String username, LocalDateTime log){}
 
-    //esm team ra begir va baraye khuruji be format username:point baraye hame aza team chap kon
-    //tartibi ke ruye arraylist mizari user ha bar asas point hashun az ziad be kam sort beshan
-    //public static ArrayList<String> showScoreboard(String teamName) throws SQLException{
+    public static void changeTaskPriority(int id, String newPriority) throws SQLException {
+        String sql = String.format(Queries.UPDATE_PRIORITY, newPriority, id);
+        connectAndExecute(sql);
+    }
+
+    public static void changeTaskDescription(int id, String newDescription) throws SQLException {
+        String sql = String.format(Queries.UPDATE_DESCRIPTION, newDescription, id);
+        connectAndExecute(sql);
+    }
+
+    public static void changeTaskTitle(int id, String newTitle) throws SQLException {
+        String sql = String.format(Queries.UPDATE_DESCRIPTION, newTitle, id);
+        connectAndExecute(sql);
+    }
+
+    public static void logLogin (String username, LocalDateTime log) throws SQLException {
+        String sql = String.format(Queries.GET_LOGS, username);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String logs = result.getString(1);
+            ArrayList<LocalDateTime> localDateTimes = new Gson().fromJson(logs,
+                    new TypeToken<List<LocalDateTime>>(){}.getType());
+            localDateTimes.add(log);
+            logs = new Gson().toJson(localDateTimes);
+            sql = String.format(Queries.ADD_LOGS, logs, username);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
+    }
+
+    public static ArrayList<String> showRoadmap(int teamId) throws SQLException{
+        String sql = String.format(Queries.ROAD_MAP, teamId);
+        ArrayList<String> roadMaps = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int i = 1;
+        while (result.next()) {
+            roadMaps.add(i + result.getString(1) + " : " + result.getString(2));
+        }
+        return roadMaps;
+    }
+
+
+    public static void sendMessage( int teamId , String message) throws SQLException {
+        String sql = String.format(Queries.GET_CHATROOM, teamId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            ArrayList<String> chats = new Gson().fromJson(json,
+                    new TypeToken<List<String>>(){}.getType());
+            chats.add(message);
+            json = new Gson().toJson(chats);
+            sql = String.format(Queries.ADD_CHAT, chats, teamId);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
+  }
+
+    public static ArrayList<String> showChatroom(int teamId) throws SQLException{
+        String sql = String.format(Queries.GET_CHATROOM, teamId);
+        ArrayList<String> chats = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+             = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        }
+        statement.close();
+        connection.close();
+        return chats;
+    }
+
+    public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException{
+        String sql = String.format(Queries.GET_TASKS_BY_TEAM_ID, teamId);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int i = 1;
+        while (result.next()) {
+            String taskTitle = result.getString(1);
+            int taskId = result.getInt(2);
+            String creatingDate = result.getString(3);
+            String deadlineDate = result.getString(4);
+            StringBuilder users = new StringBuilder();
+            String priority = result.getString(5);
+            sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, teamId);
+            Statement statement2 = connection.createStatement();
+            ResultSet result2 = statement2.executeQuery(sql);
+            while (result2.next()) {
+                users.append(" " + result2.getString(1));
+            }
+            statement2.close();
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:"+ users.toString() + ",priority: " + priority);
+            i++;
+        }
+        statement.close();
+        connection.close();
+        return answer;
+    }
+    // public static boolean doesBoardExist(String boardName , int teamId)throws SQLException{
     //}
 
-    //public static ArrayList<String> showRoadmap(String teamName) throws SQLException{
+    //  public static void removeBoard(String boardName , int teamId ) throws SQLException {
+    //      }
+    // public static void addCategory( String categoryName , String boardName , int teamId ){
+    //    }
+    // public static int numOfBoardCategories( String boardName , int teamId){
+    // }
+    // change finish field of a board
+    // public static void finishBoard(String boardName, int teamId){
+    // }
+    //public static void addTaskToBoard (int taskId , String boardName){
     //}
-    //public static void sendMessage( String teamName , String message){
-//  }
-
-    //public static ArrayList<String> showChatroom(String teamName) throws SQLException{
-    //}
-    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
-   //}
-    //public static ArrayList<String> getTeamTasksByTeamName(String teamName) throws SQLException{
-    //}
+    // public static void doesTaskAddedToBoard(int taskId , String boardName){
+    // }
+    // public static void doesDeadlinePassed( int taskId ){
+    // }
+    // public static void doesTasmAssigned( int taskId){
+    // }
 
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username){}
 
     //change role from member to leader and leader to member
     public static void changeRole(String username){}
+
 }
