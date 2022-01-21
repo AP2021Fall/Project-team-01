@@ -601,9 +601,23 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
+
     // title task va id team ro migire va id task mored nazar ro bar migardune
-     // public static void getTaskIdByTaskTitle( String taskTitle , int teamId){
-    //  }
+      public static int getTaskIdByTaskTitle( String taskTitle , int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_ID_BY_TASK_TITLE, teamId, taskTitle);
+        int a = 0;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            a = result.getInt(1);
+        }
+        statement.close();
+        connection.close();
+        return a;
+      }
+
+
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);

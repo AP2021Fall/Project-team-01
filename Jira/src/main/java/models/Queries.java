@@ -129,4 +129,6 @@ public class Queries {
             "SELECT team_id FROM `username-team_id` WHERE username = '%s'";
     public static final String CHANGE_ROLE =
             "UPDATE users SET role = '%s' WHERE username = '%s'";
+    public static final String GET_TASK_ID_BY_TASK_TITLE =
+            "SELECT id FROM tasks WHERE team_id = %d AND title = '%s'";
 }
