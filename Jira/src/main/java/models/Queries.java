@@ -131,4 +131,12 @@ public class Queries {
             "UPDATE users SET role = '%s' WHERE username = '%s'";
     public static final String GET_TASK_ID_BY_TASK_TITLE =
             "SELECT id FROM tasks WHERE team_id = %d AND title = '%s'";
+    public static final String SHOW_BOARD =
+            "SELECT leader FROM boards b JOIN teams t ON b.team_id = t.id WHERE b.name = '%s' AND team_id = %d";
+    public static final String GET_DONE_TASKS_OF_BOARD =
+            "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 1";
+    public static final String GET_FAILED_TASKS_OF_BOARD =
+            "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 0";
+    public static final String GET_TASKS_BY_BOARD_NAME_TEAM_ID =
+            "SELECT title, category, description,`creation date`,`deadline date`,state,id FROM tasks WHERE board_name = '%s' AND team_id = %d AND priority = %d";
 }

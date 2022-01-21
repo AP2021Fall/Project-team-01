@@ -38,7 +38,7 @@ public class BoardMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
 
-    public static void selectBoard(String boardName) {
+    public static void selectBoard(String boardName) throws SQLException {
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))
             setActiveBoard(boardName);
         else
@@ -61,7 +61,7 @@ public class BoardMenuController {
         else
             System.out.println("No board is selected");
     }
-    public static void addCategory(String categoryName, String boardName) {
+    public static void addCategory(String categoryName, String boardName) throws SQLException {
 
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))
@@ -72,7 +72,7 @@ public class BoardMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
 
-    public static void addCategoryToColumnSelect(String categoryName , String columnNum){
+    public static void addCategoryToColumnSelect(String categoryName , String columnNum) throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
             addCategoryToColumn(categoryName , columnNum , take);
@@ -80,7 +80,7 @@ public class BoardMenuController {
             System.out.println("No board is selected");
     }
 
-    public static void addCategoryToColumn(String categoryName , String columnNum , String boardName) {
+    public static void addCategoryToColumn(String categoryName , String columnNum , String boardName) throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 int help =  DatabaseHandler.numOfBoardCategories(boardName , TeamMenuController.getTeam().getId());
@@ -93,7 +93,7 @@ public class BoardMenuController {
         } else
             System.out.println("You do not have the permission to do this action!");
     }
-    public static void completeBoardFirstStepSelect(){
+    public static void completeBoardFirstStepSelect() throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
             completeBoardFirstStep(take);
@@ -231,7 +231,10 @@ public class BoardMenuController {
     public static void showBoardDetailsSelect(){
 
     }
-    public static void showBoardDetails(){
-
+    public static void showBoardDetails(String boardName) throws SQLException {
+        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+            System.out.println(DatabaseHandler.showBoard(boardName, TeamMenuController.getTeam().getId()));
+        } else
+            System.out.println("board does not exist");
     }
 }

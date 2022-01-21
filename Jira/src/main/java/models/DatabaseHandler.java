@@ -640,6 +640,104 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
+    public static ArrayList<Integer> getDoneTasks(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_DONE_TASKS_OF_BOARD, boardName, teamId);
+        return getIntArraylist(sql);
+    }
+
+    public static ArrayList<Integer> getFailedTasks(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_FAILED_TASKS_OF_BOARD, boardName, teamId);
+        return getIntArraylist(sql);
+    }
+
+    public static ArrayList<String> getTasksOfBoardToShow(String boardName, int teamId, int priority) throws SQLException {
+        String sql = String.format(Queries.GET_TASKS_BY_BOARD_NAME_TEAM_ID, boardName, teamId);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            String taskTitle = result.getString(1);
+            String category = result.getString(2);
+            String description = result.getString(3);
+            String creatingDate = result.getString(4);
+            String deadlineDate = result.getString(5);
+            int state = result.getInt(6);
+            int taskId = result.getInt(7);
+            StringBuilder users = new StringBuilder();
+            sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+            Statement statement2 = connection.createStatement();
+            ResultSet result2 = statement2.executeQuery(sql);
+            while (result2.next()) {
+                users.append(" " + result2.getString(1));
+            }
+            statement2.close();
+            String row = "Title: " + taskTitle + "\nCategory: " + category + "\nDescription: " + description + "\nCreation date: " + creatingDate + "\nDeadline: " + deadlineDate + "\nAssigned to: " + users.toString() + "\nStatus: ";
+            switch (state){
+                case 0:
+                    row = row + "Failed\n";
+                    break;
+                case 1:
+                    row = row + "Done\n";
+                    break;
+                case 3:
+                    row = row + "In progress\n";
+                    break;
+            }
+            answer.add(row);
+        }
+        statement.close();
+        connection.close();
+        return answer;
+
+    }
+
+    public static String showBoard(String boardName, int teamId) throws SQLException {
+        ArrayList<Integer> doneTasks = getDoneTasks(boardName, teamId);
+        ArrayList<Integer> failedTasks = getFailedTasks(boardName, teamId);
+        ArrayList<String> tasksHighest = getTasksOfBoardToShow(boardName, teamId, 4);
+        ArrayList<String> tasksHigh = getTasksOfBoardToShow(boardName, teamId, 3);
+        ArrayList<String> tasksLow = getTasksOfBoardToShow(boardName, teamId, 2);
+        ArrayList<String> tasksLowest = getTasksOfBoardToShow(boardName, teamId, 1);
+        int completion = 100*doneTasks.size()/(tasksHighest.size()+tasksHigh.size()+tasksLow.size()+tasksLowest.size());
+        int failed = 100*failedTasks.size()/(tasksHighest.size()+tasksHigh.size()+tasksLow.size()+tasksLowest.size());
+        StringBuilder stringBuilder = new StringBuilder();
+        String sql = String.format(Queries.SHOW_BOARD, boardName, teamId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String leader = result.getString(1);
+            stringBuilder.append("Boardname: " + boardName + "\n");
+            stringBuilder.append("Board completion" + completion + "\n");
+            stringBuilder.append("Board failed" + failed + "\n");
+            stringBuilder.append("Board leader" + leader + "\n");
+            stringBuilder.append("Highest Priority :\n");
+            for(String i : tasksHighest) {
+                stringBuilder.append(i + "\n");
+            }
+            stringBuilder.append("Highest Priority :\n");
+            for(String i : tasksHighest) {
+                stringBuilder.append(i + "\n");
+            }
+            stringBuilder.append("High Priority :\n");
+            for(String i : tasksHigh) {
+                stringBuilder.append(i + "\n");
+            }
+            stringBuilder.append("Low Priority :\n");
+            for(String i : tasksLow) {
+                stringBuilder.append(i + "\n");
+            }
+            stringBuilder.append("Lowest Priority :\n");
+            for(String i : tasksLowest) {
+                stringBuilder.append(i + "\n");
+            }
+            return stringBuilder.toString();
+        }
+        statement.close();
+        connection.close();
+        return "";
+    }
     //public static void addMemberToTeam(String username, int teamId) {
     //}
     //public static void removeMemberFromTeam(String username, int teamId) {
