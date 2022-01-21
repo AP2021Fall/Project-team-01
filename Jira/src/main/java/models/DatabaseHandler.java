@@ -601,9 +601,9 @@ public class DatabaseHandler {
         connection.close();
         return bool;
     }
-    // title task va id team ro migire va id task mored nazar ro bar migardune
-     // public static void getTaskIdByTaskTitle( String taskTitle , int teamId){
-    //  }
+     // title task va id team ro migire va id task mored nazar ro bar migardune
+      //public static int getTaskIdByTaskTitle( String taskTitle , int teamId){
+      // }
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);
@@ -626,4 +626,19 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
+    //public static void addMemberToTeam(String username, int teamId) {
+    //}
+
+    // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
+    // }
+
+    // public static boolean doesTaskExist(String taskTitle){
+    // }
+    //public static boolean doesTeamHaveMember(int teamId){
+    // }
+    // public static Arraylist<String> showTeamMembers (int teamId){
+    // }
+
+    // public static boolean isUserMember ( String username){
+    // }
 }

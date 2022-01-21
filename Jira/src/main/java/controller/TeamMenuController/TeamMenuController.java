@@ -1,6 +1,18 @@
 package controller.TeamMenuController;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import controller.LoginController;
+import models.DatabaseHandler;
 import models.Team;
+import view.Regex;
+import view.TeamMenu.TeamMenu;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 public class TeamMenuController {
     private static Team currentTeam;
@@ -13,7 +25,7 @@ public class TeamMenuController {
         TeamMenuController.currentTeam = team;
     }
 
-    public static void showTeamMenu(){
+    public static void showTeamMenu() {
         System.out.println("Enter Menu");
         System.out.println("Scoreboard");
         System.out.println("BoardMenu");
@@ -21,5 +33,79 @@ public class TeamMenuController {
         System.out.println("ChatRoom");
         System.out.println("Tasks");
         System.out.println("back");
+    }
+
+    public static void showAllTasksLeader() {
+        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+            if (DatabaseHandler.doesTaskExistInTeam(TeamMenuController.getTeam().getId())) {
+                ArrayList<String> print = DatabaseHandler.showTeamTasks(TeamMenuController.getTeam().getId());
+                for (String s : print) {
+                    System.out.println(s);
+                }
+            } else
+                System.out.println("no task exist in this team");
+        } else
+            System.out.println("You do not have the permission to do this action!");
+    }
+
+
+    public static void createTask(String taskTitle, String creationTime, String deadline) throws SQLException {
+
+        if (Regex.getCommandMatcher(creationTime, "yyyy-MM-dd HH:mm:ss").matches()) {
+            if (Regex.getCommandMatcher(deadline, "yyyy-MM-dd HH:mm:ss").matches()) {
+                if (DatabaseHandler.doesTaskExist(taskTitle)) {
+                    int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
+                    if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
+                        System.out.println("There is another task with this title!");
+                    }else {
+                        DatabaseHandler.createTaskLeader(taskTitle,creationDate,deadlineDate,TeamMenuController.getTeam().getId());
+                    }
+                }else
+                    DatabaseHandler.createTaskLeader(taskTitle,creationDate,deadlineDate,TeamMenuController.getTeam().getId());
+            } else
+                System.out.println("Invalid deadline");
+        } else
+            System.out.println("Invalid start date");
+    }
+
+
+    public static void showMembersLeader() {
+        if ( DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getId())) {
+            ArrayList<String> print = DatabaseHandler.showTeamMembers(TeamMenuController.getTeam().getId());
+            for ( String s : print)
+                System.out.println(s);
+        }
+        else
+            System.out.println("This team has no member");
+    }
+
+    public static void addMemberToTeam(String name) throws SQLException {
+        if (DatabaseHandler.doesUsernameExist(name)){
+            if(DatabaseHandler.isUserMember(name))
+                DatabaseHandler.addMemberToTeam(name , TeamMenuController.getTeam().getId());
+            else
+                System.out.println("This user has a leader role you cant add it to your team");
+        }else
+            System.out.println("no user with this username exists");
+    }
+
+    public static void deleteMemberFromTeam(String group) {
+
+    }
+
+    public static void suspendMember(String group) {
+
+    }
+
+    public static void promoteMember(String group) {
+
+    }
+
+    public static void assignMemberToTask(String group) {
+
+    }
+
+    public static void showScoreboardToLeader() {
+
     }
 }

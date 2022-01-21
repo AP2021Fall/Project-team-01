@@ -61,6 +61,8 @@ public class Regex {
     public static final String DELETE_MEMBER_FROM_TEAM = "^delete member --username (.+)$$";
     public static final String SUSPEND_MEMBER = "^delete member --username (.+)$";
     public static final String PROMOTE_MEMBER = "^suspend member --username (.+)$";
+    public static final String ASSIGN_MEMBER_TO_TASK_BY_LEADER = "^assign member --task (.+) --username (.+)$";
+    public static final String SHOW_SCOREBOARD_TO_LEADER = "^show --scoreboard$";
     public static final String INVALID_COMMAND = "^invalid command!$";
 
     public static final String ENTER_TEAM = "^Enter Team (.+)$";
