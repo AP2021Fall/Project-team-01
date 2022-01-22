@@ -8,7 +8,7 @@ public class Queries {
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
-            "INSERT INTO tasks VALUES (DEFAULT,'%s','%s','%s','%s','%s','%s')";
+            "INSERT INTO tasks VALUES (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description) (DEFAULT,'%s','%s',1,3,null,null,'[]',null)";
     public static final String CREATE_BOARD =
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
@@ -147,4 +147,6 @@ public class Queries {
             "DELETE FROM `username-task_id` WHERE username = '%s' AND task_id = %d";
     public static final String GET_USER_ROLE =
             "SELECT role FROM users WHERE username = '%s'";
+    public static final String ADD_SUSPENDS =
+            "INSERT INTO suspends (username, team_Id) VALUES ('%s', %d)";
 }

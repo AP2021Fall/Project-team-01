@@ -70,9 +70,9 @@ public class TeamMenuController {
     }
 
 
-    public static void showMembersLeader() {
-        if (DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getId())) {
-            ArrayList<String> print = DatabaseHandler.showTeamMembers(TeamMenuController.getTeam().getId());
+    public static void showMembersLeader() throws SQLException {
+        if (DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getName())) {
+            ArrayList<String> print = DatabaseHandler.getMembersByTeamName(TeamMenuController.getTeam().getName());
             for (String s : print)
                 System.out.println(s);
         } else
@@ -82,7 +82,7 @@ public class TeamMenuController {
     public static void addMemberToTeam(String name) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(name)) {
             if (DatabaseHandler.isUserMember(name))
-                if ( ! (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getId())))
+                if ( ! (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName())))
                     DatabaseHandler.addMemberToTeam(name, TeamMenuController.getTeam().getId());
                 else
                     System.out.println("This user is already in your team");
@@ -95,7 +95,7 @@ public class TeamMenuController {
     public static void deleteMemberFromTeam(String group) {
         if (DatabaseHandler.doesUsernameExist(name)) {
             if (DatabaseHandler.isUserMember(name))
-                if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getId()))
+                if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))
                     DatabaseHandler.removeMemberFromTeam(name, TeamMenuController.getTeam().getId());
                 else
                     System.out.println("This user is not in your team to remove it");
@@ -108,7 +108,7 @@ public class TeamMenuController {
     public static void suspendMember(String username) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(username)) {
             if (DatabaseHandler.isUserMember(username))
-                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
                     deleteMemberFromTeam(username);
                     DatabaseHandler.addToSuspendedList(username , TeamMenuController.getTeam().getId());
                 }
@@ -123,7 +123,7 @@ public class TeamMenuController {
     public static void promoteMember(String username) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(username)) {
             if (DatabaseHandler.isUserMember(username))
-                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
                    MainMenuController.changeRole(username , "leader");
                 }
                 else
@@ -136,11 +136,11 @@ public class TeamMenuController {
 
     public static void assignMemberToTask( String taskTitle , String username) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(username)) {
-                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
                     if (DatabaseHandler.doesTaskExist(taskTitle)) {
                         int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle , TeamMenuController.getTeam().getId());
                         if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId)))
-                            DatabaseHandler.assignMemberToTaskByLeader(username, taskId);
+                            DatabaseHandler.assignUser(taskId, username);
                         else
                             System.out.println("this task doesnt belong to this team");
                     }else

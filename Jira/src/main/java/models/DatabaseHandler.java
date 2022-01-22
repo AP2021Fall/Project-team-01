@@ -41,12 +41,9 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
-    public static void createTask(String title, String description, String priority, LocalDateTime creatingDate,
-                                  LocalDateTime deadlineDate, String category) throws SQLException {
-        String creatingDateJson = new Gson().toJson(creatingDate);
-        String deadlineDateJson = new Gson().toJson(deadlineDate);
-        String sql = String.format(Queries.CREATE_TASK, title, description, priority, creatingDateJson, deadlineDateJson,
-                category);
+    public static void createTask(String title, String creatingDate,
+                                  String deadlineDate) throws SQLException {
+        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate);
         connectAndExecute(sql);
     }
 
@@ -116,15 +113,7 @@ public class DatabaseHandler {
 
     public static String getSell(String table, String column, String conditionalColumn, String condition) throws SQLException {
         String sql = String.format(Queries.GET_SELL, column, table, conditionalColumn, condition);
-        String answer = null;
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        if (result.next())
-            answer = result.getString(1);
-        statement.close();
-        connection.close();
-        return answer;
+        return getString(sql);
     }
 
     public static void changePassword(String username, String newPassword) throws SQLException {
@@ -756,6 +745,10 @@ public class DatabaseHandler {
 
     public static String getUserRole(String username) throws SQLException {
         String sql = String.format(Queries.GET_USER_ROLE, username);
+        return getString(sql);
+    }
+
+    private static String getString(String sql) throws SQLException {
         String role = null;
         connect();
         Statement statement = connection.createStatement();
@@ -772,26 +765,32 @@ public class DatabaseHandler {
     // }
 
     //first get task id
-    // public static boolean doesTaskExist(String taskTitle){
-    // }
+     public static boolean doesTaskExist(String taskTitle, int teamId) throws SQLException {
+        return getTaskIdByTaskTitle(taskTitle, teamId) != 0;
+     }
 
     //get members of team instead
-//    public static boolean doesTeamHaveMember(int teamId){
-//     }
+    public static boolean doesTeamHaveMember(String teamName) throws SQLException {
+        return !getMembersByTeamName(teamName).isEmpty();
+     }
 
-    // public static Arraylist<String> showTeamMembers (int teamId){
-    // }
 
     //get role
-    // public static boolean isUserMember ( String username){
-    // }
+     public static boolean isUserMember ( String username) throws SQLException {
+        return getUserRole(username).equals("member");
+     }
 
-    // public static boolean isUserInTeam (String username , int teamId){
-    //}
+     public static boolean isUserInTeam (String username , String teamName) throws SQLException {
+        ArrayList<String> arrayList = getMembersByTeamName(teamName);
+        for (String i : arrayList) {
+            if (i.equals(username))
+                return true;
+        }
+        return false;
+    }
 
-    // public static void addToSuspendedList (String username , int teamId){
-    // }
-
-    // public static void assignMemberToTaskByLeader ( String username , int taskId){
-    // }
+     public static void addToSuspendedList (String username , int teamId) throws SQLException {
+        String sql = String.format(Queries.ADD_SUSPENDS, username, teamId);
+        connectAndExecute(sql);
+     }
 }
