@@ -8,7 +8,7 @@ public class Queries {
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
-            "INSERT INTO tasks VALUES (DEFAULT,'%s','%s','%s','%s','%s','%s')";
+            "INSERT INTO tasks VALUES (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) (DEFAULT,'%s','%s',1,3,null,null,'[]',null,%d)";
     public static final String CREATE_BOARD =
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
@@ -139,4 +139,24 @@ public class Queries {
             "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 0";
     public static final String GET_TASKS_BY_BOARD_NAME_TEAM_ID =
             "SELECT title, category, description,`creation date`,`deadline date`,state,id FROM tasks WHERE board_name = '%s' AND team_id = %d AND priority = %d";
+    public static final String ADD_MEMBER_TO_TEAM =
+            "INSERT INTO `username-team_id` (username, team_id) VALUES ('%s', %d)";
+    public static final String REMOVE_USER_FROM_TEAM =
+            "DELETE FROM `username-team_id` WHERE username = '%s' AND team_id = %d";
+    public static final String REMOVE_USER_FROM_TASK_OF_TEAM_BY_TEAM_ID =
+            "DELETE FROM `username-task_id` WHERE username = '%s' AND task_id = %d";
+    public static final String GET_USER_ROLE =
+            "SELECT role FROM users WHERE username = '%s'";
+    public static final String ADD_SUSPENDS =
+            "INSERT INTO suspends (username, team_Id) VALUES ('%s', %d)";
+    public static final String GET_CATEGORY_BY_TASK_ID =
+            "SELECT category FROM tasks WHERE id = %d";
+    public static final String SET_CATEGORY =
+            "UPDATE tasks SET category = '%s' WHERE id = %d";
+    public static final String GET_TASK_STATE =
+            "SELECT state FROM tasks WHERE id = %d";
+    public static final String GET_POINT =
+            "SELECT point FROM users WHERE username = '%s'";
+    public static final String SET_POINT =
+            "UPDATE users SET point = %d WHERE username = '%s'";
 }

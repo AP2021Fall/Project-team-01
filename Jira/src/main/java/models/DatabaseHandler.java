@@ -40,12 +40,9 @@ public class DatabaseHandler {
         connectAndExecute(sql);
     }
 
-    public static void createTask(String title, String description, String priority, LocalDateTime creatingDate,
-                                  LocalDateTime deadlineDate, String category) throws SQLException {
-        String creatingDateJson = new Gson().toJson(creatingDate);
-        String deadlineDateJson = new Gson().toJson(deadlineDate);
-        String sql = String.format(Queries.CREATE_TASK, title, description, priority, creatingDateJson, deadlineDateJson,
-                category);
+    public static void createTask(String title, String creatingDate,
+                                  String deadlineDate, int teamId) throws SQLException {
+        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate,teamId);
         connectAndExecute(sql);
     }
 
@@ -115,15 +112,7 @@ public class DatabaseHandler {
 
     public static String getSell(String table, String column, String conditionalColumn, String condition) throws SQLException {
         String sql = String.format(Queries.GET_SELL, column, table, conditionalColumn, condition);
-        String answer = null;
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        if (result.next())
-            answer = result.getString(1);
-        statement.close();
-        connection.close();
-        return answer;
+        return getString(sql);
     }
 
     public static void changePassword(String username, String newPassword) throws SQLException {
@@ -472,19 +461,7 @@ public class DatabaseHandler {
 
     public static ArrayList<String> showChatroom(int teamId) throws SQLException {
         String sql = String.format(Queries.GET_CHATROOM, teamId);
-        ArrayList<String> chats = new ArrayList<>();
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        if (result.next()) {
-            String json = result.getString(1);
-            chats = new Gson().fromJson(json,
-                    new TypeToken<List<String>>() {
-                    }.getType());
-        }
-        statement.close();
-        connection.close();
-        return chats;
+        return getGsonArraylistStrings(sql);
     }
 
     public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException {
@@ -508,7 +485,8 @@ public class DatabaseHandler {
                 users.append(" " + result2.getString(1));
             }
             statement2.close();
-            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : "
+                    + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
             i++;
         }
         statement.close();
@@ -578,17 +556,17 @@ public class DatabaseHandler {
 
     public static boolean doesTaskAddedToBoard(int taskId, String boardName) throws SQLException {
         String sql = String.format(Queries.DOES_TASK_ADDED_TO_BOARD, taskId, boardName);
-        return doesTeamExist(sql);
+        return doesExist(sql);
     }
 
     public static boolean doesDeadlinePassed(int taskId) throws SQLException {
         String sql = String.format(Queries.DOES_DEADLINE_PASSED, taskId);
-        return doesTeamExist(sql);
+        return doesExist(sql);
     }
 
     public static boolean isTaskAssigned(int taskId) throws SQLException {
         String sql = String.format(Queries.IS_TASK_ASSIGNED, taskId);
-        return doesTeamExist(sql);
+        return doesExist(sql);
 
     }
 
@@ -738,27 +716,168 @@ public class DatabaseHandler {
         connection.close();
         return "";
     }
-    //public static void addMemberToTeam(String username, int teamId) {
-    //}
-    //public static void removeMemberFromTeam(String username, int teamId) {
-    //}
-    // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
-    // }
 
-    // public static boolean doesTaskExist(String taskTitle){
-    // }
-    //public static boolean doesTeamHaveMember(int teamId){
-    // }
-    // public static Arraylist<String> showTeamMembers (int teamId){
-    // }
+    public static void addMemberToTeam(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.ADD_MEMBER_TO_TEAM, username, teamId);
+        connectAndExecute(sql);
+    }
+    public static void removeMemberFromTeam(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.REMOVE_USER_FROM_TEAM, username, teamId);
+        connectAndExecute(sql);
+        ArrayList<Integer> tasks = getTasksIdByTeamId(teamId);
+        for (Integer i : tasks) {
+            sql = String.format(Queries.REMOVE_USER_FROM_TASK_OF_TEAM_BY_TEAM_ID, username, i);
+            connectAndExecute(sql);
+        }
+    }
 
-    // public static boolean isUserMember ( String username){
-    // }
-    // public static boolean isUserInTeam (String username , int teamId){
-    //}
-    // public static void addToSuspendedList (String username , int teamId){
-    // }
+    public static String getUserRole(String username) throws SQLException {
+        String sql = String.format(Queries.GET_USER_ROLE, username);
+        return getString(sql);
+    }
 
-    // public static void assignMemberToTaskByLeader ( String username , int taskId){
-    // }
+    private static String getString(String sql) throws SQLException {
+        String role = null;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            role = result.getString(1);
+        }
+        statement.close();
+        connection.close();
+        return role;
+    }
+
+    //first get task id
+     public static boolean doesTaskExist(String taskTitle, int teamId) throws SQLException {
+        return getTaskIdByTaskTitle(taskTitle, teamId) != 0;
+     }
+
+    //get members of team instead
+    public static boolean doesTeamHaveMember(String teamName) throws SQLException {
+        return !getMembersByTeamName(teamName).isEmpty();
+     }
+
+
+    //get role
+     public static boolean isUserMember ( String username) throws SQLException {
+        return getUserRole(username).equals("member");
+     }
+
+     public static boolean isUserInTeam (String username , String teamName) throws SQLException {
+        ArrayList<String> arrayList = getMembersByTeamName(teamName);
+        for (String i : arrayList) {
+            if (i.equals(username))
+                return true;
+        }
+        return false;
+    }
+
+     public static void addToSuspendedList (String username , int teamId) throws SQLException {
+        String sql = String.format(Queries.ADD_SUSPENDS, username, teamId);
+        connectAndExecute(sql);
+     }
+
+     public static ArrayList<String> getCategories(String boardName, int teamId) throws SQLException {
+         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+         return getGsonArraylistStrings(sql);
+     }
+
+    private static ArrayList<String> getGsonArraylistStrings(String sql) throws SQLException {
+        ArrayList<String> categories = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            categories = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        }
+        statement.close();
+        connection.close();
+        return categories;
+    }
+
+     public static String getCategory(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_CATEGORY_BY_TASK_ID, taskId);
+        return getString(sql);
+     }
+
+
+
+     public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
+         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+         connect();
+         Statement statement = connection.createStatement();
+         ResultSet result = statement.executeQuery(sql);
+         if (result.next()) {
+             String json = result.getString(1);
+             ArrayList<String> categories = new Gson().fromJson(json,
+                     new TypeToken<List<String>>() {
+                     }.getType());
+             categories.add(columnNum, categoryName);
+             json = new Gson().toJson(categories);
+             sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             preparedStatement.executeUpdate();
+             preparedStatement.close();
+         }
+         statement.close();
+         connection.close();
+     }
+
+     public static boolean isTaskInDoneCategory ( int taskId ) throws SQLException {
+        int state = getStateOfTask(taskId);
+        return state == 1;
+     }
+
+     public static void addToCategory ( String category , String taskTitle , String boardName , int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.SET_CATEGORY,category ,taskId);
+        connectAndExecute(sql);
+     }
+
+     public static int getStateOfTask(int taskId) throws SQLException {
+         String sql = String.format(Queries.GET_TASK_STATE, taskId);
+         return getInt(sql);
+     }
+
+    public static ArrayList<String> getMembersOfTask(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+        return getArraylistString(sql);
+    }
+
+
+     public static int getPointsOfUser(String username) throws SQLException {
+        String sql = String.format(Queries.GET_POINT, username);
+         return getInt(sql);
+     }
+
+    private static int getInt(String sql) throws SQLException {
+        int point = -1;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next())
+            point = result.getInt(1);
+        statement.close();
+        connection.close();
+        return point;
+    }
+     public static void setPointOfUser(String username , int points) throws SQLException {
+        String sql = String.format(Queries.SET_POINT, points, username);
+        connectAndExecute(sql);
+     }
+     public static ArrayList<Integer> getAllTasks() throws SQLException {
+        String sql = "SELECT id FROM tasks";
+        return getIntArraylist(sql);
+     }
+
+
+     public static boolean doesCategoryExist(String category ,String boardName, int teamId) throws SQLException {
+        ArrayList<String> categories = getCategories(boardName, teamId);
+        return categories.contains(category);
+     }
 }
