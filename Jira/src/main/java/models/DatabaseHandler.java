@@ -45,7 +45,7 @@ public class DatabaseHandler {
 
     public static void createTask(String title, String creatingDate,
                                   String deadlineDate, int teamId) throws SQLException {
-        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate,teamId);
+        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate, teamId);
         execute(sql);
     }
 
@@ -68,7 +68,7 @@ public class DatabaseHandler {
 
     public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
-        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME,username ,teamName);
+        String sql = String.format(Queries.DOES_TEAM_EXIST_FOR_USER, username, teamName);
 //        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -81,6 +81,12 @@ public class DatabaseHandler {
         String sql = String.format(Queries.DOES_TEAM_EXIST, teamName);
         return doesExist(sql);
     }
+
+    public static boolean doesTeamNameExist(String teamName) throws SQLException {
+        String sql = String.format(Queries.DOES_TEAM_NAME_EXIST, teamName);
+        return doesExist(sql);
+    }
+
 
 
     public static boolean isTeamInPending(String teamName) throws SQLException {
@@ -357,6 +363,17 @@ public class DatabaseHandler {
         execute(sql);
     }
 
+    public static String getTeamNameByTeamId(int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TEAM_NAME_BY_TEAM_ID, teamId);
+        return getString(sql);
+    }
+
+    public static int getTeamIdByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TEAM_ID_BY_TASK_ID, taskId);
+        return getInt(sql);
+    }
+
+
     public static void assignUser(int taskId, String username) throws SQLException {
         String sql = String.format(Queries.ASSIGN_USER, username, taskId);
         execute(sql);
@@ -449,7 +466,7 @@ public class DatabaseHandler {
                     }.getType());
             chats.add(message);
             json = new Gson().toJson(chats);
-            sql = String.format(Queries.ADD_CHAT, chats, teamId);
+            sql = String.format(Queries.ADD_CHAT, json, teamId);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
 //            preparedStatement.close();
@@ -579,7 +596,7 @@ public class DatabaseHandler {
     }
 
     // title task va id team ro migire va id task mored nazar ro bar migardune
-      public static int getTaskIdByTaskTitle( String taskTitle , int teamId) throws SQLException {
+    public static int getTaskIdByTaskTitle(String taskTitle, int teamId) throws SQLException {
         String sql = String.format(Queries.GET_TASK_ID_BY_TASK_TITLE, teamId, taskTitle);
         int a = 0;
 //        connect();
@@ -592,7 +609,7 @@ public class DatabaseHandler {
 //        connection.close();
         return a;
 
-      }
+    }
 
 
     //can be member or leader
@@ -650,7 +667,7 @@ public class DatabaseHandler {
             }
 //            statement2.close();
             String row = "Title: " + taskTitle + "\nCategory: " + category + "\nDescription: " + description + "\nCreation date: " + creatingDate + "\nDeadline: " + deadlineDate + "\nAssigned to: " + users.toString() + "\nStatus: ";
-            switch (state){
+            switch (state) {
                 case 0:
                     row = row + "Failed\n";
                     break;
@@ -675,8 +692,8 @@ public class DatabaseHandler {
         ArrayList<String> tasksHigh = getTasksOfBoardToShow(boardName, teamId, 3);
         ArrayList<String> tasksLow = getTasksOfBoardToShow(boardName, teamId, 2);
         ArrayList<String> tasksLowest = getTasksOfBoardToShow(boardName, teamId, 1);
-        int completion = 100*doneTasks.size()/(tasksHighest.size()+tasksHigh.size()+tasksLow.size()+tasksLowest.size());
-        int failed = 100*failedTasks.size()/(tasksHighest.size()+tasksHigh.size()+tasksLow.size()+tasksLowest.size());
+        int completion = 100 * doneTasks.size() / (tasksHighest.size() + tasksHigh.size() + tasksLow.size() + tasksLowest.size());
+        int failed = 100 * failedTasks.size() / (tasksHighest.size() + tasksHigh.size() + tasksLow.size() + tasksLowest.size());
         StringBuilder stringBuilder = new StringBuilder();
         String sql = String.format(Queries.SHOW_BOARD, boardName, teamId);
 //        connect();
@@ -689,23 +706,23 @@ public class DatabaseHandler {
             stringBuilder.append("Board failed" + failed + "\n");
             stringBuilder.append("Board leader" + leader + "\n");
             stringBuilder.append("Highest Priority :\n");
-            for(String i : tasksHighest) {
+            for (String i : tasksHighest) {
                 stringBuilder.append(i + "\n");
             }
             stringBuilder.append("Highest Priority :\n");
-            for(String i : tasksHighest) {
+            for (String i : tasksHighest) {
                 stringBuilder.append(i + "\n");
             }
             stringBuilder.append("High Priority :\n");
-            for(String i : tasksHigh) {
+            for (String i : tasksHigh) {
                 stringBuilder.append(i + "\n");
             }
             stringBuilder.append("Low Priority :\n");
-            for(String i : tasksLow) {
+            for (String i : tasksLow) {
                 stringBuilder.append(i + "\n");
             }
             stringBuilder.append("Lowest Priority :\n");
-            for(String i : tasksLowest) {
+            for (String i : tasksLowest) {
                 stringBuilder.append(i + "\n");
             }
             return stringBuilder.toString();
@@ -719,6 +736,7 @@ public class DatabaseHandler {
         String sql = String.format(Queries.ADD_MEMBER_TO_TEAM, username, teamId);
         execute(sql);
     }
+
     public static void removeMemberFromTeam(String username, int teamId) throws SQLException {
         String sql = String.format(Queries.REMOVE_USER_FROM_TEAM, username, teamId);
         execute(sql);
@@ -748,22 +766,22 @@ public class DatabaseHandler {
     }
 
     //first get task id
-     public static boolean doesTaskExist(String taskTitle, int teamId) throws SQLException {
+    public static boolean doesTaskExist(String taskTitle, int teamId) throws SQLException {
         return getTaskIdByTaskTitle(taskTitle, teamId) != 0;
-     }
+    }
 
     //get members of team instead
     public static boolean doesTeamHaveMember(String teamName) throws SQLException {
         return !getMembersByTeamName(teamName).isEmpty();
-     }
+    }
 
 
     //get role
-     public static boolean isUserMember ( String username) throws SQLException {
+    public static boolean isUserMember(String username) throws SQLException {
         return getUserRole(username).equals("member");
-     }
+    }
 
-     public static boolean isUserInTeam (String username , String teamName) throws SQLException {
+    public static boolean isUserInTeam(String username, String teamName) throws SQLException {
         ArrayList<String> arrayList = getMembersByTeamName(teamName);
         for (String i : arrayList) {
             if (i.equals(username))
@@ -772,15 +790,15 @@ public class DatabaseHandler {
         return false;
     }
 
-     public static void addToSuspendedList (String username , int teamId) throws SQLException {
+    public static void addToSuspendedList(String username, int teamId) throws SQLException {
         String sql = String.format(Queries.ADD_SUSPENDS, username, teamId);
         execute(sql);
-     }
+    }
 
-     public static ArrayList<String> getCategories(String boardName, int teamId) throws SQLException {
-         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
-         return getGsonArraylistStrings(sql);
-     }
+    public static ArrayList<String> getCategories(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+        return getGsonArraylistStrings(sql);
+    }
 
     private static ArrayList<String> getGsonArraylistStrings(String sql) throws SQLException {
         ArrayList<String> categories = new ArrayList<>();
@@ -798,47 +816,47 @@ public class DatabaseHandler {
         return categories;
     }
 
-     public static String getCategory(int taskId) throws SQLException {
+    public static String getCategory(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_CATEGORY_BY_TASK_ID, taskId);
         return getString(sql);
-     }
+    }
 
-     public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
-         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+    public static void addCategoryToColumn(String categoryName, int columnNum, String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
 //         connect();
-         Statement statement = connection.createStatement();
-         ResultSet result = statement.executeQuery(sql);
-         if (result.next()) {
-             String json = result.getString(1);
-             ArrayList<String> categories = new Gson().fromJson(json,
-                     new TypeToken<List<String>>() {
-                     }.getType());
-             categories.add(columnNum, categoryName);
-             json = new Gson().toJson(categories);
-             sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             preparedStatement.executeUpdate();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            ArrayList<String> categories = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+            categories.add(columnNum, categoryName);
+            json = new Gson().toJson(categories);
+            sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
 //             preparedStatement.close();
-         }
+        }
 //         statement.close();
 //         connection.close();
-     }
+    }
 
-     public static boolean isTaskInDoneCategory ( int taskId ) throws SQLException {
+    public static boolean isTaskInDoneCategory(int taskId) throws SQLException {
         int state = getStateOfTask(taskId);
         return state == 1;
-     }
+    }
 
-     public static void addToCategory ( String category , String taskTitle , String boardName , int teamId) throws SQLException {
+    public static void addToCategory(String category, String taskTitle, String boardName, int teamId) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
-        String sql = String.format(Queries.SET_CATEGORY,category ,taskId);
+        String sql = String.format(Queries.SET_CATEGORY, category, taskId);
         execute(sql);
-     }
+    }
 
-     public static int getStateOfTask(int taskId) throws SQLException {
-         String sql = String.format(Queries.GET_TASK_STATE, taskId);
-         return getInt(sql);
-     }
+    public static int getStateOfTask(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_STATE, taskId);
+        return getInt(sql);
+    }
 
     public static ArrayList<String> getMembersOfTask(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
@@ -846,10 +864,10 @@ public class DatabaseHandler {
     }
 
 
-     public static int getPointsOfUser(String username) throws SQLException {
+    public static int getPointsOfUser(String username) throws SQLException {
         String sql = String.format(Queries.GET_POINT, username);
-         return getInt(sql);
-     }
+        return getInt(sql);
+    }
 
     private static int getInt(String sql) throws SQLException {
         int point = -1;
@@ -862,20 +880,22 @@ public class DatabaseHandler {
 //        connection.close();
         return point;
     }
-     public static void setPointOfUser(String username , int points) throws SQLException {
+
+    public static void setPointOfUser(String username, int points) throws SQLException {
         String sql = String.format(Queries.SET_POINT, points, username);
         execute(sql);
-     }
-     public static ArrayList<Integer> getAllTasks() throws SQLException {
+    }
+
+    public static ArrayList<Integer> getAllTasks() throws SQLException {
         String sql = "SELECT id FROM tasks";
         return getIntArraylist(sql);
-     }
+    }
 
 
-     public static boolean doesCategoryExist(String category ,String boardName, int teamId) throws SQLException {
+    public static boolean doesCategoryExist(String category, String boardName, int teamId) throws SQLException {
         ArrayList<String> categories = getCategories(boardName, teamId);
         return categories.contains(category);
-     }
+    }
 
     public static void addCommentByTaskId(int taskId, String comment, String username) throws SQLException {
         String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
@@ -933,6 +953,7 @@ public class DatabaseHandler {
         execute(sql);
         setStateOfTask(taskId, 3);
     }
+
     public static void reliveFailedTaskHaveCategory(String taskTitle, String deadline, int teamId, String category) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
@@ -945,7 +966,7 @@ public class DatabaseHandler {
         setStateOfTask(taskId, 3);
     }
 
-    public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId,String username) throws SQLException {
+    public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId, String username) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
         execute(sql);
@@ -1002,8 +1023,8 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static int getTeamIdByTeamNameAndMember(String teamName, String username) throws SQLException {
-        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME, teamName, username);
+    public static int getTeamIdByTeamName(String teamName) throws SQLException {
+        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME, teamName);
         return getInt(sql);
     }
 }

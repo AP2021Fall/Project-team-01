@@ -35,10 +35,6 @@ public class TeamMenu {
                     TasksController.showTaskMenu();
                     MenuController.currentMenu = Menus.TEAM_TASKS;
                     break;
-                case "back":
-                    MainMenu.showMainMenu();
-                    MenuController.currentMenu = Menus.MAIN_MENU;
-                    break;
             }
         }else if ((matcher = Regex.getCommandMatcher(command,Regex.SHOW_ALL_TASKS_FOR_LEADER)).matches())
             TeamMenuController.showAllTasksLeader();
@@ -58,6 +54,13 @@ public class TeamMenu {
             TeamMenuController.assignMemberToTask(matcher.group(1) , matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command,Regex.SHOW_SCOREBOARD_TO_LEADER)).matches())
             TeamMenuController.showScoreboardToLeader();
+        else if (command.equals("back")) {
+            MenuController.currentMenu = Menus.MAIN_MENU;
+            MainMenu.showMainMenu();
+            MainMenu.show();
+        } else {
+            System.out.println("invalid Command!");
+        }
     }
 
 

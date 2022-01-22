@@ -11,9 +11,9 @@ public class ProfileMenu {
 
     public static void execute(String command) throws SQLException {
         Matcher matcher;
-        if (!(matcher = Regex.getCommandMatcher(command,Regex.CHANGE_PASSWORD)).matches())
+        if (!(matcher = Regex.getCommandMatcher(command,"Change password")).matches())
             ChangePasswordMenuController.setCounter(0);
-        if ((matcher = Regex.getCommandMatcher(command, Regex.CHANGE_PASSWORD)).matches()) {
+        if ((matcher = Regex.getCommandMatcher(command, "Change password")).matches()) {
             MenuController.currentMenu = Menus.CHANGE_PASSWORD_MENU;
             ChangePasswordMenuController.showChangePasswordMenu();
         } else if ((matcher = Regex.getCommandMatcher(command, Regex.CHANGE_USERNAME)).matches()) {

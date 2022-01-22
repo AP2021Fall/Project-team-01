@@ -177,5 +177,13 @@ public class Queries {
     public static final String GET_TASK =
             "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE id = %d";
     public static final String GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME =
+            "SELECT id FROM teams  WHERE name = '%s'";
+    public static final String DOES_TEAM_EXIST_FOR_USER =
             "SELECT id FROM teams JOIN `username-team_id` ON teams.id = `username-team_id`.team_id WHERE username = '%s' AND name = '%s'";
+    public static final String GET_TEAM_NAME_BY_TEAM_ID =
+            "SELECT name FROM teams WHERE id = %d";
+    public static final String GET_TEAM_ID_BY_TASK_ID =
+            "SELECT team_id FROM tasks WHERE id = %d";
+    public static final String DOES_TEAM_NAME_EXIST =
+            "SELECT name FROM teams WHERE name = '%s'";
 }

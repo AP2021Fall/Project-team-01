@@ -36,7 +36,7 @@ public class MainMenuController {
 
     public static void createTeam(String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
-            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername()))
+            if (DatabaseHandler.doesTeamNameExist(teamName))
                 System.out.println("There is another team with this name!");
             else {
                 Matcher matcher = Regex.getCommandMatcher(teamName, Regex.TEAM_NAME);
