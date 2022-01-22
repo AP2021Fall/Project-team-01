@@ -977,4 +977,30 @@ public class DatabaseHandler {
         connection.close();
         return answer;
     }
+
+    public static String getDetailOfTask(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK, taskId);
+        String answer = null;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            String taskTitle = result.getString(1);
+            String creatingDate = result.getString(3);
+            String deadlineDate = result.getString(4);
+            StringBuilder users = new StringBuilder();
+            String priority = result.getString(5);
+            Statement statement2 = connection.createStatement();
+            sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+            ResultSet result2 = statement2.executeQuery(sql);
+            while (result2.next()) {
+                users.append(" " + result2.getString(1));
+            }
+            statement2.close();
+            answer = taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority;
+        }
+        statement.close();
+        connection.close();
+        return answer;
+    }
 }

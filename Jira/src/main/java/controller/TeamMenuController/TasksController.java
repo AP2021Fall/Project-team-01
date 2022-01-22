@@ -14,8 +14,8 @@ public class TasksController {
             System.out.println("no task yet");
 
     }
-    public static void showTaskById( String taskId){
-        String show = DatabaseHandler.getTeamTasksByTaskId(Integer.parseInt(taskId) , TeamMenuController.getTeam().getId());
+    public static void showTaskById( String taskId) throws SQLException {
+        String show = DatabaseHandler.getDetailOfTask(Integer.parseInt(taskId));
         if (show != null)
             System.out.println(show);
         else
