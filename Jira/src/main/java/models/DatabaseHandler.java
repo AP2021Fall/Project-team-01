@@ -828,7 +828,7 @@ public class DatabaseHandler {
          connection.close();
      }
 
-     public static boolean isTaskInDoneCategory ( int taskId , String boardName , int teamId ) throws SQLException {
+     public static boolean isTaskInDoneCategory ( int taskId ) throws SQLException {
         int state = getStateOfTask(taskId);
         return state == 1;
      }
@@ -854,4 +854,12 @@ public class DatabaseHandler {
 //     public static boolean doesCategoryExist(String boardName){
 //     }
 
+    //public static Arraylist<String> getMembersOfTask(int taskId){
+    //}
+    // public static int getPointsOfUser(String username){
+    // }
+    // public static void setPointOfUser(String username , int points){
+    // }
+    // public static Arraylist<String> getAllTasks(){
+    // }
 }
