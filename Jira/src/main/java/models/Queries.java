@@ -8,7 +8,7 @@ public class Queries {
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
-            "INSERT INTO tasks VALUES (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description) (DEFAULT,'%s','%s',1,3,null,null,'[]',null)";
+            "INSERT INTO tasks VALUES (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) (DEFAULT,'%s','%s',1,3,null,null,'[]',null,%d)";
     public static final String CREATE_BOARD =
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =

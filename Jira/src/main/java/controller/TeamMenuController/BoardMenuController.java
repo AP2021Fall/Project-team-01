@@ -257,11 +257,30 @@ public class BoardMenuController {
     public static void renewFailedTaskSelect(){
 
     }
-    public static void renewFailedTask() {
+    public static void renewFailedTask(String taskTitle, String username, String deadLine, String category, String boardName) throws SQLException {
+        int teamId = TeamMenuController.getTeam().getId();
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
+            if (DatabaseHandler.doesTaskExist(taskTitle,teamId)) {
+                if (DatabaseHandler.getStateOfTask(DatabaseHandler.getTaskIdByTaskTitle(taskTitle,teamId)) == 0) {
+                    if (DatabaseHandler.doesBoardExist(boardName, teamId)){
+                        if ()
 
+                    } else {
+                        System.out.println("invalid board name");
+                    }
+
+                } else {
+                    System.out.println("This task is not in failed section");
+                }
+
+            } else {
+                System.out.println("Invalid task");
+            }
+        } else {
+            System.out.println("You do not have the permission to this action");
+        }
     }
     public static void showBoardDetailsSelect(){
-
     }
     public static void showBoardDetails(String boardName) throws SQLException {
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {

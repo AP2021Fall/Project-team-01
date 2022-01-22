@@ -41,8 +41,8 @@ public class DatabaseHandler {
     }
 
     public static void createTask(String title, String creatingDate,
-                                  String deadlineDate) throws SQLException {
-        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate);
+                                  String deadlineDate, int teamId) throws SQLException {
+        String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate,teamId);
         connectAndExecute(sql);
     }
 
@@ -485,7 +485,8 @@ public class DatabaseHandler {
                 users.append(" " + result2.getString(1));
             }
             statement2.close();
-            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : "
+                    + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
             i++;
         }
         statement.close();
@@ -804,6 +805,8 @@ public class DatabaseHandler {
         return getString(sql);
      }
 
+
+
      public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
          String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
          connect();
@@ -846,5 +849,9 @@ public class DatabaseHandler {
          connection.close();
          return state;
      }
+
+    //TODO fdb
+//     public static boolean doesCategoryExist(String boardName){
+//     }
 
 }
