@@ -72,7 +72,7 @@ public class TeamMenuController {
 
     public static void showMembersLeader() {
         if (DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getId())) {
-            ArrayList<String> print = DatabaseHandler.showTeamMembers(TeamMenuController.getTeam().getId());
+            ArrayList<String> print = DatabaseHandler.showTeamMembers(TeamMenuController.getTeam().getName());
             for (String s : print)
                 System.out.println(s);
         } else

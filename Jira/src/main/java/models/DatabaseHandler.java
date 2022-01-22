@@ -794,4 +794,12 @@ public class DatabaseHandler {
 
     // public static void assignMemberToTaskByLeader ( String username , int taskId){
     // }
+    // public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId){
+    // }
+    // public static void isTaskInDoneCategory ( int taskId , String boardName , int teamId ){
+    // }
+    // public static void addToCategory ( String category , String taskTitle , String boardName , int teamId){
+    // }
+    // public static void addToCategoryNext ( String taskTitle , String boardName , int teamId){
+    // }
 }
