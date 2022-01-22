@@ -139,4 +139,12 @@ public class Queries {
             "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 0";
     public static final String GET_TASKS_BY_BOARD_NAME_TEAM_ID =
             "SELECT title, category, description,`creation date`,`deadline date`,state,id FROM tasks WHERE board_name = '%s' AND team_id = %d AND priority = %d";
+    public static final String ADD_MEMBER_TO_TEAM =
+            "INSERT INTO `username-team_id` (username, team_id) VALUES ('%s', %d)";
+    public static final String REMOVE_USER_FROM_TEAM =
+            "DELETE FROM `username-team_id` WHERE username = '%s' AND team_id = %d";
+    public static final String REMOVE_USER_FROM_TASK_OF_TEAM_BY_TEAM_ID =
+            "DELETE FROM `username-task_id` WHERE username = '%s' AND task_id = %d";
+    public static final String GET_USER_ROLE =
+            "SELECT role FROM users WHERE username = '%s'";
 }

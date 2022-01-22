@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sun.corba.se.spi.monitoring.StatisticsAccumulator;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -739,23 +740,55 @@ public class DatabaseHandler {
         return "";
     }
 
-    //public static void addMemberToTeam(String username, int teamId) {
-    //}
-    //public static void removeMemberFromTeam(String username, int teamId) {
-    //}
+    public static void addMemberToTeam(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.ADD_MEMBER_TO_TEAM, username, teamId);
+        connectAndExecute(sql);
+    }
+    public static void removeMemberFromTeam(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.REMOVE_USER_FROM_TEAM, username, teamId);
+        connectAndExecute(sql);
+        ArrayList<Integer> tasks = getTasksIdByTeamId(teamId);
+        for (Integer i : tasks) {
+            sql = String.format(Queries.REMOVE_USER_FROM_TASK_OF_TEAM_BY_TEAM_ID, username, i);
+            connectAndExecute(sql);
+        }
+    }
+
+    public static String getUserRole(String username) throws SQLException {
+        String sql = String.format(Queries.GET_USER_ROLE, username);
+        String role = null;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            role = result.getString(1);
+        }
+        statement.close();
+        connection.close();
+        return role;
+    }
+
     // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
     // }
+
+    //first get task id
     // public static boolean doesTaskExist(String taskTitle){
     // }
-    //public static boolean doesTeamHaveMember(int teamId){
-    // }
+
+    //get members of team instead
+//    public static boolean doesTeamHaveMember(int teamId){
+//     }
+
     // public static Arraylist<String> showTeamMembers (int teamId){
     // }
 
+    //get role
     // public static boolean isUserMember ( String username){
     // }
+
     // public static boolean isUserInTeam (String username , int teamId){
     //}
+
     // public static void addToSuspendedList (String username , int teamId){
     // }
 
