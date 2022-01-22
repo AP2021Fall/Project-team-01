@@ -876,7 +876,8 @@ public class DatabaseHandler {
      }
 
 
-    //TODO fdb
-//     public static boolean doesCategoryExist(String boardName){
-//     }
+     public static boolean doesCategoryExist(String String,String boardName, int teamId) throws SQLException {
+        ArrayList<String> categories = getCategories(boardName, teamId);
+        return categories.contains(boardName);
+     }
 }
