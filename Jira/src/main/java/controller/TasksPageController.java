@@ -87,7 +87,7 @@ public class TasksPageController {
     }
 
     //null if newDeadline is invalid & LocalDateTime if is valid
-    private static LocalDateTime isDeadlineValid(LocalDateTime creationDate, String deadline) {
+    public static LocalDateTime isDeadlineValid(LocalDateTime creationDate, String deadline) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm");
         try {
