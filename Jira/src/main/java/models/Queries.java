@@ -163,4 +163,8 @@ public class Queries {
             "SELECT comments FROM tasks WHERE id = %d";
     public static final String ADD_COMMENT =
             "UPDATE tasks SET comments = '%s' WHERE id = %d";
+    public static final String SET_STATE =
+            "UPDATE tasks SET state = %d WHERE id = %d";
+    public static final String IS_MEMBER_IN_TEAM =
+            "SELECT * FROM `username-team_id` WHERE username = '%s' AND team_id = %d";
 }

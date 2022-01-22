@@ -593,6 +593,7 @@ public class DatabaseHandler {
         statement.close();
         connection.close();
         return a;
+
       }
 
 
@@ -911,4 +912,60 @@ public class DatabaseHandler {
         return comments;
     }
 
+    public static void setTaskState(int taskId, int state) throws SQLException {
+        String sql = String.format(Queries.SET_STATE, state, taskId);
+        connectAndExecute(sql);
+    }
+
+    public static void reliveFailedTask(String taskTitle, String username, String deadline, String category, int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_CATEGORY, category, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.ASSIGN_USER, username, taskId);
+        connectAndExecute(sql);
+        setTaskState(taskId, 3);
+    }
+
+    public static void reliveFailedTask(String taskTitle, String deadline, int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        setTaskState(taskId, 3);
+    }
+    public static void reliveFailedTaskHaveCategory(String taskTitle, String deadline, int teamId, String category) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_CATEGORY, category, taskId);
+        connectAndExecute(sql);
+        setTaskState(taskId, 3);
+    }
+
+    public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId,String username) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.ASSIGN_USER, username, taskId);
+        connectAndExecute(sql);
+        setTaskState(taskId, 3);
+    }
+
+
+
+
+
+    public static boolean isUsernameTeamMate(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.IS_MEMBER_IN_TEAM, username, teamId);
+        return doesExist(sql);
+    }
 }
