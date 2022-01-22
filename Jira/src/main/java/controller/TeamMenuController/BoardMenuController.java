@@ -273,7 +273,12 @@ public class BoardMenuController {
             if (DatabaseHandler.doesTaskExist(taskTitle,teamId)) {
                 if (DatabaseHandler.getStateOfTask(DatabaseHandler.getTaskIdByTaskTitle(taskTitle,teamId)) == 0) {
                     if (DatabaseHandler.doesBoardExist(boardName, teamId)){
-                        if ()
+                        if (DatabaseHandler.doesCategoryExist(category, boardName, teamId)) {
+
+
+                        } else {
+                            System.out.println("Invalid category");
+                        }
 
                     } else {
                         System.out.println("invalid board name");

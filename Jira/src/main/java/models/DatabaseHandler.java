@@ -876,8 +876,8 @@ public class DatabaseHandler {
      }
 
 
-     public static boolean doesCategoryExist(String String,String boardName, int teamId) throws SQLException {
+     public static boolean doesCategoryExist(String category ,String boardName, int teamId) throws SQLException {
         ArrayList<String> categories = getCategories(boardName, teamId);
-        return categories.contains(boardName);
+        return categories.contains(category);
      }
 }
