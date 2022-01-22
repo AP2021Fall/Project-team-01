@@ -841,25 +841,42 @@ public class DatabaseHandler {
 
      public static int getStateOfTask(int taskId) throws SQLException {
          String sql = String.format(Queries.GET_TASK_STATE, taskId);
-         connect();
-         Statement statement = connection.createStatement();
-         ResultSet result = statement.executeQuery(sql);
-         int state = result.getInt(1);
-         statement.close();
-         connection.close();
-         return state;
+         return getInt(sql);
      }
+
+    public static ArrayList<String> getMembersOfTask(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+        return getArraylistString(sql);
+    }
+
+
+     public static int getPointsOfUser(String username) throws SQLException {
+        String sql = String.format(Queries.GET_POINT, username);
+         return getInt(sql);
+     }
+
+    private static int getInt(String sql) throws SQLException {
+        int point = -1;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next())
+            point = result.getInt(1);
+        statement.close();
+        connection.close();
+        return point;
+    }
+     public static void setPointOfUser(String username , int points) throws SQLException {
+        String sql = String.format(Queries.SET_POINT, points, username);
+        connectAndExecute(sql);
+     }
+     public static ArrayList<Integer> getAllTasks() throws SQLException {
+        String sql = "SELECT id FROM tasks";
+        return getIntArraylist(sql);
+     }
+
 
     //TODO fdb
 //     public static boolean doesCategoryExist(String boardName){
 //     }
-
-    //public static Arraylist<String> getMembersOfTask(int taskId){
-    //}
-    // public static int getPointsOfUser(String username){
-    // }
-    // public static void setPointOfUser(String username , int points){
-    // }
-    // public static Arraylist<String> getAllTasks(){
-    // }
 }

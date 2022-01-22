@@ -155,4 +155,8 @@ public class Queries {
             "UPDATE tasks SET category = '%s' WHERE id = %d";
     public static final String GET_TASK_STATE =
             "SELECT state FROM tasks WHERE id = %d";
+    public static final String GET_POINT =
+            "SELECT point FROM users WHERE username = '%s'";
+    public static final String SET_POINT =
+            "UPDATE users SET point = %d WHERE username = '%s'";
 }
