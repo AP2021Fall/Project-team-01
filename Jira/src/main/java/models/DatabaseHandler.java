@@ -2,7 +2,6 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.corba.se.spi.monitoring.StatisticsAccumulator;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -556,17 +555,17 @@ public class DatabaseHandler {
 
     public static boolean doesTaskAddedToBoard(int taskId, String boardName) throws SQLException {
         String sql = String.format(Queries.DOES_TASK_ADDED_TO_BOARD, taskId, boardName);
-        return doesTeamExist(sql);
+        return doesExist(sql);
     }
 
     public static boolean doesDeadlinePassed(int taskId) throws SQLException {
         String sql = String.format(Queries.DOES_DEADLINE_PASSED, taskId);
-        return doesTeamExist(sql);
+        return doesExist(sql);
     }
 
     public static boolean isTaskAssigned(int taskId) throws SQLException {
         String sql = String.format(Queries.IS_TASK_ASSIGNED, taskId);
-        return doesTeamExist(sql);
+        return doesExist(sql);
 
     }
 
@@ -827,13 +826,7 @@ public class DatabaseHandler {
      }
 
      public static boolean isTaskInDoneCategory ( int taskId , String boardName , int teamId ) throws SQLException {
-        String sql = String.format(Queries.IS_TASK_DONE, taskId);
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        int state = result.getInt(1);
-        statement.close();
-        connection.close();
+        int state = getStateOfTask(taskId);
         return state == 1;
      }
 
@@ -841,6 +834,17 @@ public class DatabaseHandler {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.SET_CATEGORY,category ,taskId);
         connectAndExecute(sql);
+     }
+
+     public static int getStateOfTask(int taskId) throws SQLException {
+         String sql = String.format(Queries.GET_TASK_STATE, taskId);
+         connect();
+         Statement statement = connection.createStatement();
+         ResultSet result = statement.executeQuery(sql);
+         int state = result.getInt(1);
+         statement.close();
+         connection.close();
+         return state;
      }
 
 }
