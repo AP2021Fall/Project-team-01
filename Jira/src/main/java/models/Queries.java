@@ -167,4 +167,11 @@ public class Queries {
             "UPDATE tasks SET state = %d WHERE id = %d";
     public static final String IS_MEMBER_IN_TEAM =
             "SELECT * FROM `username-team_id` WHERE username = '%s' AND team_id = %d";
+    public static final String GET_DEADLINES =
+            "SELECT `deadline date`, '*' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND username = '%s'\n" +
+                    "UNION\n" +
+                    "SELECT `deadline date`, '**' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(NOW(), `deadline date`) <= 10 AND username = '%s'\n" +
+                    "UNION\n" +
+                    "SELECT `deadline date`, '***' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) < 4 AND username = '%s'\n" +
+                    "ORDER BY `deadline date` ASC";
 }

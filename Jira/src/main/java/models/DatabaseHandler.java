@@ -964,7 +964,17 @@ public class DatabaseHandler {
     }
 
 
-    public static void updateDeadlines(String username) {
-
+    public static ArrayList<String> getDeadlinesByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.GET_DEADLINES, username, username, username);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getString(3) + " : " + result.getString(1) + " " + result.getString(2));
+        }
+        statement.close();
+        connection.close();
+        return answer;
     }
 }
