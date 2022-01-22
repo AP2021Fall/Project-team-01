@@ -16,7 +16,7 @@ public class DatabaseHandler {
     private static Connection connection;
 
     public static void connect() throws SQLException {
-        connection = DriverManager.getConnection(JDB_URL, USER, PASSWORD);
+        connection = DriverManager.getConnection(JDB_URL, USER, Password.password);
     }
 
     public static void connectAndExecute(String sql) throws SQLException {
@@ -38,6 +38,9 @@ public class DatabaseHandler {
         String creatingDateString = creatingDate.format(d);
         String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
         connectAndExecute(sql);
+        sql = "SELECT MAX(id) FROM teams";
+        int id = getInt(sql);
+        addMemberToTeam(leader, id);
     }
 
     public static void createTask(String title, String creatingDate,
@@ -60,6 +63,8 @@ public class DatabaseHandler {
         String sql = String.format(Queries.DOES_USERNAME_EXIST, username);
         return doesExist(sql);
     }
+
+//    public static boolean getTeamId
 
     public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
@@ -146,7 +151,7 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> getUserTeams(String username) throws SQLException {
-        return getTeamsOrMembers("name", "username", username, "creating date");
+        return getTeamsOrMembers("name", "username", username, "`creating date`");
     }
 
     public static ArrayList<String> getMembersByTeamName(String teamName) throws SQLException {

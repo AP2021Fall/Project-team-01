@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class TestClass {
     @BeforeAll
-    void init(){
+    static void init() throws SQLException {
         User member = new User("ali", "Ali12345", "ali@gmail.com", "member");
         LoginController.setActiveUser(member);
         User admin = new User("sara", "sara12345", "sara@gmail.com", "admin");
@@ -25,7 +25,7 @@ public class TestClass {
 
     @Test
     void LoginUserTest() throws SQLException {
-        Assertions.assertEquals("There is not any user with username: z!", LoginController.loginUser("b", "Ali12345"));
+        Assertions.assertEquals("There is not any user with username: b!", LoginController.loginUser("b", "Ali12345"));
         Assertions.assertEquals("Username and password didn't match!", LoginController.loginUser("ali", "12345678"));
         Assertions.assertEquals("user logged in successfully!", LoginController.loginUser("ali", "Ali12345"));
         Assertions.assertEquals("ali", LoginController.getActiveUser().getUsername());

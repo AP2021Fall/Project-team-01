@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class Queries {
     public static final String CREATE_USER =
-            "INSERT INTO users (username, password, email, role, notification) VALUES ('%s','%s','%s','%s','[]')";
+            "INSERT INTO users (username, password, email, role, notification, logs) VALUES ('%s','%s','%s','%s','[]','[]')";
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
@@ -12,7 +12,7 @@ public class Queries {
     public static final String CREATE_BOARD =
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
-            "SELECT username FROM users WHERE username = '%s'";
+            "SELECT * FROM users WHERE username = '%s'";
     public static final String DOES_TEAM_EXIST =
             "SELECT leader FROM teams WHERE name = '%s'";
     public static final String IS_TEAM_IN_PENDING =
@@ -28,7 +28,7 @@ public class Queries {
     public static final String GET_SELL =
             "SELECT %s FROM %s WHERE %s = '%s'";
     public static final String GET_TEAMS_MEMBERS =
-            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s' ORDER BY %s";
+            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s'  AND confirmation = 'yes' ORDER BY %s";
     public static final String GET_LOGS =
             "SELECT logs FROM users WHERE username = '%s'";
     public static final String SEND_NOTIFICATION_TO_USER =
@@ -60,7 +60,7 @@ public class Queries {
     public static final String GET_ALL_USERNAMES =
             "SELECT username FROM users";
     public static final String GET_PENDING_TEAMS =
-            "SELECT * FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
+            "SELECT name FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
     public static final String ACCEPT_TEAM =
             "UPDATE teams SET confirmation = 'yes' WHERE name = '%s'";
     public static final String REJECT_TEAM =

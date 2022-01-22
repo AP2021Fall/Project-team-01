@@ -2,6 +2,9 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
+import view.MainMenu;
+import view.MenuController;
+import view.Menus;
 import view.Regex;
 
 import java.sql.SQLException;
@@ -28,6 +31,9 @@ public class LoginController {
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
         setActiveUser(currentUser);
         DatabaseHandler.logLogin(activeUser.getUsername(), LocalDateTime.now());
+        MainMenu.show();
+        MainMenu.showMainMenu();
+        MenuController.currentMenu = Menus.MAIN_MENU;
         return ("user logged in successfully!");
     }
 

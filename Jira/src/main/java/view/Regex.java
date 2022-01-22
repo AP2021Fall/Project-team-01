@@ -7,23 +7,23 @@ public class Regex {
     //TODO team name in page 34 doc
     public static final String TEAM_NAME = "";
 
-    public static final String LOGIN_USER = "^user\\slogin\\s--username\\s(.+)--password\\s(.+)\\s";
-    public static final String SHOW_PROFILE = "^Profile\\s--show\\s--myProfile$";
-    public static final String SHOW_LOG = "^Profile\\s--show\\slogs$";
-    public static final String SHOW_NOTIFICATIONS = "^Profile\\s--show\\snotifications$";
-    public static final String EDIT_TITLE = "^edit\\s--task\\s--id(.+)\\s--title\\s(.+)$";
-    public static final String EDIT_DESCRIPTION = "^edit\\s--task\\s--id(.+)\\s--description\\s(.+)$";
-    public static final String EDIT_PRIORITY = "^edit\\s--task\\s--id(.+)\\s--priority\\s(.+)$";
-    public static final String EDIT_DEADLINE = "^edit\\s--task\\s--id(.+)\\s--deadline\\s(.+)$";
-    public static final String REMOVE_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--remove$";
-    public static final String ADD_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--add$";
-    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s" +
-            "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
-    public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
-            "--newpassword\\s(.+)";
-    public static final String CHANGE_USERNAME = "^Profile\\schange\\s--username\\s(.+)$";
-    public static final String SHOW_TEAMS = "^Profile\\s--showTeams$";
-    public static final String SHOW_TEAM = "^Profile\\s--showTeam\\s(.+)$";
+    public static final String LOGIN_USER = "^user login --username (.+) --password (.+)";
+    public static final String SHOW_PROFILE = "^Profile --show --myProfile$";
+    public static final String SHOW_LOG = "^Profile --show logs$";
+    public static final String SHOW_NOTIFICATIONS = "^Profile --show notifications$";
+    public static final String EDIT_TITLE = "^edit --task --id (.+) --title (.+)$";
+    public static final String EDIT_DESCRIPTION = "^edit --task --id (.+) --description (.+)$";
+    public static final String EDIT_PRIORITY = "^edit --task --id (.+) --priority (.+)$";
+    public static final String EDIT_DEADLINE = "^edit --task --id (.+) --deadline (.+)$";
+    public static final String REMOVE_ASSIGNED_USER = "^edit --task --id (.+) --assignedUsers (.+) --remove$";
+    public static final String ADD_ASSIGNED_USER = "^edit --task --id (.+) --assignedUsers (.+) --add$";
+    public static final String CREATE_USER = "^user create --username (.+) --password1 (.+) " +
+            "--password2 (.+) --email Address (.+) --role (.+)$";
+    public static final String CHANGE_PASSWORD = "^Profile --change --oldpassword (.+) " +
+            "--newpassword (.+)";
+    public static final String CHANGE_USERNAME = "^Profile change --username (.+)$";
+    public static final String SHOW_TEAMS = "^Profile --showTeams$";
+    public static final String SHOW_TEAM = "^Profile --showTeam (.+)$";
     public static final String SHOW_DEADLINES = "^calendar --show deadlines$";
     public static final String SHOW_COMMENTS = "^task (\\d+) comments --show$";
     public static final String ADD_COMMENT = "^task (\\d+) comment (.+) --add$";
@@ -63,7 +63,7 @@ public class Regex {
     public static final String PROMOTE_MEMBER = "^suspend member --username (.+)$";
     public static final String ASSIGN_MEMBER_TO_TASK_BY_LEADER = "^assign member --task (.+) --username (.+)$";
     public static final String SHOW_SCOREBOARD_TO_LEADER = "^show --scoreboard$";
-    public static final String INVALID_COMMAND = "^invalid command!$";
+    public static final String INVALID_COMMAND = "invalid command!";
 
     public static final String ENTER_TEAM = "^Enter Team (.+)$";
     public static final String ENTER_MENU = "^Enter Menu (.+)$";
