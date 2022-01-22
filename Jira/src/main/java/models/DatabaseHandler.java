@@ -19,25 +19,25 @@ public class DatabaseHandler {
         connection = DriverManager.getConnection(JDB_URL, USER, Password.password);
     }
 
-    public static void connectAndExecute(String sql) throws SQLException {
-        connect();
+    public static void execute(String sql) throws SQLException {
+//        connect();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
-        connection.close();
+//        preparedStatement.close();
+//        connection.close();
     }
 
 
     public static void createUser(String username, String password, String email, String role) throws SQLException {
         String sql = String.format(Queries.CREATE_USER, username, password, email, role);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void createTeam(String name, LocalDateTime creatingDate, String leader) throws SQLException {
         DateTimeFormatter d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String creatingDateString = creatingDate.format(d);
         String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
-        connectAndExecute(sql);
+        execute(sql);
         sql = "SELECT MAX(id) FROM teams";
         int id = getInt(sql);
         addMemberToTeam(leader, id);
@@ -46,7 +46,7 @@ public class DatabaseHandler {
     public static void createTask(String title, String creatingDate,
                                   String deadlineDate, int teamId) throws SQLException {
         String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate,teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     //TODO when categories initialize
@@ -55,7 +55,7 @@ public class DatabaseHandler {
     //  }
     public static void createBoard(String boardName, int teamId) throws SQLException {
         String sql = Queries.CREATE_BOARD;
-        connectAndExecute(sql);
+        execute(sql);
     }
 
 
@@ -68,19 +68,13 @@ public class DatabaseHandler {
 
     public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
-        String sql = String.format(Queries.DOES_TEAM_EXIST, teamName);
-        boolean bool = false;
-        connect();
+        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME,username ,teamName);
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
-        if (result.next()) {
-            String leader = result.getString(1);
-            if (username.equals(leader))
-                bool = true;
-        }
-        statement.close();
-        connection.close();
-        return bool;
+        return result.next();
+//        statement.close();
+//        connection.close();
     }
 
     public static boolean doesTeamExist(String teamName) throws SQLException {
@@ -122,17 +116,17 @@ public class DatabaseHandler {
 
     public static void changePassword(String username, String newPassword) throws SQLException {
         String sql = String.format(Queries.CHANGE_PASSWORD, newPassword, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void changeUsername(String oldUsername, String newUsername) throws SQLException {
         String sql = String.format(Queries.CHANGE_USERNAME, newUsername, oldUsername);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.GET_LOGS, username);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         result.next();
@@ -140,8 +134,8 @@ public class DatabaseHandler {
         ArrayList<LocalDateTime> arraylist = new Gson().fromJson(json,
                 new TypeToken<List<LocalDateTime>>() {
                 }.getType());
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return arraylist;
     }
 
@@ -166,20 +160,20 @@ public class DatabaseHandler {
 
     private static ArrayList<String> getArraylistString(String sql) throws SQLException {
         ArrayList<String> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
             answer.add(result.getString(1));
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
     }
 
     public static void sendNotificationToUser(String notification, String username) throws SQLException {
         String sql = String.format(Queries.SEND_NOTIFICATION_TO_USER, username, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
@@ -201,60 +195,60 @@ public class DatabaseHandler {
 
     private static ArrayList<Integer> getIntArraylist(String sql) throws SQLException {
         ArrayList<Integer> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
             answer.add(result.getInt(1));
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
     }
 
     private static void deleteBoardByTeamId(int teamId) throws SQLException {
         String sql = String.format(Queries.DELETE_BOARD_BY_TEAM_ID, teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteNotificationByUsername(String username) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_NOTIFICATION, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteTaskByTaskID(int taskId) throws SQLException {
         String sql = String.format(Queries.DELETE_TASKS, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteTeamByTeamId(int teamId) throws SQLException {
         String sql = String.format(Queries.DELETE_TEAM, teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteUsernameTaskIdByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_USERNAME_TASK_ID_BY_TASK_ID, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteUsernameTaskIdByUsername(String username) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_USERNAME_TASK_ID_BY_USERNAME, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteUsernameTeamIdByTeamId(int teamId) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_USERNAME_TEAM_ID_BY_TEAM_ID, teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteUsernameTeamIdByUsername(String username) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_USERNAME_TEAM_ID_BY_USERNAME, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     private static void deleteFromUsers(String username) throws SQLException {
         String sql = String.format(Queries.DELETE_FROM_USERS, username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void banLeader(String username) throws SQLException {
@@ -304,7 +298,7 @@ public class DatabaseHandler {
         }
         for (String i : teams) {
             String sql = String.format(Queries.ACCEPT_TEAM, i);
-            connectAndExecute(sql);
+            execute(sql);
         }
         return "teams Accepted";
 
@@ -317,7 +311,7 @@ public class DatabaseHandler {
         }
         for (String i : teams) {
             String sql = String.format(Queries.REJECT_TEAM, i);
-            connectAndExecute(sql);
+            execute(sql);
         }
         return "teams Rejected";
     }
@@ -325,7 +319,7 @@ public class DatabaseHandler {
     public static ArrayList<String> showScoreboard(String teamName) throws SQLException {
         String sql = String.format(Queries.showScoreBoard, teamName);
         ArrayList<String> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         int i = 1;
@@ -333,25 +327,25 @@ public class DatabaseHandler {
             answer.add(i + " " + result.getString(1) + " : " + result.getString(2));
             i++;
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
     }
 
     public static LocalDateTime getCreationDateByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
             String creatingDate = result.getString(1);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            statement.close();
-            connection.close();
+//            statement.close();
+//            connection.close();
             return LocalDateTime.parse(creatingDate, formatter);
         } else {
-            statement.close();
-            connection.close();
+//            statement.close();
+//            connection.close();
             return null;
         }
     }
@@ -360,17 +354,17 @@ public class DatabaseHandler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String deadLine = newDeadline.format(formatter);
         String sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadLine, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void assignUser(int taskId, String username) throws SQLException {
         String sql = String.format(Queries.ASSIGN_USER, username, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void removeUserFromTask(int taskId, String username) throws SQLException {
         String sql = String.format(Queries.REMOVE_USER_FROM_TASK, username, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static boolean isUsernameAssigned(int taskId, String username) throws SQLException {
@@ -385,7 +379,7 @@ public class DatabaseHandler {
 
     public static String getTaskLeaderByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_TASK_LEADER_BY_TASK_ID, taskId);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next())
@@ -395,22 +389,22 @@ public class DatabaseHandler {
 
     public static void changeTaskPriority(int id, String newPriority) throws SQLException {
         String sql = String.format(Queries.UPDATE_PRIORITY, newPriority, id);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void changeTaskDescription(int id, String newDescription) throws SQLException {
         String sql = String.format(Queries.UPDATE_DESCRIPTION, newDescription, id);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void changeTaskTitle(int id, String newTitle) throws SQLException {
         String sql = String.format(Queries.UPDATE_TITLE, newTitle, id);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void logLogin(String username, LocalDateTime log) throws SQLException {
         String sql = String.format(Queries.GET_LOGS, username);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -423,16 +417,16 @@ public class DatabaseHandler {
             sql = String.format(Queries.ADD_LOGS, logs, username);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+//            preparedStatement.close();
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
     }
 
     public static ArrayList<String> showRoadmap(int teamId) throws SQLException {
         String sql = String.format(Queries.ROAD_MAP, teamId);
         ArrayList<String> roadMaps = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         int i = 1;
@@ -445,7 +439,7 @@ public class DatabaseHandler {
 
     public static void sendMessage(int teamId, String message) throws SQLException {
         String sql = String.format(Queries.GET_CHATROOM, teamId);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -458,10 +452,10 @@ public class DatabaseHandler {
             sql = String.format(Queries.ADD_CHAT, chats, teamId);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+//            preparedStatement.close();
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
     }
 
     public static ArrayList<String> showChatroom(int teamId) throws SQLException {
@@ -472,7 +466,7 @@ public class DatabaseHandler {
     public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException {
         String sql = String.format(Queries.GET_TASKS_BY_TEAM_ID, teamId);
         ArrayList<String> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         int i = 1;
@@ -489,18 +483,18 @@ public class DatabaseHandler {
             while (result2.next()) {
                 users.append(" " + result2.getString(1));
             }
-            statement2.close();
+//            statement2.close();
             answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
             i++;
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
     }
 
     public static boolean doesBoardExist(String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.DOES_BOARD_EXIST, teamId, boardName);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         return result.next();
@@ -508,12 +502,12 @@ public class DatabaseHandler {
 
     public static void removeBoard(String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.REMOVE_BOARD, teamId, boardName);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void addCategory(String categoryName, String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -526,15 +520,15 @@ public class DatabaseHandler {
             sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+//            preparedStatement.close();
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
     }
 
     public static int numOfBoardCategories(String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -550,12 +544,12 @@ public class DatabaseHandler {
     //     change finish field of a board
     public static void finishBoard(String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.UPDATE_FINISHED_BOARD, boardName, teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void addTaskToBoard(int taskId, String boardName) throws SQLException {
         String sql = String.format(Queries.ADD_TASK_TO_BOARD, boardName, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static boolean doesTaskAddedToBoard(int taskId, String boardName) throws SQLException {
@@ -575,12 +569,12 @@ public class DatabaseHandler {
     }
 
     public static boolean doesExist(String sql) throws SQLException {
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         boolean bool = result.next();
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return bool;
     }
 
@@ -588,14 +582,14 @@ public class DatabaseHandler {
       public static int getTaskIdByTaskTitle( String taskTitle , int teamId) throws SQLException {
         String sql = String.format(Queries.GET_TASK_ID_BY_TASK_TITLE, teamId, taskTitle);
         int a = 0;
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
             a = result.getInt(1);
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return a;
 
       }
@@ -604,12 +598,12 @@ public class DatabaseHandler {
     //can be member or leader
     public static int getNumberOfTeamsByUsername(String username) throws SQLException {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         int number = result.getRow();
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return number;
     }
 
@@ -620,7 +614,7 @@ public class DatabaseHandler {
             sql = String.format(Queries.CHANGE_ROLE, "leader", username);
         else
             sql = String.format(Queries.CHANGE_ROLE, "member", username);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static ArrayList<Integer> getDoneTasks(String boardName, int teamId) throws SQLException {
@@ -636,7 +630,7 @@ public class DatabaseHandler {
     public static ArrayList<String> getTasksOfBoardToShow(String boardName, int teamId, int priority) throws SQLException {
         String sql = String.format(Queries.GET_TASKS_BY_BOARD_NAME_TEAM_ID, boardName, teamId);
         ArrayList<String> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
@@ -654,7 +648,7 @@ public class DatabaseHandler {
             while (result2.next()) {
                 users.append(" " + result2.getString(1));
             }
-            statement2.close();
+//            statement2.close();
             String row = "Title: " + taskTitle + "\nCategory: " + category + "\nDescription: " + description + "\nCreation date: " + creatingDate + "\nDeadline: " + deadlineDate + "\nAssigned to: " + users.toString() + "\nStatus: ";
             switch (state){
                 case 0:
@@ -669,10 +663,9 @@ public class DatabaseHandler {
             }
             answer.add(row);
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
-
     }
 
     public static String showBoard(String boardName, int teamId) throws SQLException {
@@ -686,7 +679,7 @@ public class DatabaseHandler {
         int failed = 100*failedTasks.size()/(tasksHighest.size()+tasksHigh.size()+tasksLow.size()+tasksLowest.size());
         StringBuilder stringBuilder = new StringBuilder();
         String sql = String.format(Queries.SHOW_BOARD, boardName, teamId);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -717,22 +710,22 @@ public class DatabaseHandler {
             }
             return stringBuilder.toString();
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return "";
     }
 
     public static void addMemberToTeam(String username, int teamId) throws SQLException {
         String sql = String.format(Queries.ADD_MEMBER_TO_TEAM, username, teamId);
-        connectAndExecute(sql);
+        execute(sql);
     }
     public static void removeMemberFromTeam(String username, int teamId) throws SQLException {
         String sql = String.format(Queries.REMOVE_USER_FROM_TEAM, username, teamId);
-        connectAndExecute(sql);
+        execute(sql);
         ArrayList<Integer> tasks = getTasksIdByTeamId(teamId);
         for (Integer i : tasks) {
             sql = String.format(Queries.REMOVE_USER_FROM_TASK_OF_TEAM_BY_TEAM_ID, username, i);
-            connectAndExecute(sql);
+            execute(sql);
         }
     }
 
@@ -743,14 +736,14 @@ public class DatabaseHandler {
 
     private static String getString(String sql) throws SQLException {
         String role = null;
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
             role = result.getString(1);
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return role;
     }
 
@@ -781,7 +774,7 @@ public class DatabaseHandler {
 
      public static void addToSuspendedList (String username , int teamId) throws SQLException {
         String sql = String.format(Queries.ADD_SUSPENDS, username, teamId);
-        connectAndExecute(sql);
+        execute(sql);
      }
 
      public static ArrayList<String> getCategories(String boardName, int teamId) throws SQLException {
@@ -791,7 +784,7 @@ public class DatabaseHandler {
 
     private static ArrayList<String> getGsonArraylistStrings(String sql) throws SQLException {
         ArrayList<String> categories = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -800,8 +793,8 @@ public class DatabaseHandler {
                     new TypeToken<List<String>>() {
                     }.getType());
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return categories;
     }
 
@@ -812,7 +805,7 @@ public class DatabaseHandler {
 
      public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
          String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
-         connect();
+//         connect();
          Statement statement = connection.createStatement();
          ResultSet result = statement.executeQuery(sql);
          if (result.next()) {
@@ -825,10 +818,10 @@ public class DatabaseHandler {
              sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
              preparedStatement.executeUpdate();
-             preparedStatement.close();
+//             preparedStatement.close();
          }
-         statement.close();
-         connection.close();
+//         statement.close();
+//         connection.close();
      }
 
      public static boolean isTaskInDoneCategory ( int taskId ) throws SQLException {
@@ -839,7 +832,7 @@ public class DatabaseHandler {
      public static void addToCategory ( String category , String taskTitle , String boardName , int teamId) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.SET_CATEGORY,category ,taskId);
-        connectAndExecute(sql);
+        execute(sql);
      }
 
      public static int getStateOfTask(int taskId) throws SQLException {
@@ -860,18 +853,18 @@ public class DatabaseHandler {
 
     private static int getInt(String sql) throws SQLException {
         int point = -1;
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next())
             point = result.getInt(1);
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return point;
     }
      public static void setPointOfUser(String username , int points) throws SQLException {
         String sql = String.format(Queries.SET_POINT, points, username);
-        connectAndExecute(sql);
+        execute(sql);
      }
      public static ArrayList<Integer> getAllTasks() throws SQLException {
         String sql = "SELECT id FROM tasks";
@@ -886,7 +879,7 @@ public class DatabaseHandler {
 
     public static void addCommentByTaskId(int taskId, String comment, String username) throws SQLException {
         String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         if (result.next()) {
@@ -899,10 +892,10 @@ public class DatabaseHandler {
             sql = String.format(Queries.ADD_COMMENT, json, taskId);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+//            preparedStatement.close();
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
     }
 
     public static ArrayList<String> showCommentsByTaskId(int taskId) throws SQLException {
@@ -916,38 +909,38 @@ public class DatabaseHandler {
 
     public static void setStateOfTask(int taskId, int state) throws SQLException {
         String sql = String.format(Queries.SET_STATE, state, taskId);
-        connectAndExecute(sql);
+        execute(sql);
     }
 
     public static void reliveFailedTask(String taskTitle, String username, String deadline, String category, int teamId) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_CATEGORY, category, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.ASSIGN_USER, username, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         setStateOfTask(taskId, 3);
     }
 
     public static void reliveFailedTask(String taskTitle, String deadline, int teamId) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         setStateOfTask(taskId, 3);
     }
     public static void reliveFailedTaskHaveCategory(String taskTitle, String deadline, int teamId, String category) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_CATEGORY, category, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
-        connectAndExecute(sql);
+        execute(sql);
 
         setStateOfTask(taskId, 3);
     }
@@ -955,11 +948,11 @@ public class DatabaseHandler {
     public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId,String username) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         sql = String.format(Queries.ASSIGN_USER, username, taskId);
-        connectAndExecute(sql);
+        execute(sql);
         setStateOfTask(taskId, 3);
     }
 
@@ -972,21 +965,21 @@ public class DatabaseHandler {
     public static ArrayList<String> getDeadlinesByUsername(String username) throws SQLException {
         String sql = String.format(Queries.GET_DEADLINES, username, username, username);
         ArrayList<String> answer = new ArrayList<>();
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
             answer.add(result.getString(3) + " : " + result.getString(1) + " " + result.getString(2));
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
     }
 
     public static String getDetailOfTask(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_TASK, taskId);
         String answer = null;
-        connect();
+//        connect();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
@@ -1001,11 +994,16 @@ public class DatabaseHandler {
             while (result2.next()) {
                 users.append(" " + result2.getString(1));
             }
-            statement2.close();
+//            statement2.close();
             answer = taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority;
         }
-        statement.close();
-        connection.close();
+//        statement.close();
+//        connection.close();
         return answer;
+    }
+
+    public static int getTeamIdByTeamNameAndMember(String teamName, String username) throws SQLException {
+        String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME, teamName, username);
+        return getInt(sql);
     }
 }

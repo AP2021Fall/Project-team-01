@@ -176,4 +176,6 @@ public class Queries {
                     "ORDER BY `deadline date` ASC";
     public static final String GET_TASK =
             "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE id = %d";
+    public static final String GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME =
+            "SELECT id FROM teams JOIN `username-team_id` ON teams.id = `username-team_id`.team_id WHERE username = '%s' AND name = '%s'";
 }

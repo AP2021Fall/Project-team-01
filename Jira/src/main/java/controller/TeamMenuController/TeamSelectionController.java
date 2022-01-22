@@ -15,7 +15,7 @@ public class TeamSelectionController {
         if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())) {
             Team team = new Team();
             team.setName(teamName);
-//            team.setId(DatabaseHandler.getTeamIdByTeamNameAndM);
+            team.setId(DatabaseHandler.getTeamIdByTeamNameAndMember(teamName, LoginController.getActiveUser().getUsername()));
             TeamMenuController.setTeam(team);
             MenuController.currentMenu = Menus.TEAM_MENU;
             TeamMenuController.showTeamMenu();
