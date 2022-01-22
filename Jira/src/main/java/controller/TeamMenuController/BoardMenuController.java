@@ -17,8 +17,19 @@ public class BoardMenuController {
     public static void setActiveBoard(String activeBoard) {
         BoardMenuController.activeBoard = activeBoard;
     }
-    public static void updateTasks(int taskId){
-        DatabaseHandler.ge
+    public static void updateTasks(int taskId) throws SQLException {
+       int help = DatabaseHandler.getStateOfTask(taskId);
+       if (help == 3){
+          if ( DatabaseHandler.doesDeadlinePassed(taskId)){
+              DatabaseHandler.setStateOfTask(taskId , 0);
+              ArrayList<String>list =  DatabaseHandler.getMembersOfTask(taskId);
+              for (String s : list){
+                 int i = DatabaseHandler.getPointsOfUser(s);
+                 DatabaseHandler.setPointOfUser(s , i-5);
+              }
+          }
+       }
+
     }
     public static void createBoard(String boardName) throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
@@ -161,7 +172,7 @@ public class BoardMenuController {
                 if (DatabaseHandler.doesTaskExist(taskNum)) {
                     if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskNum))) {
                         if ((DatabaseHandler.doesTaskAddedToBoard(taskNum , boardName))){
-                            if (!(DatabaseHandler.isTaskInDoneCategory(taskNum , boardName , TeamMenuController.getTeam().getId()))) {
+                            if (!(DatabaseHandler.isTaskInDoneCategory(taskNum))) {
                                 if (DatabaseHandler.doesTeamExistForUser(TeamMenuController.getTeam().getName() , teamMember))
                                     DatabaseHandler.assignUser(taskNum , teamMember);
                                 else
@@ -183,7 +194,6 @@ public class BoardMenuController {
     public static void forceTaskToCategorySelect(){
 
     }
-    //nagese inja takmil nashode
     public static void forceTaskToCategory(String category , String taskTitle , String boardName) throws SQLException {
 
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {

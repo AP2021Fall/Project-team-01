@@ -39,9 +39,8 @@ public class DatabaseHandler {
         String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
         connectAndExecute(sql);
     }
-
-    public static void createTask(String title, String creatingDate,
-                                  String deadlineDate) throws SQLException {
+// insert teamId to
+    public static void createTask(String title, String creatingDate, String deadlineDate) throws SQLException {
         String sql = String.format(Queries.CREATE_TASK, title, creatingDate, deadlineDate);
         connectAndExecute(sql);
     }
@@ -825,7 +824,7 @@ public class DatabaseHandler {
          connection.close();
      }
 
-     public static boolean isTaskInDoneCategory ( int taskId , String boardName , int teamId ) throws SQLException {
+     public static boolean isTaskInDoneCategory ( int taskId ) throws SQLException {
         int state = getStateOfTask(taskId);
         return state == 1;
      }
@@ -846,5 +845,12 @@ public class DatabaseHandler {
          connection.close();
          return state;
      }
-
+    //public static Arraylist<String> getMembersOfTask(int taskId){
+    //}
+    // public static int getPointsOfUser(String username){
+    // }
+    // public static void setPointOfUser(String username , int points){
+    // }
+    // public static Arraylist<String> getAllTasks(){
+    // }
 }

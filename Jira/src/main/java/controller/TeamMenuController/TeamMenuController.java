@@ -36,10 +36,10 @@ public class TeamMenuController {
         System.out.println("back");
     }
 
-    public static void showAllTasksLeader() {
+    public static void showAllTasksLeader() throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
-            if (DatabaseHandler.doesTaskExistInTeam(TeamMenuController.getTeam().getId())) {
-                ArrayList<String> print = DatabaseHandler.showTeamTasks(TeamMenuController.getTeam().getId());
+                ArrayList<String> print = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
+                if (print.size() == null){
                 for (String s : print) {
                     System.out.println(s);
                 }
@@ -54,15 +54,15 @@ public class TeamMenuController {
 
         if (Regex.getCommandMatcher(creationTime, "yyyy-MM-dd HH:mm:ss").matches()) {
             if (Regex.getCommandMatcher(deadline, "yyyy-MM-dd HH:mm:ss").matches()) {
-                if (DatabaseHandler.doesTaskExist(taskTitle)) {
+                if (DatabaseHandler.doesTaskExist(taskTitle , TeamMenuController.getTeam().getId())) {
                     int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
                     if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                         System.out.println("There is another task with this title!");
                     } else {
-                        DatabaseHandler.createTaskLeader(taskTitle, creationDate, deadlineDate, TeamMenuController.getTeam().getId());
+                        DatabaseHandler.createTask(taskTitle, creationTime, deadline , TeamMenuController.getTeam().getId());
                     }
                 } else
-                    DatabaseHandler.createTaskLeader(taskTitle, creationDate, deadlineDate, TeamMenuController.getTeam().getId());
+                    DatabaseHandler.createTask(taskTitle, creationTime, deadline, TeamMenuController.getTeam().getId());
             } else
                 System.out.println("Invalid deadline");
         } else
@@ -92,7 +92,7 @@ public class TeamMenuController {
             System.out.println("no user with this username exists");
     }
 
-    public static void deleteMemberFromTeam(String group) {
+    public static void deleteMemberFromTeam(String name) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(name)) {
             if (DatabaseHandler.isUserMember(name))
                 if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))
@@ -137,7 +137,7 @@ public class TeamMenuController {
     public static void assignMemberToTask( String taskTitle , String username) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(username)) {
                 if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
-                    if (DatabaseHandler.doesTaskExist(taskTitle)) {
+                    if (DatabaseHandler.doesTaskExist(taskTitle , TeamMenuController.getTeam().getId())) {
                         int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle , TeamMenuController.getTeam().getId());
                         if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId)))
                             DatabaseHandler.assignUser(taskId, username);
