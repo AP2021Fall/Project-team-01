@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class DatabaseHandler {
     private static final String JDB_URL = "jdbc:mysql://localhost:3306/apjira";
@@ -911,7 +909,7 @@ public class DatabaseHandler {
         return comments;
     }
 
-    public static void setTaskState(int taskId, int state) throws SQLException {
+    public static void setStateOfTask(int taskId, int state) throws SQLException {
         String sql = String.format(Queries.SET_STATE, state, taskId);
         connectAndExecute(sql);
     }
@@ -926,7 +924,7 @@ public class DatabaseHandler {
         connectAndExecute(sql);
         sql = String.format(Queries.ASSIGN_USER, username, taskId);
         connectAndExecute(sql);
-        setTaskState(taskId, 3);
+        setStateOfTask(taskId, 3);
     }
 
     public static void reliveFailedTask(String taskTitle, String deadline, int teamId) throws SQLException {
@@ -935,7 +933,7 @@ public class DatabaseHandler {
         connectAndExecute(sql);
         sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
         connectAndExecute(sql);
-        setTaskState(taskId, 3);
+        setStateOfTask(taskId, 3);
     }
     public static void reliveFailedTaskHaveCategory(String taskTitle, String deadline, int teamId, String category) throws SQLException {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
@@ -945,7 +943,7 @@ public class DatabaseHandler {
         connectAndExecute(sql);
         sql = String.format(Queries.SET_CATEGORY, category, taskId);
         connectAndExecute(sql);
-        setTaskState(taskId, 3);
+        setStateOfTask(taskId, 3);
     }
 
     public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId,String username) throws SQLException {
@@ -956,7 +954,7 @@ public class DatabaseHandler {
         connectAndExecute(sql);
         sql = String.format(Queries.ASSIGN_USER, username, taskId);
         connectAndExecute(sql);
-        setTaskState(taskId, 3);
+        setStateOfTask(taskId, 3);
     }
 
 

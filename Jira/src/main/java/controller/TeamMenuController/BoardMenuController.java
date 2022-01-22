@@ -367,6 +367,7 @@ public class BoardMenuController {
 }
 
     public static void showBoardDetailsSelect() {
+
     }
 
     public static void showBoardDetails(String boardName) throws SQLException {
