@@ -149,4 +149,10 @@ public class Queries {
             "SELECT role FROM users WHERE username = '%s'";
     public static final String ADD_SUSPENDS =
             "INSERT INTO suspends (username, team_Id) VALUES ('%s', %d)";
+    public static final String GET_CATEGORY_BY_TASK_ID =
+            "SELECT category FROM tasks WHERE id = %d";
+    public static final String SET_CATEGORY =
+            "UPDATE tasks SET category = '%s' WHERE id = %d";
+    public static final String IS_TASK_DONE =
+            "SELECT state FROM tasks WHERE id = %d";
 }

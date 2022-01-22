@@ -462,19 +462,7 @@ public class DatabaseHandler {
 
     public static ArrayList<String> showChatroom(int teamId) throws SQLException {
         String sql = String.format(Queries.GET_CHATROOM, teamId);
-        ArrayList<String> chats = new ArrayList<>();
-        connect();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        if (result.next()) {
-            String json = result.getString(1);
-            chats = new Gson().fromJson(json,
-                    new TypeToken<List<String>>() {
-                    }.getType());
-        }
-        statement.close();
-        connection.close();
-        return chats;
+        return getGsonArraylistStrings(sql);
     }
 
     public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException {
@@ -761,9 +749,6 @@ public class DatabaseHandler {
         return role;
     }
 
-    // public static void createTaskLeader(String taskTitle ,LocalDateTime creationDate ,LocalDateTime deadlineDate , int teamId){
-    // }
-
     //first get task id
      public static boolean doesTaskExist(String taskTitle, int teamId) throws SQLException {
         return getTaskIdByTaskTitle(taskTitle, teamId) != 0;
@@ -794,20 +779,68 @@ public class DatabaseHandler {
         connectAndExecute(sql);
      }
 
-//     public static ArrayList<String> getCategories(String boardName, int teamId) {
-//
-//     }
+     public static ArrayList<String> getCategories(String boardName, int teamId) throws SQLException {
+         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+         return getGsonArraylistStrings(sql);
+     }
 
-//     public static String getCategory(int taskId){
-//
-//     }
+    private static ArrayList<String> getGsonArraylistStrings(String sql) throws SQLException {
+        ArrayList<String> categories = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            categories = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        }
+        statement.close();
+        connection.close();
+        return categories;
+    }
 
-    // public static void assignMemberToTaskByLeader ( String username , int taskId){
-    // }
-    // public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId){
-    // }
-    // public static void isTaskInDoneCategory ( int taskId , String boardName , int teamId ){
-    // }
-    // public static void addToCategory ( String category , String taskTitle , String boardName , int teamId){
-    // }
+     public static String getCategory(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_CATEGORY_BY_TASK_ID, taskId);
+        return getString(sql);
+     }
+
+     public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
+         String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
+         connect();
+         Statement statement = connection.createStatement();
+         ResultSet result = statement.executeQuery(sql);
+         if (result.next()) {
+             String json = result.getString(1);
+             ArrayList<String> categories = new Gson().fromJson(json,
+                     new TypeToken<List<String>>() {
+                     }.getType());
+             categories.add(columnNum, categoryName);
+             json = new Gson().toJson(categories);
+             sql = String.format(Queries.ADD_CATEGORIES, json, teamId, boardName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             preparedStatement.executeUpdate();
+             preparedStatement.close();
+         }
+         statement.close();
+         connection.close();
+     }
+
+     public static boolean isTaskInDoneCategory ( int taskId , String boardName , int teamId ) throws SQLException {
+        String sql = String.format(Queries.IS_TASK_DONE, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int state = result.getInt(1);
+        statement.close();
+        connection.close();
+        return state == 1;
+     }
+
+     public static void addToCategory ( String category , String taskTitle , String boardName , int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.SET_CATEGORY,category ,taskId);
+        connectAndExecute(sql);
+     }
+
 }
