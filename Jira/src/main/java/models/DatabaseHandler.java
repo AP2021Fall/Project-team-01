@@ -1,5 +1,7 @@
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -485,8 +487,7 @@ public class DatabaseHandler {
                 users.append(" " + result2.getString(1));
             }
             statement2.close();
-            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : "
-                    + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
             i++;
         }
         statement.close();
@@ -804,8 +805,6 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_CATEGORY_BY_TASK_ID, taskId);
         return getString(sql);
      }
-
-
 
      public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
          String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
