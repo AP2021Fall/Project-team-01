@@ -939,10 +939,11 @@ public class DatabaseHandler {
         int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
         String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
         connectAndExecute(sql);
-        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
-        connectAndExecute(sql);
         sql = String.format(Queries.SET_CATEGORY, category, taskId);
         connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+
         setStateOfTask(taskId, 3);
     }
 
@@ -957,12 +958,13 @@ public class DatabaseHandler {
         setStateOfTask(taskId, 3);
     }
 
-
-
-
-
     public static boolean isUsernameTeamMate(String username, int teamId) throws SQLException {
         String sql = String.format(Queries.IS_MEMBER_IN_TEAM, username, teamId);
         return doesExist(sql);
+    }
+
+
+    public static void updateDeadlines(String username) {
+
     }
 }

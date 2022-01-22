@@ -264,6 +264,9 @@ public class BoardMenuController {
                                 } else {
                                     System.out.println("There is no category after this category and this task will set to done");
                                     DatabaseHandler.setStateOfTask(taskNum, 1);
+                                    ArrayList<String> assigned = DatabaseHandler.getMembersOfTask(taskNum);
+                                    for (String j : assigned)
+                                        DatabaseHandler.setPointOfUser(j, DatabaseHandler.getPointsOfUser(j) + 10);
                                 }
                             } else
                                 System.out.println("There is no category in this board");
