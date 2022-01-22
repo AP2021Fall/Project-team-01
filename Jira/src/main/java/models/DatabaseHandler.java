@@ -880,4 +880,10 @@ public class DatabaseHandler {
         ArrayList<String> categories = getCategories(boardName, teamId);
         return categories.contains(category);
      }
+
+    public static void addCommentByTaskId(int taskId, String comment, String username) {
+    }
+
+    public static ArrayList<String> showCommentsByTaskId(int taskId) {
+    }
 }
