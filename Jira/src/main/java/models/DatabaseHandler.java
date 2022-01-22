@@ -881,9 +881,34 @@ public class DatabaseHandler {
         return categories.contains(category);
      }
 
-    public static void addCommentByTaskId(int taskId, String comment, String username) {
+    public static void addCommentByTaskId(int taskId, String comment, String username) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            ArrayList<String> comments = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+            comments.add(username + " : " + username);
+            json = new Gson().toJson(comments);
+            sql = String.format(Queries.ADD_COMMENT, json, taskId);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
     }
 
-    public static ArrayList<String> showCommentsByTaskId(int taskId) {
+    public static ArrayList<String> showCommentsByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
+        String json = getString(sql);
+        ArrayList<String> comments = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType());
+        return comments;
     }
+
 }

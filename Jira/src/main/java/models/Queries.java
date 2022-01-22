@@ -159,4 +159,8 @@ public class Queries {
             "SELECT point FROM users WHERE username = '%s'";
     public static final String SET_POINT =
             "UPDATE users SET point = %d WHERE username = '%s'";
+    public static final String GET_TASK_COMMENT =
+            "SELECT comments FROM tasks WHERE id = %d";
+    public static final String ADD_COMMENT =
+            "UPDATE tasks SET comments = '%s' WHERE id = %d";
 }
