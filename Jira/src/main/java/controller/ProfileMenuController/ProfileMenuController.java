@@ -53,8 +53,8 @@ public class ProfileMenuController {
 
     public static void showMyProfile() {
         User user = LoginController.getActiveUser();
-        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + "role: " + user.getRole() +
-                "score: " + user.getPoint());
+        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + " role: " + user.getRole() +
+                " score: " + user.getPoint());
         //birthdate and name?
     }
 

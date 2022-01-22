@@ -16,7 +16,7 @@ public class DatabaseHandler {
     private static Connection connection;
 
     public static void connect() throws SQLException {
-        connection = DriverManager.getConnection(JDB_URL, USER, PASSWORD);
+        connection = DriverManager.getConnection(JDB_URL, USER, Password.password);
     }
 
     public static void connectAndExecute(String sql) throws SQLException {
@@ -38,6 +38,9 @@ public class DatabaseHandler {
         String creatingDateString = creatingDate.format(d);
         String sql = String.format(Queries.CREATE_TEAM, name, creatingDateString, leader);
         connectAndExecute(sql);
+        sql = "SELECT MAX(id) FROM teams";
+        int id = getInt(sql);
+        addMemberToTeam(leader, id);
     }
 
     public static void createTask(String title, String creatingDate,
@@ -60,6 +63,8 @@ public class DatabaseHandler {
         String sql = String.format(Queries.DOES_USERNAME_EXIST, username);
         return doesExist(sql);
     }
+
+//    public static boolean getTeamId
 
     public static boolean doesTeamExistForUser(String teamName, String username) throws SQLException {
 
@@ -146,7 +151,7 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> getUserTeams(String username) throws SQLException {
-        return getTeamsOrMembers("name", "username", username, "creating date");
+        return getTeamsOrMembers("name", "username", username, "`creating date`");
     }
 
     public static ArrayList<String> getMembersByTeamName(String teamName) throws SQLException {
@@ -485,8 +490,7 @@ public class DatabaseHandler {
                 users.append(" " + result2.getString(1));
             }
             statement2.close();
-            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : "
-                    + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
+            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
             i++;
         }
         statement.close();
@@ -593,6 +597,7 @@ public class DatabaseHandler {
         statement.close();
         connection.close();
         return a;
+
       }
 
 
@@ -805,8 +810,6 @@ public class DatabaseHandler {
         return getString(sql);
      }
 
-
-
      public static void addCategoryToColumn(String categoryName , int columnNum , String boardName , int teamId) throws SQLException {
          String sql = String.format(Queries.GET_CATEGORIES, teamId, boardName);
          connect();
@@ -881,9 +884,128 @@ public class DatabaseHandler {
         return categories.contains(category);
      }
 
-    public static void addCommentByTaskId(int taskId, String comment, String username) {
+    public static void addCommentByTaskId(int taskId, String comment, String username) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        if (result.next()) {
+            String json = result.getString(1);
+            ArrayList<String> comments = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+            comments.add(username + " : " + username);
+            json = new Gson().toJson(comments);
+            sql = String.format(Queries.ADD_COMMENT, json, taskId);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        statement.close();
+        connection.close();
     }
 
-    public static ArrayList<String> showCommentsByTaskId(int taskId) {
+    public static ArrayList<String> showCommentsByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_COMMENT, taskId);
+        String json = getString(sql);
+        ArrayList<String> comments = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType());
+        return comments;
+    }
+
+    public static void setStateOfTask(int taskId, int state) throws SQLException {
+        String sql = String.format(Queries.SET_STATE, state, taskId);
+        connectAndExecute(sql);
+    }
+
+    public static void reliveFailedTask(String taskTitle, String username, String deadline, String category, int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_CATEGORY, category, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.ASSIGN_USER, username, taskId);
+        connectAndExecute(sql);
+        setStateOfTask(taskId, 3);
+    }
+
+    public static void reliveFailedTask(String taskTitle, String deadline, int teamId) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        setStateOfTask(taskId, 3);
+    }
+    public static void reliveFailedTaskHaveCategory(String taskTitle, String deadline, int teamId, String category) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_CATEGORY, category, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+
+        setStateOfTask(taskId, 3);
+    }
+
+    public static void reliveFailedTaskJustUsername(String taskTitle, String deadline, int teamId,String username) throws SQLException {
+        int taskId = getTaskIdByTaskTitle(taskTitle, teamId);
+        String sql = String.format(Queries.UPDATE_TITLE, taskTitle, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.SET_DEAD_LINE_BY_TASK_ID, deadline, taskId);
+        connectAndExecute(sql);
+        sql = String.format(Queries.ASSIGN_USER, username, taskId);
+        connectAndExecute(sql);
+        setStateOfTask(taskId, 3);
+    }
+
+    public static boolean isUsernameTeamMate(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.IS_MEMBER_IN_TEAM, username, teamId);
+        return doesExist(sql);
+    }
+
+
+    public static ArrayList<String> getDeadlinesByUsername(String username) throws SQLException {
+        String sql = String.format(Queries.GET_DEADLINES, username, username, username);
+        ArrayList<String> answer = new ArrayList<>();
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getString(3) + " : " + result.getString(1) + " " + result.getString(2));
+        }
+        statement.close();
+        connection.close();
+        return answer;
+    }
+
+    public static String getDetailOfTask(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK, taskId);
+        String answer = null;
+        connect();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            String taskTitle = result.getString(1);
+            String creatingDate = result.getString(3);
+            String deadlineDate = result.getString(4);
+            StringBuilder users = new StringBuilder();
+            String priority = result.getString(5);
+            Statement statement2 = connection.createStatement();
+            sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+            ResultSet result2 = statement2.executeQuery(sql);
+            while (result2.next()) {
+                users.append(" " + result2.getString(1));
+            }
+            statement2.close();
+            answer = taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority;
+        }
+        statement.close();
+        connection.close();
+        return answer;
     }
 }

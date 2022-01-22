@@ -39,7 +39,7 @@ public class TeamMenuController {
     public static void showAllTasksLeader() throws SQLException {
         if (LoginController.getActiveUser().getUsername().equals("leader")) {
                 ArrayList<String> print = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
-                if (print.size() == null){
+                if (print.size() == 0){
                 for (String s : print) {
                     System.out.println(s);
                 }

@@ -102,11 +102,11 @@ public class TasksPageController {
         }
     }
 
-    public static void showComments(int taskId){
+    public static void showComments(int taskId) throws SQLException {
         System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
     }
 
-    public static void addComment(int taskId, String comment){
+    public static void addComment(int taskId, String comment) throws SQLException {
         DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
     }
 

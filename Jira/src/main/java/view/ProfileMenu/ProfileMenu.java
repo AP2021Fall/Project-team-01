@@ -20,7 +20,7 @@ public class ProfileMenu {
             System.out.println(ProfileMenuController.changeUsername(matcher.group(1)));
         } else if (Regex.getCommandMatcher(command, Regex.SHOW_TEAMS).matches()) {
             ProfileMenuController.showTeams();
-        } else if (Regex.getCommandMatcher(command, Regex.SHOW_TEAM).matches()) {
+        } else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_TEAM)).matches()) {
             ProfileMenuController.showTeam(matcher.group(1));
         } else if ( Regex.getCommandMatcher(command, Regex.SHOW_PROFILE).matches()) {
             ProfileMenuController.showMyProfile();
@@ -29,7 +29,7 @@ public class ProfileMenu {
         } else if ( Regex.getCommandMatcher(command, Regex.SHOW_NOTIFICATIONS).matches()) {
             ProfileMenuController.showNotifications();
         } else if (command.equals("exit")) {
-            MenuController.currentMenu = Menus.EXIT;
+            MenuController.currentMenu = Menus.LOGIN_MENU;
             LoginMenu.showLogin();
         } else if (command.equals("back")) {
             MenuController.currentMenu = Menus.MAIN_MENU;

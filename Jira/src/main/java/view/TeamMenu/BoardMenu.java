@@ -55,7 +55,7 @@ public class BoardMenu {
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_FAILED_AND_DONE)).matches())
             BoardMenuController.showFailedAndDone(matcher.group(1) , matcher.group(2));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.RENEW_FAILED_TASK_SELECT)).matches())
-            BoardMenuController.renewFailedTask(matcher.group(1),matcher.group(3),matcher.group(4),matcher.group(6));
+            BoardMenuController.renewFailedTaskSelect(matcher.group(1),matcher.group(3),matcher.group(4),matcher.group(6));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.RENEW_FAILED_TASK)).matches())
             BoardMenuController.renewFailedTask( matcher.group(1) , matcher.group(3) , matcher.group(4) ,matcher.group(6) , matcher.group(7));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_BOARD_SELECT)).matches())

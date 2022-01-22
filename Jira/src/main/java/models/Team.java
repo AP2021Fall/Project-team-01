@@ -19,7 +19,6 @@ public class Team {
         tasks = new ArrayList<>();
         boards = new ArrayList<>();
         creatingDate = LocalDateTime.now();
-        id = idGenerator();
     }
         public Team(){
 
@@ -61,10 +60,9 @@ public class Team {
         return creatingDate;
     }
 
-
-    private static int idGenerator() {
-        if (allTeams.isEmpty())
-            return 1;
-        return allTeams.get(allTeams.size() - 1).id + 1;
+    public void setId(int id) {
+        this.id = id;
     }
+
+
 }

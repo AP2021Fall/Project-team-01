@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class Queries {
     public static final String CREATE_USER =
-            "INSERT INTO users (username, password, email, role, notification) VALUES ('%s','%s','%s','%s','[]')";
+            "INSERT INTO users (username, password, email, role, notification, logs) VALUES ('%s','%s','%s','%s','[]','[]')";
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
@@ -12,7 +12,7 @@ public class Queries {
     public static final String CREATE_BOARD =
             "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
     public static final String DOES_USERNAME_EXIST =
-            "SELECT username FROM users WHERE username = '%s'";
+            "SELECT * FROM users WHERE username = '%s'";
     public static final String DOES_TEAM_EXIST =
             "SELECT leader FROM teams WHERE name = '%s'";
     public static final String IS_TEAM_IN_PENDING =
@@ -28,7 +28,7 @@ public class Queries {
     public static final String GET_SELL =
             "SELECT %s FROM %s WHERE %s = '%s'";
     public static final String GET_TEAMS_MEMBERS =
-            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s' ORDER BY %s";
+            "SELECT %s FROM `username-team_id` `u-ti` JOIN teams t on t.id = `u-ti`.team_id WHERE %s = '%s'  AND confirmation = 'yes' ORDER BY %s";
     public static final String GET_LOGS =
             "SELECT logs FROM users WHERE username = '%s'";
     public static final String SEND_NOTIFICATION_TO_USER =
@@ -60,7 +60,7 @@ public class Queries {
     public static final String GET_ALL_USERNAMES =
             "SELECT username FROM users";
     public static final String GET_PENDING_TEAMS =
-            "SELECT * FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
+            "SELECT name FROM teams WHERE confirmation = 'no' ORDER BY `creating date` DESC";
     public static final String ACCEPT_TEAM =
             "UPDATE teams SET confirmation = 'yes' WHERE name = '%s'";
     public static final String REJECT_TEAM =
@@ -159,4 +159,21 @@ public class Queries {
             "SELECT point FROM users WHERE username = '%s'";
     public static final String SET_POINT =
             "UPDATE users SET point = %d WHERE username = '%s'";
+    public static final String GET_TASK_COMMENT =
+            "SELECT comments FROM tasks WHERE id = %d";
+    public static final String ADD_COMMENT =
+            "UPDATE tasks SET comments = '%s' WHERE id = %d";
+    public static final String SET_STATE =
+            "UPDATE tasks SET state = %d WHERE id = %d";
+    public static final String IS_MEMBER_IN_TEAM =
+            "SELECT * FROM `username-team_id` WHERE username = '%s' AND team_id = %d";
+    public static final String GET_DEADLINES =
+            "SELECT `deadline date`, '*' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND username = '%s'\n" +
+                    "UNION\n" +
+                    "SELECT `deadline date`, '**' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(NOW(), `deadline date`) <= 10 AND username = '%s'\n" +
+                    "UNION\n" +
+                    "SELECT `deadline date`, '***' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) < 4 AND username = '%s'\n" +
+                    "ORDER BY `deadline date` ASC";
+    public static final String GET_TASK =
+            "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE id = %d";
 }

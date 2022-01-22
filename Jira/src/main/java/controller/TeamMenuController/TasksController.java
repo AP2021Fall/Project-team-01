@@ -2,10 +2,11 @@ package controller.TeamMenuController;
 
 import models.DatabaseHandler;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TasksController {
-    public static void showTasks(){
+    public static void showTasks() throws SQLException {
         ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
         for (int i = 0 ; i < show.size(); i++ )
             System.out.println( show.get(i));
@@ -13,8 +14,8 @@ public class TasksController {
             System.out.println("no task yet");
 
     }
-    public static void showTaskById( String taskId){
-        String show = DatabaseHandler.getTeamTasksByTaskId(Integer.parseInt(taskId) , TeamMenuController.getTeam().getId());
+    public static void showTaskById( String taskId) throws SQLException {
+        String show = DatabaseHandler.getDetailOfTask(Integer.parseInt(taskId));
         if (show != null)
             System.out.println(show);
         else

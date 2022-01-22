@@ -1,8 +1,10 @@
 package view;
 
 import controller.MainMenuController;
+import controller.TeamMenuController.TeamMenuController;
 import controller.TeamMenuController.TeamSelectionController;
 import view.ProfileMenu.ProfileMenu;
+import view.TeamMenu.TeamSelection;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -51,8 +53,8 @@ public class MainMenu {
             MainMenuController.sendNotificationToUser(sendNotificationToUser.group(1), sendNotificationToUser.group(2));
         } else if (sendNotificationToTeam.find()) {
             MainMenuController.sendNotificationToTeam(sendNotificationToTeam.group(1), sendNotificationToTeam.group(2));
-        } else if (command.equals("exit")) {
-            MenuController.currentMenu = Menus.EXIT;
+        } else if (command.equals("logout")) {
+            MenuController.currentMenu = Menus.LOGIN_MENU;
         } else if (showProfile.find()) {
             MainMenuController.showProfile(showProfile.group(1));
         } else if (banUser.find()) {
@@ -71,6 +73,8 @@ public class MainMenu {
             MainMenuController.showScoreboard(showScoreboard.group(1));
         } else if (changeRole.find()){
             MainMenuController.changeRole(changeRole.group(1), changeRole.group(2));
+        } else {
+            System.out.println("invalid command");
         }
 
     }
