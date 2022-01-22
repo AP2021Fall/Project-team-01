@@ -793,8 +793,14 @@ public class DatabaseHandler {
         String sql = String.format(Queries.ADD_SUSPENDS, username, teamId);
         connectAndExecute(sql);
      }
-    // public static void addToSuspendedList (String username , int teamId){
-    // }
+
+//     public static ArrayList<String> getCategories(String boardName, int teamId) {
+//
+//     }
+
+//     public static String getCategory(int taskId){
+//
+//     }
 
     // public static void assignMemberToTaskByLeader ( String username , int taskId){
     // }
@@ -803,7 +809,5 @@ public class DatabaseHandler {
     // public static void isTaskInDoneCategory ( int taskId , String boardName , int teamId ){
     // }
     // public static void addToCategory ( String category , String taskTitle , String boardName , int teamId){
-    // }
-    // public static void addToCategoryNext ( String taskTitle , String boardName , int teamId){
     // }
 }
