@@ -2,10 +2,11 @@ package controller.TeamMenuController;
 
 import models.DatabaseHandler;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TasksController {
-    public static void showTasks(){
+    public static void showTasks() throws SQLException {
         ArrayList<String>show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
         for (int i = 0 ; i < show.size(); i++ )
             System.out.println( show.get(i));
