@@ -43,12 +43,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models</artifactId>
-            <version>2021.5.5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.symphony.oss.models</groupId>
             <artifactId>oss-models</artifactId>
             <version>0.8.0</version>
@@ -58,12 +52,6 @@
             <groupId>org.appsweaver.starter.commons.models</groupId>
             <artifactId>commons-models</artifactId>
             <version>1.0.15</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-immutables</artifactId>
-            <version>2021.5.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -94,24 +82,6 @@
             <groupId>org.jresearch.flexess.models</groupId>
             <artifactId>org.jresearch.flexess.models.conf</artifactId>
             <version>1.3.44</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-constants</artifactId>
-            <version>2021.5.5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-sql</artifactId>
-            <version>2021.5.5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-meta</artifactId>
-            <version>2021.5.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -160,18 +130,6 @@
             <groupId>org.jresearch.flexess.models</groupId>
             <artifactId>org.jresearch.flexess.models.pom</artifactId>
             <version>1.3.44</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-maven</artifactId>
-            <version>2021.5.5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>wtf.metio.yosql.models</groupId>
-            <artifactId>yosql-models-generator</artifactId>
-            <version>2021.5.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

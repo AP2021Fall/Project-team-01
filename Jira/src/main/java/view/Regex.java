@@ -17,7 +17,7 @@ public class Regex {
     public static final String EDIT_DEADLINE = "^edit\\s--task\\s--id(.+)\\s--deadline\\s(.+)$";
     public static final String REMOVE_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--remove$";
     public static final String ADD_ASSIGNED_USER = "^edit\\s--task\\s--id(.+)\\s--assignedUsers\\s(.+)\\s--add$";
-    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)--password1\\s(.+)\\s" +
+    public static final String CREATE_USER = "^user\\screate\\s--username\\s(.+)\\s--password1\\s(.+)\\s" +
             "--password2\\s(.+)\\s--email\\sAddress\\s(.+)\\s--role\\s(.+)$";
     public static final String CHANGE_PASSWORD = "^Profile\\schange\\s--oldpassword\\s(.+)\\s" +
             "--newpassword\\s(.+)";
