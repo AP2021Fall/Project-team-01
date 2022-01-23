@@ -1,6 +1,7 @@
 package view.TeamMenu;
 
 import controller.TeamMenuController.BoardMenuController;
+import controller.TeamMenuController.TeamMenuController;
 import org.omg.CORBA.MARSHAL;
 import view.MenuController;
 import view.Menus;
@@ -60,8 +61,10 @@ public class BoardMenu {
             BoardMenuController.showBoardDetails(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_BOARD_SELECT)).matches())
             BoardMenuController.showBoardDetailsSelect();
-        else if (command.equals("back"))
+        else if (command.equals("back")) {
+            TeamMenuController.showTeamMenu();
             MenuController.currentMenu = Menus.TEAM_MENU;
+        }
         else
             System.out.println("Invalid Format");
     }
