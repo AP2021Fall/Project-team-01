@@ -1027,4 +1027,9 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME, teamName);
         return getInt(sql);
     }
+
+    public static String getBoardState(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_BOARD_STATE, teamId, boardName);
+        return getString(sql);
+    }
 }

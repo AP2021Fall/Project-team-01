@@ -168,8 +168,11 @@ public class BoardMenuController {
                         if (!(DatabaseHandler.doesTaskAddedToBoard(taskNum, boardName))) {
                             if (!(DatabaseHandler.doesDeadlinePassed(taskNum))) {
                                 if (DatabaseHandler.isTaskAssigned(taskNum)) {
-                                    DatabaseHandler.addTaskToBoard(taskNum, boardName);
-                                    System.out.println("task successfully added to board");
+                                    if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+                                        DatabaseHandler.addTaskToBoard(taskNum, boardName);
+                                        System.out.println("task successfully added to board");
+                                    }else
+                                        System.out.println("finish board first");
                                 } else
                                     System.out.println("Please assign this task to someone first");
                             } else
@@ -208,8 +211,11 @@ public class BoardMenuController {
                         if ((DatabaseHandler.doesTaskAddedToBoard(taskNum, boardName))) {
                             if (!(DatabaseHandler.getStateOfTask(taskNum) == 0 || DatabaseHandler.getStateOfTask(taskNum) == 1)) {
                                 if (DatabaseHandler.doesTeamExistForUser(TeamMenuController.getTeam().getName(), teamMember)) {
-                                    DatabaseHandler.assignUser(taskNum, teamMember);
-                                    System.out.println("task assigned to member");
+                                    if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+                                        DatabaseHandler.assignUser(taskNum, teamMember);
+                                        System.out.println("task assigned to member");
+                                    } else
+                                        System.out.println("finish board first");
                                 }
                                 else
                                     System.out.println("Invalid teammate");
@@ -252,8 +258,11 @@ public class BoardMenuController {
                     if ((DatabaseHandler.doesTaskAddedToBoard(taskNum, boardName))) {
                         if (DatabaseHandler.doesCategoryExist(category, boardName, TeamMenuController.getTeam().getId()))
                             if (!(DatabaseHandler.getStateOfTask(taskNum) == 0 || DatabaseHandler.getStateOfTask(taskNum) == 1)) {
-                                DatabaseHandler.addToCategory(category, taskTitle, boardName, TeamMenuController.getTeam().getId());
-                                System.out.println("task added to category");
+                                if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+                                    DatabaseHandler.addToCategory(category, taskTitle, boardName, TeamMenuController.getTeam().getId());
+                                    System.out.println("task added to category");
+                                }else
+                                    System.out.println("finish board first");
                             } else
                                 System.out.println("This task has already finished");
                     } else
@@ -275,47 +284,51 @@ public class BoardMenuController {
     }
 
     public static void taskToNext(String taskTitle, String boardName) throws SQLException {
-        ArrayList<Integer>taskIds = DatabaseHandler.getAllTasks();
-        for ( Integer list : taskIds) {
-            BoardMenuController.updateTasks(list);
-        }
-        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
-            if (DatabaseHandler.doesTaskExist(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()))) {
-                ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
-                for (Integer list : tasksId) {
-                    BoardMenuController.updateTasks(list);
-                }
-                int taskNum = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
-                if (DatabaseHandler.isUsernameAssigned(taskNum, LoginController.getActiveUser().getUsername())) {
-                    if ((DatabaseHandler.doesTaskAddedToBoard(taskNum, boardName))) {
-                        if (!(DatabaseHandler.getStateOfTask(taskNum) == 0 || DatabaseHandler.getStateOfTask(taskNum) == 1)) {
-                            String categoryName = DatabaseHandler.getCategory(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()));
-                            ArrayList<String> help = DatabaseHandler.getCategories(boardName, TeamMenuController.getTeam().getId());
-                            if (help.size() != 0) {
-                                int i = help.indexOf(categoryName);
-                                if (i != help.size() - 1) {
-                                    String passToMethod = help.get(i + 1);
-                                    DatabaseHandler.addToCategory(passToMethod, taskTitle, boardName, TeamMenuController.getTeam().getId());
-                                    System.out.println("task move on");
-                                } else {
-                                    System.out.println("There is no category after this category and this task will set to done");
-                                    DatabaseHandler.setStateOfTask(taskNum, 1);
-                                    ArrayList<String> assigned = DatabaseHandler.getMembersOfTask(taskNum);
-                                    for (String j : assigned)
-                                        DatabaseHandler.setPointOfUser(j, DatabaseHandler.getPointsOfUser(j) + 10);
-                                }
+        if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+            ArrayList<Integer> taskIds = DatabaseHandler.getAllTasks();
+            for (Integer list : taskIds) {
+                BoardMenuController.updateTasks(list);
+            }
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+                if (DatabaseHandler.doesTaskExist(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()))) {
+                    ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
+                    for (Integer list : tasksId) {
+                        BoardMenuController.updateTasks(list);
+                    }
+                    int taskNum = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
+                    if (DatabaseHandler.isUsernameAssigned(taskNum, LoginController.getActiveUser().getUsername())) {
+                        if ((DatabaseHandler.doesTaskAddedToBoard(taskNum, boardName))) {
+                            if (!(DatabaseHandler.getStateOfTask(taskNum) == 0 || DatabaseHandler.getStateOfTask(taskNum) == 1)) {
+                                String categoryName = DatabaseHandler.getCategory(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()));
+                                ArrayList<String> help = DatabaseHandler.getCategories(boardName, TeamMenuController.getTeam().getId());
+                                if (help.size() != 0) {
+                                    int i = help.indexOf(categoryName);
+                                    if (i != help.size() - 1) {
+                                        String passToMethod = help.get(i + 1);
+                                        DatabaseHandler.addToCategory(passToMethod, taskTitle, boardName, TeamMenuController.getTeam().getId());
+                                        System.out.println("task move on");
+                                    } else {
+                                        System.out.println("There is no category after this category and this task will set to done");
+                                        DatabaseHandler.setStateOfTask(taskNum, 1);
+                                        ArrayList<String> assigned = DatabaseHandler.getMembersOfTask(taskNum);
+                                        for (String j : assigned)
+                                            DatabaseHandler.setPointOfUser(j, DatabaseHandler.getPointsOfUser(j) + 10);
+                                    }
+                                } else
+                                    System.out.println("There is no category in this board");
                             } else
-                                System.out.println("There is no category in this board");
+                                System.out.println("This task has already finished");
                         } else
-                            System.out.println("This task has already finished");
+                            System.out.println("This task has not added to this board");
                     } else
-                        System.out.println("This task has not added to this board");
+                        System.out.println("This task is not assigned to you!");
                 } else
-                    System.out.println("This task is not assigned to you!");
+                    System.out.println("There is no task with given information");
             } else
-                System.out.println("There is no task with given information");
-        } else
-            System.out.println("There is not any board with that name in this team");
+                System.out.println("There is not any board with that name in this team");
+        }
+        else
+            System.out.println("finish board first");
     }
 
 
@@ -328,21 +341,24 @@ public class BoardMenuController {
     }
 
     public static void showFailedAndDone(String condition, String boardName) throws SQLException {
-        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
-        for ( Integer list : tasksId) {
-            BoardMenuController.updateTasks(list);
-        }
-        if (condition.equals("done")) {
-            ArrayList<Integer> arrayList = DatabaseHandler.getDoneTasks(boardName, TeamMenuController.getTeam().getId());
-            for (Integer i : arrayList) {
-                System.out.println(i);
+        if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+            ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
+            for (Integer list : tasksId) {
+                BoardMenuController.updateTasks(list);
             }
-        } else {
-            ArrayList<Integer> taskIds = DatabaseHandler.getFailedTasks(boardName, TeamMenuController.getTeam().getId());
-            for (Integer i : taskIds) {
-                System.out.println(i);
+            if (condition.equals("done")) {
+                ArrayList<Integer> arrayList = DatabaseHandler.getDoneTasks(boardName, TeamMenuController.getTeam().getId());
+                for (Integer i : arrayList) {
+                    System.out.println(i);
+                }
+            } else {
+                ArrayList<Integer> taskIds = DatabaseHandler.getFailedTasks(boardName, TeamMenuController.getTeam().getId());
+                for (Integer i : taskIds) {
+                    System.out.println(i);
+                }
             }
-        }
+        } else
+            System.out.println("finish board first");
     }
 
     public static void renewFailedTaskSelect(String taskTitle, String username, String deadLine, String category) throws SQLException {
@@ -354,61 +370,62 @@ public class BoardMenuController {
     }
 
     public static void renewFailedTask(String taskTitle, String username, String deadLine, String category, String boardName) throws SQLException {
-        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
-        for ( Integer list : tasksId) {
-            BoardMenuController.updateTasks(list);
-        }
-        int teamId = TeamMenuController.getTeam().getId();
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
-            if (DatabaseHandler.doesTaskExist(taskTitle, teamId)) {
-                if (DatabaseHandler.getStateOfTask(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, teamId)) == 0) {
-                    if (DatabaseHandler.doesBoardExist(boardName, teamId)) {
-                        if (category != null) {
-                            if (DatabaseHandler.doesCategoryExist(category, boardName, teamId)) {
+        if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+            ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
+            for (Integer list : tasksId) {
+                BoardMenuController.updateTasks(list);
+            }
+            int teamId = TeamMenuController.getTeam().getId();
+            if (LoginController.getActiveUser().getRole().equals("leader")) {
+                if (DatabaseHandler.doesTaskExist(taskTitle, teamId)) {
+                    if (DatabaseHandler.getStateOfTask(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, teamId)) == 0) {
+                        if (DatabaseHandler.doesBoardExist(boardName, teamId)) {
+                            if (category != null) {
+                                if (DatabaseHandler.doesCategoryExist(category, boardName, teamId)) {
+                                    if (username == null) {
+                                        DatabaseHandler.reliveFailedTaskHaveCategory(taskTitle, deadLine, teamId, category);
+                                        System.out.println("relived");
+                                    } else {
+                                        if (DatabaseHandler.isUsernameTeamMate(username, teamId)) {
+                                            DatabaseHandler.reliveFailedTask(taskTitle, username, deadLine, category, teamId);
+                                            System.out.println("relived");
+                                        } else {
+                                            System.out.println("Invalid team member");
+                                        }
+                                    }
+                                } else {
+                                    System.out.println("Invalid category");
+                                }
+                            } else {
                                 if (username == null) {
-                                    DatabaseHandler.reliveFailedTaskHaveCategory(taskTitle, deadLine, teamId, category);
+                                    DatabaseHandler.reliveFailedTask(taskTitle, deadLine, teamId);
                                     System.out.println("relived");
                                 } else {
                                     if (DatabaseHandler.isUsernameTeamMate(username, teamId)) {
-                                        DatabaseHandler.reliveFailedTask(taskTitle, username, deadLine, category, teamId);
+                                        DatabaseHandler.reliveFailedTaskJustUsername(taskTitle, deadLine, teamId, username);
                                         System.out.println("relived");
                                     } else {
                                         System.out.println("Invalid team member");
                                     }
                                 }
-                            } else {
-                                System.out.println("Invalid category");
+
                             }
                         } else {
-                            if (username == null) {
-                                DatabaseHandler.reliveFailedTask(taskTitle, deadLine, teamId);
-                                System.out.println("relived");
-                            } else {
-                                if (DatabaseHandler.isUsernameTeamMate(username, teamId)) {
-                                    DatabaseHandler.reliveFailedTaskJustUsername(taskTitle, deadLine, teamId, username);
-                                    System.out.println("relived");
-                                } else {
-                                    System.out.println("Invalid team member");
-                                }
-                            }
-
+                            System.out.println("invalid board name");
                         }
+
+                    } else {
+                        System.out.println("This task is not in failed section");
+                    }
+
                 } else {
-                    System.out.println("invalid board name");
+                    System.out.println("Invalid task");
                 }
-
             } else {
-                System.out.println("This task is not in failed section");
+                System.out.println("You do not have the permission to this action");
             }
-
-        } else {
-            System.out.println("Invalid task");
-        }
-    } else
-
-    {
-        System.out.println("You do not have the permission to this action");
-    }
+        }else
+            System.out.println("finish board first");
 
 }
 
@@ -421,13 +438,17 @@ public class BoardMenuController {
     }
 
     public static void showBoardDetails(String boardName) throws SQLException {
-        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
-        for ( Integer list : tasksId) {
-            BoardMenuController.updateTasks(list);
+        if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+            ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
+            for (Integer list : tasksId) {
+                BoardMenuController.updateTasks(list);
+            }
+            if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
+                System.out.println(DatabaseHandler.showBoard(boardName, TeamMenuController.getTeam().getId()));
+            } else
+                System.out.println("board does not exist");
         }
-        if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
-            System.out.println(DatabaseHandler.showBoard(boardName, TeamMenuController.getTeam().getId()));
-        } else
-            System.out.println("board does not exist");
+        else
+            System.out.println("finish board first");
     }
 }

@@ -186,4 +186,6 @@ public class Queries {
             "SELECT team_id FROM tasks WHERE id = %d";
     public static final String DOES_TEAM_NAME_EXIST =
             "SELECT name FROM teams WHERE name = '%s'";
+    public static final String GET_BOARD_STATE =
+            "SELECT finished FROM boards WHERE team_id = %d AND name = '%s'";
 }
