@@ -86,8 +86,11 @@ public class BoardMenuController {
 
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
-                DatabaseHandler.addCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
-                System.out.println("category added");
+                if (!DatabaseHandler.doesCategoryExist(categoryName, boardName, TeamMenuController.getTeam().getId())) {
+                    DatabaseHandler.addCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
+                    System.out.println("category added");
+                } else
+                    System.out.println("category already exist");
             }
             else
                 System.out.println("There is not a board with this name");
@@ -106,13 +109,16 @@ public class BoardMenuController {
     public static void addCategoryToColumn(String categoryName, String columnNum, String boardName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
-                int help = DatabaseHandler.numOfBoardCategories(boardName, TeamMenuController.getTeam().getId());
-                if (help >= Integer.parseInt(columnNum) - 1 && help > 0) {
-                    DatabaseHandler.addCategoryToColumn(categoryName, Integer.parseInt(columnNum), boardName, TeamMenuController.getTeam().getId());
-                    System.out.println("category added to specific column");
+                if (!DatabaseHandler.doesCategoryExist(categoryName, boardName, TeamMenuController.getTeam().getId())) {
+                    int help = DatabaseHandler.numOfBoardCategories(boardName, TeamMenuController.getTeam().getId());
+                    if (help >= Integer.parseInt(columnNum) - 1 && help > 0) {
+                        DatabaseHandler.addCategoryToColumn(categoryName, Integer.parseInt(columnNum)-1, boardName, TeamMenuController.getTeam().getId());
+                        System.out.println("category added to specific column");
+                    } else
+                        System.out.println("wrong column");
                 }else
-                    System.out.println("wrong column");
-            } else
+                    System.out.println("category already exist");
+            }else
                 System.out.println("There is not a board with this name");
         } else
             System.out.println("You do not have the permission to do this action!");
@@ -150,6 +156,10 @@ public class BoardMenuController {
     }
 
     public static void addTaskToBoard(String taskId, String boardName) throws SQLException {
+        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
+        for ( Integer list : tasksId) {
+            BoardMenuController.updateTasks(list);
+        }
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             int taskNum = Integer.parseInt(taskId);
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
@@ -186,6 +196,10 @@ public class BoardMenuController {
     }
 
     public static void assignTaskToMember(String teamMember, String taskId, String boardName) throws SQLException {
+        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
+        for ( Integer list : tasksId) {
+            BoardMenuController.updateTasks(list);
+        }
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             int taskNum = Integer.parseInt(taskId);
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
@@ -223,7 +237,10 @@ public class BoardMenuController {
     }
 
     public static void forceTaskToCategory(String category, String taskTitle, String boardName) throws SQLException {
-
+        ArrayList<Integer>taskIds = DatabaseHandler.getAllTasks();
+        for ( Integer list : taskIds) {
+            BoardMenuController.updateTasks(list);
+        }
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
             if (DatabaseHandler.doesTaskExist(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()))) {
                 ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
@@ -258,7 +275,10 @@ public class BoardMenuController {
     }
 
     public static void taskToNext(String taskTitle, String boardName) throws SQLException {
-
+        ArrayList<Integer>taskIds = DatabaseHandler.getAllTasks();
+        for ( Integer list : taskIds) {
+            BoardMenuController.updateTasks(list);
+        }
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
             if (DatabaseHandler.doesTaskExist(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()))) {
                 ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
@@ -334,6 +354,10 @@ public class BoardMenuController {
     }
 
     public static void renewFailedTask(String taskTitle, String username, String deadLine, String category, String boardName) throws SQLException {
+        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
+        for ( Integer list : tasksId) {
+            BoardMenuController.updateTasks(list);
+        }
         int teamId = TeamMenuController.getTeam().getId();
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesTaskExist(taskTitle, teamId)) {
@@ -397,6 +421,10 @@ public class BoardMenuController {
     }
 
     public static void showBoardDetails(String boardName) throws SQLException {
+        ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
+        for ( Integer list : tasksId) {
+            BoardMenuController.updateTasks(list);
+        }
         if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
             System.out.println(DatabaseHandler.showBoard(boardName, TeamMenuController.getTeam().getId()));
         } else

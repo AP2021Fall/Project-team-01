@@ -122,7 +122,7 @@ public class Queries {
     public static final String DOES_TASK_ADDED_TO_BOARD =
             "SELECT * FROM tasks WHERE id = %d AND board_name = '%s'";
     public static final String DOES_DEADLINE_PASSED =
-            "SELECT * FROM tasks WHERE id = %d AND (`deadline date` > NOW())";
+            "SELECT * FROM tasks WHERE id = %d AND (`deadline date` < NOW())";
     public static final String IS_TASK_ASSIGNED =
             "SELECT * FROM `username-task_id` WHERE task_id = %d";
     public static final String USER_TEAMS_NUMBER =
