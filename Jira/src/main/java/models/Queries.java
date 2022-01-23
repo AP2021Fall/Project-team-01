@@ -8,9 +8,9 @@ public class Queries {
     public static final String CREATE_TEAM =
             "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
     public static final String CREATE_TASK =
-            "INSERT INTO tasks VALUES (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) (DEFAULT,'%s','%s',1,3,null,null,'[]',null,%d)";
+            "INSERT INTO tasks (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) VALUES (DEFAULT,'%s','%s','%s',1,3,null,null,'[]',null,%d)";
     public static final String CREATE_BOARD =
-            "INSERT INTO boards VALUES (DEFAULT, '[]', '[]', '[]')";
+            "INSERT INTO boards (name, team_id, categories, finished) VALUES ('%s',%d, '[]', 'no')";
     public static final String DOES_USERNAME_EXIST =
             "SELECT * FROM users WHERE username = '%s'";
     public static final String DOES_TEAM_EXIST =
@@ -82,7 +82,7 @@ public class Queries {
     public static final String DOES_TASK_EXIST =
             "SELECT id FROM tasks WHERE id = %d";
     public static final String GET_TASK_LEADER_BY_TASK_ID =
-            "SELECT leader FROM tasks JOIN teams ON tasks.team_id = teams.id WHERE id = %d";
+            "SELECT leader FROM tasks JOIN teams ON tasks.team_id = teams.id WHERE tasks.id = %d";
 
     //change task options
     public static final String UPDATE_PRIORITY =

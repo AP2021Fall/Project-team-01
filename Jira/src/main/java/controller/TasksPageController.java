@@ -77,9 +77,9 @@ public class TasksPageController {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (DatabaseHandler.isUsernameAssigned(taskId, username)) {
                     DatabaseHandler.removeUserFromTask(taskId, username);
-                    return "user:" + username + "removed successfully!";
+                    return "user:" + username + " removed successfully!";
                 }
-                return "there is not any user with this username:" + username + "in list!";
+                return "there is not any user with this username: " + username + " in list!";
             }
             return "you don't have access to do this action!";
         }

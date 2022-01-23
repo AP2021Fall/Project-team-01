@@ -52,8 +52,8 @@ public class TeamMenuController {
 
     public static void createTask(String taskTitle, String creationTime, String deadline) throws SQLException {
 
-        if (Regex.getCommandMatcher(creationTime, "yyyy-MM-dd HH:mm:ss").matches()) {
-            if (Regex.getCommandMatcher(deadline, "yyyy-MM-dd HH:mm:ss").matches()) {
+        if (Regex.getCommandMatcher(creationTime, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
+            if (Regex.getCommandMatcher(deadline, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
                 if (DatabaseHandler.doesTaskExist(taskTitle , TeamMenuController.getTeam().getId())) {
                     int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
                     if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
@@ -82,8 +82,10 @@ public class TeamMenuController {
     public static void addMemberToTeam(String name) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(name)) {
             if (DatabaseHandler.isUserMember(name))
-                if ( ! (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName())))
+                if ( ! (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))) {
                     DatabaseHandler.addMemberToTeam(name, TeamMenuController.getTeam().getId());
+                    System.out.println("member added successfully");
+                }
                 else
                     System.out.println("This user is already in your team");
             else
@@ -134,13 +136,20 @@ public class TeamMenuController {
             System.out.println("no user with this username exists");
     }
 
+    //we use task title for assigning instead task id
     public static void assignMemberToTask( String taskTitle , String username) throws SQLException {
         if (DatabaseHandler.doesUsernameExist(username)) {
                 if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
                     if (DatabaseHandler.doesTaskExist(taskTitle , TeamMenuController.getTeam().getId())) {
                         int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle , TeamMenuController.getTeam().getId());
-                        if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId)))
-                            DatabaseHandler.assignUser(taskId, username);
+                        if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
+                            if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
+                                DatabaseHandler.assignUser(taskId, username);
+                                System.out.println("task assigned successfully");
+                            } else {
+                                System.out.println("member is already assigned");
+                            }
+                        }
                         else
                             System.out.println("this task doesnt belong to this team");
                     }else

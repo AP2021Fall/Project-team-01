@@ -46,8 +46,6 @@ public class Regex {
     public static final String FORCE_TASK_TO_CATEGORY = "^board --force --category (.+) --task (.+) --name (.+)$";
     public static final String TASK_TO_NEXT_SELECT = "^board --category next --task (.+)$";
     public static final String TASK_TO_NEXT = "^board --category next --task (.+) --name (.+)$";
-    public static final String SHOW_TASKS_IN_CATEGORY_SELECT = "^board --show --category (.+)$";
-    public static final String SHOW_TASKS_IN_CATEGORY = "^board --show --category (.+) --board (.+)$";
     public static final String SHOW_FAILED_AND_DONE_SELECT = "^board --show (done|failed)$";
     public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
     public static final String RENEW_FAILED_TASK_SELECT = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))?$";
@@ -57,8 +55,8 @@ public class Regex {
     public static final String SHOW_ALL_TASKS_FOR_LEADER = "^sudo show --all --tasks$";
     public static final String CREATE_TASK = "^create task --title (.+) --startTime (.+) --deadline (.+)$";
     public static final String SHOW_MEMBERS_FOR_LEADER = "^show --members$";
-    public static final String ADD_MEMBER_TO_TEAM = "^Add member --username(.+)$";
-    public static final String DELETE_MEMBER_FROM_TEAM = "^delete member --username (.+)$$";
+    public static final String ADD_MEMBER_TO_TEAM = "^Add member --username (.+)$";
+    public static final String DELETE_MEMBER_FROM_TEAM = "^delete member --username (.+)$";
     public static final String SUSPEND_MEMBER = "^delete member --username (.+)$";
     public static final String PROMOTE_MEMBER = "^suspend member --username (.+)$";
     public static final String ASSIGN_MEMBER_TO_TASK_BY_LEADER = "^assign member --task (.+) --username (.+)$";

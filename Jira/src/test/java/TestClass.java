@@ -44,17 +44,19 @@ public class TestClass {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
         Assertions.assertEquals("task with id: "+1000+" doesn't exist!", TasksPageController.editTitle(1000, "newTask1"));
-        LoginController.loginUser("ali", "Ali1235");
+        LoginController.setActiveUser(new User("ali", "Ali12345", "ali@gmail.com", "member"));
         Assertions.assertEquals("you don't have access to do this action!", TasksPageController.editTitle(taskId, "newTask1"));
-        LoginController.loginUser("sara", "123");
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
         Assertions.assertEquals("title updated successfully!", TasksPageController.editTitle(taskId, "newTask1"));
+        TasksPageController.editTitle(taskId, "task1");
     }
 
     @Test
     void EditDescriptionTest() throws SQLException {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
-        LoginController.loginUser("sara", "123");
+//        LoginController.loginUser("sara", "123");
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
         Assertions.assertEquals("Description updated successfully!", TasksPageController.editDescription(taskId, "this is task one"));
     }
 
@@ -62,7 +64,7 @@ public class TestClass {
     void EditPriorityTest() throws SQLException {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
-        LoginController.loginUser("sara", "123");
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
         Assertions.assertEquals("Priority updated successfully!", TasksPageController.editPriority(taskId, "High"));
     }
 
@@ -70,15 +72,15 @@ public class TestClass {
     void EditDeadlineTest() throws SQLException {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
-        LoginController.loginUser("sara", "123");
-        Assertions.assertEquals("Priority updated successfully!", TasksPageController.editDeadline(taskId, "2022-03-01 23:59:00"));
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
+        Assertions.assertEquals("deadline changed successfully", TasksPageController.editDeadline(taskId, "2022-03-01 23:59:00"));
     }
 
     @Test
     void AddAssignedUserTest() throws SQLException {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
-        LoginController.loginUser("sara", "123");
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
         Assertions.assertEquals("user: ali added successfully!", TasksPageController.addAssignedUser(taskId, "ali"));
     }
 
@@ -86,7 +88,7 @@ public class TestClass {
     void RemoveAssignedUserTest() throws SQLException {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
-        LoginController.loginUser("sara", "123");
+        LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
         Assertions.assertEquals("user: ali removed successfully!", TasksPageController.removeAssignedUser(taskId, "ali"));
     }
 

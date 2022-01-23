@@ -54,7 +54,7 @@ public class DatabaseHandler {
     // public static void createBoard(String boardName , int teamId) throws SQLException {
     //  }
     public static void createBoard(String boardName, int teamId) throws SQLException {
-        String sql = Queries.CREATE_BOARD;
+        String sql = String.format(Queries.CREATE_BOARD,boardName, teamId);
         execute(sql);
     }
 
