@@ -1,6 +1,5 @@
 package controller;
 
-import controller.TeamMenuController.TeamMenuController;
 import models.DatabaseHandler;
 import models.User;
 import view.ChangeRoleMenu;
@@ -8,7 +7,6 @@ import view.MenuController;
 import view.Menus;
 import view.Regex;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -152,7 +150,7 @@ public class MainMenuController {
     public static void changeRole (String username, String newRole) throws SQLException{
         if (LoginController.getActiveUser().getRole().equals("admin")){
             if (DatabaseHandler.doesUsernameExist(username)){
-                if (DatabaseHandler.getNumberOfTeamsByUsername(username) < 1){
+                if (DatabaseHandler.getNumberOfTeamsByUsername(username) <= 1){
                     if (newRole.equals("leader")){
                         String teamName = DatabaseHandler.getUserTeams(username).get(0);
                         String preLeader = DatabaseHandler.getLeaderByTeamName(teamName);
