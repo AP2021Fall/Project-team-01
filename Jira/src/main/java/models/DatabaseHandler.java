@@ -161,7 +161,7 @@ public class DatabaseHandler {
     }
 
     public static void sendNotificationToUser(String notification, String username) throws SQLException {
-        String sql = String.format(Queries.SEND_NOTIFICATION_TO_USER, username, username);
+        String sql = String.format(Queries.SEND_NOTIFICATION_TO_USER, username, notification);
         execute(sql);
     }
 
