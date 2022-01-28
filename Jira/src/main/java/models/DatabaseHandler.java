@@ -565,6 +565,7 @@ public class DatabaseHandler {
         String sql = String.format(Queries.USER_TEAMS_NUMBER, username);
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
+        result.last();
         int number = result.getRow();
         return number;
     }

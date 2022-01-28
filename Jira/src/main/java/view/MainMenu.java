@@ -54,6 +54,7 @@ public class MainMenu {
         } else if (sendNotificationToTeam.find()) {
             MainMenuController.sendNotificationToTeam(sendNotificationToTeam.group(1), sendNotificationToTeam.group(2));
         } else if (command.equals("logout")) {
+            LoginMenu.showLogin();
             MenuController.currentMenu = Menus.LOGIN_MENU;
         } else if (showProfile.find()) {
             MainMenuController.showProfile(showProfile.group(1));

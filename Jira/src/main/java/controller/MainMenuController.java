@@ -152,7 +152,7 @@ public class MainMenuController {
     public static void changeRole (String username, String newRole) throws SQLException{
         if (LoginController.getActiveUser().getRole().equals("admin")){
             if (DatabaseHandler.doesUsernameExist(username)){
-                if (DatabaseHandler.getNumberOfTeamsByUsername(username) > 1){
+                if (DatabaseHandler.getNumberOfTeamsByUsername(username) < 1){
                     if (newRole.equals("leader")){
                         String teamName = DatabaseHandler.getUserTeams(username).get(0);
                         String preLeader = DatabaseHandler.getLeaderByTeamName(teamName);
