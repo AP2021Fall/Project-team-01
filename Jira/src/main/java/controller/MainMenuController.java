@@ -2,12 +2,14 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
-import view.*;
+import view.ChangeRoleMenu;
+import view.MainMenu;
+import view.MenuController;
+import view.Menus;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 public class MainMenuController {
 
@@ -34,8 +36,7 @@ public class MainMenuController {
             if (DatabaseHandler.doesTeamNameExist(teamName))
                 System.out.println("There is another team with this name!");
             else {
-                Matcher matcher = Regex.getCommandMatcher(teamName, Regex.TEAM_NAME);
-                if (matcher.find()) {
+                if (teamName.length()>=5 && teamName.length()<=12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
                     DatabaseHandler.createTeam(teamName, LocalDateTime.now(), LoginController.getActiveUser().getUsername());
                     System.out.println("Team created successfully! Waiting For Admin’s confirmation…");
                 } else {

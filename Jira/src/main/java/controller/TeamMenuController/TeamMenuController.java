@@ -36,9 +36,9 @@ public class TeamMenuController {
     }
 
     public static void showAllTasksLeader() throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             ArrayList<String> print = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
-            if (print.size() == 0) {
+            if (print.size() != 0) {
                 for (String s : print) {
                     System.out.println(s);
                 }
@@ -50,7 +50,7 @@ public class TeamMenuController {
 
 
     public static void createTask(String taskTitle, String creationTime, String deadline) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (Regex.getCommandMatcher(creationTime, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
                 if (Regex.getCommandMatcher(deadline, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
                     if (DatabaseHandler.doesTaskExist(taskTitle, TeamMenuController.getTeam().getId())) {
@@ -95,7 +95,7 @@ public class TeamMenuController {
 
 
     public static void showMembersLeader() throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesTeamHaveMember(TeamMenuController.getTeam().getName())) {
                 ArrayList<String> print = DatabaseHandler.getMembersByTeamName(TeamMenuController.getTeam().getName());
                 for (String s : print)
@@ -107,7 +107,7 @@ public class TeamMenuController {
     }
 
     public static void addMemberToTeam(String name) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesUsernameExist(name)) {
                 if (DatabaseHandler.isUserMember(name))
                     if (!(DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))) {
@@ -124,7 +124,7 @@ public class TeamMenuController {
     }
 
     public static void deleteMemberFromTeam(String name) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesUsernameExist(name)) {
                 if (DatabaseHandler.isUserMember(name))
                     if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))
@@ -140,7 +140,7 @@ public class TeamMenuController {
     }
 
     public static void suspendMember(String username) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
                 if (DatabaseHandler.isUserMember(username))
                     if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
@@ -157,7 +157,7 @@ public class TeamMenuController {
     }
 
     public static void promoteMember(String username) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
                 if (DatabaseHandler.isUserMember(username))
                     if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
@@ -174,7 +174,7 @@ public class TeamMenuController {
 
     //we use task title for assigning instead task id
     public static void assignMemberToTask(String taskTitle, String username) throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
         if (DatabaseHandler.doesUsernameExist(username)) {
             if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
                 if (DatabaseHandler.doesTaskExist(taskTitle, TeamMenuController.getTeam().getId())) {
@@ -199,7 +199,7 @@ public class TeamMenuController {
     }
 
     public static void showScoreboardToLeader() throws SQLException {
-        if (LoginController.getActiveUser().getUsername().equals("leader")) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
         ScoreBoardController.showScoreboard();
     } else
             System.out.println("You do not have the permission to do this action!");
