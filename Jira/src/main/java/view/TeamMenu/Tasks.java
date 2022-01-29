@@ -15,7 +15,7 @@ public class Tasks {
         if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_TASKS)).matches())
             TasksController.showTasks();
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_TASK_BY_ID)).matches())
-            TasksController.showTaskById(matcher.group(1));
+            TasksController.showTaskById(Integer.parseInt(matcher.group(1)));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.BACK)).matches()) {
             TeamMenuController.showTeamMenu();
             MenuController.currentMenu = Menus.TEAM_MENU;
