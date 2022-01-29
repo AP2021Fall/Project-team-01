@@ -35,6 +35,8 @@ public class TeamMenu {
                     TasksController.showTaskMenu();
                     MenuController.currentMenu = Menus.TEAM_TASKS;
                     break;
+                default:
+                    System.out.println("invalid command");
             }
         }else if ((matcher = Regex.getCommandMatcher(command,Regex.SHOW_ALL_TASKS_FOR_LEADER)).matches())
             TeamMenuController.showAllTasksLeader();

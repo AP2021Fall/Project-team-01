@@ -424,7 +424,8 @@ public class DatabaseHandler {
         ResultSet result = statement.executeQuery(sql);
         int i = 1;
         while (result.next()) {
-            roadMaps.add(i + result.getString(1) + " : " + result.getString(2));
+            roadMaps.add(i + ". " + result.getString(1) + " : " + result.getString(2));
+            i++;
         }
         return roadMaps;
     }
@@ -439,6 +440,8 @@ public class DatabaseHandler {
             ArrayList<String> chats = new Gson().fromJson(json,
                     new TypeToken<List<String>>() {
                     }.getType());
+            if (chats == null)
+                chats = new ArrayList<>();
             chats.add(message);
             json = new Gson().toJson(chats);
             sql = String.format(Queries.ADD_CHAT, json, teamId);

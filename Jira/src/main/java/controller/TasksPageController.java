@@ -103,23 +103,23 @@ public class TasksPageController {
     }
 
     public static void showComments(int taskId) throws SQLException {
-        if (DatabaseHandler.doesTaskExist(taskId)){
-            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))){
+        if (DatabaseHandler.doesTaskExist(taskId)) {
+            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
                 System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
-            }else
-                System.out.println("you don't have access to do this action!");
-        }else
+            } else
+                System.out.println("this task doesn't belong to your team");
+        } else
             System.out.println("task does not exist!");
     }
 
     public static void addComment(int taskId, String comment) throws SQLException {
-        if (DatabaseHandler.doesTaskExist(taskId)){
-            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))){
+        if (DatabaseHandler.doesTaskExist(taskId)) {
+            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
                 DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
                 System.out.println("your comment added successfully!");
-            }else
+            } else
                 System.out.println("you are not a member of this task's team!");
-        }else
+        } else
             System.out.println("task does not exist!");
     }
 

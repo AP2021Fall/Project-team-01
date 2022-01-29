@@ -24,4 +24,10 @@ public class Chatroom {
         else
             System.out.println("Invalid Command");
     }
+
+    public static void show() {
+        System.out.println("----chatroom menu----");
+        System.out.println("send --message <message>");
+        System.out.println("Chatroom --show");
+    }
 }
