@@ -1,6 +1,5 @@
 package view;
 
-import controller.LoginController;
 import controller.TasksPageController;
 
 import java.sql.SQLException;
@@ -41,8 +40,8 @@ public class TasksPageMenu {
                 "valid commands:\n" +
                 "edit --task --id <taskid> --title <new title>\n" +
                 "edit --task --id <taskid> --description <new description>\n" +
-                "edit --task --id <taskid> --description <new priority>\n" +
-                "edit --task --id <taskid> --description <new deadline(yyyy-mm-dd|HH:mm)>\n" +
+                "edit --task --id <taskid> --priority <new priority>\n" +
+                "edit --task --id <taskid> --deadline <new deadline(yyyy-mm-dd|HH:mm)>\n" +
                 "edit --task --id <taskid> --assignedUsers <username> --add\n" +
                 "edit --task --id <taskid> --assignedUsers <username> --remove\n" +
                 "task <task id> comments --show\n" +

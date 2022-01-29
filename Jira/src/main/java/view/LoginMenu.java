@@ -23,7 +23,7 @@ public class LoginMenu {
     public static void showLogin(){
         System.out.println("..........Login Menu..........\n" +
                 "valid commands:\n" +
-                "user create --username <username> --password1 <password> --password2 <password> --email Address <email>\n" +
+                "user create --username <username> --password1 <password> --password2 <password> --email Address <email> --role <leader|member>\n" +
                 "user login --username <username> --password <password>\n" +
                 "exit\n");
     }

@@ -57,17 +57,20 @@ public class TasksPageController {
 
     public static String addAssignedUser(int taskId, String username) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
-            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
-                if (DatabaseHandler.doesUsernameExist(username)) {
-                    if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
-                        DatabaseHandler.assignUser(taskId, username);
-                        return "user:" + username + "added successfully!";
+            if (DatabaseHandler.isUsernameTeamMate(username, DatabaseHandler.getTeamIdByTaskId(taskId))) {
+                if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
+                    if (DatabaseHandler.doesUsernameExist(username)) {
+                        if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
+                            DatabaseHandler.assignUser(taskId, username);
+                            return "user: " + username + " added successfully!";
+                        }
+                        return "username: " + username + " already assigned!";
                     }
-                    return "username:" + username + "already assigned!";
+                    return "there is not any user with this username:" + username;
                 }
-                return "there is not any user with this username:" + username;
+                return "you don't have access to do this action!";
             }
-            return "you don't have access to do this action!";
+            return "this user is not in your team";
         }
         return "task with id: " + taskId + " doesn't exist!";
     }
@@ -77,7 +80,7 @@ public class TasksPageController {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
                 if (DatabaseHandler.isUsernameAssigned(taskId, username)) {
                     DatabaseHandler.removeUserFromTask(taskId, username);
-                    return "user:" + username + " removed successfully!";
+                    return "user: " + username + " removed successfully!";
                 }
                 return "there is not any user with this username: " + username + " in list!";
             }

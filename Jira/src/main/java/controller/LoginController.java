@@ -49,6 +49,8 @@ public class LoginController {
             return ("User with this email already exists!");
         else if (!Regex.getCommandMatcher(email, EMAIL_FORMAT).matches())
             return ("Email address is invalid!");
+        else if (!(role.equals("member") || role.equals("leader") || role.equals("admin")))
+            return "invalid role";
         else {
             DatabaseHandler.createUser(username, password, email, role);
             return ("user created successfully!");
