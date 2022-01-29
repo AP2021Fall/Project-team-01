@@ -190,4 +190,13 @@ public class Queries {
             "SELECT finished FROM boards WHERE team_id = %d AND name = '%s'";
     public static final String CHANGE_LEADER_OF_TEAM =
             "UPDATE teams SET leader = '%s' WHERE id = %d";
+    public static final String CHANGE_USERNAME_IN_NOTIFICATIONS =
+            "UPDATE notification SET username = '%s' WHERE username = '%s'";
+    public static final String CHANGE_USERNAME_IN_TEAMS =
+            "UPDATE teams SET leader = '%s' WHERE leader = '%s'";
+
+    public static final String CHANGE_USERNAME_IN_USERNAME_TASK_ID =
+            "UPDATE `username-task_id` SET username = '%s' WHERE username = '%s'";
+    public static final String CHANGE_USERNAME_IN_USERNAME_TEAM_ID =
+            "UPDATE `username-team_id` SET username = '%s' WHERE username = '%s'";
 }

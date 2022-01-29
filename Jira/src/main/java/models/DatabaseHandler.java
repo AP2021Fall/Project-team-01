@@ -117,6 +117,14 @@ public class DatabaseHandler {
     public static void changeUsername(String oldUsername, String newUsername) throws SQLException {
         String sql = String.format(Queries.CHANGE_USERNAME, newUsername, oldUsername);
         execute(sql);
+        sql = String.format(Queries.CHANGE_USERNAME_IN_NOTIFICATIONS, newUsername, oldUsername);
+        execute(sql);
+        sql = String.format(Queries.CHANGE_USERNAME_IN_TEAMS, newUsername, oldUsername);
+        execute(sql);
+        sql = String.format(Queries.CHANGE_USERNAME_IN_USERNAME_TASK_ID, newUsername, oldUsername);
+        execute(sql);
+        sql = String.format(Queries.CHANGE_USERNAME_IN_USERNAME_TEAM_ID, newUsername, oldUsername);
+        execute(sql);
     }
 
     public static ArrayList<LocalDateTime> getLogsByUsername(String username) throws SQLException {

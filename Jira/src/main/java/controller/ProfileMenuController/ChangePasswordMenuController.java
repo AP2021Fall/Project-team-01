@@ -5,6 +5,7 @@ import models.DatabaseHandler;
 import view.LoginMenu;
 import view.MenuController;
 import view.Menus;
+import view.ProfileMenu.ProfileMenu;
 import view.Regex;
 
 import java.sql.SQLException;
@@ -38,6 +39,8 @@ public class ChangePasswordMenuController {
             DatabaseHandler.changePassword(LoginController.getActiveUser().getUsername(), newPassword);
             LoginController.getActiveUser().setPassword(newPassword);
             System.out.println("password changed successfully");
+            MenuController.currentMenu = Menus.PROFILE_MENU;
+            ProfileMenu.showProfileMenu();
         }
     }
 
