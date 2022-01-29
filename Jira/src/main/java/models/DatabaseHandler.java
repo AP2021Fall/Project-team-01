@@ -574,11 +574,15 @@ public class DatabaseHandler {
 
     //change role from member to leader and leader to member
     public static void changeRole(String username) throws SQLException {
-        String sql = new String();
-        if (getRoleByUsername(username).equals("leader"))
-            sql = String.format(Queries.CHANGE_ROLE, "leader", username);
-        else
+        String sql;
+        if (getRoleByUsername(username).equals("leader")) {
             sql = String.format(Queries.CHANGE_ROLE, "member", username);
+        }
+        else {
+            sql = String.format(Queries.CHANGE_ROLE, "leader", username);
+            String sql2 = String.format(Queries.CHANGE_LEADER_OF_TEAM, username, DatabaseHandler.getTeamsIdByUsername(username).get(0));
+            execute(sql2);
+        }
         execute(sql);
     }
 

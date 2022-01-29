@@ -188,4 +188,6 @@ public class Queries {
             "SELECT name FROM teams WHERE name = '%s'";
     public static final String GET_BOARD_STATE =
             "SELECT finished FROM boards WHERE team_id = %d AND name = '%s'";
+    public static final String CHANGE_LEADER_OF_TEAM =
+            "UPDATE teams SET leader = '%s' WHERE id = %d";
 }

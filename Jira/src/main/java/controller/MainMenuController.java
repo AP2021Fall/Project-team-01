@@ -2,10 +2,7 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
-import view.ChangeRoleMenu;
-import view.MenuController;
-import view.Menus;
-import view.Regex;
+import view.*;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -52,8 +49,8 @@ public class MainMenuController {
 
     public static void sendNotificationToUser(String notification, String username) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader") ||
-                LoginController.getActiveUser().getRole().equals("admin")){
-            if (!DatabaseHandler.doesUsernameExist(username))  {
+                LoginController.getActiveUser().getRole().equals("admin")) {
+            if (!DatabaseHandler.doesUsernameExist(username)) {
                 System.out.println("No user exists with this username !");
             } else {
                 DatabaseHandler.sendNotificationToUser(notification, username);
@@ -133,7 +130,8 @@ public class MainMenuController {
             System.out.println("You do not have access to this section");
         }
     }
-    public static void showScoreboard (String teamName) throws SQLException {
+
+    public static void showScoreboard(String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesTeamExist(teamName)) {
                 ArrayList<String> show = DatabaseHandler.showScoreboard(teamName);
@@ -147,34 +145,36 @@ public class MainMenuController {
         }
     }
 
-    public static void changeRole (String username, String newRole) throws SQLException{
-        if (LoginController.getActiveUser().getRole().equals("admin")){
-            if (DatabaseHandler.doesUsernameExist(username)){
-                if (DatabaseHandler.getNumberOfTeamsByUsername(username) <= 1){
-                    if (newRole.equals("leader")){
+    public static void changeRole(String username, String newRole) throws SQLException {
+        if (LoginController.getActiveUser().getRole().equals("admin")) {
+            if (DatabaseHandler.doesUsernameExist(username)) {
+                String role = DatabaseHandler.getUserRole(username);
+                if (DatabaseHandler.getNumberOfTeamsByUsername(username) == 1) {
+                    if (newRole.equals("leader") && role.equals("member")) {
                         String teamName = DatabaseHandler.getUserTeams(username).get(0);
                         String preLeader = DatabaseHandler.getLeaderByTeamName(teamName);
-                        if(DatabaseHandler.getNumberOfTeamsByUsername(preLeader)>1)
+                        if (DatabaseHandler.getNumberOfTeamsByUsername(preLeader) > 1)
                             System.out.println("previous leader is joined in more than one team");
-                        else{
+                        else {
                             DatabaseHandler.changeRole(username);
                             DatabaseHandler.changeRole(preLeader);
-                            System.out.println("User:" + username + "'s role changed to"+ newRole);
+                            System.out.println("User:" + username + "'s role changed to" + newRole);
                         }
-                    }
-                    else {
+                    } else if (newRole.equals("member") && role.equals("leader")){
                         System.out.println("now enter a username to replace with this leader in team");
                         MenuController.currentMenu = Menus.CHANGE_ROLE_MENU;
                         ChangeRoleMenu.showChangeRoleMenu();
                         MenuController.setChangeRoleUsername(username);
+                    } else {
+                        System.out.println("invalid role");
                     }
-                }else{
-                    System.out.println("this user is joined in more than one team");
+                } else {
+                    System.out.println("user must be at exactly one team:)");
                 }
-            }else{
+            } else {
                 System.out.println("There is no user with this username");
             }
-        }else {
+        } else {
             System.out.println("you don't have access to this section");
         }
     }
@@ -183,12 +183,19 @@ public class MainMenuController {
         if (!DatabaseHandler.doesUsernameExist(newLeaderUsername))
             System.out.println("user not found!");
         else {
-            if (DatabaseHandler.getNumberOfTeamsByUsername(newLeaderUsername)>1){
-                System.out.println("this user is a member of more than one team");
-            }else {
-                DatabaseHandler.changeRole(newLeaderUsername);
-                DatabaseHandler.changeRole(MenuController.getChangeRoleUsername());
-                System.out.println("Roles changed successfully!");
+            if (DatabaseHandler.getNumberOfTeamsByUsername(newLeaderUsername) != 1) {
+                System.out.println("sorry!! selected user must be member at exactly one team");
+            } else {
+                int teamId = DatabaseHandler.getTeamsIdByUsername(MenuController.getChangeRoleUsername()).get(0);
+                if (DatabaseHandler.isUsernameTeamMate(newLeaderUsername, teamId)) {
+                    DatabaseHandler.changeRole(newLeaderUsername);
+                    DatabaseHandler.changeRole(MenuController.getChangeRoleUsername());
+                    System.out.println("Roles changed successfully!");
+                    MainMenu.showMainMenu();
+                    MenuController.currentMenu = Menus.MAIN_MENU;
+                } else {
+                    System.out.println("this user isn't in your team");
+                }
             }
         }
     }
