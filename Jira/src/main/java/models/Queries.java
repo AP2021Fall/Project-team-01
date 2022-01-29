@@ -170,7 +170,7 @@ public class Queries {
     public static final String GET_DEADLINES =
             "SELECT `deadline date`, '*' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND username = '%s'\n" +
                     "UNION\n" +
-                    "SELECT `deadline date`, '**' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(NOW(), `deadline date`) <= 10 AND username = '%s'\n" +
+                    "SELECT `deadline date`, '**' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(`deadline date`, NOW()) <= 10 AND username = '%s'\n" +
                     "UNION\n" +
                     "SELECT `deadline date`, '***' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) < 4 AND username = '%s'\n" +
                     "ORDER BY `deadline date` ASC";
