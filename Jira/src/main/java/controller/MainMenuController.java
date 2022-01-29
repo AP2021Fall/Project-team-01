@@ -85,8 +85,8 @@ public class MainMenuController {
     public static void showProfile(String username) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
-                System.out.println("username: " + username + "email address: " +
-                        DatabaseHandler.getEmailByUsername(username) + "role: " +
+                System.out.println("username: " + username + " email address: " +
+                        DatabaseHandler.getEmailByUsername(username) + " role: " +
                         DatabaseHandler.getRoleByUsername(username));
             } else {
                 System.out.println("There is no user with this username");
