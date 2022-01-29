@@ -53,7 +53,7 @@ public class MainMenuController {
             if (!DatabaseHandler.doesUsernameExist(username)) {
                 System.out.println("No user exists with this username !");
             } else {
-                DatabaseHandler.sendNotificationToUser(notification, username);
+                DatabaseHandler.sendNotificationToUser(LoginController.getActiveUser().getUsername() + ": " +notification, username);
                 System.out.println("notification sent successfully");
             }
         } else
@@ -65,7 +65,7 @@ public class MainMenuController {
         if (LoginController.getActiveUser().getRole().equals("leader") ||
                 LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())) {
-                DatabaseHandler.sendNotificationToTeam(notification, teamName);
+                DatabaseHandler.sendNotificationToTeam(LoginController.getActiveUser().getUsername() + ": " +notification, teamName);
                 System.out.println("notification sent successfully");
             } else {
                 System.out.println("No team exists with this name !");
@@ -76,7 +76,7 @@ public class MainMenuController {
 
     public static void sendNotificationToAll(String notification) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("admin")) {
-            DatabaseHandler.sendNotificationToAll(notification);
+            DatabaseHandler.sendNotificationToAll(LoginController.getActiveUser().getUsername() + ": " +notification);
             System.out.println("notification sent");
         }
     }

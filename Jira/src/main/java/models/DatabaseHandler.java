@@ -471,7 +471,7 @@ public class DatabaseHandler {
             while (result2.next()) {
                 users.append(" " + result2.getString(1));
             }
-            answer.add(i + taskTitle + ": id " + taskId + ",creating date : " + creatingDate + ",deadline : " + deadlineDate + "assign to:" + users.toString() + ",priority: " + priority);
+            answer.add(i + ". " + taskTitle + ": id = " + taskId + ", creating date : " + creatingDate + ", deadline : " + deadlineDate + ", assign to:" + users.toString() + ", priority: " + priority);
             i++;
         }
         return answer;
