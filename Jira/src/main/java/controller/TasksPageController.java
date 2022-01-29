@@ -41,11 +41,11 @@ public class TasksPageController {
         return "task with id: " + id + " doesn't exist!";
     }
 
-    public static String editDeadline(int taskId, String newdeadline) throws SQLException {
+    public static String editDeadline(int taskId, String newDeadline) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))) {
-                if (isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newdeadline) != null) {
-                    DatabaseHandler.setDeadline(taskId, isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newdeadline));
+                if (isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newDeadline) != null) {
+                    DatabaseHandler.setDeadline(taskId, isDeadlineValid(DatabaseHandler.getCreationDateByTaskId(taskId), newDeadline));
                     return "deadline changed successfully";
                 }
                 return "new deadline is invalid";
@@ -89,7 +89,7 @@ public class TasksPageController {
     //null if newDeadline is invalid & LocalDateTime if is valid
     public static LocalDateTime isDeadlineValid(LocalDateTime creationDate, String deadline) {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
         try {
             LocalDateTime dead = LocalDateTime.parse(deadline, formatter);
             if (dead.isBefore(now))
