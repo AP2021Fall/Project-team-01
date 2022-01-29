@@ -446,9 +446,12 @@ public class BoardMenuController {
         if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
             if (DatabaseHandler.doesCategoryExist(categoryName,boardName,TeamMenuController.getTeam().getId())) {
                 ArrayList<String> tasks = DatabaseHandler.getTaskOfCategory(categoryName, boardName);
-                for (String str : tasks)
-                    System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(TeamMenuController.getTeam().getName())
-                    + "is in progress");
+                if (tasks.size() != 0) {
+                    for (String str : tasks)
+                        System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(TeamMenuController.getTeam().getName())
+                                + "is in progress");
+                }else
+                    System.out.println("no task for this category");
             }else
                 System.out.println("no category with this name is existing in this board");
         } else
