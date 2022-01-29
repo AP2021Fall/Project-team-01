@@ -19,7 +19,6 @@ public class ChatroomController {
     public static void sendMessage(String message) throws SQLException {
         String username = LoginController.getActiveUser().getUsername();
         String toPrint = " " + username + " : " + message;
-        System.out.println(TeamMenuController.getTeam().getId());
         DatabaseHandler.sendMessage( TeamMenuController.getTeam().getId() , toPrint);
     }
     public static void showChatroomMenu(){

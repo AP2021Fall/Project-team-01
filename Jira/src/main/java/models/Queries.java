@@ -175,7 +175,7 @@ public class Queries {
                     "SELECT `deadline date`, '***' AS type, team_id FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) < 4 AND username = '%s'\n" +
                     "ORDER BY `deadline date` ASC";
     public static final String GET_TASK =
-            "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE id = %d";
+            "SELECT title,ta.id,`creating date`,`deadline date`,priority FROM teams te JOIN tasks ta ON ta.team_id = te.id WHERE ta.id = %d";
     public static final String GET_TEAM_ID_BY_USERNAME_AND_TEAM_NAME =
             "SELECT id FROM teams  WHERE name = '%s'";
     public static final String DOES_TEAM_EXIST_FOR_USER =
