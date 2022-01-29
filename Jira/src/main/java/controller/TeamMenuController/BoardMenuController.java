@@ -434,7 +434,26 @@ public class BoardMenuController {
             System.out.println("finish board first");
 
     }
+    public static void showTasksInCategorySelect (String categoryName) throws SQLException {
+        String take = BoardMenuController.getActiveBoard();
 
+        if (take != null)
+            showTasksInCategory(categoryName , take);
+        else
+            System.out.println("No board is selected");
+    }
+    public static void showTasksInCategory(String categoryName , String boardName) throws SQLException {
+        if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
+            if (DatabaseHandler.doesCategoryExist(categoryName,boardName,TeamMenuController.getTeam().getId())) {
+                ArrayList<String> tasks = DatabaseHandler.getTaskOfCategory(categoryName, boardName);
+                for (String str : tasks)
+                    System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(TeamMenuController.getTeam().getName())
+                    + "is in progress");
+            }else
+                System.out.println("no category with this name is existing in this board");
+        } else
+            System.out.println("finish board first");
+    }
     public static void showBoardDetailsSelect() throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)

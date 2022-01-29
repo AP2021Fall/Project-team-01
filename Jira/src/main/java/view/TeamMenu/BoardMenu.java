@@ -2,7 +2,6 @@ package view.TeamMenu;
 
 import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.TeamMenuController;
-import org.omg.CORBA.MARSHAL;
 import view.MenuController;
 import view.Menus;
 import view.Regex;
@@ -57,6 +56,8 @@ public class BoardMenu {
             BoardMenuController.renewFailedTask( matcher.group(1) , matcher.group(3) , matcher.group(4) ,matcher.group(6) , matcher.group(7));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.RENEW_FAILED_TASK_SELECT)).matches())
             BoardMenuController.renewFailedTaskSelect(matcher.group(1),matcher.group(3),matcher.group(4),matcher.group(6));
+        else if ((matcher = Regex.getCommandMatcher(command , Regex.SHOW_TASKS_OF_CATEGORY_SELECT)).matches())
+            BoardMenuController.showTasksInCategorySelect(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_BOARD)).matches())
             BoardMenuController.showBoardDetails(matcher.group(1));
         else if ((matcher = Regex.getCommandMatcher(command, Regex.SHOW_BOARD_SELECT)).matches())

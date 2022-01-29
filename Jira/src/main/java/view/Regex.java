@@ -48,6 +48,8 @@ public class Regex {
     public static final String SHOW_FAILED_AND_DONE = "^board --show (done|failed) --name --board (.+)$";
     public static final String RENEW_FAILED_TASK_SELECT = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))?$";
     public static final String RENEW_FAILED_TASK = "^board --open --task (.+) (--assign (.+))? --deadline (.+) (--category (.+))? --name (.+)$";
+    public static final String SHOW_TASKS_OF_CATEGORY_SELECT = "board --show --category (.+)";
+    public static final String SHOW_TASKS_OF_CATEGORY = "board --show --category (.+) --board (.+)";
     public static final String SHOW_BOARD_SELECT = "^Board --show$";
     public static final String SHOW_BOARD = "^Board --show --name (.+)$";
     public static final String SHOW_ALL_TASKS_FOR_LEADER = "^sudo show --all --tasks$";
