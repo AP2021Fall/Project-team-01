@@ -65,7 +65,7 @@ public class TestClass {
         int teamId = DatabaseHandler.getTeamIdByTeamName("team1");
         int taskId = DatabaseHandler.getTaskIdByTaskTitle("task1", teamId);
         LoginController.setActiveUser(new User("sara", "123", "sara@gmail.com", "leader"));
-        Assertions.assertEquals("Priority updated successfully!", TasksPageController.editPriority(taskId, "High"));
+        Assertions.assertEquals("Priority updated successfully!", TasksPageController.editPriority(taskId, 3));
     }
 
     @Test

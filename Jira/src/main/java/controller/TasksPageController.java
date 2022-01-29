@@ -30,7 +30,7 @@ public class TasksPageController {
         return "task with id: " + id + " doesn't exist!";
     }
 
-    public static String editPriority(int id, String newPriority) throws SQLException {
+    public static String editPriority(int id, int newPriority) throws SQLException {
         if (DatabaseHandler.doesTaskExist(id)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {
                 DatabaseHandler.changeTaskPriority(id, newPriority);

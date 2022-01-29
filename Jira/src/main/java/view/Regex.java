@@ -13,7 +13,7 @@ public class Regex {
     public static final String SHOW_NOTIFICATIONS = "^Profile --show notifications$";
     public static final String EDIT_TITLE = "^edit --task --id (.+) --title (.+)$";
     public static final String EDIT_DESCRIPTION = "^edit --task --id (.+) --description (.+)$";
-    public static final String EDIT_PRIORITY = "^edit --task --id (.+) --priority (.+)$";
+    public static final String EDIT_PRIORITY = "^edit --task --id (.+) --priority [1-4]$";
     public static final String EDIT_DEADLINE = "^edit --task --id (.+) --deadline (.+)$";
     public static final String REMOVE_ASSIGNED_USER = "^edit --task --id (.+) --assignedUsers (.+) --remove$";
     public static final String ADD_ASSIGNED_USER = "^edit --task --id (.+) --assignedUsers (.+) --add$";

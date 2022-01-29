@@ -86,7 +86,7 @@ public class Queries {
 
     //change task options
     public static final String UPDATE_PRIORITY =
-            "UPDATE tasks SET priority = '%s' WHERE id = %d";
+            "UPDATE tasks SET priority = %d WHERE id = %d";
     public static final String UPDATE_DESCRIPTION =
             "UPDATE tasks SET description = '%s' WHERE id = %d";
     public static final String UPDATE_TITLE =

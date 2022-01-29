@@ -376,7 +376,7 @@ public class DatabaseHandler {
         else return null;
     }
 
-    public static void changeTaskPriority(int id, String newPriority) throws SQLException {
+    public static void changeTaskPriority(int id, int newPriority) throws SQLException {
         String sql = String.format(Queries.UPDATE_PRIORITY, newPriority, id);
         execute(sql);
     }
