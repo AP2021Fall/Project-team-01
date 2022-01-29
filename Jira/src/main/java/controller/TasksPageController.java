@@ -116,6 +116,7 @@ public class TasksPageController {
         if (DatabaseHandler.doesTaskExist(taskId)){
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))){
                 DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
+                System.out.println("your comment added successfully!");
             }else
                 System.out.println("you don't have access to do this action!");
         }else
