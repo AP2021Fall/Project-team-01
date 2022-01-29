@@ -103,11 +103,23 @@ public class TasksPageController {
     }
 
     public static void showComments(int taskId) throws SQLException {
-        System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
+        if (DatabaseHandler.doesTaskExist(taskId)){
+            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))){
+                System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
+            }else
+                System.out.println("you don't have access to do this action!");
+        }else
+            System.out.println("task does not exist!");
     }
 
     public static void addComment(int taskId, String comment) throws SQLException {
-        DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
+        if (DatabaseHandler.doesTaskExist(taskId)){
+            if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(taskId))){
+                DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
+            }else
+                System.out.println("you don't have access to do this action!");
+        }else
+            System.out.println("task does not exist!");
     }
 
 }
