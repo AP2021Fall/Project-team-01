@@ -65,7 +65,8 @@ public class MainMenuController {
     public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader") ||
                 LoginController.getActiveUser().getRole().equals("admin")) {
-            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())) {
+            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())
+                    || LoginController.getActiveUser().getRole().equals("admin")) {
                 DatabaseHandler.sendNotificationToTeam(LoginController.getActiveUser().getUsername() + ": " +notification, teamName);
                 System.out.println("notification sent successfully");
             } else {

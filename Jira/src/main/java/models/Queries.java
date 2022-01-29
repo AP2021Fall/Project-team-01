@@ -199,4 +199,6 @@ public class Queries {
             "UPDATE `username-task_id` SET username = '%s' WHERE username = '%s'";
     public static final String CHANGE_USERNAME_IN_USERNAME_TEAM_ID =
             "UPDATE `username-team_id` SET username = '%s' WHERE username = '%s'";
+    public static final String GET_TASK_OF_CATEGORY =
+            "SELECT title FROM tasks WHERE category = '%s' AND team_id = %d AND board_name = '%s'";
 }

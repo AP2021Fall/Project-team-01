@@ -965,4 +965,9 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_BOARD_STATE, teamId, boardName);
         return getString(sql);
     }
+
+    public static ArrayList<String> getTaskOfCategory(String categoryName, String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_OF_CATEGORY,categoryName, teamId, boardName);
+        return getArraylistString(sql);
+    }
 }
