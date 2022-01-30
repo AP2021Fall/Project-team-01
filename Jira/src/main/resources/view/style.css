@@ -1,10 +1,7 @@
 .bodyBg{
-    -fx-background-color: black;
+    -fx-background-color: #388c83;
 }
 
-.bodyBg2{
-    -fx-background-image: url("/images/back2.jpg");
-}
 
 .buttonBg{
     -fx-background-color: #220447;

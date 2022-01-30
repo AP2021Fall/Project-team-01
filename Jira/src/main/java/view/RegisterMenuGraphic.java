@@ -1,21 +1,16 @@
 package view;
 
 import controller.LoginController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sun.tools.jar.Main;
 
-import java.sql.SQLException;
 
-
-public class RegisterMenuGraphic extends Application {
+public class RegisterMenuGraphic {
     public static Stage stage;
     public ChoiceBox role;
     public TextField username;
@@ -23,15 +18,7 @@ public class RegisterMenuGraphic extends Application {
     public PasswordField password2;
     public TextField email;
     public Label alert;
-
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        Pane pane = FXMLLoader.load(getClass().getResource("registerMenu.fxml"));
-        Scene scene = new Scene(pane);
-        primaryStage.setScene(scene);
-    }
+    public SceneController sceneController = new SceneController();
 
     public void register(MouseEvent mouseEvent) throws Exception {
         String usernameString = username.getText();
@@ -47,12 +34,12 @@ public class RegisterMenuGraphic extends Application {
         String result = LoginController.createUser(usernameString, password1String,
                 password2String, emailString, roleString);
         if (result.equals("user created successfully!")) {
-            new LoginMenuGraphic().start(stage);
+            sceneController.switchScene("loginMenu.fxml", stage);
         }
         alert.setText(result);
     }
 
     public void goToLoginMenu(MouseEvent mouseEvent) throws Exception {
-        new LoginMenuGraphic().start(stage);
+        sceneController.switchScene("loginMenu.fxml", stage);
     }
 }
