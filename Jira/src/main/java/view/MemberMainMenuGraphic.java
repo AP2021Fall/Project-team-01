@@ -10,7 +10,7 @@ public class MemberMainMenuGraphic {
 
 
     public void profileMenu(MouseEvent mouseEvent) {
-
+        sceneController.switchScene("ProfileMenu/profileMenu.fxml");
     }
 
     public void teamMenu(MouseEvent mouseEvent) {
