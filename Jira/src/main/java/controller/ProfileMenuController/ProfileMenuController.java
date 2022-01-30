@@ -37,7 +37,7 @@ public class ProfileMenuController {
         else {
             DatabaseHandler.changeUsername(LoginController.getActiveUser().getUsername(), newUsername);
             LoginController.getActiveUser().setUsername(newUsername);
-            return "username successfully changed";
+                return "username successfully changed";
         }
     }
 
