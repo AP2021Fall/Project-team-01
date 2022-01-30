@@ -13,7 +13,7 @@ public class ChangeUsernameMenuGraphic {
     public SceneController sceneController = new SceneController();
 
     public void showTeams(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.CHANGE_USERNAME.getLabel());
+        sceneController.switchScene(MenusFxml.SHOW_TEAMS_MENU.getLabel());
     }
 
     public void showMyProfile(ActionEvent actionEvent) {

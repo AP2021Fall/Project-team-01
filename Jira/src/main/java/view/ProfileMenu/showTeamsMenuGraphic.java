@@ -51,7 +51,7 @@ public class showTeamsMenuGraphic implements Initializable {
     }
 
     public void showMyProfile(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.PROFILE_MENU.getLabel());
+        sceneController.switchScene(MenusFxml.SHOW_MY_PROFILE.getLabel());
     }
 
     public void changeUsername(ActionEvent actionEvent) {

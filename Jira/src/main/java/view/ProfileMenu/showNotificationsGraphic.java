@@ -1,6 +1,5 @@
 package view.ProfileMenu;
 
-import controller.LoginController;
 import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -13,15 +12,15 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class showNotificationsGraphic implements Initializable {
-    public TextArea textNotif;
+    public TextArea textNotifications;
     public SceneController sceneController = new SceneController();
 
     public void showTeams(ActionEvent actionEvent) {
-
+        sceneController.switchScene(MenusFxml.SHOW_TEAMS_MENU.getLabel());
     }
 
     public void showMyProfile(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.PROFILE_MENU.getLabel());
+        sceneController.switchScene(MenusFxml.SHOW_MY_PROFILE.getLabel());
     }
 
     public void changeUsername(ActionEvent actionEvent) {
@@ -39,7 +38,7 @@ public class showNotificationsGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textNotif.setText(ProfileMenuController.showNotifications().toString());
+            textNotifications.setText(ProfileMenuController.showNotifications().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
