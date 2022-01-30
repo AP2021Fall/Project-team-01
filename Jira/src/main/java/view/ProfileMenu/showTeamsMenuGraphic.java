@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import view.MenusFxml;
+import view.SceneController;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class showTeamsMenuGraphic implements Initializable {
-
+    public SceneController sceneController = new SceneController();
     public BorderPane borderPane;
     public ScrollPane scrollPane;
     public TextArea textArea;
@@ -30,9 +32,8 @@ public class showTeamsMenuGraphic implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         VBox vBox = new VBox();
-        for (String string : myTeams){
+        for (String string : myTeams) {
             Button button = new Button(string);
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -50,6 +51,7 @@ public class showTeamsMenuGraphic implements Initializable {
     }
 
     public void showMyProfile(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.PROFILE_MENU.getLabel());
     }
 
     public void changeUsername(ActionEvent actionEvent) {

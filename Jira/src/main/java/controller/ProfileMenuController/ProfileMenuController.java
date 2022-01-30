@@ -50,18 +50,17 @@ public class ProfileMenuController {
     }
 
 
-    public static void showMyProfile() {
+    public static String showMyProfile() {
         User user = LoginController.getActiveUser();
-        System.out.println("username: " + user.getUsername() + "email address: " + user.getEmail() + " role: " + user.getRole() +
-                " score: " + user.getPoint());
-        //birthdate and name?
+        return ("username: " + user.getUsername() + "\nemail address: " + user.getEmail() + "\nrole: " + user.getRole() +
+                "\nscore: " + user.getPoint());
     }
 
     public static void showLogs() throws SQLException {
         System.out.println(DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername()));
     }
 
-    public static void showNotifications() throws SQLException {
-        System.out.println(DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
+    public static ArrayList<String> showNotifications() throws SQLException {
+        return (DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
     }
 }
