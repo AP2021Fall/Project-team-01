@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -29,14 +30,6 @@ public class LoginMenuGraphic extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         Pane pane = FXMLLoader.load(getClass().getResource("loginMenu.fxml"));
-        Image img = new Image("file:///d:back.jpg");
-        BackgroundImage bImg = new BackgroundImage(img,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        Background bGround = new Background(bImg);
-        pane.setBackground(bGround);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.show();

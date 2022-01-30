@@ -1,5 +1,9 @@
 .bodyBg{
-    -fx-background-image: url("/images/back.jpg");
+    -fx-background-color: black;
+}
+
+.bodyBg2{
+    -fx-background-image: url("/images/back2.jpg");
 }
 
 .buttonBg{
