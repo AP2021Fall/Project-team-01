@@ -6,6 +6,7 @@ import models.User;
 import view.Regex;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProfileMenuController {
 
@@ -40,14 +41,12 @@ public class ProfileMenuController {
         }
     }
 
-    public static void showTeams() throws SQLException {
-        System.out.println(DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
+    public static ArrayList<String> showTeams() throws SQLException {
+        return (DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
     }
 
-    public static void showTeam(String teamName) throws SQLException {
-        System.out.println(teamName + ":");
-        System.out.println("leader: " + DatabaseHandler.getLeaderByTeamName(teamName));
-        System.out.println("members: " + DatabaseHandler.getMembersByTeamName(teamName));
+    public static String showTeam(String teamName) throws SQLException {
+        return (teamName + ":" +"\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName)+"\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
 
