@@ -8,7 +8,10 @@ public enum MenusFxml {
     PROFILE_MENU ("ProfileMenu/profileMenu.fxml"),
     SHOW_TEAMS_MENU ("ProfileMenu/showTeamsMenu.fxml"),
     SHOW_MY_PROFILE ("ProfileMenu/showMyProfile.fxml"),
-    CHANGE_USERNAME ("ProfileMenu/changeUsernameMenu.fxml");
+    CHANGE_USERNAME_MENU("ProfileMenu/changeUsernameMenu.fxml"),
+    CHANGE_PASSWORD_MENU ("ProfileMenu/changePasswordMenu.fxml"),
+    SHOW_LOGS_MENU("ProfileMenu/showLogs.fxml"),
+    SHOW_NOTIFICATION_MENU("ProfileMenu/showNotificationMenu.fxml");
     private final String label;
 
     MenusFxml(String label) {
