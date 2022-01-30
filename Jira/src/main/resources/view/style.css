@@ -1,0 +1,7 @@
+.bodyBg{
+    -fx-background-image: url("/images/back.jpg");
+}
+
+.buttonBg{
+    -fx-background-color: #220447;
+}
