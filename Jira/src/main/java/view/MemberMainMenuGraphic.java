@@ -1,12 +1,31 @@
 package view;
 
-import javafx.application.Application;
+
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class MemberMainMenuGraphic extends Application {
+public class MemberMainMenuGraphic {
+    public static Stage stage;
+    public SceneController sceneController = new SceneController();
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
 
+    public void profileMenu(MouseEvent mouseEvent) {
+
+    }
+
+    public void teamMenu(MouseEvent mouseEvent) {
+
+    }
+
+    public void taskPage(MouseEvent mouseEvent) {
+
+    }
+
+    public void calenderMenu(MouseEvent mouseEvent) {
+
+    }
+
+    public void logout(MouseEvent mouseEvent) {
+        sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
     }
 }

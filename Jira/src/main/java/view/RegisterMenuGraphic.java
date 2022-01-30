@@ -34,12 +34,13 @@ public class RegisterMenuGraphic {
         String result = LoginController.createUser(usernameString, password1String,
                 password2String, emailString, roleString);
         if (result.equals("user created successfully!")) {
-            sceneController.switchScene("loginMenu.fxml", stage);
+            sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
+            return;
         }
         alert.setText(result);
     }
 
     public void goToLoginMenu(MouseEvent mouseEvent) throws Exception {
-        sceneController.switchScene("loginMenu.fxml", stage);
+        sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
     }
 }

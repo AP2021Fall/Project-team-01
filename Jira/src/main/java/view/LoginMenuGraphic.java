@@ -18,7 +18,22 @@ public class LoginMenuGraphic {
 
     public void login(MouseEvent mouseEvent) throws SQLException {
         if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-            alert.setText(LoginController.loginUser(username.getText(), password.getText()));
+            String result = LoginController.loginUser(username.getText(), password.getText());
+            if (result.equals("user logged in successfully!")) {
+                switch (LoginController.getActiveUser().getRole()) {
+                    case "member":
+                        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+                        break;
+                    case "leader":
+                        break;
+                    case "admin":
+                        break;
+                    default:
+
+                }
+                return;
+            }
+            alert.setText(result);
             return;
         }
         alert.setText("please fill out all fields");
@@ -26,6 +41,6 @@ public class LoginMenuGraphic {
     }
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
-        sceneController.switchScene("registerMenu.fxml", stage);
+        sceneController.switchScene("registerMenu.fxml");
     }
 }

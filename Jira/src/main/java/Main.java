@@ -13,9 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginMenuGraphic.stage = primaryStage;
-        RegisterMenuGraphic.stage = primaryStage;
-        new SceneController().switchScene("loginMenu.fxml", primaryStage);
+        SceneController.stage = primaryStage;
+        new SceneController().switchScene("loginMenu.fxml");
         primaryStage.setTitle("Jira");
         primaryStage.setResizable(false);
         primaryStage.show();
