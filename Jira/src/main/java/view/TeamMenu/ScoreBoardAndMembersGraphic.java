@@ -1,34 +1,25 @@
 package view.TeamMenu;
 
-import controller.ProfileMenuController.ProfileMenuController;
+import controller.LoginController;
+import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import view.MenusFxml;
+import view.SceneController;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ScoreBoardAndMembersGraphic extends Application implements Initializable {
+public class ScoreBoardAndMembersGraphic implements Initializable {
     public ListView membersList;
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Pane pane = FXMLLoader.load(getClass().getResource("scoreboardAndMembersMenu.fxml"));
-        Scene scene = new Scene(pane);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+    public SceneController sceneController = new SceneController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,12 +33,16 @@ public class ScoreBoardAndMembersGraphic extends Application implements Initiali
         membersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println(membersList.getSelectionModel().getSelectedItem());
+                ScoreBoardController.usernameToRemove = (String) membersList.getSelectionModel().getSelectedItem();
+                if (LoginController.getActiveUser().getRole().equals("leader"))
+                    sceneController.switchScene(MenusFxml.OPTIONS_MENU.getLabel());
+                else
+                    sceneController.switchScene(MenusFxml.MEMBER_OPTION_MENU.getLabel());
             }
         });
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void back(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 }
