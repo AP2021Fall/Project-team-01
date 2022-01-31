@@ -10,11 +10,11 @@
    <children>
       <VBox layoutX="237.0" layoutY="116.0" prefHeight="215.0" prefWidth="126.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#users"  prefHeight="45.0" prefWidth="126.0" text="Users" />
-            <Button mnemonicParsing="false" onAction="#pendingTeam"  prefHeight="46.0" prefWidth="126.0" text="Penfing Teams" />
-            <Button mnemonicParsing="false" onAction="#banUsers"  prefHeight="41.0" prefWidth="125.0" text="Ban Users" />
-            <Button mnemonicParsing="false" onAction="#information"  prefHeight="42.0" prefWidth="125.0" text="Information" />
-            <Button mnemonicParsing="false" onAction="#logout"  prefHeight="43.0" prefWidth="126.0" text="Logout" />
+            <Button mnemonicParsing="false" onAction="#users" prefHeight="45.0" prefWidth="126.0" text="Users" />
+            <Button mnemonicParsing="false" onAction="#pendingTeam" prefHeight="46.0" prefWidth="126.0" text="Penfing Teams" />
+            <Button mnemonicParsing="false" onAction="#banUsers" prefHeight="41.0" prefWidth="125.0" text="Ban Users" />
+            <Button mnemonicParsing="false" onAction="#information" prefHeight="42.0" prefWidth="125.0" text="Information" />
+            <Button mnemonicParsing="false" onAction="#logout" prefHeight="43.0" prefWidth="126.0" text="Logout" />
          </children>
       </VBox>
       <Label layoutX="237.0" layoutY="60.0" text="Main Menu" textAlignment="CENTER" underline="true">
