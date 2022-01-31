@@ -29,4 +29,8 @@ public class SelectedTeamMenuGraphic implements Initializable {
 
     public void goToMainMenu(ActionEvent actionEvent) {
     }
+
+    public void goToScoreBoard(ActionEvent actionEvent) {
+
+    }
 }

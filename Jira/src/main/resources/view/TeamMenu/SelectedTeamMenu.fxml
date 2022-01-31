@@ -7,7 +7,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTeamMenuGraphic">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTeamMenuGraphic">
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="196.0" BorderPane.alignment="CENTER">
          <children>
@@ -16,7 +19,7 @@
                   <Button mnemonicParsing="false" onAction="#goToRoadMap" prefHeight="33.0" prefWidth="135.0" text="RoadMap" />
                   <Button mnemonicParsing="false" onAction="#goToChatroom" prefHeight="33.0" prefWidth="135.0" text="ChatRoom" />
                   <Button mnemonicParsing="false" onAction="#goToBoardMenu" prefHeight="33.0" prefWidth="135.0" text="BoradMenu" />
-                  <Button mnemonicParsing="false" onAction="#goToScoreBorad" prefHeight="33.0" prefWidth="135.0" text="ScoreBorad" />
+                  <Button mnemonicParsing="false" onAction="#goToScoreBoard" prefHeight="33.0" prefWidth="135.0" text="ScoreBorad" />
                </children>
             </VBox>
          </children>

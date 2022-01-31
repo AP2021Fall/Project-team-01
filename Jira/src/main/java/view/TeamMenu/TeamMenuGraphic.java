@@ -20,10 +20,13 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TeamMenuGraphic implements Initializable {
-    public static ObservableList<String> items;
+    public ObservableList<String> items = FXCollections.observableArrayList(TeamSelectionController.showTeams());
     public SceneController sceneController = new SceneController();
     public ListView<String> listViewTeams;
     public TextField searchBar;
+
+    public TeamMenuGraphic() throws SQLException {
+    }
 
 
     @Override
@@ -46,14 +49,13 @@ public class TeamMenuGraphic implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
-    public void search(ActionEvent actionEvent) {
+    public void search(ActionEvent actionEvent) throws SQLException {
         listViewTeams.getItems().clear();
         listViewTeams.getItems().addAll(searchList(searchBar.getText(), items));
     }
