@@ -21,7 +21,7 @@
       <AnchorPane prefHeight="400.0" prefWidth="389.0" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="textMyProfile" layoutX="164.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0" />
-            <ImageView fx:id="profileImage" fitHeight="122.0" fitWidth="130.0" layoutX="14.0" layoutY="126.0" onDragDropped="#handleDroppedImage" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileImage" fitHeight="122.0" fitWidth="130.0" layoutX="14.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/unknown.png" />
                </image>
