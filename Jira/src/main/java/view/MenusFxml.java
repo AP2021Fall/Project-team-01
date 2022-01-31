@@ -13,7 +13,11 @@ public enum MenusFxml {
     CHANGE_USERNAME_MENU("ProfileMenu/changeUsernameMenu.fxml"),
     CHANGE_PASSWORD_MENU ("ProfileMenu/changePasswordMenu.fxml"),
     SHOW_LOGS_MENU("ProfileMenu/showLogs.fxml"),
-    SHOW_NOTIFICATION_MENU("ProfileMenu/showNotifications.fxml");
+    SHOW_NOTIFICATION_MENU("ProfileMenu/showNotifications.fxml"),
+    OPTIONS_MENU ("TeamMenu/OptionsMenu.fxml"),
+    SCOREBOARD("TeamMenu/scoreboardAndMembersMenu.fxml"),
+    SHOW_PROFILE_MENU("TeamMenu/showProfile.fxml"),
+    MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml");
     private final String label;
 
     MenusFxml(String label) {

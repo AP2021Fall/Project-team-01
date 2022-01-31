@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         SceneController.stage = primaryStage;
-        new SceneController().switchScene("loginMenu.fxml");
+        new SceneController().switchScene(MenusFxml.LOGIN_MENU.getLabel());
         primaryStage.setTitle("Jira");
         primaryStage.setResizable(false);
         primaryStage.show();

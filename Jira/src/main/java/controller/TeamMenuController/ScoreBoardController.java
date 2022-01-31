@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class ScoreBoardController {
 
+    public static String usernameToRemove;
     public static void showScoreboard() throws SQLException {
         ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
         for ( Integer list : tasksId) {
