@@ -63,4 +63,7 @@ public class showMyProfileGraphic implements Initializable {
             dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 
+    public void goToMainMenu(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+    }
 }

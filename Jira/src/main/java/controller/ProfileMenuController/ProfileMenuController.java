@@ -6,6 +6,7 @@ import models.User;
 import view.Regex;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ProfileMenuController {
@@ -56,8 +57,13 @@ public class ProfileMenuController {
                 "\nscore: " + user.getPoint());
     }
 
-    public static void showLogs() throws SQLException {
-        System.out.println(DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername()));
+    public static String showLogs() throws SQLException {
+        ArrayList<LocalDateTime> logs = new ArrayList<>();
+        logs = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());
+        StringBuilder stringLogs = new StringBuilder();
+        for (LocalDateTime log : logs)
+            stringLogs.append(log).append("\n");
+        return stringLogs.toString();
     }
 
     public static ArrayList<String> showNotifications() throws SQLException {

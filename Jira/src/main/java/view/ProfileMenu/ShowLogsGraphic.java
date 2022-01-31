@@ -11,9 +11,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class showNotificationsGraphic implements Initializable {
-    public TextArea textNotifications;
+public class ShowLogsGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
+    public TextArea textLogs;
 
     public void showTeams(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.SHOW_TEAMS_MENU.getLabel());
@@ -31,20 +31,20 @@ public class showNotificationsGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.CHANGE_PASSWORD_MENU.getLabel());
     }
 
-    public void showLogs(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.SHOW_LOGS_MENU.getLabel());
+    public void showNotifications(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
+    }
+
+    public void goToMainMenu(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textNotifications.setText(ProfileMenuController.showNotifications().toString());
+            textLogs.setText(ProfileMenuController.showLogs().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 }

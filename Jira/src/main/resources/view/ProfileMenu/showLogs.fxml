@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProfileMenu.showMyProfileGraphic">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProfileMenu.ShowLogsGraphic">
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="227.0" BorderPane.alignment="CENTER">
          <children>
             <VBox layoutX="40.0" layoutY="86.0" prefHeight="229.0" prefWidth="132.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#showTeams" prefHeight="33.0" prefWidth="135.0" text="ShowTeams" />
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="MyProfile" />
+                  <Button mnemonicParsing="false" onAction="#showMyProfile" prefHeight="33.0" prefWidth="135.0" text="MyProfile" />
                   <Button mnemonicParsing="false" onAction="#changeUsername" prefHeight="33.0" prefWidth="135.0" text="ChangeUsername" />
                   <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="33.0" prefWidth="135.0" text="ChangePassword" />
-                  <Button mnemonicParsing="false" onAction="#showLogs" prefHeight="33.0" prefWidth="135.0" text="Logs" />
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Logs" />
                   <Button mnemonicParsing="false" onAction="#showNotifications" prefHeight="33.0" prefWidth="135.0" text="Notifications" />
                   <Button mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="33.0" prefWidth="135.0" text="MainMenu" />
                </children>
@@ -30,13 +27,7 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="389.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="textMyProfile" layoutX="164.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0" />
-            <ImageView fx:id="profileImage" fitHeight="122.0" fitWidth="130.0" layoutX="14.0" layoutY="126.0" onDragDropped="#handleDroppedImage" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/unknown.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="35.0" layoutY="265.0" prefHeight="22.0" prefWidth="88.0" text="profileImage" />
+            <TextArea fx:id="textLogs" layoutX="95.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
          </children></AnchorPane>
    </left>
 </BorderPane>

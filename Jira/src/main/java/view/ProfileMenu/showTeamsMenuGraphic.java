@@ -69,4 +69,8 @@ public class showTeamsMenuGraphic implements Initializable {
     public void showNotifications(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
     }
+
+    public void goToMainMenu(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+    }
 }

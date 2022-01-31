@@ -1,13 +1,10 @@
 package view.ProfileMenu;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 import view.MenusFxml;
 import view.SceneController;
 
 public class ProfileMenuGraphic {
-    public static Stage stage;
     public SceneController sceneController = new SceneController();
 
     public void showTeams(ActionEvent actionEvent) {
@@ -32,5 +29,9 @@ public class ProfileMenuGraphic {
 
     public void showNotifications(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
+    }
+
+    public void goToMainMenu(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 }
