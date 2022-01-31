@@ -55,14 +55,18 @@ public class showTeamsMenuGraphic implements Initializable {
     }
 
     public void changeUsername(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.CHANGE_USERNAME_MENU.getLabel());
     }
 
     public void changePassword(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.CHANGE_PASSWORD_MENU.getLabel());
     }
 
     public void showLogs(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SHOW_LOGS_MENU.getLabel());
     }
 
     public void showNotifications(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
     }
 }

@@ -11,7 +11,7 @@ public class ProfileMenuGraphic {
     public SceneController sceneController = new SceneController();
 
     public void showTeams(ActionEvent actionEvent) {
-        sceneController.switchScene("ProfileMenu/showTeamsMenu.fxml");
+        sceneController.switchScene(MenusFxml.SHOW_TEAMS_MENU.getLabel());
     }
 
     public void showMyProfile(ActionEvent actionEvent) {

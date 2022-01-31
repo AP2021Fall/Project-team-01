@@ -17,7 +17,7 @@
                   <Button mnemonicParsing="false" onAction="#changeUsername" prefHeight="33.0" prefWidth="135.0" text="ChangeUsername" />
                   <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="33.0" prefWidth="135.0" text="ChangePassword" />
                   <Button mnemonicParsing="false" onAction="#showLogs" prefHeight="33.0" prefWidth="135.0" text="Logs" />
-                  <Button mnemonicParsing="false" onAction="#showNotifications" prefHeight="33.0" prefWidth="135.0" text="Notifications" />
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="Notifications" />
                </children>
             </VBox>
          </children>

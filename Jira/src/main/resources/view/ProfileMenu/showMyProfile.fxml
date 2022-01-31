@@ -16,7 +16,7 @@
             <VBox layoutX="40.0" layoutY="86.0" prefHeight="229.0" prefWidth="132.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#showTeams" prefHeight="33.0" prefWidth="135.0" text="ShowTeams" />
-                  <Button mnemonicParsing="false" onAction="#showMyProfile" prefHeight="33.0" prefWidth="135.0" text="MyProfile" />
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="135.0" text="MyProfile" />
                   <Button mnemonicParsing="false" onAction="#changeUsername" prefHeight="33.0" prefWidth="135.0" text="ChangeUsername" />
                   <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="33.0" prefWidth="135.0" text="ChangePassword" />
                   <Button mnemonicParsing="false" onAction="#showLogs" prefHeight="33.0" prefWidth="135.0" text="Logs" />
