@@ -19,28 +19,24 @@ public class ChangePasswordMenuController {
         return counter;
     }
 
-    public static void changePassword(String oldPassword, String newPassword) throws SQLException {
+    public static String changePassword(String oldPassword, String newPassword) throws SQLException {
         if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
-            System.out.print("wrong old password");
             counter++;
             if (counter==2){
-                System.out.println();
-                MenuController.currentMenu = Menus.LOGIN_MENU;
-                LoginMenu.showLogin();
                 counter = 0;
-            }else {
-                System.out.println("  please enter your password in original format again");
-            }
+                return "login";
+            } else
+                return "wrong old password";
         } else if (oldPassword.equals(newPassword)) {
-            System.out.println("please enter a new password");
+            return "please enter a new password";
         } else if (!Regex.isPasswordStrong(newPassword)) {
-            System.out.println("Please Choose A strong Password (Containing at least 8 characters including 1 digit and 1 Capital Letter)");
+            return "Please Choose A strong Password (Containing at least 8 characters including 1 digit and 1 Capital Letter)";
         } else {
             DatabaseHandler.changePassword(LoginController.getActiveUser().getUsername(), newPassword);
             LoginController.getActiveUser().setPassword(newPassword);
-            System.out.println("password changed successfully");
             MenuController.currentMenu = Menus.PROFILE_MENU;
             ProfileMenu.showProfileMenu();
+            return "password changed successfully";
         }
     }
 
