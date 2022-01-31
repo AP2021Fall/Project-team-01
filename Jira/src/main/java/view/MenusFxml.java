@@ -6,6 +6,8 @@ public enum MenusFxml {
     REGISTER_MENU ("registerMenu.fxml"),
     MEMBER_MAIN_MENU ("MemberMainMenu.fxml"),
     PROFILE_MENU ("ProfileMenu/profileMenu.fxml"),
+    TEAM_MENU ("TeamMenu/TeamMenu.fxml"),
+    SELECTED_TEAM_MENU ("TeamMenu/SelectedTeamMenu.fxml"),
     SHOW_TEAMS_MENU ("ProfileMenu/showTeamsMenu.fxml"),
     SHOW_MY_PROFILE ("ProfileMenu/showMyProfile.fxml"),
     CHANGE_USERNAME_MENU("ProfileMenu/changeUsernameMenu.fxml"),
