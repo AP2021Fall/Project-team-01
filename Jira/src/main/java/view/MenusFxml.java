@@ -11,7 +11,7 @@ public enum MenusFxml {
     CHANGE_USERNAME_MENU("ProfileMenu/changeUsernameMenu.fxml"),
     CHANGE_PASSWORD_MENU ("ProfileMenu/changePasswordMenu.fxml"),
     SHOW_LOGS_MENU("ProfileMenu/showLogs.fxml"),
-    SHOW_NOTIFICATION_MENU("ProfileMenu/showNotificationMenu.fxml");
+    SHOW_NOTIFICATION_MENU("ProfileMenu/showNotifications.fxml");
     private final String label;
 
     MenusFxml(String label) {
