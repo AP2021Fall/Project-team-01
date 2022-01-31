@@ -57,6 +57,15 @@ public class ProfileMenuController {
                 "\nscore: " + user.getPoint());
     }
 
+    public static String showMyProfile(String username) throws SQLException {
+        String email = DatabaseHandler.getEmailByUsername(username);
+        String role = DatabaseHandler.getUserRole(username);
+        int point = DatabaseHandler.getPointsOfUser(username);
+        return ("username: " + username + "\nemail address: " + email + "\nrole: " + role +
+                "\nscore: " + point);
+    }
+
+
     public static String showLogs() throws SQLException {
         ArrayList<LocalDateTime> logs = new ArrayList<>();
         logs = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());

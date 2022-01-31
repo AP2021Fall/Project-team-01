@@ -1,6 +1,7 @@
 package view.TeamMenu;
 
 import controller.ProfileMenuController.ProfileMenuController;
+import controller.TeamMenuController.ScoreBoardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -9,6 +10,7 @@ import view.MenusFxml;
 import view.SceneController;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ShowProfileGraphic implements Initializable {
@@ -23,6 +25,10 @@ public class ShowProfileGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textMyProfile.setText(ProfileMenuController.showMyProfile());
+        try {
+            textMyProfile.setText(ProfileMenuController.showMyProfile(ScoreBoardController.usernameToRemove));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -35,6 +35,7 @@ public class SelectedTeamMenuGraphic implements Initializable {
     }
 
     public void goToScoreBoard(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SCOREBOARD.getLabel());
     }
 
     public void backToTeamMenu(ActionEvent actionEvent) {
