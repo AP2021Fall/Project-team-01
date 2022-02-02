@@ -29,7 +29,7 @@ public class showMyProfileGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         textMyProfile.setText(ProfileMenuController.showMyProfile());
         String username = LoginController.getActiveUser().getUsername();
-        String path = "C:\\Users\\yas\\Documents\\AP\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png";
+        String path = "D:\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png";
         File file = new File(path);
         if (file.exists()){
             try {
@@ -84,7 +84,7 @@ public class showMyProfileGraphic implements Initializable {
 
     public static void saveToFile(Image image) {
         String username = LoginController.getActiveUser().getUsername();
-        File outputFile = new File("C:\\Users\\yas\\Documents\\AP\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png");
+        File outputFile = new File("D:\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png");
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
         try {
             ImageIO.write(bImage, "png", outputFile);

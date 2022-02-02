@@ -135,8 +135,12 @@ public class Queries {
             "SELECT leader FROM boards b JOIN teams t ON b.team_id = t.id WHERE b.name = '%s' AND team_id = %d";
     public static final String GET_DONE_TASKS_OF_BOARD =
             "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 1";
+    public static final String GET_DONE_TASKS_TITLE_OF_BOARD =
+            "SELECT title FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 1";
     public static final String GET_FAILED_TASKS_OF_BOARD =
             "SELECT id FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 0";
+    public static final String GET_FAILED_TASKS_TITLE_OF_BOARD =
+            "SELECT title FROM tasks WHERE board_name = '%s' AND team_id = %d AND state = 0";
     public static final String GET_TASKS_BY_BOARD_NAME_TEAM_ID =
             "SELECT title, category, description,`creation date`,`deadline date`,state,id FROM tasks WHERE board_name = '%s' AND team_id = %d AND priority = %d";
     public static final String ADD_MEMBER_TO_TEAM =
@@ -201,4 +205,6 @@ public class Queries {
             "UPDATE `username-team_id` SET username = '%s' WHERE username = '%s'";
     public static final String GET_TASK_OF_CATEGORY =
             "SELECT title FROM tasks WHERE category = '%s' AND team_id = %d AND board_name = '%s'";
+    public static final String GET_BOARDS_OF_TEAM =
+            "SELECT name FROM boards WHERE team_id = %d";
 }

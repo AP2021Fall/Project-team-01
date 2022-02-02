@@ -602,9 +602,19 @@ public class DatabaseHandler {
         return getIntArraylist(sql);
     }
 
+    public static ArrayList<String> getDoneTasksTitle(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_DONE_TASKS_TITLE_OF_BOARD, boardName, teamId);
+        return getArraylistString(sql);
+    }
+
     public static ArrayList<Integer> getFailedTasks(String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.GET_FAILED_TASKS_OF_BOARD, boardName, teamId);
         return getIntArraylist(sql);
+    }
+
+    public static ArrayList<String> getFailedTasksTitle(String boardName, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_FAILED_TASKS_OF_BOARD, boardName, teamId);
+        return getArraylistString(sql);
     }
 
     public static ArrayList<String> getTasksOfBoardToShow(String boardName, int teamId, int priority) throws SQLException {
@@ -968,6 +978,11 @@ public class DatabaseHandler {
 
     public static ArrayList<String> getTaskOfCategory(String categoryName, String boardName, int teamId) throws SQLException {
         String sql = String.format(Queries.GET_TASK_OF_CATEGORY,categoryName, teamId, boardName);
+        return getArraylistString(sql);
+    }
+
+    public static ArrayList<String> getBoardsOfTeam(int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_BOARDS_OF_TEAM, teamId);
         return getArraylistString(sql);
     }
 }
