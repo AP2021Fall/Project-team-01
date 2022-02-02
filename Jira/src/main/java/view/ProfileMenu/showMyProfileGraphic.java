@@ -1,6 +1,8 @@
 package view.ProfileMenu;
 
+import controller.LoginController;
 import controller.ProfileMenuController.ProfileMenuController;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -11,9 +13,9 @@ import javafx.scene.input.TransferMode;
 import view.MenusFxml;
 import view.SceneController;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,6 +28,18 @@ public class showMyProfileGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         textMyProfile.setText(ProfileMenuController.showMyProfile());
+        String username = LoginController.getActiveUser().getUsername();
+        String path = "C:\\Users\\yas\\Documents\\AP\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png";
+        File file = new File(path);
+        if (file.exists()){
+            try {
+                InputStream inputStream = new FileInputStream(path);
+                Image image = new Image(inputStream);
+                profileImage.setImage(image);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void showTeams(ActionEvent actionEvent) {
@@ -53,6 +67,7 @@ public class showMyProfileGraphic implements Initializable {
         try {
             Image image = new Image(new FileInputStream(files.get(files.size() - 1)));
             profileImage.setImage(image);
+            saveToFile(image);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -65,5 +80,16 @@ public class showMyProfileGraphic implements Initializable {
 
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+    }
+
+    public static void saveToFile(Image image) {
+        String username = LoginController.getActiveUser().getUsername();
+        File outputFile = new File("C:\\Users\\yas\\Documents\\AP\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png");
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
