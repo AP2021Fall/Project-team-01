@@ -25,6 +25,7 @@ public class SelectedTeamMenuGraphic implements Initializable {
     }
 
     public void goToChatroom(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
     }
 
     public void goToBoardMenu(ActionEvent actionEvent) {
