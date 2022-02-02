@@ -18,8 +18,7 @@ public enum MenusFxml {
     SCOREBOARD("TeamMenu/scoreboardAndMembersMenu.fxml"),
     SHOW_PROFILE_MENU("TeamMenu/showProfile.fxml"),
     MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml"),
-    CHATROOM_MENU("TeamMenu/chatroomMenu.fxml");
-    MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml"),
+    CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml");
     private final String label;
