@@ -207,4 +207,12 @@ public class Queries {
             "SELECT title FROM tasks WHERE category = '%s' AND team_id = %d AND board_name = '%s'";
     public static final String GET_BOARDS_OF_TEAM =
             "SELECT name FROM boards WHERE team_id = %d";
+    public static final String GET_DONE_TASKS_TITLE_OF_TEAM =
+            "SELECT title FROM tasks WHERE team_id = %d AND state = 1";
+    public static final String GET_FAILED_TASKS_TITLE_OF_TEAM =
+            "SELECT title FROM tasks WHERE team_id = %d AND state = 0";
+    public static final String GET_IN_PROGRESS_TASKS_TITLE_OF_TEAM =
+            "SELECT title FROM tasks WHERE team_id = %d AND state = 3";
+    public static final String GET_TASKS_TITLE_OF_TEAM =
+            "SELECT title FROM tasks WHERE team_id = %d";
 }

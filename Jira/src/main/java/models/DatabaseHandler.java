@@ -984,15 +984,27 @@ public class DatabaseHandler {
         return getArraylistString(sql);
     }
 
-    public static ArrayList<String> getDoneTasksTitleByTeamName(String TeamName) {
+    public static ArrayList<String> getDoneTasksTitleByTeamName(String teamName) throws SQLException {
+        int teamId = getTeamIdByTeamName(teamName);
+        String sql = String.format(Queries.GET_DONE_TASKS_TITLE_OF_TEAM, teamId);
+        return getArraylistString(sql);
     }
 
-    public static ArrayList<String> getFailedTasksTitleByTeamName(String TeamName) {
+    public static ArrayList<String> getFailedTasksTitleByTeamName(String teamName) throws SQLException {
+        int teamId = getTeamIdByTeamName(teamName);
+        String sql = String.format(Queries.GET_FAILED_TASKS_TITLE_OF_TEAM, teamId);
+        return getArraylistString(sql);
     }
 
-    public static ArrayList<String> getInProgressTasksTitleByTeamName(String TeamName) {
+    public static ArrayList<String> getInProgressTasksTitleByTeamName(String teamName) throws SQLException {
+        int teamId = getTeamIdByTeamName(teamName);
+        String sql = String.format(Queries.GET_IN_PROGRESS_TASKS_TITLE_OF_TEAM, teamId);
+        return getArraylistString(sql);
     }
 
-    public static ArrayList<String> getTasksTitleByTeamName(String TeamName) {
+    public static ArrayList<String> getTasksTitleByTeamName(String teamName) throws SQLException {
+        int teamId = getTeamIdByTeamName(teamName);
+        String sql = String.format(Queries.GET_TASKS_TITLE_OF_TEAM, teamId);
+        return getArraylistString(sql);
     }
 }
