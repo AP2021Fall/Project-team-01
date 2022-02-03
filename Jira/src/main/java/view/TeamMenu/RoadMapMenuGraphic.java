@@ -10,6 +10,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import models.DatabaseHandler;
 import view.MenusFxml;
 import view.SceneController;
@@ -23,6 +25,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class RoadMapMenuGraphic implements Initializable {
+    public BorderPane borderPane;
+    public AnchorPane anchorPane;
     String teamName = TeamMenuController.getTeam().getName();
     ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
     public ListView<String> listViewTasks;
@@ -31,18 +35,25 @@ public class RoadMapMenuGraphic implements Initializable {
     public PieChart TasksChart;
     SceneController sceneController = new SceneController();
 
+    public RoadMapMenuGraphic() throws SQLException {
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showTasksInfo();
-        ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
-        listViewTasks.setItems(items);
-        listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String taskName = listViewTasks.getSelectionModel().getSelectedItem();
-                //                        sceneController.switchScene(MenusFxml.SELECTED_TASK_MENU.getLabel());
-            }
-        });
+        try {
+            showTasksInfo();
+            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
+            listViewTasks.setItems(items);
+            listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String taskName = listViewTasks.getSelectionModel().getSelectedItem();
+                    //                        sceneController.switchScene(MenusFxml.SELECTED_TASK_MENU.getLabel());
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //member or leader or admin
@@ -67,14 +78,14 @@ public class RoadMapMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 
-    public void showTasksInfo (){
+    public void showTasksInfo () throws SQLException {
         TasksInfo.setText("Total Tasks: " + DatabaseHandler.getTasksTitleByTeamName(teamName).size() +
                 "\nDone Tasks: " + DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size() +
-                "\nIn Progress Tasks: "+ DatabaseHandler.getInProgressTasksTitleByTeamName(teamName) +
-                "\nFailed Tasks: " + DatabaseHandler.getFailedTasksTitleByTeamName(teamName));
+                "\nIn Progress Tasks: "+ DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size() +
+                "\nFailed Tasks: " + DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size());
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList( new PieChart.Data("Done", DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size()),
-                new PieChart.Data("InProgress", DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size()),
-                new PieChart.Data("Failed", DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size()));
-
+                new PieChart.Data("InProgress", DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size()),
+                new PieChart.Data("\nFailed", DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size()));
+        TasksChart.setData(pieChartData);
     }
 }
