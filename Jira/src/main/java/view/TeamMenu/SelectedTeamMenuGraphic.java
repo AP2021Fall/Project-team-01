@@ -4,7 +4,6 @@ import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -22,6 +21,7 @@ public class SelectedTeamMenuGraphic implements Initializable {
     }
 
     public void goToRoadMap(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.ROADMAP_MENU.getLabel());
     }
 
     public void goToChatroom(ActionEvent actionEvent) {

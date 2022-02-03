@@ -20,7 +20,8 @@ public enum MenusFxml {
     MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml"),
     CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
-    SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml");
+    SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
+    ROADMAP_MENU("TeamMenu/roadMapMenu.fxml");
     private final String label;
 
     MenusFxml(String label) {

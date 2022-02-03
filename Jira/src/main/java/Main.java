@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import models.DatabaseHandler;
 import view.*;
-
 import java.sql.SQLException;
 
 public class Main extends Application {
