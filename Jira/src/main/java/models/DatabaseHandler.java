@@ -47,7 +47,7 @@ public class DatabaseHandler {
     }
 
     public static void createBoard(String boardName, int teamId) throws SQLException {
-        String sql = String.format(Queries.CREATE_BOARD,boardName, teamId);
+        String sql = String.format(Queries.CREATE_BOARD, boardName, teamId);
         execute(sql);
     }
 
@@ -75,7 +75,6 @@ public class DatabaseHandler {
         String sql = String.format(Queries.DOES_TEAM_NAME_EXIST, teamName);
         return doesExist(sql);
     }
-
 
 
     public static boolean isTeamInPending(String teamName) throws SQLException {
@@ -588,8 +587,7 @@ public class DatabaseHandler {
         String sql;
         if (getRoleByUsername(username).equals("leader")) {
             sql = String.format(Queries.CHANGE_ROLE, "member", username);
-        }
-        else {
+        } else {
             sql = String.format(Queries.CHANGE_ROLE, "leader", username);
             String sql2 = String.format(Queries.CHANGE_LEADER_OF_TEAM, username, DatabaseHandler.getTeamsIdByUsername(username).get(0));
             execute(sql2);
@@ -977,12 +975,24 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> getTaskOfCategory(String categoryName, String boardName, int teamId) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_OF_CATEGORY,categoryName, teamId, boardName);
+        String sql = String.format(Queries.GET_TASK_OF_CATEGORY, categoryName, teamId, boardName);
         return getArraylistString(sql);
     }
 
     public static ArrayList<String> getBoardsOfTeam(int teamId) throws SQLException {
         String sql = String.format(Queries.GET_BOARDS_OF_TEAM, teamId);
         return getArraylistString(sql);
+    }
+
+    public static ArrayList<String> getDoneTasksTitleByTeamName(String TeamName) {
+    }
+
+    public static ArrayList<String> getFailedTasksTitleByTeamName(String TeamName) {
+    }
+
+    public static ArrayList<String> getInProgressTasksTitleByTeamName(String TeamName) {
+    }
+
+    public static ArrayList<String> getTasksTitleByTeamName(String TeamName) {
     }
 }

@@ -11,6 +11,11 @@ public class Task {
     private String priority;
     private LocalDateTime creationDate;
     private LocalDateTime deadLineDate;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private ArrayList<User> assignedUsers;
 
     public Task(String title, String description, String priority,

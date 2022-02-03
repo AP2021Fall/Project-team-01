@@ -67,4 +67,5 @@ public class TeamMenuGraphic implements Initializable {
                     input.contains(word));
         }).collect(Collectors.toList());
     }
+
 }
