@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTaskOptionsGraphic">
+   <children>
+      <VBox layoutX="250.0" layoutY="150.0" prefHeight="98.0" prefWidth="100.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#details" prefHeight="25.0" prefWidth="101.0" text="Details" />
+            <Button mnemonicParsing="false" onAction="#moveNext" prefHeight="25.0" prefWidth="116.0" text="move next" />
+            <Button mnemonicParsing="false" onAction="#forceCategory" prefHeight="25.0" prefWidth="100.0" text="move category" />
+            <Button mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="112.0" text="back" />
+         </children>
+      </VBox>
+      <Label layoutX="253.0" layoutY="101.0" text="Options" underline="true">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

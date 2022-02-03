@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class BoardMenuController {
     private static String activeBoard = null;
 
+    private static String selectedTask;
+
     public static String getActiveBoard() {
         return activeBoard;
     }
@@ -477,5 +479,13 @@ public class BoardMenuController {
                 System.out.println("board does not exist");
         } else
             System.out.println("finish board first");
+    }
+
+    public static String getSelectedTask() {
+        return selectedTask;
+    }
+
+    public static void setSelectedTask(String selectedTask) {
+        BoardMenuController.selectedTask = selectedTask;
     }
 }

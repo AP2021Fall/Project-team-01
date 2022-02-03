@@ -36,27 +36,24 @@ public class SelectedBoardMenuGraphic implements Initializable {
                 VBox vBox = new VBox();
                 vBox.setPrefHeight(250);
                 vBox.setPrefWidth(100);
+                ArrayList<String> tasksTitle = new ArrayList<>();
                 if (i == columns -1) {
                     vBox.getChildren().add(new Text("Done tasks"));
-                    ArrayList<String> tasksTitle = DatabaseHandler.getDoneTasksTitle(BoardMenuController.getActiveBoard(),
+                     tasksTitle = DatabaseHandler.getDoneTasksTitle(BoardMenuController.getActiveBoard(),
                             TeamMenuController.getTeam().getId());
-                    for (String taskTitle : tasksTitle) {
-                        vBox.getChildren().add(new Text(taskTitle));
-                    }
                 } else if (i == columns - 2) {
                     vBox.getChildren().add(new Text("Failed tasks"));
-                    ArrayList<String> tasksTitle = DatabaseHandler.getFailedTasksTitle(BoardMenuController.getActiveBoard(),
+                    tasksTitle = DatabaseHandler.getFailedTasksTitle(BoardMenuController.getActiveBoard(),
                             TeamMenuController.getTeam().getId());
-                    for (String taskTitle : tasksTitle) {
-                        vBox.getChildren().add(new Text(taskTitle));
-                    }
                 } else {
                     vBox.getChildren().add(new Text(categories.get(i)));
-                    ArrayList<String> tasksTitle = DatabaseHandler.getTaskOfCategory(categories.get(i),
+                    tasksTitle = DatabaseHandler.getTaskOfCategory(categories.get(i),
                             BoardMenuController.getActiveBoard(), TeamMenuController.getTeam().getId());
-                    for (String taskTitle : tasksTitle) {
-                        vBox.getChildren().add(new Text(taskTitle));
-                    }
+                }
+                for (String taskTitle : tasksTitle) {
+                    Text text = new Text(taskTitle);
+
+                    vBox.getChildren().add(text);
                 }
                 hBox.getChildren().add(vBox);
             }
