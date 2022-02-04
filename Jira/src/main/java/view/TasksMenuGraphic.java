@@ -34,13 +34,8 @@ public class TasksMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ArrayList<String> allTasksWithTaskId = DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername());
-            ArrayList<String> allTasks = null;
-            for (String string : allTasksWithTaskId){
-                String stringToAdd = (string.split(" "))[1];
-                allTasks.add(stringToAdd);
-            }
-            ObservableList<String> items = FXCollections.observableArrayList(allTasksWithTaskId);
+            ArrayList<String> allTasks = DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername());
+            ObservableList<String> items = FXCollections.observableArrayList(allTasks);
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -54,15 +49,19 @@ public class TasksMenuGraphic implements Initializable {
                 Object value = tasksSortChoiceBox.getValue();
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
-                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(allTasks));
+                    tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
 
                 } else if ("Deadline".equals(value)) {
                     tasksListView.getItems().clear();
-                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(allTasks));
+                    try {
+                        tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
-                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(allTasks));
+                    tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
                 }
             });
         } catch (SQLException e) {
