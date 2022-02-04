@@ -32,6 +32,6 @@ public class MemberMainMenuGraphic {
     }
 
     public void createTeam(ActionEvent actionEvent) {
-
+        sceneController.switchScene(MenusFxml.CREATE_TEAM.getLabel());
     }
 }

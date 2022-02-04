@@ -33,7 +33,8 @@ public enum MenusFxml {
     ADD_CATEGORY("TeamMenu/addCategoryToBoard.fxml"),
     LEADER_MAIN_MENU("leaderMainMenu.fxml"),
     SEND_NOTIFICATION("sendNotification.fxml"),
-    SEND_TO("sendTo.fxml");
+    SEND_TO("sendTo.fxml"),
+    CREATE_TEAM("createTeam.fxml");
 
     private final String label;
 
