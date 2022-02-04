@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class LoginMenuGraphic {
-    public static Stage stage;
     public SceneController sceneController = new SceneController();
     public TextField username;
     public PasswordField password;
