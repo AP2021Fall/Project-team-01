@@ -45,4 +45,8 @@ public class BoardMenuGraphic implements Initializable {
     public void BackToSelectedTeamMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
+
+    public void createBoard(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.CREATE_BOARD_NAME.getLabel());
+    }
 }
