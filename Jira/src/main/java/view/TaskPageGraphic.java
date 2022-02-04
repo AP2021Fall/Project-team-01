@@ -43,13 +43,34 @@ public class TaskPageGraphic implements Initializable {
         int taskId = TasksPageController.getTaskId();
         String taskTitle = TasksPageController.getTaskTitle();
         try {
-            taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + taskTitle +
-                    "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
-                    "\nTask Description: " + DatabaseHandler.getTaskDescriptionByTaskId(taskId) +
-                    "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
-                    "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
-                    "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
-                    "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+            if (taskInfoLabel != null) {
+                taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + DatabaseHandler.getTaskTitleByTaskId(taskId) +
+                        "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
+                        "\nTask Description: " + DatabaseHandler.getTaskDescriptionByTaskId(taskId) +
+                        "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
+                        "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
+                        "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
+                        "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+            }
+            if (currentTitle != null)
+                currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
+            if (currentDescription != null)
+                currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(TasksPageController.getTaskId()));
+            if (assignUserChoiceBox != null) {
+                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
+                assignUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
+            }
+            if (currentDeadline != null)
+                currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(TasksPageController.getTaskId()));
+            if (currentPriority != null) {
+                newPriorityChoiceBox.getItems().addAll("1", "2", "3", "4");
+                currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
+            }
+            if (removeAssignedUserAlert != null) {
+                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
+                removeAssignedUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,7 +91,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToEditTitleMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_TITLE_TASK.getLabel());
-        currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
     }
 
     public void submitEditTaskDescription(ActionEvent actionEvent) throws SQLException {
@@ -84,7 +104,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToEditDescriptionMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_DESCRIPTION_TASK.getLabel());
-        currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(TasksPageController.getTaskId()));
     }
 
     public void submitEditTaskPriority(ActionEvent actionEvent) throws SQLException {
@@ -98,8 +117,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToEditPriorityMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_PRIORITY_TASK.getLabel());
-        newPriorityChoiceBox.getItems().addAll("1", "2", "3", "4");
-        currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
     }
 
     public void submitEditTaskDeadline(ActionEvent actionEvent) throws SQLException {
@@ -113,7 +130,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToEditDeadlineMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_DEADLINE_TASK.getLabel());
-        currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(TasksPageController.getTaskId()));
     }
 
     public void submitTaskAssignUser(ActionEvent actionEvent) throws SQLException {
@@ -127,8 +143,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToAddAssignedUserMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.ADD_ASSIGNED_USER_TASK.getLabel());
-        currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
-        assignUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
     }
 
 
@@ -143,8 +157,6 @@ public class TaskPageGraphic implements Initializable {
 
     public void goToRemoveAssignedUserMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.REMOVE_ASSIGNED_USER_TASK.getLabel());
-        currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
-        removeAssignedUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
     }
 
 }

@@ -1109,4 +1109,8 @@ public class DatabaseHandler {
         return getArraylistString(sql);
     }
 
+    public static String getTaskTitleByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_TITLE_BY_TASK_ID, taskId);
+        return getString(sql);
+    }
 }

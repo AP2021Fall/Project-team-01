@@ -218,7 +218,7 @@ public class Queries {
     public static final String GET_TASK_BY_USERNAME =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s'";
     public static final String GET_TASK_BY_USERNAME_LEADER =
-            "SELECT tasks.id, title FROM tasks JOIN teams on tasks.id = teams.id WHERE leader = '%s'";
+            "SELECT tasks.id, tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s'";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE =
@@ -233,4 +233,6 @@ public class Queries {
             "SELECT `deadline date` FROM tasks WHERE id = %d";
     public static final String GET_COMMENT =
             "SELECT comments FROM tasks WHERE id = %d";
+    public static final String GET_TASK_TITLE_BY_TASK_ID =
+            "SELECT title FROM tasks WHERE id = %d";
 }

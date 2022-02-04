@@ -1,6 +1,7 @@
 package view;
 
 import controller.LoginController;
+import controller.TasksPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +42,12 @@ public class TasksMenuGraphic implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = tasksListView.getSelectionModel().getSelectedItem();
-                    //                        sceneController.switchScene(MenusFxml.SELECTED_TASK_MENU.getLabel());
+                    TasksPageController.setTaskIdAndTaskTitle(taskName);
+                    if (LoginController.getActiveUser().getRole().equals("leader")) {
+                        sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                        return;
+                    }
+                    sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                 }
             });
 
