@@ -20,12 +20,17 @@ public class SelectedTaskOptionsGraphic {
     }
 
     public void moveNext(ActionEvent actionEvent) throws SQLException {
+        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(BoardMenuController.getSelectedTask(),
+                TeamMenuController.getTeam().getId()), LoginController.getActiveUser().getUsername())) {
+            alert.setText("This task is not aligned to you");
+            return;
+        }
         BoardMenuController.taskToNext(BoardMenuController.getSelectedTask(), BoardMenuController.getActiveBoard());
         sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
     }
 
     public void forceCategory(ActionEvent actionEvent) throws SQLException {
-        if (DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(BoardMenuController.getSelectedTask(),
+        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(BoardMenuController.getSelectedTask(),
                 TeamMenuController.getTeam().getId()), LoginController.getActiveUser().getUsername())) {
             alert.setText("This task is not aligned to you");
         } else {

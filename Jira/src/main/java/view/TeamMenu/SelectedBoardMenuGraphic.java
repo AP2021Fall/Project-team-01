@@ -3,9 +3,11 @@ package view.TeamMenu;
 import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -52,7 +54,13 @@ public class SelectedBoardMenuGraphic implements Initializable {
                 }
                 for (String taskTitle : tasksTitle) {
                     Text text = new Text(taskTitle);
-
+                    text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            BoardMenuController.setSelectedTask(text.getText());
+                            sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
+                        }
+                    });
                     vBox.getChildren().add(text);
                 }
                 hBox.getChildren().add(vBox);
