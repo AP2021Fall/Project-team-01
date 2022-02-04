@@ -20,6 +20,7 @@ public enum MenusFxml {
     MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml"),
     CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
+    BOARD_MENU_L("TeamMenu/boardMenuL.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
     CALENDAR_MENU("CalendarMenu.fxml"),
     TASKS_MENU("TasksMenu.fxml"),

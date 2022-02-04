@@ -1,5 +1,6 @@
 package view.TeamMenu;
 
+import controller.LoginController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -29,6 +30,10 @@ public class SelectedTeamMenuGraphic implements Initializable {
     }
 
     public void goToBoardMenu(ActionEvent actionEvent) {
+        if (LoginController.getActiveUser().getRole().equals("leader")) {
+            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
     }
 
