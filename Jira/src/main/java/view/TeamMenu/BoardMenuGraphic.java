@@ -6,6 +6,7 @@ import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -39,5 +40,9 @@ public class BoardMenuGraphic implements Initializable {
                 sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
             }
         });
+    }
+
+    public void BackToSelectedTeamMenu(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 }
