@@ -1099,8 +1099,8 @@ public class DatabaseHandler {
         ResultSet result = statement.executeQuery(sql);
         result.next();
         String json = result.getString(1);
-        ArrayList<LocalDateTime> arraylist = new Gson().fromJson(json,
-                new TypeToken<List<LocalDateTime>>() {
+        ArrayList<String> arraylist = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
                 }.getType());
         return arraylist;
     }
