@@ -1,6 +1,7 @@
 package view;
 
 
+import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
 public class MemberMainMenuGraphic {
@@ -26,4 +27,21 @@ public class MemberMainMenuGraphic {
         sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
     }
 
+    public void Notification(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SEND_TO.getLabel());
+    }
+
+    public void createTeam(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.CREATE_TEAM.getLabel());
+    }
+
+    public void profiles(ActionEvent actionEvent) {
+    }
+
+    public void notificationAdmin(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.ADMIN_SEND_TO.getLabel());
+    }
+
+    public void pendingTeams(ActionEvent actionEvent) {
+    }
 }

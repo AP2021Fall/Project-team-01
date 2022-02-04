@@ -38,7 +38,13 @@ public enum MenusFxml {
     SELECTED_TASK_OPTIONS("TeamMenu/selectedTaskOptions.fxml"),
     CREATE_NEW_TASK_MENU("CreateNewTaskMenu.fxml"),
     CREATE_BOARD_NAME("TeamMenu/createBoardName.fxml"),
-    ADD_CATEGORY("TeamMenu/addCategoryToBoard.fxml");
+    ADD_CATEGORY("TeamMenu/addCategoryToBoard.fxml"),
+    LEADER_MAIN_MENU("leaderMainMenu.fxml"),
+    SEND_NOTIFICATION("sendNotification.fxml"),
+    SEND_TO("sendTo.fxml"),
+    CREATE_TEAM("createTeam.fxml"),
+    ADMIN_SEND_TO("sendToAdmin.fxml"),
+    ADMIN_MAIN_MENU("adminMainMenu.fxml");
 
     private final String label;
 

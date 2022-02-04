@@ -217,6 +217,8 @@ public class Queries {
             "SELECT title FROM tasks WHERE team_id = %d";
     public static final String GET_TASK_BY_USERNAME =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s'";
+    public static final String GET_TASK_BY_USERNAME_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams on tasks.id = teams.id WHERE leader = '%s'";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE =

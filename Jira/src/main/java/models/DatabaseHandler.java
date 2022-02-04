@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.LoginController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -1009,14 +1010,19 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> getTasksByUsername(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
-        ArrayList<String> answer = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        while (result.next()) {
-            answer.add(result.getInt(1) + " " + result.getString(2));
+        String sql;
+        if (LoginController.getActiveUser().getRole().equals("member")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER, username);
         }
-        return answer;
+            ArrayList<String> answer = new ArrayList<>();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                answer.add(result.getInt(1) + " " + result.getString(2));
+            }
+            return answer;
     }
 
     public static int getNumDeadline(int id) throws SQLException {
