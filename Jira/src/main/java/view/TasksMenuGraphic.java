@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TasksMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByUsername(LoginController.getActiveUser().getUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
     public TextField searchTextField;
     public ChoiceBox tasksSortChoiceBox;
     public ListView<String> tasksListView;
@@ -36,7 +36,7 @@ public class TasksMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
 //            tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByUsername(LoginController.getActiveUser().getUsername()));
+            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override

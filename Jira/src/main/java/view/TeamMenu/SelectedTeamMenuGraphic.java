@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class SelectedTeamMenuGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
+
     public Label welcome;
 
     @Override
