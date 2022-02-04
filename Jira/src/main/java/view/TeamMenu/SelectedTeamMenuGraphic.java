@@ -1,11 +1,8 @@
 package view.TeamMenu;
 
 import controller.TeamMenuController.TeamMenuController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import view.MenusFxml;
 import view.SceneController;
@@ -20,15 +17,7 @@ public class SelectedTeamMenuGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        welcome.setText("Team: "+ TeamMenuController.getTeam().getName());
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Grapefruit", 13),
-                        new PieChart.Data("Oranges", 25),
-                        new PieChart.Data("Plums", 10),
-                        new PieChart.Data("Pears", 22),
-                        new PieChart.Data("Apples", 30));
-        final PieChart chart = new PieChart(pieChartData);
+        welcome.setText("Team: " + TeamMenuController.getTeam().getName());
     }
 
     public void goToRoadMap(ActionEvent actionEvent) {

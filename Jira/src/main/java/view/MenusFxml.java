@@ -21,6 +21,7 @@ public enum MenusFxml {
     CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
+    TASKS_MENU("TasksMenu.fxml"),
     ROADMAP_MENU("TeamMenu/roadMapMenu.fxml");
     private final String label;
 

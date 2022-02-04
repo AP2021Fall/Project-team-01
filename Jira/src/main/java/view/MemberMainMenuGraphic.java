@@ -14,8 +14,8 @@ public class MemberMainMenuGraphic {
         sceneController.switchScene(MenusFxml.TEAM_MENU.getLabel());
     }
 
-    public void taskPage(MouseEvent mouseEvent) {
-
+    public void tasksMenu(MouseEvent mouseEvent) {
+        sceneController.switchScene(MenusFxml.TASKS_MENU.getLabel());
     }
 
     public void calenderMenu(MouseEvent mouseEvent) {
