@@ -1040,4 +1040,8 @@ public class DatabaseHandler {
         return answer;
     }
 
+    public static ArrayList<String> sortTaskTitlesByPriority(ArrayList<String> taskTitles){}
+    public static ArrayList<String> sortTaskTitlesByDeadline(ArrayList<String> taskTitles){}
+    public static ArrayList<String> sortTaskTitlesByTaskTitle(ArrayList<String> taskTitles){}
+
 }
