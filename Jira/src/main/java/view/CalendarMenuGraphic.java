@@ -2,15 +2,12 @@ package view;
 
 import controller.LoginController;
 import controller.TeamMenuController.TeamMenuController;
-import controller.TeamMenuController.TeamSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -18,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.DatabaseHandler;
-import models.Team;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -94,7 +90,7 @@ public class CalendarMenuGraphic implements Initializable {
 
     public void sortDeadline(ActionEvent actionEvent) throws SQLException {
         taskShow.getChildren().clear();
-        ArrayList<String> tasks = DatabaseHandler.getTasksByUsernameSorted(LoginController.getActiveUser().getUsername());
+        ArrayList<String> tasks = DatabaseHandler.getSortedTaskTitlesByDeadline(LoginController.getActiveUser().getUsername());
         for (String str : tasks) {
             HBox hBox = new HBox();
             Text text = new Text('\n' + str);

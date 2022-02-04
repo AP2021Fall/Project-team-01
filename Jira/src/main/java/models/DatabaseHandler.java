@@ -1029,7 +1029,7 @@ public class DatabaseHandler {
         return 3;
     }
 
-    public static ArrayList<String> getTasksByUsernameSorted(String username) throws SQLException {
+    public static ArrayList<String> getSortedTaskTitlesByDeadline(String username) throws SQLException {
         String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED, username);
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
@@ -1040,8 +1040,7 @@ public class DatabaseHandler {
         return answer;
     }
 
-    public static ArrayList<String> sortTaskTitlesByPriority(ArrayList<String> taskTitles){}
-    public static ArrayList<String> sortTaskTitlesByDeadline(ArrayList<String> taskTitles){}
-    public static ArrayList<String> sortTaskTitlesByTaskTitle(ArrayList<String> taskTitles){}
+    public static ArrayList<String> getSortedTaskTitlesByPriority(String username){}
+    public static ArrayList<String> getSortedTaskTitlesByTaskTitle(String username){}
 
 }
