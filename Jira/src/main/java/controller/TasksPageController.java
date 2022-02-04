@@ -8,6 +8,26 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class TasksPageController {
+    private static String taskIdAndTaskTitle;
+
+    public static String getTaskIdAndTaskTitle() {
+        return taskIdAndTaskTitle;
+    }
+
+    public static void setTaskIdAndTaskTitle(String taskIdAndTaskTitle) {
+        TasksPageController.taskIdAndTaskTitle = taskIdAndTaskTitle;
+    }
+    
+    public static int getTaskId(){
+        String[] strings = getTaskIdAndTaskTitle().split(" ");
+        return Integer.parseInt(strings[0]);
+    }
+
+    public static String getTaskTitle(){
+        String[] strings = TasksPageController.getTaskIdAndTaskTitle().split(" ");
+        return strings[1];
+    }
+
     public static String editTitle(int id, String newTitle) throws SQLException {
         if (DatabaseHandler.doesTaskExist(id)) {
             if (LoginController.getActiveUser().getUsername().equals(DatabaseHandler.getTaskLeaderByTaskId(id))) {

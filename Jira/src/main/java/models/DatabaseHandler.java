@@ -1071,4 +1071,11 @@ public class DatabaseHandler {
         return answer;
     }
 
+    public static String getTaskDescriptionByTaskId(int taskId){}
+    public static String getTaskPriorityByTaskId(int taskId){}
+    public static String getTaskCreationTimeByTaskId(int taskId){}
+    public static String getTaskDeadlineByTaskId(int taskId){}
+    public static ArrayList<String> getTaskCommentsByTaskId(int taskId){}
+    public static ArrayList<String> getTaskAssignedUsersByTaskId(int taskId){}
+
 }
