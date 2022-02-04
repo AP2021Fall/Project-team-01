@@ -1007,4 +1007,7 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TASKS_TITLE_OF_TEAM, teamId);
         return getArraylistString(sql);
     }
+
+//    public static ArrayList<String> getTasksTitleByUsername(String username) {
+//    }
 }
