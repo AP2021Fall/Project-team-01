@@ -73,53 +73,53 @@ public class BoardMenuController {
             System.out.println("No board is selected");
     }
 
-    public static void addCategorySelect(String categoryName) throws SQLException {
+    public static String addCategorySelect(String categoryName) throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
-            addCategory(categoryName, take);
+            return addCategory(categoryName, take);
         else
-            System.out.println("No board is selected");
+            return ("No board is selected");
     }
 
-    public static void addCategory(String categoryName, String boardName) throws SQLException {
+    public static String addCategory(String categoryName, String boardName) throws SQLException {
 
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 if (!DatabaseHandler.doesCategoryExist(categoryName, boardName, TeamMenuController.getTeam().getId())) {
                     DatabaseHandler.addCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
-                    System.out.println("category added");
+                    return ("category added");
                 } else
-                    System.out.println("category already exist");
+                    return ("category already exist");
             } else
-                System.out.println("There is not a board with this name");
+                return ("There is not a board with this name");
         } else
-            System.out.println("You do not have the permission to do this action!");
+            return ("You do not have the permission to do this action!");
     }
 
-    public static void addCategoryToColumnSelect(String categoryName, String columnNum) throws SQLException {
+    public static String addCategoryToColumnSelect(String categoryName, String columnNum) throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
-            addCategoryToColumn(categoryName, columnNum, take);
+            return addCategoryToColumn(categoryName, columnNum, take);
         else
-            System.out.println("No board is selected");
+            return ("No board is selected");
     }
 
-    public static void addCategoryToColumn(String categoryName, String columnNum, String boardName) throws SQLException {
+    public static String addCategoryToColumn(String categoryName, String columnNum, String boardName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 if (!DatabaseHandler.doesCategoryExist(categoryName, boardName, TeamMenuController.getTeam().getId())) {
                     int help = DatabaseHandler.numOfBoardCategories(boardName, TeamMenuController.getTeam().getId());
                     if (help >= Integer.parseInt(columnNum) - 1 && help > 0) {
                         DatabaseHandler.addCategoryToColumn(categoryName, Integer.parseInt(columnNum) - 1, boardName, TeamMenuController.getTeam().getId());
-                        System.out.println("category added to specific column");
+                        return ("category added to specific column");
                     } else
-                        System.out.println("wrong column");
+                        return ("wrong column");
                 } else
-                    System.out.println("category already exist");
+                    return ("category already exist");
             } else
-                System.out.println("There is not a board with this name");
+                return ("There is not a board with this name");
         } else
-            System.out.println("You do not have the permission to do this action!");
+            return ("You do not have the permission to do this action!");
     }
 
     public static void completeBoardFirstStepSelect() throws SQLException {
@@ -436,29 +436,32 @@ public class BoardMenuController {
             System.out.println("finish board first");
 
     }
-    public static void showTasksInCategorySelect (String categoryName) throws SQLException {
+
+    public static void showTasksInCategorySelect(String categoryName) throws SQLException {
         String take = BoardMenuController.getActiveBoard();
 
         if (take != null)
-            showTasksInCategory(categoryName , take);
+            showTasksInCategory(categoryName, take);
         else
             System.out.println("No board is selected");
     }
-    public static void showTasksInCategory(String categoryName , String boardName) throws SQLException {
+
+    public static void showTasksInCategory(String categoryName, String boardName) throws SQLException {
         if (DatabaseHandler.getBoardState(boardName, TeamMenuController.getTeam().getId()).equals("yes")) {
-            if (DatabaseHandler.doesCategoryExist(categoryName,boardName,TeamMenuController.getTeam().getId())) {
+            if (DatabaseHandler.doesCategoryExist(categoryName, boardName, TeamMenuController.getTeam().getId())) {
                 ArrayList<String> tasks = DatabaseHandler.getTaskOfCategory(categoryName, boardName, TeamMenuController.getTeam().getId());
                 if (tasks.size() != 0) {
                     for (String str : tasks)
                         System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(TeamMenuController.getTeam().getName())
                                 + "is in progress");
-                }else
+                } else
                     System.out.println("no task for this category");
-            }else
+            } else
                 System.out.println("no category with this name is existing in this board");
         } else
             System.out.println("finish board first");
     }
+
     public static void showBoardDetailsSelect() throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
