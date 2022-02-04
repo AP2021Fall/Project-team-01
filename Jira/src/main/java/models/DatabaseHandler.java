@@ -1007,7 +1007,20 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TASKS_TITLE_OF_TEAM, teamId);
         return getArraylistString(sql);
     }
+    public static ArrayList<String> getTasksByUsername(String username) throws SQLException{
+        String sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
+        return getArraylistString(sql);
+    }
 
-//    public static ArrayList<String> getTasksTitleByUsername(String username) {
-//    }
+    public static int getNumDeadline(int id) {
+        return 2;
+    }
+
+    public static ArrayList<String> getTasksByUsernameSorted(String username) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("oo");
+        list.add("jj");
+        return list;
+    }
+
 }

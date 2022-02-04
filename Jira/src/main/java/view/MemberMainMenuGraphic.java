@@ -19,7 +19,7 @@ public class MemberMainMenuGraphic {
     }
 
     public void calenderMenu(MouseEvent mouseEvent) {
-
+        sceneController.switchScene(MenusFxml.CALENDAR_MENU.getLabel());
     }
 
     public void logout(MouseEvent mouseEvent) {
