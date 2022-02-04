@@ -13,5 +13,6 @@
             <HBox fx:id="hBox" prefHeight="250.0" prefWidth="530.0" />
          </content>
       </ScrollPane>
+      <Button layoutX="233.0" layoutY="327.0" mnemonicParsing="false" onAction="#addTask" text="add Task" />
    </children>
 </Pane>

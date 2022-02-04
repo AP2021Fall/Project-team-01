@@ -69,4 +69,8 @@ public class SelectedBoardMenuGraphic implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void addTask(ActionEvent actionEvent) {
+
+    }
 }
