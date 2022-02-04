@@ -46,26 +46,26 @@ public class TeamMenuController {
     }
 
 
-    public static void createTask(String taskTitle, String creationTime, String deadline) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
-            if (Regex.getCommandMatcher(creationTime, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
-                if (Regex.getCommandMatcher(deadline, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
-                    if (DatabaseHandler.doesTaskExist(taskTitle, TeamMenuController.getTeam().getId())) {
-                        System.out.println("task title exist already");
-                    } else {
-                        int taskId = DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId());
-                        if (isDeadlineAndCreateValid(creationTime, deadline)) {
-                            DatabaseHandler.createTask(taskTitle, creationTime, deadline, TeamMenuController.getTeam().getId());
-                            System.out.println("task create successfully");
-                        }
+    public static String createTask(String taskTitle, String creationTime, String deadline, String teamName) throws SQLException {
+        if (Regex.getCommandMatcher(creationTime, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
+            if (Regex.getCommandMatcher(deadline, "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}").matches()) {
+                int teamId = DatabaseHandler.getTeamIdByTeamName(teamName);
+                if (DatabaseHandler.doesTaskExist(taskTitle, teamId)) {
+                    return ("task title exist already");
+                } else {
+                    if (isDeadlineAndCreateValid(creationTime, deadline)) {
+                        DatabaseHandler.createTask(taskTitle, creationTime, deadline, teamId);
+                        return ("task created successfully");
                     }
-                } else
-                    System.out.println("Invalid deadline");
+                    else
+                        return "invalid deadline or start date";
+                }
             } else
-                System.out.println("Invalid start date");
+                return ("Invalid deadline");
         } else
-            System.out.println("You do not have the permission to do this action!");
+            return ("Invalid start date");
     }
+
 
     public static boolean isDeadlineAndCreateValid(String creationTime, String deadline) {
         LocalDateTime now = LocalDateTime.now();
@@ -87,7 +87,6 @@ public class TeamMenuController {
             return false;
         }
         return true;
-
     }
 
 

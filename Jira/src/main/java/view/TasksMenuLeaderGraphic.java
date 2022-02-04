@@ -20,14 +20,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class TasksMenuGraphic implements Initializable {
+public class TasksMenuLeaderGraphic implements Initializable {
     public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
     public TextField searchTextField;
     public ChoiceBox tasksSortChoiceBox;
     public ListView<String> tasksListView;
     public SceneController sceneController = new SceneController();
 
-    public TasksMenuGraphic() throws SQLException {
+    public TasksMenuLeaderGraphic() throws SQLException {
     }
 
     @Override
@@ -77,7 +77,7 @@ public class TasksMenuGraphic implements Initializable {
         }
     }
 
-    public void search(ActionEvent actionEvent) throws SQLException {
+    public void search(ActionEvent actionEvent) {
         tasksListView.getItems().clear();
         tasksListView.getItems().addAll(searchList(searchTextField.getText(), items));
     }
@@ -93,9 +93,4 @@ public class TasksMenuGraphic implements Initializable {
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
-
-    public void createNewTask(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.CREATE_NEW_TASK_MENU.getLabel());
-    }
-
 }

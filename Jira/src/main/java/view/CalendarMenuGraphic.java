@@ -90,7 +90,7 @@ public class CalendarMenuGraphic implements Initializable {
 
     public void sortDeadline(ActionEvent actionEvent) throws SQLException {
         taskShow.getChildren().clear();
-        ArrayList<String> tasks = DatabaseHandler.getSortedTaskTitlesByDeadline(LoginController.getActiveUser().getUsername());
+        ArrayList<String> tasks = DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername());
         for (String str : tasks) {
             HBox hBox = new HBox();
             Text text = new Text('\n' + str);

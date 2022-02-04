@@ -23,9 +23,12 @@ public enum MenusFxml {
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
     CALENDAR_MENU("CalendarMenu.fxml"),
     TASKS_MENU("TasksMenu.fxml"),
+    TASKS_MENU_LEADER("TasksMenuLeader.fxml"),
     ROADMAP_MENU("TeamMenu/roadMapMenu.fxml"),
     FORCE_TASK("TeamMenu/forceTask.fxml"),
-    SELECTED_TASK_OPTIONS("TeamMenu/selectedTaskOptions.fxml");
+    SELECTED_TASK_OPTIONS("TeamMenu/selectedTaskOptions.fxml"),
+    CREATE_NEW_TASK_MENU("CreateNewTaskMenu.fxml");
+
     private final String label;
 
     MenusFxml(String label) {

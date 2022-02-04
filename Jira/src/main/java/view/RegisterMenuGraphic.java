@@ -11,7 +11,6 @@ import sun.tools.jar.Main;
 
 
 public class RegisterMenuGraphic {
-    public static Stage stage;
     public ChoiceBox role;
     public TextField username;
     public PasswordField password1;
