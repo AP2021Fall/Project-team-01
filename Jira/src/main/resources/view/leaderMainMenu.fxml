@@ -8,17 +8,18 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodyBg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MemberMainMenuGraphic">
    <children>
-      <VBox layoutX="237.0" layoutY="116.0" prefHeight="267.0" prefWidth="126.0">
+      <VBox layoutX="237.0" layoutY="67.0" prefHeight="267.0" prefWidth="126.0">
          <children>
+            <Button mnemonicParsing="false" onMouseClicked="#profileMenu" prefHeight="45.0" prefWidth="126.0" text="Profile Menu" />
             <Button mnemonicParsing="false" onMouseClicked="#teamMenu" prefHeight="46.0" prefWidth="126.0" text="Team Menu" />
             <Button mnemonicParsing="false" onMouseClicked="#tasksMenu" prefHeight="41.0" prefWidth="125.0" text="Tasks Page" />
             <Button mnemonicParsing="false" onMouseClicked="#calenderMenu" prefHeight="42.0" prefWidth="125.0" text="Calendar Menu" />
-            <Button mnemonicParsing="false" onMouseClicked="#profileMenu" prefHeight="45.0" prefWidth="126.0" text="Profile Menu" />
             <Button mnemonicParsing="false" onAction="#Notification" prefHeight="41.0" prefWidth="125.0" text="Notification" />
+            <Button mnemonicParsing="false" onAction="#createTeam" prefHeight="38.0" prefWidth="128.0" text="Create Team" />
             <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="43.0" prefWidth="126.0" text="Logout" />
          </children>
       </VBox>
-      <Label layoutX="237.0" layoutY="60.0" text="Main Menu" textAlignment="CENTER" underline="true">
+      <Label layoutX="237.0" layoutY="25.0" text="Main Menu" textAlignment="CENTER" underline="true">
          <font>
             <Font size="25.0" />
          </font>

@@ -28,6 +28,10 @@ public class MemberMainMenuGraphic {
     }
 
     public void Notification(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SEND_TO.getLabel());
+    }
+
+    public void createTeam(ActionEvent actionEvent) {
 
     }
 }
