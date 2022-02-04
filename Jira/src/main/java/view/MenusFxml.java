@@ -5,8 +5,10 @@ public enum MenusFxml {
     LOGIN_MENU ("loginMenu.fxml"),
     REGISTER_MENU ("registerMenu.fxml"),
     MEMBER_MAIN_MENU ("MemberMainMenu.fxml"),
+    LEADER_MAIN_MENU ("LeaderMainMenu.fxml"),
     PROFILE_MENU ("ProfileMenu/profileMenu.fxml"),
     TEAM_MENU ("TeamMenu/TeamMenu.fxml"),
+    LEADER_TEAM_MENU ("TeamMenu/LeaderTeamMenu.fxml"),
     SELECTED_TEAM_MENU ("TeamMenu/SelectedTeamMenu.fxml"),
     SHOW_TEAMS_MENU ("ProfileMenu/showTeamsMenu.fxml"),
     SHOW_MY_PROFILE ("ProfileMenu/showMyProfile.fxml"),
@@ -20,7 +22,6 @@ public enum MenusFxml {
     MEMBER_OPTION_MENU("TeamMenu/memberOptionsMenu.fxml"),
     CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
-    BOARD_MENU_L("TeamMenu/boardMenuL.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
     CALENDAR_MENU("CalendarMenu.fxml"),
     TASKS_MENU("TasksMenu.fxml"),
@@ -30,7 +31,8 @@ public enum MenusFxml {
     SELECTED_TASK_OPTIONS("TeamMenu/selectedTaskOptions.fxml"),
     CREATE_NEW_TASK_MENU("CreateNewTaskMenu.fxml"),
     CREATE_BOARD_NAME("TeamMenu/createBoardName.fxml"),
-    ADD_CATEGORY("TeamMenu/addCategoryToBoard.fxml");
+    BOARD_MENU_L("TeamMenu/boardMenuL.fxml"),
+    ADD_MEMBER("TeamMenu/addMember.fxml");
 
     private final String label;
 

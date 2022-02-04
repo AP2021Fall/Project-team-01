@@ -30,10 +30,6 @@ public class SelectedTeamMenuGraphic implements Initializable {
     }
 
     public void goToBoardMenu(ActionEvent actionEvent) {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
-            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
-            return;
-        }
         sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
     }
 
