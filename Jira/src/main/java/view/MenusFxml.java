@@ -21,6 +21,7 @@ public enum MenusFxml {
     CHATROOM_MENU("TeamMenu/chatroomMenu.fxml"),
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
+    CALENDAR_MENU("CalendarMenu.fxml"),
     TASKS_MENU("TasksMenu.fxml"),
     ROADMAP_MENU("TeamMenu/roadMapMenu.fxml"),
     FORCE_TASK("TeamMenu/forceTask.fxml");

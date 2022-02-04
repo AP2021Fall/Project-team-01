@@ -23,11 +23,7 @@ public class TeamSelectionController {
     public static ArrayList<String> showTeams() throws SQLException {
         ArrayList<String> teamsOfUser = DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername());
         return teamsOfUser;
-//        for (String s : teamsOfUser) {
-//            System.out.println(s);
-//        }
-//        if (teamsOfUser.isEmpty())
-//            System.out.println("no team:(");
+
     }
 
 }

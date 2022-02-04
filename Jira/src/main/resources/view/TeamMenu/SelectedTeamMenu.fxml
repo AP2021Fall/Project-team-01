@@ -5,7 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTeamMenuGraphic">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTeamMenuGraphic">
    <top>
       <AnchorPane prefHeight="89.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -15,6 +17,7 @@
    </top>
    <center>
       <AnchorPane prefHeight="329.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+
          <children>
             <Button layoutX="56.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToScoreBoard" text="ScoreBoard" />
             <Button layoutX="186.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToRoadMap" text="RoadMap" />
