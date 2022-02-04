@@ -47,6 +47,6 @@ public class BoardMenuGraphic implements Initializable {
     }
 
     public void createBoard(ActionEvent actionEvent) {
-
+        sceneController.switchScene(MenusFxml.CREATE_BOARD_NAME.getLabel());
     }
 }

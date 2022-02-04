@@ -36,15 +36,15 @@ public class BoardMenuController {
 
     }
 
-    public static void createBoard(String boardName) throws SQLException {
+    public static String createBoard(String boardName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (!(DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId()))) {
                 DatabaseHandler.createBoard(boardName, TeamMenuController.getTeam().getId());
-                System.out.println("board created");
+                return ("board created");
             } else
-                System.out.println("There is already a board with this name");
+                return ("There is already a board with this name");
         } else
-            System.out.println("You do not have the permission to do this action!");
+            return ("You do not have the permission to do this action!");
     }
 
     public static void removeBoard(String boardName) throws SQLException {
