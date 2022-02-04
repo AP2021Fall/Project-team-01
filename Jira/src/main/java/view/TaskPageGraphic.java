@@ -42,13 +42,17 @@ public class TaskPageGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         int taskId = TasksPageController.getTaskId();
         String taskTitle = TasksPageController.getTaskTitle();
-        taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + taskTitle +
-                "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
-                "\nTask Description: " + DatabaseHandler.getTaskDescriptionByTaskId(taskId) +
-                "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
-                "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
-                "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
-                "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+        try {
+            taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + taskTitle +
+                    "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
+                    "\nTask Description: " + DatabaseHandler.getTaskDescriptionByTaskId(taskId) +
+                    "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
+                    "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
+                    "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
+                    "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void backToTaskPageLeader(ActionEvent actionEvent) {
@@ -64,7 +68,7 @@ public class TaskPageGraphic implements Initializable {
         editTitleAlert.setText(result);
     }
 
-    public void goToEditTitleMenu(ActionEvent actionEvent) {
+    public void goToEditTitleMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_TITLE_TASK.getLabel());
         currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
     }
@@ -78,7 +82,7 @@ public class TaskPageGraphic implements Initializable {
         editDescriptionAlert.setText(result);
     }
 
-    public void goToEditDescriptionMenu(ActionEvent actionEvent) {
+    public void goToEditDescriptionMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_DESCRIPTION_TASK.getLabel());
         currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(TasksPageController.getTaskId()));
     }
@@ -92,7 +96,7 @@ public class TaskPageGraphic implements Initializable {
         editPriorityAlert.setText(result);
     }
 
-    public void goToEditPriorityMenu(ActionEvent actionEvent) {
+    public void goToEditPriorityMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_PRIORITY_TASK.getLabel());
         newPriorityChoiceBox.getItems().addAll("1", "2", "3", "4");
         currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
@@ -107,7 +111,7 @@ public class TaskPageGraphic implements Initializable {
         editPriorityAlert.setText(result);
     }
 
-    public void goToEditDeadlineMenu(ActionEvent actionEvent) {
+    public void goToEditDeadlineMenu(ActionEvent actionEvent) throws SQLException {
         sceneController.switchScene(MenusFxml.EDIT_DEADLINE_TASK.getLabel());
         currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(TasksPageController.getTaskId()));
     }
