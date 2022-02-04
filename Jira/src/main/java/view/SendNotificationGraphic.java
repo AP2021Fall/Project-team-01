@@ -1,5 +1,6 @@
 package view;
 
+import controller.LoginController;
 import controller.MainMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
@@ -33,6 +34,9 @@ public class SendNotificationGraphic {
     }
 
     public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        else
+            sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
     }
 }

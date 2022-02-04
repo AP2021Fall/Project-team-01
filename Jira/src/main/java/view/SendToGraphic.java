@@ -40,6 +40,11 @@ public class SendToGraphic{
             sceneController.switchScene(MenusFxml.SEND_NOTIFICATION.getLabel());
             return;
         }
+        if (choice.equals("all")) {
+            MainMenuController.choice = 3;
+            sceneController.switchScene(MenusFxml.SEND_NOTIFICATION.getLabel());
+            return;
+        }
     }
 
     public void back(ActionEvent actionEvent) {
