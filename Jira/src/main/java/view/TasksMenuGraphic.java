@@ -49,19 +49,27 @@ public class TasksMenuGraphic implements Initializable {
                 Object value = tasksSortChoiceBox.getValue();
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
-                    tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
+                    try {
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
                 } else if ("Deadline".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
-                    tasksListView.getItems().addAll(DatabaseHandler.getSortedTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
+                    try {
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (SQLException e) {

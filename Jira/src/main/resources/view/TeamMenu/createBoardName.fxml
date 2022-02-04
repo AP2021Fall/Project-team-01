@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.CreateBoardNameGraphic">
+   <children>
+      <Label layoutX="220.0" layoutY="14.0" text="Create Board" underline="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <TextField fx:id="boardName" layoutX="240.0" layoutY="175.0" />
+      <Label layoutX="156.0" layoutY="179.0" text="board name" />
+      <Button layoutX="50.0" layoutY="330.0" mnemonicParsing="false" onAction="#back" text="back" />
+      <Button layoutX="516.0" layoutY="330.0" mnemonicParsing="false" onAction="#next" text="next" />
+      <Text fx:id="alert" fill="#ee0404" layoutX="229.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</Pane>
