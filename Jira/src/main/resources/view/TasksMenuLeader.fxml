@@ -24,6 +24,7 @@
             <Button layoutX="250.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" text="Search" />
             <ListView fx:id="tasksListView" layoutX="37.0" layoutY="65.0" prefHeight="169.0" prefWidth="536.0" />
             <Button layoutX="37.0" layoutY="274.0" mnemonicParsing="false" onAction="#goToMainMenu" text="MainMenu" />
+            <Button layoutX="491.0" layoutY="274.0" mnemonicParsing="false" onAction="#createNewTask" text="NewTask" textFill="#ff00e4" />
          </children>
       </AnchorPane>
    </bottom>

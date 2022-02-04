@@ -28,7 +28,6 @@ public class TeamMenuGraphic implements Initializable {
     public TeamMenuGraphic() throws SQLException {
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
