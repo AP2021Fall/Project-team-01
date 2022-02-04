@@ -216,5 +216,5 @@ public class Queries {
     public static final String GET_TASKS_TITLE_OF_TEAM =
             "SELECT title FROM tasks WHERE team_id = %d";
     public static final String GET_TASK_BY_USERNAME =
-            "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s'";
+            "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
 }
