@@ -1013,7 +1013,7 @@ public class DatabaseHandler {
     }
 
     public static int getNumDeadline(int id) {
-        return 2;
+        return 1;
     }
 
     public static ArrayList<String> getTasksByUsernameSorted(String username) {
