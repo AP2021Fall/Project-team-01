@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 public class MainMenuController {
 
+    public static int choice;
+    public static String team;
+    public static String username;
     public static void showTeams() throws SQLException {
         User user = LoginController.getActiveUser();
         if (user.getRole().equalsIgnoreCase("leader")) {

@@ -1,6 +1,7 @@
 package view;
 
 
+import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
 public class MemberMainMenuGraphic {
@@ -26,4 +27,7 @@ public class MemberMainMenuGraphic {
         sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
     }
 
+    public void Notification(ActionEvent actionEvent) {
+
+    }
 }
