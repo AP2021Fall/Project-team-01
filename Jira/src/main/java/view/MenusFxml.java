@@ -22,7 +22,8 @@ public enum MenusFxml {
     BOARD_MENU("TeamMenu/boardMenu.fxml"),
     SELECTED_BOARD_MENU("TeamMenu/selectedBoardMenu.fxml"),
     TASKS_MENU("TasksMenu.fxml"),
-    ROADMAP_MENU("TeamMenu/roadMapMenu.fxml");
+    ROADMAP_MENU("TeamMenu/roadMapMenu.fxml"),
+    FORCE_TASK("TeamMenu/forceTask.fxml");
     private final String label;
 
     MenusFxml(String label) {
