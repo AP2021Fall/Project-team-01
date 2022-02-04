@@ -4,6 +4,7 @@ import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -41,5 +42,9 @@ public class ForceTaskGraphic implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void back(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
     }
 }
