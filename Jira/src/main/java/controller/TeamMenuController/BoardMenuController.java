@@ -122,26 +122,26 @@ public class BoardMenuController {
             return ("You do not have the permission to do this action!");
     }
 
-    public static void completeBoardFirstStepSelect() throws SQLException {
+    public static String completeBoardFirstStepSelect() throws SQLException {
         String take = BoardMenuController.getActiveBoard();
         if (take != null)
-            completeBoardFirstStep(take);
+            return completeBoardFirstStep(take);
         else
-            System.out.println("No board is selected");
+            return ("No board is selected");
     }
 
-    public static void completeBoardFirstStep(String boardName) throws SQLException {
+    public static String completeBoardFirstStep(String boardName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesBoardExist(boardName, TeamMenuController.getTeam().getId())) {
                 if (DatabaseHandler.numOfBoardCategories(boardName, TeamMenuController.getTeam().getId()) != 0) {
                     DatabaseHandler.finishBoard(boardName, TeamMenuController.getTeam().getId());
-                    System.out.println("first step completed");
+                    return ("first step completed");
                 } else
-                    System.out.println("Please make a category first");
+                    return ("Please make a category first");
             } else
-                System.out.println("There is no board with this name");
+                return ("There is no board with this name");
         } else
-            System.out.println("You do not have the permission to do this action!");
+            return ("You do not have the permission to do this action!");
     }
 
     public static void addTaskToBoardSelect(String taskId) throws SQLException {
