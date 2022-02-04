@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.LoginController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -1007,15 +1008,21 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TASKS_TITLE_OF_TEAM, teamId);
         return getArraylistString(sql);
     }
-    public static ArrayList<String> getTasksByUsername(String username) throws SQLException{
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
-        ArrayList<String> answer = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        while (result.next()) {
-            answer.add(result.getInt(1) + " " + result.getString(2));
+
+    public static ArrayList<String> getTasksByUsername(String username) throws SQLException {
+        String sql;
+        if (LoginController.getActiveUser().getRole().equals("member")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER, username);
         }
-        return answer;
+            ArrayList<String> answer = new ArrayList<>();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                answer.add(result.getInt(1) + " " + result.getString(2));
+            }
+            return answer;
     }
 
     public static int getNumDeadline(int id) throws SQLException {
@@ -1070,4 +1077,40 @@ public class DatabaseHandler {
         return answer;
     }
 
+    public static String getTaskDescriptionByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_DESCRIPTION, taskId);
+        return getString(sql);
+    }
+    public static String getTaskPriorityByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_PRIORITY, taskId);
+        return getString(sql);
+    }
+    public static String getTaskCreationTimeByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
+        return getString(sql);
+    }
+    public static String getTaskDeadlineByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_DEADLINE, taskId);
+        return getString(sql);
+    }
+    public static ArrayList<String> getTaskCommentsByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_COMMENT, taskId);
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        result.next();
+        String json = result.getString(1);
+        ArrayList<String> arraylist = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType());
+        return arraylist;
+    }
+    public static ArrayList<String> getTaskAssignedUsersByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
+        return getArraylistString(sql);
+    }
+
+    public static String getTaskTitleByTaskId(int taskId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_TITLE_BY_TASK_ID, taskId);
+        return getString(sql);
+    }
 }

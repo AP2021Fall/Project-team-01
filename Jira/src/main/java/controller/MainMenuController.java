@@ -13,6 +13,11 @@ import java.util.ArrayList;
 
 public class MainMenuController {
 
+    public static int choice;
+    public static String team;
+    public static String username;
+    public static String pendingTeam;
+
     public static void showTeams() throws SQLException {
         User user = LoginController.getActiveUser();
         if (user.getRole().equalsIgnoreCase("leader")) {
@@ -31,20 +36,20 @@ public class MainMenuController {
         }
     }
 
-    public static void createTeam(String teamName) throws SQLException {
+    public static String createTeam(String teamName) throws SQLException {
         if (LoginController.getActiveUser().getRole().equals("leader")) {
             if (DatabaseHandler.doesTeamNameExist(teamName))
-                System.out.println("There is another team with this name!");
+                return ("There is another team with this name!");
             else {
                 if (teamName.length()>=5 && teamName.length()<=12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
                     DatabaseHandler.createTeam(teamName, LocalDateTime.now(), LoginController.getActiveUser().getUsername());
-                    System.out.println("Team created successfully! Waiting For Admin’s confirmation…");
+                    return ("Team created successfully! Waiting For Admin’s confirmation…");
                 } else {
-                    System.out.println("Team name is invalid!");
+                    return ("Team name is invalid!");
                 }
             }
         } else {
-            System.out.println("you are not leader");
+            return ("you are not leader");
         }
     }
 

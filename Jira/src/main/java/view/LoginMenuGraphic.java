@@ -27,6 +27,7 @@ public class LoginMenuGraphic {
                         sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                         break;
                     case "admin":
+                        sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
                         break;
                     default:
 

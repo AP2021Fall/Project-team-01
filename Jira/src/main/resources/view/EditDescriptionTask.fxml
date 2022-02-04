@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TaskPageGraphic">
+   <top>
+      <AnchorPane prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="266.0" layoutY="25.0" text="TasksPage" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="351.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="37.0" layoutY="274.0" mnemonicParsing="false" onAction="#goToMainMenu" text="MainMenu" />
+            <Label fx:id="currentDescription" layoutX="73.0" layoutY="57.0" prefHeight="41.0" prefWidth="199.0" />
+            <Label layoutX="73.0" layoutY="121.0" text="New Description:" />
+            <TextField fx:id="newDescriptionTextField" layoutX="207.0" layoutY="116.0" />
+            <Button layoutX="518.0" layoutY="274.0" mnemonicParsing="false" onAction="#backToTaskPageLeader" text="Back" />
+            <Button layoutX="268.0" layoutY="187.0" mnemonicParsing="false" onAction="#submitEditTaskDescription" text="submit" />
+            <Label fx:id="editDescriptionAlert" layoutX="96.0" layoutY="14.0" textFill="#ff0095" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -6,7 +6,7 @@ public class Queries {
     public static final String CREATE_USER =
             "INSERT INTO users (username, password, email, role, notification, logs) VALUES ('%s','%s','%s','%s','[]','[]')";
     public static final String CREATE_TEAM =
-            "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
+            "INSERT INTO teams (name, `creating date`,leader, chatroom) VALUES ('%s', '%s', '%s', '[]')";
     public static final String CREATE_TASK =
             "INSERT INTO tasks (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) VALUES (DEFAULT,'%s','%s','%s',1,3,null,null,'[]',null,%d)";
     public static final String CREATE_BOARD =
@@ -217,10 +217,22 @@ public class Queries {
             "SELECT title FROM tasks WHERE team_id = %d";
     public static final String GET_TASK_BY_USERNAME =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s'";
+    public static final String GET_TASK_BY_USERNAME_LEADER =
+            "SELECT tasks.id, tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s'";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY title";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY priority";
+    public static final String GET_DESCRIPTION =
+            "SELECT title FROM tasks WHERE id = %d";
+    public static final String GET_PRIORITY =
+            "SELECT priority FROM tasks WHERE id = %d";
+    public static final String GET_DEADLINE =
+            "SELECT `deadline date` FROM tasks WHERE id = %d";
+    public static final String GET_COMMENT =
+            "SELECT comments FROM tasks WHERE id = %d";
+    public static final String GET_TASK_TITLE_BY_TASK_ID =
+            "SELECT title FROM tasks WHERE id = %d";
 }
