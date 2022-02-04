@@ -34,7 +34,8 @@ public enum MenusFxml {
     LEADER_MAIN_MENU("leaderMainMenu.fxml"),
     SEND_NOTIFICATION("sendNotification.fxml"),
     SEND_TO("sendTo.fxml"),
-    CREATE_TEAM("createTeam.fxml");
+    CREATE_TEAM("createTeam.fxml"),
+    ADMIN_SEND_TO("sendToAdmin.fxml");
 
     private final String label;
 

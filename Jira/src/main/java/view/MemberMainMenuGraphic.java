@@ -34,4 +34,14 @@ public class MemberMainMenuGraphic {
     public void createTeam(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.CREATE_TEAM.getLabel());
     }
+
+    public void profiles(ActionEvent actionEvent) {
+    }
+
+    public void notificationAdmin(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.ADMIN_SEND_TO.getLabel());
+    }
+
+    public void pendingTeams(ActionEvent actionEvent) {
+    }
 }
