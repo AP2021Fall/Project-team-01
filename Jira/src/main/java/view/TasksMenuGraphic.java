@@ -1,8 +1,6 @@
 package view;
 
 import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
-import controller.TeamMenuController.TeamSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import models.DatabaseHandler;
 
-import java.io.DataOutputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,14 +33,36 @@ public class TasksMenuGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-//            tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
+            tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
+            ArrayList<String> allTasksWithTaskId = DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername());
+            ArrayList<String> allTasks = null;
+            for (String string : allTasksWithTaskId){
+                String stringToAdd = (string.split(" "))[1];
+                allTasks.add(stringToAdd);
+            }
+            ObservableList<String> items = FXCollections.observableArrayList(allTasksWithTaskId);
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = tasksListView.getSelectionModel().getSelectedItem();
                     //                        sceneController.switchScene(MenusFxml.SELECTED_TASK_MENU.getLabel());
+                }
+            });
+
+            tasksSortChoiceBox.setOnAction((event) -> {
+                Object value = tasksSortChoiceBox.getValue();
+                if ("Priority".equals(value)) {
+                    tasksListView.getItems().clear();
+                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(allTasks));
+
+                } else if ("Deadline".equals(value)) {
+                    tasksListView.getItems().clear();
+                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(allTasks));
+
+                } else if ("TaskTitle".equals(value)) {
+                    tasksListView.getItems().clear();
+                    tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(allTasks));
                 }
             });
         } catch (SQLException e) {

@@ -1028,11 +1028,19 @@ public class DatabaseHandler {
         return 3;
     }
 
-    public static ArrayList<String> getTasksByUsernameSorted(String username) {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("oo");
-        list.add("jj");
-        return list;
+    public static ArrayList<String> getTasksByUsernameSorted(String username) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED, username);
+        ArrayList<String> answer = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getInt(1) + " " + result.getString(2));
+        }
+        return answer;
     }
+
+    public static ArrayList<String> sortTaskTitlesByPriority(ArrayList<String> taskTitles){}
+    public static ArrayList<String> sortTaskTitlesByDeadline(ArrayList<String> taskTitles){}
+    public static ArrayList<String> sortTaskTitlesByTaskTitle(ArrayList<String> taskTitles){}
 
 }
