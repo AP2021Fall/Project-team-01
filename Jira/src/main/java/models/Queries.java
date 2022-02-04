@@ -6,7 +6,7 @@ public class Queries {
     public static final String CREATE_USER =
             "INSERT INTO users (username, password, email, role, notification, logs) VALUES ('%s','%s','%s','%s','[]','[]')";
     public static final String CREATE_TEAM =
-            "INSERT INTO teams (name, `creating date`,leader) VALUES ('%s', '%s', '%s')";
+            "INSERT INTO teams (name, `creating date`,leader, chatroom) VALUES ('%s', '%s', '%s', '[]')";
     public static final String CREATE_TASK =
             "INSERT INTO tasks (id,title,`creation date`,`deadline date`,priority,state,category,board_name,comments,description,team_id) VALUES (DEFAULT,'%s','%s','%s',1,3,null,null,'[]',null,%d)";
     public static final String CREATE_BOARD =
