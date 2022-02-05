@@ -272,6 +272,14 @@ public class DatabaseHandler {
         String sql = Queries.GET_ALL_USERNAMES;
         return getArraylistString(sql);
     }
+    public static ArrayList<String> getAllUsersSortedByName() throws SQLException {
+        String sql = Queries.GET_ALL_USERNAMES_SORTED_BY_NAME;
+        return getArraylistString(sql);
+    }
+    public static ArrayList<String> getAllUsersSortedByScore() throws SQLException {
+        String sql = Queries.GET_ALL_USERNAMES_SORTED_BY_SCORE;
+        return getArraylistString(sql);
+    }
 
     public static void sendNotificationToAll(String notification) throws SQLException {
         ArrayList<String> usernames = getAllUsers();
