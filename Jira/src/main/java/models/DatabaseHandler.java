@@ -3,6 +3,7 @@ package models;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import controller.LoginController;
+import controller.TeamMenuController.TeamMenuController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -1137,8 +1138,8 @@ public class DatabaseHandler {
         return getArraylistString(sql);
     }
 
-    public static ArrayList<String> getTasksByUsernameOutOfBoard(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER_OUT, username);
+    public static ArrayList<String> getTasksByUsernameOutOfBoard(String username, int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER_OUT, username, teamId);
         return getArraylistString(sql);
     }
 }

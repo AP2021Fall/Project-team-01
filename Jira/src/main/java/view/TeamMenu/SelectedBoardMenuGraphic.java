@@ -71,6 +71,6 @@ public class SelectedBoardMenuGraphic implements Initializable {
     }
 
     public void addTask(ActionEvent actionEvent) {
-        
+        sceneController.switchScene(MenusFxml.ADD_TASK_TO_BOARD.getLabel());
     }
 }

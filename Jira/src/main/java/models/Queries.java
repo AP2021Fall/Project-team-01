@@ -222,7 +222,7 @@ public class Queries {
     public static final String GET_TASK_BY_USERNAME_LEADER =
             "SELECT tasks.id, tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s'";
     public static final String GET_TASK_BY_USERNAME_LEADER_OUT =
-            "SELECT tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s' AND board_name = null";
+            "SELECT tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s' AND board_name IS NULL AND team_id = %d";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE =

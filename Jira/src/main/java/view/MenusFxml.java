@@ -53,7 +53,9 @@ public enum MenusFxml {
     USERS_OPTIONS("usersOptions.fxml"),
     NEW_LEADER("newLeader.fxml"),
     NEW_ROLE("newRole.fxml"),
-    STATISTICS("statistics.fxml");
+    STATISTICS("statistics.fxml"),
+    ADD_CATEGORY_TO_TASK("TeamMenu/addTaskToCategory.fxml"),
+    ADD_TASK_TO_BOARD("TeamMenu/addTaskToBoard.fxml");
 
     private final String label;
 
