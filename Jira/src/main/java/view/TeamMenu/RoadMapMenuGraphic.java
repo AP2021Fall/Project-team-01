@@ -1,5 +1,7 @@
 package view.TeamMenu;
 
+import controller.LoginController;
+import controller.TasksPageController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +48,16 @@ public class RoadMapMenuGraphic implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = listViewTasks.getSelectionModel().getSelectedItem();
-                    //                        sceneController.switchScene(MenusFxml.SELECTED_TASK_MENU.getLabel());
+                    try {
+                        TasksPageController.setTaskIdAndTaskTitle(DatabaseHandler.getTaskIdByTaskTitle(taskName, DatabaseHandler.getTeamIdByTeamName(teamName)) + " " + taskName);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    if (LoginController.getActiveUser().getRole().equals("leader")) {
+                        sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                        return;
+                    }
+                    sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                 }
             });
         } catch (SQLException e) {

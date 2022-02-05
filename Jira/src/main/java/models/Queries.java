@@ -228,7 +228,7 @@ public class Queries {
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY priority";
     public static final String GET_DESCRIPTION =
-            "SELECT title FROM tasks WHERE id = %d";
+            "SELECT description FROM tasks WHERE id = %d";
     public static final String GET_PRIORITY =
             "SELECT priority FROM tasks WHERE id = %d";
     public static final String GET_DEADLINE =

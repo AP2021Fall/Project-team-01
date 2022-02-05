@@ -1,6 +1,7 @@
 package view.TeamMenu;
 
 import controller.LoginController;
+import controller.TasksPageController;
 import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
