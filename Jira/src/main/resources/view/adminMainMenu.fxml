@@ -10,7 +10,7 @@
    <children>
       <VBox layoutX="237.0" layoutY="67.0" prefHeight="170.0" prefWidth="126.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#profiles" onMouseClicked="#profileMenu" prefHeight="45.0" prefWidth="126.0" text="Users" />
+            <Button mnemonicParsing="false" onAction="#users" onMouseClicked="#profileMenu" prefHeight="45.0" prefWidth="126.0" text="Users" />
             <Button mnemonicParsing="false" onAction="#notificationAdmin" prefHeight="41.0" prefWidth="125.0" text="Notification" />
             <Button mnemonicParsing="false" onAction="#pendingTeams" prefHeight="38.0" prefWidth="128.0" text="Pending Team" />
             <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="43.0" prefWidth="126.0" text="Logout" />

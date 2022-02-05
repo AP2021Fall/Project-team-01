@@ -1,5 +1,6 @@
 package view.TeamMenu;
 
+import controller.LoginController;
 import controller.ProfileMenuController.ProfileMenuController;
 import controller.TeamMenuController.ScoreBoardController;
 import javafx.event.ActionEvent;
@@ -20,7 +21,10 @@ public class ShowProfileGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
 
     public void goToScoreboard(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.SCOREBOARD.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("admin"))
+            sceneController.switchScene(MenusFxml.USERS.getLabel());
+        else
+            sceneController.switchScene(MenusFxml.SCOREBOARD.getLabel());
     }
 
     @Override

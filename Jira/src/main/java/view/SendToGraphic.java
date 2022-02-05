@@ -48,7 +48,10 @@ public class SendToGraphic{
     }
 
     public void back(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        else
+            sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
     }
 
 

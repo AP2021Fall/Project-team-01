@@ -49,4 +49,8 @@ public class MemberMainMenuGraphic {
     public void pendingTeams(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.PENDING_TEAMS.getLabel());
     }
+
+    public void users(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.USERS.getLabel());
+    }
 }
