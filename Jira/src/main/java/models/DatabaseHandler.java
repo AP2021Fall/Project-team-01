@@ -1136,4 +1136,9 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_FAILED_TASKS);
         return getArraylistString(sql);
     }
+
+    public static ArrayList<String> getTasksByUsernameOutOfBoard(String username) throws SQLException {
+        String sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER_OUT, username);
+        return getArraylistString(sql);
+    }
 }

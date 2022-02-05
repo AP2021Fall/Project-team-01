@@ -71,6 +71,6 @@ public class SelectedBoardMenuGraphic implements Initializable {
     }
 
     public void addTask(ActionEvent actionEvent) {
-
+        
     }
 }
