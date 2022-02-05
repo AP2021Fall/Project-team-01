@@ -57,12 +57,17 @@ public class addMemberGraphic implements Initializable {
                     Text text = new Text('\n' + str);
                     text.setFill(Color.WHITE);
                     Font font = new Font("Book Antiqua", 20);
-                    text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    hBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
                             try {
-                                DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
-                                alert.setText("member added to team successfully");
+
+                                if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                    DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                                    alert.setText("member added to team successfully");
+
+                                } else
+                                    alert.setText("you can not add twice");
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
@@ -83,12 +88,34 @@ public class addMemberGraphic implements Initializable {
     }
 
 
-
-    public void search(ActionEvent actionEvent) {
+    public void search(ActionEvent actionEvent) throws SQLException {
         taskShow.getChildren().clear();
         List<String> list = searchList(searchBar.getText(), items);
-        for (String str : list)
-            taskShow.getChildren().add(new Text(str));
+        for (String str : list) {
+            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                HBox hBox = new HBox();
+                Text text = new Text(str);
+                hBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+
+                            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                                alert.setText("member added to team successfully");
+
+                            } else
+                                alert.setText("you can not add twice");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                hBox.setPrefHeight(60);
+                hBox.getChildren().add(text);
+                taskShow.getChildren().add(hBox);
+            }
+        }
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
@@ -106,6 +133,40 @@ public class addMemberGraphic implements Initializable {
             sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 
-    public void sortByPoints(ActionEvent actionEvent) {
+    public void sortByPoints(ActionEvent actionEvent) throws SQLException {
+        taskShow.getChildren().clear();
+        ArrayList<String> tasks = DatabaseHandler.getAllUsersSortedByScore();
+
+        for (String str : tasks) {
+            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+
+                HBox hBox = new HBox();
+                Text text = new Text('\n' + str);
+                hBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+
+                            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                                alert.setText("member added to team successfully");
+
+                            } else
+                                alert.setText("you can not add twice");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                text.setFill(Color.WHITE);
+                Font font = new Font("Book Antiqua", 20);
+                text.setFont(font);
+                hBox.setPrefHeight(60);
+                hBox.getChildren().add(text);
+                taskShow.getChildren().add(hBox);
+            }
+        }
+
     }
 }
+
