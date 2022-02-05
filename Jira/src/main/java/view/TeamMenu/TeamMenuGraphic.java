@@ -1,5 +1,6 @@
 package view.TeamMenu;
 
+import controller.LoginController;
 import controller.TeamMenuController.TeamSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +40,10 @@ public class TeamMenuGraphic implements Initializable {
                     String teamName = listViewTeams.getSelectionModel().getSelectedItem();
                     try {
                         TeamSelectionController.enterTeam(teamName);
+                        if (LoginController.getActiveUser().getRole().equals("member"))
                         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+                        else if (LoginController.getActiveUser().getRole().equals("leader"))
+                            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

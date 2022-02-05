@@ -46,7 +46,9 @@ public enum MenusFxml {
     ADMIN_SEND_TO("sendToAdmin.fxml"),
     ADMIN_MAIN_MENU("adminMainMenu.fxml"),
     PENDING_OPTIONS("pendingOptions.fxml"),
-    PENDING_TEAMS("pendingTeam.fxml");
+    SELECTED_TEAM_MENU_LEADER("TeamMenu/SelectedTeamMenuLeader.fxml"),
+    PENDING_TEAMS("pendingTeam.fxml"),
+    ADD_MEMBER("TeamMenu/addMember.fxml");
 
     private final String label;
 

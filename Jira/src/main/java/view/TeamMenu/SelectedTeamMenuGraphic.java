@@ -44,4 +44,8 @@ public class SelectedTeamMenuGraphic implements Initializable {
     public void backToTeamMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.TEAM_MENU.getLabel());
     }
+
+    public void addMember(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.ADD_MEMBER.getLabel());
+    }
 }
