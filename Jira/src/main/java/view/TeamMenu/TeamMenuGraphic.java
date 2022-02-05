@@ -38,14 +38,16 @@ public class TeamMenuGraphic implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     String teamName = listViewTeams.getSelectionModel().getSelectedItem();
-                    try {
-                        TeamSelectionController.enterTeam(teamName);
-                        if (LoginController.getActiveUser().getRole().equals("member"))
-                        sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
-                        else if (LoginController.getActiveUser().getRole().equals("leader"))
-                            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    if (teamName != null) {
+                        try {
+                            TeamSelectionController.enterTeam(teamName);
+                            if (LoginController.getActiveUser().getRole().equals("member"))
+                                sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+                            else if (LoginController.getActiveUser().getRole().equals("leader"))
+                                sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -53,6 +55,7 @@ public class TeamMenuGraphic implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
