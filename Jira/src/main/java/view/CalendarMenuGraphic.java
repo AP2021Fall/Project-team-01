@@ -51,7 +51,9 @@ public class CalendarMenuGraphic implements Initializable {
                 text.setFont(font);
                 hBox.setPrefHeight(60);
                 hBox.getChildren().add(text);
-                int id = DatabaseHandler.getTaskIdByTaskTitle(str, TeamMenuController.getTeam().getId());
+                String[] get ;
+                get = str.split(" ");
+                int id = Integer.parseInt(get[0]);
                 if ( DatabaseHandler.getNumDeadline(id) == 0)
                 hBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
                 if ( DatabaseHandler.getNumDeadline(id) == 1)
@@ -99,7 +101,9 @@ public class CalendarMenuGraphic implements Initializable {
             text.setFont(font);
             hBox.setPrefHeight(60);
             hBox.getChildren().add(text);
-            int id = DatabaseHandler.getTaskIdByTaskTitle(str, TeamMenuController.getTeam().getId());
+            String[] get ;
+            get = str.split(" ");
+            int id = Integer.parseInt(get[0]);
             if ( DatabaseHandler.getNumDeadline(id) == 0)
                 hBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
             if ( DatabaseHandler.getNumDeadline(id) == 1)

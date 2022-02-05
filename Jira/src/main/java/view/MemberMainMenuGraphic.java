@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -16,7 +17,10 @@ public class MemberMainMenuGraphic {
     }
 
     public void tasksMenu(MouseEvent mouseEvent) {
+        if(LoginController.getActiveUser().getRole().equals("leader"))
         sceneController.switchScene(MenusFxml.TASKS_MENU_LEADER.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.TASKS_MENU.getLabel());
     }
 
     public void calenderMenu(MouseEvent mouseEvent) {
