@@ -52,19 +52,19 @@ public class TasksMenuGraphic implements Initializable {
             });
 
             tasksSortChoiceBox.setOnAction((event) -> {
-                Object value = tasksSortChoiceBox.getValue();
+                String value = (String) tasksSortChoiceBox.getValue();
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
+                        tasksListView.setItems(FXCollections.observableArrayList(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername())));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
-                } else if ("Deadline".equals(value)) {
+                } else if ("DeadLine".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
+                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername())));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -72,7 +72,7 @@ public class TasksMenuGraphic implements Initializable {
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
+                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername())));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

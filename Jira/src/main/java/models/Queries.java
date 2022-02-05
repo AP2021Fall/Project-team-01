@@ -249,4 +249,10 @@ public class Queries {
             "SELECT title FROM tasks WHERE state = 1";
     public static final String GET_FAILED_TASKS =
             "SELECT title FROM tasks WHERE state = 0";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY priority";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY `deadline date`";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
 }

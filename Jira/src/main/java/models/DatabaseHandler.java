@@ -1056,7 +1056,12 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> sortTaskTitlesByPriority(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -1066,7 +1071,12 @@ public class DatabaseHandler {
         return answer;
     }
     public static ArrayList<String> sortTaskTitlesByDeadline(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -1076,7 +1086,12 @@ public class DatabaseHandler {
         return answer;
     }
     public static ArrayList<String> sortTaskTitlesByTaskTitle(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
