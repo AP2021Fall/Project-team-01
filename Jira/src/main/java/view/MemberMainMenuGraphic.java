@@ -39,8 +39,6 @@ public class MemberMainMenuGraphic {
         sceneController.switchScene(MenusFxml.CREATE_TEAM.getLabel());
     }
 
-    public void profiles(ActionEvent actionEvent) {
-    }
 
     public void notificationAdmin(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.ADMIN_SEND_TO.getLabel());
@@ -52,5 +50,9 @@ public class MemberMainMenuGraphic {
 
     public void users(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.USERS.getLabel());
+    }
+
+    public void statistics(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.STATISTICS.getLabel());
     }
 }

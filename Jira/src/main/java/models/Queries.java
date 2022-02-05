@@ -1,5 +1,7 @@
 package models;
 
+import view.MenusFxml;
+
 import java.util.Locale;
 
 public class Queries {
@@ -238,5 +240,11 @@ public class Queries {
     public static final String GET_ALL_USERNAMES_SORTED_BY_NAME =
             "SELECT username FROM users ORDER BY username";
     public static final String GET_ALL_USERNAMES_SORTED_BY_SCORE =
-            "SELECT username FROM users ORDER BY point";
+            "SELECT username FROM users ORDER BY point DESC";
+    public static final String GET_TEAMS =
+            "SELECT leader FROM teams";
+    public static final String GET_DONE_TASKS =
+            "SELECT title FROM tasks WHERE state = 1";
+    public static final String GET_FAILED_TASKS =
+            "SELECT title FROM tasks WHERE state = 0";
 }
