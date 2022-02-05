@@ -1113,6 +1113,7 @@ public class DatabaseHandler {
                 }.getType());
         return arraylist;
     }
+
     public static ArrayList<String> getTaskAssignedUsersByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_USERS_ASSIGNED_TASK, taskId);
         return getArraylistString(sql);
