@@ -19,7 +19,7 @@ public class UsersOptionsGraphic {
     }
 
     public void changeRole(ActionEvent actionEvent) {
-
+        sceneController.switchScene(MenusFxml.NEW_ROLE.getLabel());
     }
 
     public void back(ActionEvent actionEvent) {

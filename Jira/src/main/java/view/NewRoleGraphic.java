@@ -22,7 +22,7 @@ public class NewRoleGraphic {
         String result = MainMenuController.changeRole(ScoreBoardController.usernameToRemove, choice);
         alert.setText(result);
         if (result.equals("now enter a username to replace with this leader in team")) {
-
+            sceneController.switchScene(MenusFxml.NEW_LEADER.getLabel());
         }
     }
 }

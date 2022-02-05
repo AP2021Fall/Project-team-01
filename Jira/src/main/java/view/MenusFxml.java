@@ -50,7 +50,9 @@ public enum MenusFxml {
     PENDING_TEAMS("pendingTeam.fxml"),
     ADD_MEMBER("TeamMenu/addMember.fxml"),
     USERS("users.fxml"),
-    USERS_OPTIONS("usersOptions.fxml");
+    USERS_OPTIONS("usersOptions.fxml"),
+    NEW_LEADER("newLeader.fxml"),
+    NEW_ROLE("newRole.fxml");
 
     private final String label;
 

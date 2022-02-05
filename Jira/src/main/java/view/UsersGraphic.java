@@ -32,12 +32,30 @@ public class UsersGraphic implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     ScoreBoardController.usernameToRemove = (String) listView.getSelectionModel().getSelectedItem();
-
+                    sceneController.switchScene(MenusFxml.USERS_OPTIONS.getLabel());
                 }
             });
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        choiceBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    ObservableList<String> items;
+                    String sort = (String) choiceBox.getValue();
+                    if (sort.equals("name"))
+                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsersSortedByName());
+                    else if (sort.equals("score"))
+                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsersSortedByScore());
+                    else
+                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsers());
+                    listView.setItems(items);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void back(ActionEvent actionEvent) {

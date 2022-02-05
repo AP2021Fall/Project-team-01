@@ -235,4 +235,8 @@ public class Queries {
             "SELECT comments FROM tasks WHERE id = %d";
     public static final String GET_TASK_TITLE_BY_TASK_ID =
             "SELECT title FROM tasks WHERE id = %d";
+    public static final String GET_ALL_USERNAMES_SORTED_BY_NAME =
+            "SELECT username FROM users ORDER BY username";
+    public static final String GET_ALL_USERNAMES_SORTED_BY_SCORE =
+            "SELECT username FROM users ORDER BY point";
 }
