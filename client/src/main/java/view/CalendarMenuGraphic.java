@@ -1,7 +1,8 @@
 package view;
 
-import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.DatabaseHandler;
+import models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class CalendarMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(User.getActiveUsername()));
     public VBox taskShow;
     public ScrollPane scroll;
     public TextField searchBar;
@@ -42,7 +45,11 @@ public class CalendarMenuGraphic implements Initializable {
         scroll.setContent(taskShow);
         taskShow.setPrefWidth(320);
         try {
-            ArrayList<String> tasks = DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername());
+            AppController.getOutputStream().writeUTF("getTasksByUsername " + User.getActiveUsername());
+            AppController.getOutputStream().flush();
+            ArrayList<String> tasks = new Gson().fromJson(AppController.getInputStream().readUTF(),
+                    new TypeToken<List<String>>() {
+                    }.getType());
             for (String str : tasks) {
                 HBox hBox = new HBox();
                 Text text = new Text('\n' + str);
@@ -65,7 +72,7 @@ public class CalendarMenuGraphic implements Initializable {
             tasks.add("\n");
             tasks.add("\n");
             taskShow.setAlignment(Pos.TOP_LEFT);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -92,7 +99,7 @@ public class CalendarMenuGraphic implements Initializable {
 
     public void sortDeadline(ActionEvent actionEvent) throws SQLException {
         taskShow.getChildren().clear();
-        ArrayList<String> tasks = DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername());
+        ArrayList<String> tasks = DatabaseHandler.sortTaskTitlesByDeadline(User.getActiveUsername());
         for (String str : tasks) {
             HBox hBox = new HBox();
             Text text = new Text('\n' + str);

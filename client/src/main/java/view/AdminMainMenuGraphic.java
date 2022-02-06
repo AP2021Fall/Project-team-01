@@ -6,9 +6,11 @@ public class AdminMainMenuGraphic {
     public SceneController sceneController = new SceneController();
 
     public void users(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.USERS.getLabel());
     }
 
     public void pendingTeam(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.PENDING_TEAMS.getLabel());
     }
 
     public void banUsers(ActionEvent actionEvent) {
