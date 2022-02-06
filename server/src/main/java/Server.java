@@ -74,6 +74,9 @@ public class Server {
         if (command[0].equals("createTeam")) {
             return MainMenuController.createTeam(command[1], command[2]);
         }
+        if (command[0].equals("changeRole")) {
+            return MainMenuController.changeRoleToMember(command[1], command[2]);
+        }
         return " ";
     }
 }

@@ -1,10 +1,12 @@
 package view;
 
-import controller.MainMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class NewLeaderGraphic {
@@ -17,12 +19,14 @@ public class NewLeaderGraphic {
         sceneController.switchScene(MenusFxml.USERS_OPTIONS.getLabel());
     }
 
-    public void next(ActionEvent actionEvent) throws SQLException {
+    public void next(ActionEvent actionEvent) throws SQLException, IOException {
         if (newLeader.getText().isEmpty()) {
             alert.setText("please fill out fields");
             return;
         }
-        String result = MainMenuController.changeRoleToMember(newLeader.toString());
+        AppController.getOutputStream().writeUTF("changeRole " + newLeader.getText() + " " + User.getToken());
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
         alert.setText(result);
         if (result.equals("Roles changed successfully!"))
             sceneController.switchScene(MenusFxml.USERS_OPTIONS.getLabel());
