@@ -2,10 +2,6 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
-import view.ChangeRoleMenu;
-import view.MainMenu;
-import view.MenuController;
-import view.Menus;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -14,9 +10,9 @@ import java.util.HashMap;
 
 public class MainMenuController {
 
-    public static int choice;
-    public static String team;
-    public static String username;
+    public static HashMap<String, String> choice = new HashMap<>();
+    public static HashMap<String, String> team = new HashMap<>();
+    public static HashMap<String, String> username = new HashMap<>();
     public static String pendingTeam;
     private static HashMap<String, String> changeRoleUsername = new HashMap<>();
 
@@ -43,7 +39,7 @@ public class MainMenuController {
             if (DatabaseHandler.doesTeamNameExist(teamName))
                 return ("There is another team with this name!");
             else {
-                if (teamName.length()>=5 && teamName.length()<=12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
+                if (teamName.length() >= 5 && teamName.length() <= 12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
                     DatabaseHandler.createTeam(teamName, LocalDateTime.now(), User.getLoginUsers().get(token).getUsername());
                     return ("Team created successfully! Waiting For Admin’s confirmation…");
                 } else {
@@ -55,13 +51,13 @@ public class MainMenuController {
         }
     }
 
-    public static void sendNotificationToUser(String notification, String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader") ||
-                LoginController.getActiveUser().getRole().equals("admin")) {
+    public static void sendNotificationToUser(String notification, String username, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader") ||
+                User.getLoginUsers().get(token).getRole().equals("admin")) {
             if (!DatabaseHandler.doesUsernameExist(username)) {
                 System.out.println("No user exists with this username !");
             } else {
-                DatabaseHandler.sendNotificationToUser(LoginController.getActiveUser().getUsername() + ": " +notification, username);
+                DatabaseHandler.sendNotificationToUser(User.getLoginUsers().get(token).getUsername() + ": " + notification, username);
                 System.out.println("notification sent successfully");
             }
         } else
@@ -69,12 +65,12 @@ public class MainMenuController {
 
     }
 
-    public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader") ||
-                LoginController.getActiveUser().getRole().equals("admin")) {
-            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())
-                    || LoginController.getActiveUser().getRole().equals("admin")) {
-                DatabaseHandler.sendNotificationToTeam(LoginController.getActiveUser().getUsername() + ": " +notification, teamName);
+    public static void sendNotificationToTeam(String notification, String teamName, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader") ||
+                User.getLoginUsers().get(token).getRole().equals("admin")) {
+            if (DatabaseHandler.doesTeamExistForUser(teamName, User.getLoginUsers().get(token).getUsername())
+                    || User.getLoginUsers().get(token).getRole().equals("admin")) {
+                DatabaseHandler.sendNotificationToTeam(User.getLoginUsers().get(token).getUsername() + ": " + notification, teamName);
                 System.out.println("notification sent successfully");
             } else {
                 System.out.println("No team exists with this name !");
@@ -84,10 +80,7 @@ public class MainMenuController {
     }
 
     public static void sendNotificationToAll(String notification) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
-            DatabaseHandler.sendNotificationToAll(LoginController.getActiveUser().getUsername() + ": " +notification);
-            System.out.println("notification sent");
-        }
+        DatabaseHandler.sendNotificationToAll("admin : " + notification);
     }
 
     public static void showProfile(String username) throws SQLException {
@@ -125,19 +118,11 @@ public class MainMenuController {
     }
 
     public static void acceptTeams(String[] teams) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
-            System.out.println(DatabaseHandler.acceptPendingTeams(teams));
-        } else {
-            System.out.println("You do not have access to this section");
-        }
+        DatabaseHandler.acceptPendingTeams(teams);
     }
 
     public static void rejectTeams(String[] teams) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
-            System.out.println(DatabaseHandler.rejectPendingTeams(teams));
-        } else {
-            System.out.println("You do not have access to this section");
-        }
+        DatabaseHandler.rejectPendingTeams(teams);
     }
 
     public static void showScoreboard(String teamName) throws SQLException {
@@ -154,8 +139,8 @@ public class MainMenuController {
         }
     }
 
-    public static String changeRole(String username, String newRole) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
+    public static String changeRole(String username, String newRole, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("admin")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
                 String role = DatabaseHandler.getUserRole(username);
                 if (DatabaseHandler.getNumberOfTeamsByUsername(username) == 1) {
@@ -169,8 +154,8 @@ public class MainMenuController {
                             DatabaseHandler.changeRole(preLeader);
                             return ("role changed successfully");
                         }
-                    } else if (newRole.equals("member") && role.equals("leader")){
-                        changeRoleUsername = username;
+                    } else if (newRole.equals("member") && role.equals("leader")) {
+                        changeRoleUsername.put(token, username);
                         return ("now enter a username to replace with this leader in team");
                     } else {
                         return ("invalid role");

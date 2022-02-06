@@ -17,7 +17,6 @@ public class ScoreBoardController {
         ScoreBoardController.usernameToRemove = usernameToRemove;
     }
 
-    //    public static String usernameToRemove;
     public static void showScoreboard() throws SQLException {
         ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
         for ( Integer list : tasksId) {

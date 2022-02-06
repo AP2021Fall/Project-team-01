@@ -4,6 +4,7 @@ import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
+import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
 import controller.TeamMenuController.TeamSelectionController;
 import models.DatabaseHandler;
@@ -91,6 +92,36 @@ public class Server {
             TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId)  + " " + taskName);
             return " ";
         }
+        if (command[0].equals("changeRole1")) {
+            MainMenuController.changeRole(ScoreBoardController.usernameToRemove.get(command[2]), command[1], command[2]);
+        }
+        if (command[0].equals("acceptTeams")) {
+            MainMenuController.acceptTeams(MainMenuController.pendingTeam.split("      "));
+            return "done";
+        }
+        if (command[0].equals("rejectTeams")) {
+            MainMenuController.rejectTeams(MainMenuController.pendingTeam.split("      "));
+        }
+        if (command[0].equals("pendingTeam")) {
+            MainMenuController.pendingTeam = command[1];
+        }
+        if (command[0].equals("choice")) {
+            return MainMenuController.choice.get(command[1]);
+        }
+        if (command[0].equals("sendToUser")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToUser(input.substring(11, i),MainMenuController.username.get(input.substring(i+1)),input.substring(i+1));
+        }
+        if (command[0].equals("sendToTeam")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i+1)), input.substring(i+1));
+        }
+        if (command[0].equals("sendToAll")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToAll(input.substring(10));
+        }
+
+
         return " ";
     }
 }
