@@ -1,6 +1,5 @@
 import controller.LoginController;
 import models.DatabaseHandler;
-import models.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

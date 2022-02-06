@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-
+import models.User;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -20,12 +20,14 @@ public class LoginMenuGraphic {
             AppController.getOutputStream().writeUTF("login " + username.getText() + " " + password.getText());
             AppController.getOutputStream().flush();
             String result = AppController.getInputStream().readUTF();
-            if (result.equals("user logged in successfully!")) {
+            String[] results = result.split("\\s");
+            if (results[0].equals("userLoggedInSuccessfully")) {
+                User.setToken(results[1]);
                 switch (getRole(username.getText())) {
                     case "member":
-
-                    case "leader":
                         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+                    case "leader":
+                        sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                         break;
                     case "admin":
                         sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());

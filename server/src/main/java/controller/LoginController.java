@@ -2,13 +2,11 @@ package controller;
 
 import models.DatabaseHandler;
 import models.User;
-import view.MainMenu;
-import view.MenuController;
-import view.Menus;
 import view.Regex;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class LoginController {
     private static User activeUser;
@@ -30,11 +28,10 @@ public class LoginController {
         String currentUserRole = DatabaseHandler.getRoleByUsername(username);
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
         setActiveUser(currentUser);
+        String token = UUID.randomUUID().toString();
+        User.getLoginUsers().put(token, currentUser);
         DatabaseHandler.logLogin(activeUser.getUsername(), LocalDateTime.now());
-        MainMenu.show();
-        MainMenu.showMainMenu();
-        MenuController.currentMenu = Menus.MAIN_MENU;
-        return ("user logged in successfully!");
+        return ("userLoggedInSuccessfully " + token);
     }
 
     public static String createUser(String username, String password, String confirmPassword,

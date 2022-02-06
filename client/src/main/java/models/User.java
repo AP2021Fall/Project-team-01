@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class User {
     private static ArrayList<User> allUsers = new ArrayList<>();
     private static ArrayList<String> allEmails = new ArrayList<>();
+    private static String token;
     private ArrayList<Team> teamsOfUser;
     private ArrayList<String> notifications;
     private ArrayList<LocalDateTime> loginTimes;
@@ -99,6 +100,7 @@ public class User {
         return point;
     }
 
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -109,5 +111,13 @@ public class User {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        User.token = token;
     }
 }
