@@ -1,14 +1,15 @@
 package view;
 
-import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.DatabaseHandler;
+import models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CreateNewTaskMenuGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ArrayList<String> teamsOfLeader = DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername());
+            ArrayList<String> teamsOfLeader = DatabaseHandler.getUserTeams(User.getActiveUsername());
             teamNameChoiceBox.getItems().addAll(teamsOfLeader);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +42,7 @@ public class CreateNewTaskMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.TASKS_MENU.getLabel());
     }
 
-    public void createNewTask(ActionEvent actionEvent) throws SQLException {
+    public void createNewTask(ActionEvent actionEvent) throws SQLException, IOException {
         String title = taskTitle.getText();
         String creationDate = taskCreationDate.getText();
         String deadline = taskDeadline.getText();
@@ -50,7 +51,9 @@ public class CreateNewTaskMenuGraphic implements Initializable {
             alert.setText("PLEASE FILL OUT ALL THE FIELDS!");
             return;
         }
-        String result = TeamMenuController.createTask(title, creationDate, deadline, teamName);
+        AppController.getOutputStream().writeUTF("createTask " + title + " " + creationDate + " " + deadline + " " + teamName);
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
         if (result.equals("task created successfully")){
             taskTitle.clear();
             taskDeadline.clear();

@@ -10,6 +10,7 @@ import view.Menus;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainMenuController {
 
@@ -17,6 +18,7 @@ public class MainMenuController {
     public static String team;
     public static String username;
     public static String pendingTeam;
+    private static HashMap<String, String> changeRoleUsername = new HashMap<>();
 
     public static void showTeams() throws SQLException {
         User user = LoginController.getActiveUser();
@@ -36,13 +38,13 @@ public class MainMenuController {
         }
     }
 
-    public static String createTeam(String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
+    public static String createTeam(String teamName, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader")) {
             if (DatabaseHandler.doesTeamNameExist(teamName))
                 return ("There is another team with this name!");
             else {
                 if (teamName.length()>=5 && teamName.length()<=12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
-                    DatabaseHandler.createTeam(teamName, LocalDateTime.now(), LoginController.getActiveUser().getUsername());
+                    DatabaseHandler.createTeam(teamName, LocalDateTime.now(), User.getLoginUsers().get(token).getUsername());
                     return ("Team created successfully! Waiting For Admin’s confirmation…");
                 } else {
                     return ("Team name is invalid!");
@@ -168,9 +170,7 @@ public class MainMenuController {
                             return ("role changed successfully");
                         }
                     } else if (newRole.equals("member") && role.equals("leader")){
-                        MenuController.currentMenu = Menus.CHANGE_ROLE_MENU;
-                        ChangeRoleMenu.showChangeRoleMenu();
-                        MenuController.setChangeRoleUsername(username);
+                        changeRoleUsername = username;
                         return ("now enter a username to replace with this leader in team");
                     } else {
                         return ("invalid role");
@@ -186,19 +186,17 @@ public class MainMenuController {
         }
     }
 
-    public static String changeRoleToMember(String newLeaderUsername) throws SQLException {
+    public static String changeRoleToMember(String newLeaderUsername, String token) throws SQLException {
         if (!DatabaseHandler.doesUsernameExist(newLeaderUsername))
             return ("user not found!");
         else {
             if (DatabaseHandler.getNumberOfTeamsByUsername(newLeaderUsername) != 1) {
                 return ("sorry!! selected user must be member at exactly one team");
             } else {
-                int teamId = DatabaseHandler.getTeamsIdByUsername(MenuController.getChangeRoleUsername()).get(0);
+                int teamId = DatabaseHandler.getTeamsIdByUsername(changeRoleUsername.get(token)).get(0);
                 if (DatabaseHandler.isUsernameTeamMate(newLeaderUsername, teamId)) {
                     DatabaseHandler.changeRole(newLeaderUsername);
-                    DatabaseHandler.changeRole(MenuController.getChangeRoleUsername());
-                    MainMenu.showMainMenu();
-                    MenuController.currentMenu = Menus.MAIN_MENU;
+                    DatabaseHandler.changeRole(changeRoleUsername.get(token));
                     return ("Roles changed successfully!");
                 } else {
                     return ("this user isn't in your team");

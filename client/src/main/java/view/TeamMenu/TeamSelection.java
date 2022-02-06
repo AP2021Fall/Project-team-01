@@ -1,9 +1,6 @@
 package view.TeamMenu;
 
 import controller.TeamMenuController.TeamSelectionController;
-import view.MainMenu;
-import view.MenuController;
-import view.Menus;
 import view.Regex;
 
 import java.sql.SQLException;

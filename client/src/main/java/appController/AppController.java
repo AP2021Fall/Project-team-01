@@ -7,7 +7,6 @@ import java.net.Socket;
 
 public class AppController {
     private static DataInputStream inputStream;
-
     private static DataOutputStream outputStream;
 
     public static void setupConnection() {

@@ -1,10 +1,12 @@
 package view;
 
-import controller.MainMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateTeamGraphic {
@@ -17,13 +19,15 @@ public class CreateTeamGraphic {
         sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
     }
 
-    public void create(ActionEvent actionEvent) throws SQLException {
+    public void create(ActionEvent actionEvent) throws SQLException, IOException {
         String team = teamName.getText();
         if (team.isEmpty()) {
             alert.setText("please fill our fields");
             return;
         }
-        String result = MainMenuController.createTeam(team);
+        AppController.getOutputStream().writeUTF("createTeam " + team + " " + User.getToken());
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
         alert.setText(result);
         if (result.equals("Team created successfully! Waiting For Admin’s confirmation…"))
             sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());

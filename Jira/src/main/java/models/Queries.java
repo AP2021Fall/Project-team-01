@@ -255,4 +255,6 @@ public class Queries {
             "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER =
             "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
+    public static final String GET_TASKS_BY_TEAM_NAME =
+            "SELECT id, title FROM tasks WHERE team_id = %d";
 }
