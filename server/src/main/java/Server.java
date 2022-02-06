@@ -93,7 +93,7 @@ public class Server {
             return " ";
         }
         if (command[0].equals("changeRole1")) {
-            MainMenuController.changeRole(ScoreBoardController.usernameToRemove.get(command[2]), command[1], command[2]);
+            MainMenuController.changeRole(ScoreBoardController.getUsernameToRemove().get(command[2]), command[1], command[2]);
         }
         if (command[0].equals("acceptTeams")) {
             MainMenuController.acceptTeams(MainMenuController.pendingTeam.split("      "));
