@@ -9,15 +9,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class LoginController {
-    private static User activeUser;
-
-    public static User getActiveUser() {
-        return activeUser;
-    }
-
-    public static void setActiveUser(User activeUser) {
-        LoginController.activeUser = activeUser;
-    }
 
     public static String loginUser(String username, String password) throws SQLException {
         if (!DatabaseHandler.doesUsernameExist(username))
@@ -27,10 +18,9 @@ public class LoginController {
         String currentUserEmail = DatabaseHandler.getEmailByUsername(username);
         String currentUserRole = DatabaseHandler.getRoleByUsername(username);
         User currentUser = new User(username, password, currentUserEmail, currentUserRole);
-        setActiveUser(currentUser);
         String token = UUID.randomUUID().toString();
         User.getLoginUsers().put(token, currentUser);
-        DatabaseHandler.logLogin(activeUser.getUsername(), LocalDateTime.now());
+        DatabaseHandler.logLogin(username, LocalDateTime.now());
         return ("userLoggedInSuccessfully " + token);
     }
 

@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import controller.LoginController;
+import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import controller.ProfileMenuController.ProfileMenuController;
 import controller.TeamMenuController.TeamMenuController;
@@ -69,6 +70,9 @@ public class Server {
         }
         if (command[0].equals("createTask")) {
             return TeamMenuController.createTask(command[1], command[2] + " " + command[3], command[4] + " " + command[5], command[6]);
+        }
+        if (command[0].equals("createTeam")) {
+            return MainMenuController.createTeam(command[1], command[2]);
         }
         return " ";
     }

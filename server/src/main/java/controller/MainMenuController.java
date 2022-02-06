@@ -36,13 +36,13 @@ public class MainMenuController {
         }
     }
 
-    public static String createTeam(String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
+    public static String createTeam(String teamName, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader")) {
             if (DatabaseHandler.doesTeamNameExist(teamName))
                 return ("There is another team with this name!");
             else {
                 if (teamName.length()>=5 && teamName.length()<=12 && teamName.matches("[^0-9].*[0-9].*") && teamName.matches(".*[A-Z].*")) {
-                    DatabaseHandler.createTeam(teamName, LocalDateTime.now(), LoginController.getActiveUser().getUsername());
+                    DatabaseHandler.createTeam(teamName, LocalDateTime.now(), User.getLoginUsers().get(token).getUsername());
                     return ("Team created successfully! Waiting For Admin’s confirmation…");
                 } else {
                     return ("Team name is invalid!");

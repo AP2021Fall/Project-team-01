@@ -1,9 +1,12 @@
 package view;
 
 
-import controller.LoginController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import models.User;
+
+import java.io.IOException;
 
 public class MemberMainMenuGraphic {
     public SceneController sceneController = new SceneController();
@@ -16,10 +19,13 @@ public class MemberMainMenuGraphic {
         sceneController.switchScene(MenusFxml.TEAM_MENU.getLabel());
     }
 
-    public void tasksMenu(MouseEvent mouseEvent) {
-        if(LoginController.getActiveUser().getRole().equals("leader"))
+    public void tasksMenu(MouseEvent mouseEvent) throws IOException {
+        AppController.getOutputStream().writeUTF("role " + User.getActiveUsername());
+        AppController.getOutputStream().flush();
+        String role = AppController.getInputStream().readUTF();
+        if(role.equals("leader"))
         sceneController.switchScene(MenusFxml.TASKS_MENU_LEADER.getLabel());
-        else if (LoginController.getActiveUser().getRole().equals("member"))
+        else if (role.equals("member"))
             sceneController.switchScene(MenusFxml.TASKS_MENU.getLabel());
     }
 

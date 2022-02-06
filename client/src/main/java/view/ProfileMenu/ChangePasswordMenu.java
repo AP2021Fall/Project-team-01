@@ -2,9 +2,6 @@ package view.ProfileMenu;
 
 import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
-import view.MainMenu;
-import view.MenuController;
-import view.Menus;
 import view.Regex;
 
 import java.sql.SQLException;

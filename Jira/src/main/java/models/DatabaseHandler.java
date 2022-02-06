@@ -1158,4 +1158,16 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER_OUT, username, teamId);
         return getArraylistString(sql);
     }
+
+    public static ArrayList<String> getTasksIdTitleByTeamName(int teamId) throws SQLException {
+        String sql;
+        sql = String.format(Queries.GET_TASKS_BY_TEAM_NAME, teamId);
+        ArrayList<String> answer = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getInt(1) + " " + result.getString(2));
+        }
+        return answer;
+    }
 }

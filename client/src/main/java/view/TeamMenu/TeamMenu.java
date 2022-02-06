@@ -1,10 +1,6 @@
 package view.TeamMenu;
 
 import controller.TeamMenuController.*;
-import javafx.event.ActionEvent;
-import view.MainMenu;
-import view.MenuController;
-import view.Menus;
 import view.Regex;
 
 import java.sql.SQLException;
