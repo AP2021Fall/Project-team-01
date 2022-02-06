@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TeamMenu.SelectedTeamMenuGraphic">
+   <top>
+      <AnchorPane prefHeight="89.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="283.0" layoutY="45.0" text="hello world" translateX="-20.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="329.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+
+         <children>
+            <Button layoutX="56.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToScoreBoard" text="ScoreBoard" />
+            <Button layoutX="186.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToRoadMap" text="RoadMap" />
+            <Button layoutX="316.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToChatroom" text="ChatRoom" />
+            <Button layoutX="448.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToBoardMenu" text="BoardMenu" />
+            <Button layoutX="32.0" layoutY="251.0" mnemonicParsing="false" onAction="#goToMainMenu" text="MainMenu" />
+            <Button layoutX="521.0" layoutY="251.0" mnemonicParsing="false" onAction="#backToTeamMenu" text="Back" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

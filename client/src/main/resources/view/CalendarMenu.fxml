@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CalendarMenuGraphic">
+   <children>
+      <Pane layoutX="-2.0" layoutY="1.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;">
+         <children>
+            <ScrollPane fx:id="scroll" layoutX="166.0" layoutY="62.0" prefHeight="324.0" prefWidth="283.0" style="-fx-background-color: #d000ad;" />
+            <TextField fx:id="searchBar" layoutX="166.0" layoutY="21.0" prefHeight="31.0" prefWidth="266.0" promptText="search your task" style="-fx-background-color: #492590;" />
+            <Button layoutX="459.0" layoutY="21.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: #c90000;" text="Search" textFill="#fdfbff" />
+            <Button layoutX="458.0" layoutY="224.0" mnemonicParsing="false" onAction="#sortDeadline" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #164fab;" text="SortByDeadline" textFill="WHITE" />
+            <Button layoutX="502.0" layoutY="318.0" mnemonicParsing="false" onAction="#back" prefHeight="31.0" prefWidth="64.0" style="-fx-background-color: #ab0404;" text="Back" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
