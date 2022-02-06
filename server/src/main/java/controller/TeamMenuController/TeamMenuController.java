@@ -144,21 +144,22 @@ public class TeamMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
 
-    public static void promoteMember(String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
-            if (DatabaseHandler.doesUsernameExist(username)) {
-                if (DatabaseHandler.isUserMember(username))
-                    if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
-                        MainMenuController.changeRole(username, "leader");
-                    } else
-                        System.out.println("This user is not in your team to promote it");
-                else
-                    System.out.println("you cant promote yourself!");
-            } else
-                System.out.println("no user with this username exists");
-        } else
-            System.out.println("You do not have the permission to do this action!");
-    }
+    //TODO what the hell is this
+//    public static void promoteMember(String username) throws SQLException {
+//        if (LoginController.getActiveUser().getRole().equals("leader")) {
+//            if (DatabaseHandler.doesUsernameExist(username)) {
+//                if (DatabaseHandler.isUserMember(username))
+//                    if (DatabaseHandler.isUserInTeam(username, TeamMenuController.getTeam().getName())) {
+//                        MainMenuController.changeRole(username, "leader");
+//                    } else
+//                        System.out.println("This user is not in your team to promote it");
+//                else
+//                    System.out.println("you cant promote yourself!");
+//            } else
+//                System.out.println("no user with this username exists");
+//        } else
+//            System.out.println("You do not have the permission to do this action!");
+//    }
 
     //we use task title for assigning instead task id
     public static void assignMemberToTask(String taskTitle, String username) throws SQLException {

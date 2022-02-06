@@ -1,8 +1,6 @@
 package view;
 
 import appController.AppController;
-import controller.MainMenuController;
-import controller.TeamMenuController.ScoreBoardController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -23,7 +21,8 @@ public class NewRoleGraphic {
     public void next(ActionEvent actionEvent) throws SQLException, IOException {
         String choice = (String) choiceBox.getValue();
         AppController.getOutputStream().writeUTF("changeRole1 " + choice + " " + User.getToken());
-        String result = MainMenuController.changeRole(ScoreBoardController.usernameToRemove, choice);
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
         alert.setText(result);
         if (result.equals("now enter a username to replace with this leader in team")) {
             sceneController.switchScene(MenusFxml.NEW_LEADER.getLabel());

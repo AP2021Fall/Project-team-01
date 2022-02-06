@@ -3,6 +3,7 @@ import controller.LoginController;
 import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import controller.ProfileMenuController.ProfileMenuController;
+import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
 import models.DatabaseHandler;
 
@@ -82,6 +83,17 @@ public class Server {
         if (command[0].equals("changeRole")) {
             return MainMenuController.changeRoleToMember(command[1], command[2]);
         }
+        if (command[0].equals("changeRole1")) {
+            MainMenuController.changeRole(ScoreBoardController.usernameToRemove.get(command[2]), command[1], command[2]);
+        }
+        if (command[0].equals("acceptTeams")) {
+            MainMenuController.acceptTeams(MainMenuController.pendingTeam.split("      "));
+            return "done";
+        }
+        if (command[0].equals("rejectTeams")) {
+            MainMenuController.rejectTeams(MainMenuController.pendingTeam.split("      "));
+        }
+
         return " ";
     }
 }
