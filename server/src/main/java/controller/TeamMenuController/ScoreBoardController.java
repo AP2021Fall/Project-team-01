@@ -4,10 +4,20 @@ import models.DatabaseHandler;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScoreBoardController {
+    private static HashMap<String, String> usernameToRemove = new HashMap<>();
 
-    public static String usernameToRemove;
+    public static HashMap<String, String> getUsernameToRemove() {
+        return usernameToRemove;
+    }
+
+    public static void setUsernameToRemove(HashMap<String, String> usernameToRemove) {
+        ScoreBoardController.usernameToRemove = usernameToRemove;
+    }
+
+    //    public static String usernameToRemove;
     public static void showScoreboard() throws SQLException {
         ArrayList<Integer>tasksId = DatabaseHandler.getAllTasks();
         for ( Integer list : tasksId) {

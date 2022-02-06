@@ -1,5 +1,8 @@
 package view.TeamMenu;
 
+import appController.AppController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import controller.LoginController;
 import controller.TasksPageController;
 import controller.TeamMenuController.TeamMenuController;
@@ -15,11 +18,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.DatabaseHandler;
+import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,25 +50,24 @@ public class RoadMapMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             showTasksInfo();
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
-            listViewTasks.setItems(items);
+            listViewTasks.setItems(getItems());
             listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = listViewTasks.getSelectionModel().getSelectedItem();
                     try {
-                        TasksPageController.setTaskIdAndTaskTitle(DatabaseHandler.getTaskIdByTaskTitle(taskName, DatabaseHandler.getTeamIdByTeamName(teamName)) + " " + taskName);
-                    } catch (SQLException e) {
+                        AppController.getOutputStream().writeUTF("SetTaskIdAndTaskTitle " + taskName + " " + User.getToken());
+                        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+                            sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                            return;
+                        }
+                    } catch (IOException e) {
                         e.printStackTrace();
-                    }
-                    if (LoginController.getActiveUser().getRole().equals("leader")) {
-                        sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
-                        return;
                     }
                     sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                 }
             });
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -96,5 +103,16 @@ public class RoadMapMenuGraphic implements Initializable {
                 new PieChart.Data("InProgress", DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size()),
                 new PieChart.Data("\nFailed", DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size()));
         TasksChart.setData(pieChartData);
+    }
+
+    public ObservableList<String> getItems () throws IOException {
+        AppController.getOutputStream().writeUTF("GetTasksTitleByTeamName " + User.getToken());
+        AppController.getOutputStream().flush();
+        String json = AppController.getInputStream().readUTF();
+        ArrayList<String> taskTitles = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType());
+        ObservableList<String> items = FXCollections.observableArrayList (taskTitles);
+        return items;
     }
 }
