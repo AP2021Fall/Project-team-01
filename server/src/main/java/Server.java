@@ -61,6 +61,8 @@ public class Server {
             return ProfileMenuController.changeUsername(command[1], command[2]);
         }if (command[0].equals("ShowNotifications")){
             return ProfileMenuController.showNotifications(command[1]).toString();
+        }if (command[0].equals("ShowMyProfile")){
+            return ProfileMenuController.showMyProfile(command[1]);
         }
         return " ";
     }

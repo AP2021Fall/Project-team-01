@@ -58,7 +58,8 @@ public class ProfileMenuController {
                 "\nscore: " + user.getPoint());
     }
 
-    public static String showMyProfile(String username) throws SQLException {
+    public static String showMyProfile(String token) throws SQLException {
+        String username = User.getLoginUsers().get(token).getUsername();
         String email = DatabaseHandler.getEmailByUsername(username);
         String role = DatabaseHandler.getUserRole(username);
         int point = DatabaseHandler.getPointsOfUser(username);

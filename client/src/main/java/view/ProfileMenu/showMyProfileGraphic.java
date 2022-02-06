@@ -1,5 +1,6 @@
 package view.ProfileMenu;
 
+import appController.AppController;
 import controller.LoginController;
 import controller.ProfileMenuController.ProfileMenuController;
 import javafx.embed.swing.SwingFXUtils;
@@ -10,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -27,8 +29,15 @@ public class showMyProfileGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textMyProfile.setText(ProfileMenuController.showMyProfile());
-        String username = LoginController.getActiveUser().getUsername();
+        try {
+            AppController.getOutputStream().writeUTF("ShowMyProfile " + User.getToken());
+            AppController.getOutputStream().flush();
+            String result = AppController.getInputStream().readUTF();
+            textMyProfile.setText(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String username = User.getActiveUsername();
         String path = "D:\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png";
         File file = new File(path);
         if (file.exists()){
@@ -83,7 +92,7 @@ public class showMyProfileGraphic implements Initializable {
     }
 
     public static void saveToFile(Image image) {
-        String username = LoginController.getActiveUser().getUsername();
+        String username = User.getActiveUsername();
         File outputFile = new File("D:\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png");
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
         try {
