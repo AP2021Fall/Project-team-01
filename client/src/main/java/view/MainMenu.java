@@ -2,7 +2,6 @@ package view;
 
 import controller.MainMenuController;
 import controller.TeamMenuController.TeamSelectionController;
-import view.ProfileMenu.ProfileMenu;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;

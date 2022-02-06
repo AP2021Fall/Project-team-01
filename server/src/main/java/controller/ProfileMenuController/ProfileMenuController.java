@@ -39,16 +39,16 @@ public class ProfileMenuController {
         else {
             DatabaseHandler.changeUsername(activeUser.getUsername(), newUsername);
             activeUser.setUsername(newUsername);
-                return "username successfully changed";
+            return "username successfully changed";
         }
     }
 
-    public static ArrayList<String> showTeams() throws SQLException {
-        return (DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
+    public static ArrayList<String> showTeams(String token) throws SQLException {
+        return (DatabaseHandler.getUserTeams(User.getLoginUsers().get(token).getUsername()));
     }
 
     public static String showTeam(String teamName) throws SQLException {
-        return (teamName + ":" +"\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName)+"\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
+        return (teamName + ":" + "\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName) + "\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
 

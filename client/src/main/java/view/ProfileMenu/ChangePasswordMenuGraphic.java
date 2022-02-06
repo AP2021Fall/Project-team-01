@@ -1,7 +1,6 @@
 package view.ProfileMenu;
 
 import appController.AppController;
-import controller.ProfileMenuController.ChangePasswordMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -43,7 +42,6 @@ public class ChangePasswordMenuGraphic {
         AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + " " + newPass + " " + User.getToken());
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
-//        String result = ChangePasswordMenuController.changePassword(oldPass, newPass);
         switch (result) {
             case "login":
             case "password changed successfully":

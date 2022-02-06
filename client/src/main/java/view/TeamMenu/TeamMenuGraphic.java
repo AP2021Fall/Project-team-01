@@ -62,6 +62,7 @@ public class TeamMenuGraphic implements Initializable {
     }
 
     public void search(ActionEvent actionEvent) throws SQLException {
+
         listViewTeams.getItems().clear();
         listViewTeams.getItems().addAll(searchList(searchBar.getText(), items));
     }

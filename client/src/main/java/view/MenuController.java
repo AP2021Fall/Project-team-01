@@ -1,7 +1,5 @@
 package view;
 
-import view.ProfileMenu.ChangePasswordMenu;
-import view.ProfileMenu.ProfileMenu;
 import view.TeamMenu.*;
 
 import java.sql.SQLException;

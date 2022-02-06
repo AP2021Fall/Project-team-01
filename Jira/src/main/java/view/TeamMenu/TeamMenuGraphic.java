@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TeamMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(TeamSelectionController.showTeams());
     public SceneController sceneController = new SceneController();
     public ListView<String> listViewTeams;
     public TextField searchBar;
@@ -63,7 +62,7 @@ public class TeamMenuGraphic implements Initializable {
 
     public void search(ActionEvent actionEvent) throws SQLException {
         listViewTeams.getItems().clear();
-        listViewTeams.getItems().addAll(searchList(searchBar.getText(), items));
+        listViewTeams.getItems().addAll(searchList(searchBar.getText(), FXCollections.observableArrayList(TeamSelectionController.showTeams())));
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {

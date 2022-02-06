@@ -1,7 +1,6 @@
 package view.ProfileMenu;
 
 import appController.AppController;
-import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -11,7 +10,6 @@ import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class showNotificationsGraphic implements Initializable {
