@@ -2,9 +2,16 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
     private static ArrayList<User> allUsers = new ArrayList<>();
+
+    public static HashMap<String, User> getLoginUsers() {
+        return loginUsers;
+    }
+
+    private static HashMap<String, User> loginUsers = new HashMap<>();
     private static ArrayList<String> allEmails = new ArrayList<>();
     private ArrayList<Team> teamsOfUser;
     private ArrayList<String> notifications;

@@ -1,12 +1,12 @@
 package view;
 
-import controller.LoginController;
+import appController.AppController;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginMenuGraphic {
@@ -15,11 +15,13 @@ public class LoginMenuGraphic {
     public PasswordField password;
     public Label alert;
 
-    public void login(MouseEvent mouseEvent) throws SQLException {
+    public void login(MouseEvent mouseEvent) throws SQLException, IOException {
         if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-            String result = LoginController.loginUser(username.getText(), password.getText());
+            AppController.getOutputStream().writeUTF("login " + username.getText() + " " + password.getText());
+            AppController.getOutputStream().flush();
+            String result = AppController.getInputStream().readUTF();
             if (result.equals("user logged in successfully!")) {
-                switch (LoginController.getActiveUser().getRole()) {
+                switch (getRole(username.getText())) {
                     case "member":
 
                     case "leader":
@@ -38,6 +40,12 @@ public class LoginMenuGraphic {
         }
         alert.setText("please fill out all fields");
 
+    }
+
+    private String getRole(String username) throws IOException {
+        AppController.getOutputStream().writeUTF("role " + username);
+        AppController.getOutputStream().flush();
+        return AppController.getInputStream().readUTF();
     }
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
