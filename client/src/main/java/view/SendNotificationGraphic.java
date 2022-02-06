@@ -16,26 +16,18 @@ public class SendNotificationGraphic {
         String notifications = notification.getText();
         if (notifications.isEmpty())
             return;
-        AppController.getOutputStream().writeUTF("choice " + User.getToken());
-        AppController.getOutputStream().flush();
-        String choice = AppController.getInputStream().readUTF();
+        String choice = AppController.getResult("choice " + User.getToken());
         switch (choice) {
             case "1" :
-                AppController.getOutputStream().writeUTF("sendToUser " + notifications + " " + User.getToken());
-                AppController.getOutputStream().flush();
-                AppController.getInputStream().read();
+                AppController.getResult("sendToUser " + notifications + " " + User.getToken());
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             case "2":
-                AppController.getOutputStream().writeUTF("sendToTeam " + notifications + " " + User.getToken());
-                AppController.getOutputStream().flush();
-                AppController.getInputStream().read();
+                AppController.getResult("sendToTeam " + notifications + " " + User.getToken());
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             case "3":
-                AppController.getOutputStream().writeUTF("sendToAll " + notifications);
-                AppController.getOutputStream().flush();
-                AppController.getInputStream().read();
+                AppController.getResult("sendToAll " + notifications);
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             default:
@@ -44,10 +36,8 @@ public class SendNotificationGraphic {
     }
 
     public void goToMainMenu(ActionEvent actionEvent) throws IOException {
-        AppController.getOutputStream().writeUTF("role " + User.getActiveUsername());
-        AppController.getOutputStream().flush();
-        String role = AppController.getInputStream().readUTF();
-        if (LoginController.getActiveUser().getRole().equals("leader"))
+        String role = AppController.getResult("role " + User.getActiveUsername());
+        if (role.equals("leader"))
             sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
         else
             sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());

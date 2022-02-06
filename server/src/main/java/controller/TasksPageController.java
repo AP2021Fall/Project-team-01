@@ -15,8 +15,8 @@ public class TasksPageController {
         return taskIdAndTaskTitle;
     }
 
-    public static int getTaskId() {
-        String[] strings = getTaskIdAndTaskTitle().split(" ");
+    public static int getTaskId(String token){
+        String[] strings = getTaskIdAndTaskTitle().get(token).split(" ");
         return Integer.parseInt(strings[0]);
     }
 

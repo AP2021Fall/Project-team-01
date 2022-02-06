@@ -2,8 +2,6 @@ package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
