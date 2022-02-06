@@ -1,8 +1,6 @@
 package view;
 
 import appController.AppController;
-import controller.LoginController;
-import controller.MainMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import models.User;
@@ -29,11 +27,15 @@ public class SendNotificationGraphic {
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             case "2":
-                MainMenuController.sendNotificationToTeam(notifications, MainMenuController.team);
+                AppController.getOutputStream().writeUTF("sendToTeam " + notifications + " " + User.getToken());
+                AppController.getOutputStream().flush();
+                AppController.getInputStream().read();
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             case "3":
-                MainMenuController.sendNotificationToAll(notifications);
+                AppController.getOutputStream().writeUTF("sendToAll " + notifications);
+                AppController.getOutputStream().flush();
+                AppController.getInputStream().read();
                 sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                 break;
             default:
@@ -41,7 +43,10 @@ public class SendNotificationGraphic {
         }
     }
 
-    public void goToMainMenu(ActionEvent actionEvent) {
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        AppController.getOutputStream().writeUTF("role " + User.getActiveUsername());
+        AppController.getOutputStream().flush();
+        String role = AppController.getInputStream().readUTF();
         if (LoginController.getActiveUser().getRole().equals("leader"))
             sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
         else

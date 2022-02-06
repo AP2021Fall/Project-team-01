@@ -11,8 +11,8 @@ import java.util.HashMap;
 public class MainMenuController {
 
     public static HashMap<String, String> choice = new HashMap<>();
-    public static String team;
-    public static HashMap<String, String> username;
+    public static HashMap<String, String> team = new HashMap<>();
+    public static HashMap<String, String> username = new HashMap<>();
     public static String pendingTeam;
     private static HashMap<String, String> changeRoleUsername = new HashMap<>();
 
@@ -65,12 +65,12 @@ public class MainMenuController {
 
     }
 
-    public static void sendNotificationToTeam(String notification, String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader") ||
-                LoginController.getActiveUser().getRole().equals("admin")) {
-            if (DatabaseHandler.doesTeamExistForUser(teamName, LoginController.getActiveUser().getUsername())
-                    || LoginController.getActiveUser().getRole().equals("admin")) {
-                DatabaseHandler.sendNotificationToTeam(LoginController.getActiveUser().getUsername() + ": " + notification, teamName);
+    public static void sendNotificationToTeam(String notification, String teamName, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader") ||
+                User.getLoginUsers().get(token).getRole().equals("admin")) {
+            if (DatabaseHandler.doesTeamExistForUser(teamName, User.getLoginUsers().get(token).getUsername())
+                    || User.getLoginUsers().get(token).getRole().equals("admin")) {
+                DatabaseHandler.sendNotificationToTeam(User.getLoginUsers().get(token).getUsername() + ": " + notification, teamName);
                 System.out.println("notification sent successfully");
             } else {
                 System.out.println("No team exists with this name !");
@@ -80,10 +80,7 @@ public class MainMenuController {
     }
 
     public static void sendNotificationToAll(String notification) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
-            DatabaseHandler.sendNotificationToAll(LoginController.getActiveUser().getUsername() + ": " + notification);
-            System.out.println("notification sent");
-        }
+        DatabaseHandler.sendNotificationToAll("admin : " + notification);
     }
 
     public static void showProfile(String username) throws SQLException {

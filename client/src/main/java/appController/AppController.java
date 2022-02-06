@@ -26,4 +26,10 @@ public class AppController {
         return outputStream;
     }
 
+    public static String getResult(String command) throws IOException {
+        outputStream.writeUTF(command);
+        outputStream.flush();
+        return inputStream.readUTF();
+    }
+
 }

@@ -103,6 +103,15 @@ public class Server {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToUser(input.substring(11, i),MainMenuController.username.get(input.substring(i+1)),input.substring(i+1));
         }
+        if (command[0].equals("sendToTeam")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i+1)), input.substring(i+1));
+        }
+        if (command[0].equals("sendToAll")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToAll(input.substring(10));
+        }
+
 
         return " ";
     }
