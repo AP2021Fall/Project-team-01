@@ -1,13 +1,15 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,7 +20,11 @@ public class SelectedTeamMenuGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        welcome.setText("Team: " + TeamMenuController.getTeam().getName());
+        try {
+            welcome.setText("Team: " + AppController.getResult("CurrentTeamName " + User.getToken()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToRoadMap(ActionEvent actionEvent) {
@@ -29,8 +35,8 @@ public class SelectedTeamMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
     }
 
-    public void goToBoardMenu(ActionEvent actionEvent) {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
+    public void goToBoardMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
             sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
             return;
         }

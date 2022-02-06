@@ -1,28 +1,28 @@
 package view.TeamMenu;
 
-import controller.TeamMenuController.ChatroomController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import models.DatabaseHandler;
 import javafx.scene.paint.Color;
-import java.awt.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import models.User;
+import view.MenusFxml;
+import view.SceneController;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.scene.text.Font;
-import javafx.geometry.Pos;
-import view.MenusFxml;
-import view.SceneController;
 
 public class ChatroomGraphic implements Initializable {
 
@@ -31,10 +31,10 @@ public class ChatroomGraphic implements Initializable {
     public ScrollPane scrollPane;
     public SceneController sceneController = new SceneController();
 
-    public void sendMessage() throws SQLException {
-        ChatroomController.sendMessage(input_String.getText());
+    public void sendMessage() throws SQLException, IOException {
+        AppController.getResult("SendMessage " + input_String.getText() + User.getToken());
         chatShow.getChildren().clear();
-        ArrayList<String> chats = DatabaseHandler.showChatroom(TeamMenuController.getTeam().getId());
+        ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
         for (String str : chats){
             Text text = new Text(str);
             text.setFill(Color.WHITE);
@@ -56,7 +56,7 @@ public class ChatroomGraphic implements Initializable {
         scrollPane.setContent(chatShow);
         chatShow.setPrefWidth(463);
         try {
-            ArrayList<String> chats = DatabaseHandler.showChatroom(TeamMenuController.getTeam().getId());
+            ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
             for (String str :chats) {
                 Text text = new Text(str);
                 text.setFill(Color.WHITE);
@@ -67,7 +67,7 @@ public class ChatroomGraphic implements Initializable {
             chats.add("\n");
             chats.add("\n");
             chatShow.setAlignment(Pos.TOP_LEFT);
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

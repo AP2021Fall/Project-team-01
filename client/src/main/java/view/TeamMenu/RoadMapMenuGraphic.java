@@ -3,9 +3,6 @@ package view.TeamMenu;
 import appController.AppController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import controller.LoginController;
-import controller.TasksPageController;
-import controller.TeamMenuController.TeamMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +21,6 @@ import view.MenusFxml;
 import view.SceneController;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,28 +31,23 @@ import java.util.stream.Collectors;
 
 public class RoadMapMenuGraphic implements Initializable {
     public AnchorPane anchorPane;
-    public String teamName = TeamMenuController.getTeam().getName();
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
     public ListView<String> listViewTasks;
     public TextField searchBar;
     public Label TasksInfo;
     public PieChart TasksChart;
     public SceneController sceneController = new SceneController();
 
-    public RoadMapMenuGraphic() throws SQLException {
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             showTasksInfo();
-            listViewTasks.setItems(getItems());
+            listViewTasks.setItems(getTaskTitles());
             listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = listViewTasks.getSelectionModel().getSelectedItem();
                     try {
-                        AppController.getOutputStream().writeUTF("SetTaskIdAndTaskTitle " + taskName + " " + User.getToken());
+                        String result = AppController.getResult("SetTaskIdAndTaskTitle " + taskName + " " + User.getToken());
                         if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
                             sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
                             return;
@@ -77,9 +68,9 @@ public class RoadMapMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
-    public void search(ActionEvent actionEvent) {
+    public void search(ActionEvent actionEvent) throws IOException {
         listViewTasks.getItems().clear();
-        listViewTasks.getItems().addAll(searchList(searchBar.getText(), items));
+        listViewTasks.getItems().addAll(searchList(searchBar.getText(), getTaskTitles()));
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
@@ -94,7 +85,8 @@ public class RoadMapMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 
-    public void showTasksInfo() throws SQLException {
+    public void showTasksInfo() throws SQLException, IOException {
+        String teamName = AppController.getResult("CurrentTeamName");
         TasksInfo.setText("Total Tasks: " + DatabaseHandler.getTasksTitleByTeamName(teamName).size() +
                 "\nDone Tasks: " + DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size() +
                 "\nIn Progress Tasks: " + DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size() +
@@ -105,10 +97,8 @@ public class RoadMapMenuGraphic implements Initializable {
         TasksChart.setData(pieChartData);
     }
 
-    public ObservableList<String> getItems () throws IOException {
-        AppController.getOutputStream().writeUTF("GetTasksTitleByTeamName " + User.getToken());
-        AppController.getOutputStream().flush();
-        String json = AppController.getInputStream().readUTF();
+    public ObservableList<String> getTaskTitles() throws IOException {
+        String json = AppController.getResult("GetTasksTitleByTeamName ");
         ArrayList<String> taskTitles = new Gson().fromJson(json,
                 new TypeToken<List<String>>() {
                 }.getType());

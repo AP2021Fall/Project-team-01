@@ -1,9 +1,14 @@
 package appController;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppController {
     private static DataInputStream inputStream;
@@ -18,6 +23,7 @@ public class AppController {
             e.printStackTrace();
         }
     }
+
     public static DataInputStream getInputStream() {
         return inputStream;
     }
@@ -30,6 +36,15 @@ public class AppController {
         outputStream.writeUTF(command);
         outputStream.flush();
         return inputStream.readUTF();
+    }
+
+    public static ArrayList<String> getArraylistResult(String command) throws IOException {
+        outputStream.writeUTF(command);
+        outputStream.flush();
+        String json = inputStream.readUTF();
+        return new Gson().fromJson(json, new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType()));
     }
 
 }

@@ -1,7 +1,6 @@
 package controller.TeamMenuController;
 
 import controller.LoginController;
-import controller.MainMenuController;
 import models.DatabaseHandler;
 import models.Team;
 import view.Regex;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TeamMenuController {
-    private static HashMap<String , Team> currentTeam = new HashMap<>();
+    private static HashMap<String, Team> currentTeam = new HashMap<>();
 
     public static HashMap<String, Team> getCurrentTeam() {
         return currentTeam;
@@ -47,8 +46,7 @@ public class TeamMenuController {
                     if (isDeadlineAndCreateValid(creationTime, deadline)) {
                         DatabaseHandler.createTask(taskTitle, creationTime, deadline, teamId);
                         return ("task created successfully");
-                    }
-                    else
+                    } else
                         return "invalid deadline or start date";
                 }
             } else
@@ -80,9 +78,9 @@ public class TeamMenuController {
         return true;
     }
 
-
-    public static ArrayList<String> showMembersLeader() throws SQLException {
-        return DatabaseHandler.getMembersByTeamName(TeamMenuController.getTeam().getName());
+    //show members and leader
+    public static ArrayList<String> showMembersLeader(String token) throws SQLException {
+        return DatabaseHandler.getMembersByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
     }
 
     public static void addMemberToTeam(String name) throws SQLException {

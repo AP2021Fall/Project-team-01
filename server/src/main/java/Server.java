@@ -4,6 +4,7 @@ import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
+import controller.TeamMenuController.ChatroomController;
 import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
 import controller.TeamMenuController.TeamSelectionController;
@@ -82,7 +83,7 @@ public class Server {
             TeamSelectionController.enterTeam(command[1], command[2]);
             return " ";
         }if (command[0].equals("ShowMembersAndLeader")) {
-
+            return new Gson().toJson(TeamMenuController.showMembersLeader(command[1]));
         }if (command[0].equals("GetTasksTitleByTeamName")) {
             return new Gson().toJson(DatabaseHandler.getTasksTitleByTeamName(TeamMenuController.getCurrentTeam().get(command[1]).getName()));
         }if (command[0].equals("SetTaskIdAndTaskTitle")) {
@@ -90,7 +91,7 @@ public class Server {
             String token = command [2];
             int currentTeamId = DatabaseHandler.getTeamIdByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
             TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId)  + " " + taskName);
-            return " ";
+            return "";
         }
         if (command[0].equals("changeRole1")) {
             MainMenuController.changeRole(ScoreBoardController.getUsernameToRemove().get(command[2]), command[1], command[2]);
@@ -119,6 +120,25 @@ public class Server {
         if (command[0].equals("sendToAll")) {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToAll(input.substring(10));
+        }
+        if (command[0].equals("CurrentTeamName")){
+            return TeamMenuController.getCurrentTeam().get(command[1]).getName();
+        }
+        if (command[0].equals("SelectUsernameToRemove")){
+            return ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
+        }
+        if (command[0].equals("SendMessage")){
+            ChatroomController.sendMessage(command[1], command[2]);
+            return "";
+        }
+        if (command[0].equals("ShowChatroom")){
+            return new Gson().toJson(DatabaseHandler.showChatroom(TeamMenuController.getCurrentTeam().get(command[1]).getId()));
+        }
+        if (command[0].equals("ShowProfile")){
+            return ProfileMenuController.showMyProfile();
+        }
+        if (command[0].equals("UsernameToRemove")){
+            return ScoreBoardController.getUsernameToRemove().get(command[1]);
         }
 
 

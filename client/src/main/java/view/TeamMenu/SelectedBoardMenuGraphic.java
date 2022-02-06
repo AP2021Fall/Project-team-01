@@ -7,8 +7,6 @@ import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

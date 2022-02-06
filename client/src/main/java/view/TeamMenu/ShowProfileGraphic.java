@@ -1,8 +1,6 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.ProfileMenuController.ProfileMenuController;
-import controller.TeamMenuController.ScoreBoardController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -14,7 +12,6 @@ import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ShowProfileGraphic implements Initializable {
@@ -33,8 +30,9 @@ public class ShowProfileGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textMyProfile.setText(ProfileMenuController.showMyProfile(ScoreBoardController.usernameToRemove));
-        } catch (SQLException e) {
+            String usernameToRemove = AppController.getResult("UsernameToRemove " + User.getToken());
+            textMyProfile.setText(AppController.getResult("ShowProfile " + usernameToRemove));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

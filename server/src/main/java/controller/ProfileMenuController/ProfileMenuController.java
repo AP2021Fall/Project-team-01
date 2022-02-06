@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class ProfileMenuController {
 
     public static String changePassword(String oldPassword, String newPassword) throws SQLException {
-
         if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
             return "wrong old password";
         } else if (oldPassword.equals(newPassword)) {
@@ -51,8 +50,14 @@ public class ProfileMenuController {
         return (teamName + ":" + "\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName) + "\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
-    public static String showMyProfile(String token) throws SQLException {
-        String username = User.getLoginUsers().get(token).getUsername();
+    public static String showMyProfile() {
+        User user = User.getLoginUsers().get(token);
+        return ("username: " + user.getUsername() + "\nemail address: " + user.getEmail() + "\nrole: " + user.getRole() +
+                "\nscore: " + user.getPoint());
+    }
+
+    public static String showMyProfile(String username) throws SQLException {
+//        String username = User.getLoginUsers().get(token).getUsername();
         String email = DatabaseHandler.getEmailByUsername(username);
         String role = DatabaseHandler.getUserRole(username);
         int point = DatabaseHandler.getPointsOfUser(username);
