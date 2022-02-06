@@ -1,12 +1,15 @@
 package view.ProfileMenu;
 
+import appController.AppController;
 import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -38,8 +41,11 @@ public class showNotificationsGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textNotifications.setText(ProfileMenuController.showNotifications().toString());
-        } catch (SQLException e) {
+            AppController.getOutputStream().writeUTF("ShowNotifications " + User.getToken());
+            AppController.getOutputStream().flush();
+            String result = AppController.getInputStream().readUTF();
+            textNotifications.setText(result);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

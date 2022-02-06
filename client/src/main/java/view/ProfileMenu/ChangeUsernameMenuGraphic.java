@@ -31,11 +31,9 @@ public class ChangeUsernameMenuGraphic {
             alert.setText("please fill out field");
             return;
         }
-
-        AppController.getOutputStream().writeUTF("ChangeUsername " + newUsername + User.getToken());
+        AppController.getOutputStream().writeUTF("ChangeUsername " + newUsername + " " + User.getToken());
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
-//        String result = ProfileMenuController.changeUsername(newUsername.getText());
         if (result.equals("username successfully changed")) {
             sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
             return;

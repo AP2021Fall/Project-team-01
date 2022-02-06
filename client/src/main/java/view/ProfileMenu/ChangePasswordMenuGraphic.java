@@ -40,8 +40,7 @@ public class ChangePasswordMenuGraphic {
             alert.setText("please fill out all fields");
             return;
         }
-
-        AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + newPass + User.getToken());
+        AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + " " + newPass + " " + User.getToken());
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
 //        String result = ChangePasswordMenuController.changePassword(oldPass, newPass);

@@ -2,6 +2,7 @@ package controller.ProfileMenuController;
 
 import controller.LoginController;
 import models.DatabaseHandler;
+import models.User;
 import view.LoginMenu;
 import view.MenuController;
 import view.Menus;
@@ -19,8 +20,9 @@ public class ChangePasswordMenuController {
         return counter;
     }
 
-    public static String changePassword(String oldPassword, String newPassword) throws SQLException {
-        if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
+    public static String changePassword(String oldPassword, String newPassword, String token) throws SQLException {
+        User activeUser = User.getLoginUsers().get(token);
+        if (!activeUser.getPassword().equals(oldPassword)) {
             counter++;
             if (counter==2){
                 counter = 0;
@@ -32,10 +34,10 @@ public class ChangePasswordMenuController {
         } else if (!Regex.isPasswordStrong(newPassword)) {
             return "Please Choose A strong Password (Containing at least 8 characters including 1 digit and 1 Capital Letter)";
         } else {
-            DatabaseHandler.changePassword(LoginController.getActiveUser().getUsername(), newPassword);
-            LoginController.getActiveUser().setPassword(newPassword);
-            MenuController.currentMenu = Menus.PROFILE_MENU;
-            ProfileMenu.showProfileMenu();
+            DatabaseHandler.changePassword(activeUser.getUsername(), newPassword);
+            activeUser.setPassword(newPassword);
+//            MenuController.currentMenu = Menus.PROFILE_MENU;
+//            ProfileMenu.showProfileMenu();
             return "password changed successfully";
         }
     }

@@ -26,18 +26,19 @@ public class ProfileMenuController {
         }
     }
 
-    public static String changeUsername(String newUsername) throws SQLException {
+    public static String changeUsername(String newUsername, String token) throws SQLException {
+        User activeUser = LoginController.getActiveUser();
         if (newUsername.length() < 4)
             return "Your new username must include at least 4 characters!";
         else if (DatabaseHandler.doesUsernameExist(newUsername))
             return "username already taken!";
         else if (!Regex.getCommandMatcher(newUsername, "([\\w\\d_]{4,})").matches())
             return "New username contains Special Characters! Please remove them and try again";
-        else if (LoginController.getActiveUser().getUsername().equals(newUsername))
+        else if (activeUser.getUsername().equals(newUsername))
             return "you already have this username !";
         else {
-            DatabaseHandler.changeUsername(LoginController.getActiveUser().getUsername(), newUsername);
-            LoginController.getActiveUser().setUsername(newUsername);
+            DatabaseHandler.changeUsername(activeUser.getUsername(), newUsername);
+            activeUser.setUsername(newUsername);
                 return "username successfully changed";
         }
     }
@@ -75,7 +76,8 @@ public class ProfileMenuController {
         return stringLogs.toString();
     }
 
-    public static ArrayList<String> showNotifications() throws SQLException {
-        return (DatabaseHandler.getNotifications(LoginController.getActiveUser().getUsername()));
+    public static ArrayList<String> showNotifications(String token) throws SQLException {
+        String username = User.getLoginUsers().get(token).getUsername();
+        return (DatabaseHandler.getNotifications(username));
     }
 }

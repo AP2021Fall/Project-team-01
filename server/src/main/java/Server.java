@@ -1,5 +1,6 @@
 import controller.LoginController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
+import controller.ProfileMenuController.ProfileMenuController;
 import models.DatabaseHandler;
 
 import java.io.DataInputStream;
@@ -51,7 +52,11 @@ public class Server {
             return DatabaseHandler.getRoleByUsername(command[1]);
         }
         if (command[0].equals("ChangePassword")){
-            return ChangePasswordMenuController.changePassword(command[1], command[2]);
+            return ChangePasswordMenuController.changePassword(command[1], command[2], command[3]);
+        }if (command[0].equals("ChangeUsername")){
+            return ProfileMenuController.changeUsername(command[1], command[2]);
+        }if (command[0].equals("ShowNotifications")){
+            return ProfileMenuController.showNotifications(command[1]).toString();
         }
         return " ";
     }
