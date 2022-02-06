@@ -1,5 +1,6 @@
 package view.ProfileMenu;
 
+import appController.AppController;
 import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
@@ -7,6 +8,7 @@ import javafx.scene.text.Text;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ChangeUsernameMenuGraphic {
@@ -23,12 +25,16 @@ public class ChangeUsernameMenuGraphic {
         sceneController.switchScene(MenusFxml.SHOW_MY_PROFILE.getLabel());
     }
 
-    public void changeUsername(ActionEvent actionEvent) throws SQLException {
+    public void changeUsername(ActionEvent actionEvent) throws SQLException, IOException {
         if (newUsername.getText().isEmpty()) {
             alert.setText("please fill out field");
             return;
         }
-        String result = ProfileMenuController.changeUsername(newUsername.getText());
+
+        AppController.getOutputStream().writeUTF("ChangeUsername " + newUsername);
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
+//        String result = ProfileMenuController.changeUsername(newUsername.getText());
         if (result.equals("username successfully changed")) {
             sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
             return;

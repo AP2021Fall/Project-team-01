@@ -1,5 +1,6 @@
 package view.ProfileMenu;
 
+import appController.AppController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
@@ -8,6 +9,7 @@ import javafx.scene.text.Text;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ChangePasswordMenuGraphic {
@@ -30,14 +32,18 @@ public class ChangePasswordMenuGraphic {
         sceneController.switchScene(MenusFxml.CHANGE_USERNAME_MENU.getLabel());
     }
 
-    public void changePassword(ActionEvent actionEvent) throws SQLException {
+    public void changePassword(ActionEvent actionEvent) throws SQLException, IOException {
         String newPass = newPassword.getText();
         String oldPass = oldPassword.getText();
         if (newPass.isEmpty() || oldPass.isEmpty()) {
             alert.setText("please fill out all fields");
             return;
         }
-        String result = ChangePasswordMenuController.changePassword(oldPass, newPass);
+
+        AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + newPass);
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
+//        String result = ChangePasswordMenuController.changePassword(oldPass, newPass);
         switch (result) {
             case "login":
             case "password changed successfully":
