@@ -78,7 +78,7 @@ public class TeamMenuGraphic implements Initializable {
         }).collect(Collectors.toList());
     }
 
-    public ObservableList<String> getItems (){
+    public ObservableList<String> getItems () throws IOException {
         AppController.getOutputStream().writeUTF("ShowMyTeams " + User.getToken());
         AppController.getOutputStream().flush();
         String json = AppController.getInputStream().readUTF();
