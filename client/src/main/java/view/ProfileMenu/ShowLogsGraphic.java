@@ -1,14 +1,15 @@
 package view.ProfileMenu;
 
-import controller.ProfileMenuController.ProfileMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ShowLogsGraphic implements Initializable {
@@ -42,8 +43,11 @@ public class ShowLogsGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textLogs.setText(ProfileMenuController.showLogs().toString());
-        } catch (SQLException e) {
+            AppController.getOutputStream().writeUTF("ShowLogs " + User.getToken());
+            AppController.getOutputStream().flush();
+            String result = AppController.getInputStream().readUTF();
+            textLogs.setText(result);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -51,13 +51,6 @@ public class ProfileMenuController {
         return (teamName + ":" + "\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName) + "\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
-
-    public static String showMyProfile() {
-        User user = LoginController.getActiveUser();
-        return ("username: " + user.getUsername() + "\nemail address: " + user.getEmail() + "\nrole: " + user.getRole() +
-                "\nscore: " + user.getPoint());
-    }
-
     public static String showMyProfile(String token) throws SQLException {
         String username = User.getLoginUsers().get(token).getUsername();
         String email = DatabaseHandler.getEmailByUsername(username);
@@ -68,9 +61,9 @@ public class ProfileMenuController {
     }
 
 
-    public static String showLogs() throws SQLException {
+    public static String showLogs(String token) throws SQLException {
         ArrayList<LocalDateTime> logs = new ArrayList<>();
-        logs = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());
+        logs = DatabaseHandler.getLogsByUsername(User.getLoginUsers().get(token).getUsername());
         StringBuilder stringLogs = new StringBuilder();
         for (LocalDateTime log : logs)
             stringLogs.append(log).append("\n");

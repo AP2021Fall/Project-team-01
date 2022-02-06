@@ -1,5 +1,8 @@
 package view.TeamMenu;
 
+import appController.AppController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import controller.LoginController;
 import controller.TeamMenuController.TeamSelectionController;
 import javafx.collections.FXCollections;
@@ -10,18 +13,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TeamMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(TeamSelectionController.showTeams());
     public SceneController sceneController = new SceneController();
     public ListView<String> listViewTeams;
     public TextField searchBar;
@@ -32,8 +37,7 @@ public class TeamMenuGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ObservableList<String> items = FXCollections.observableArrayList(TeamSelectionController.showTeams());
-            listViewTeams.setItems(items);
+            listViewTeams.setItems(getItems());
             listViewTeams.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -61,18 +65,27 @@ public class TeamMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
-    public void search(ActionEvent actionEvent) throws SQLException {
-
+    public void search(ActionEvent actionEvent) throws SQLException, IOException {
         listViewTeams.getItems().clear();
-        listViewTeams.getItems().addAll(searchList(searchBar.getText(), items));
+        listViewTeams.getItems().addAll(searchList(searchBar.getText(), getItems()));
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
         List<String> searchWordsArray = Arrays.asList(searchWords.trim());
-        return listOfStrings.stream().filter(input -> { //input = test
-            return searchWordsArray.stream().allMatch(word -> //word = te
+        return listOfStrings.stream().filter(input -> {
+            return searchWordsArray.stream().allMatch(word ->
                     input.contains(word));
         }).collect(Collectors.toList());
+    }
+
+    public ObservableList<String> getItems (){
+        AppController.getOutputStream().writeUTF("ShowMyTeams " + User.getToken());
+        AppController.getOutputStream().flush();
+        String json = AppController.getInputStream().readUTF();
+        ArrayList<String> myTeams = new Gson().fromJson(json,
+                new TypeToken<List<String>>() {
+                }.getType());
+        ObservableList<String> items = FXCollections.observableArrayList (myTeams);
     }
 
 }
