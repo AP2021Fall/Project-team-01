@@ -94,6 +94,7 @@ public class Server {
         }
         if (command[0].equals("changeRole1")) {
             MainMenuController.changeRole(ScoreBoardController.getUsernameToRemove().get(command[2]), command[1], command[2]);
+            return "done";
         }
         if (command[0].equals("acceptTeams")) {
             MainMenuController.acceptTeams(MainMenuController.pendingTeam.split("      "));
@@ -101,9 +102,11 @@ public class Server {
         }
         if (command[0].equals("rejectTeams")) {
             MainMenuController.rejectTeams(MainMenuController.pendingTeam.split("      "));
+            return "done";
         }
         if (command[0].equals("pendingTeam")) {
             MainMenuController.pendingTeam = command[1];
+            return "done";
         }
         if (command[0].equals("choice")) {
             return MainMenuController.choice.get(command[1]);
@@ -111,14 +114,17 @@ public class Server {
         if (command[0].equals("sendToUser")) {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToUser(input.substring(11, i),MainMenuController.username.get(input.substring(i+1)),input.substring(i+1));
+            return "done";
         }
         if (command[0].equals("sendToTeam")) {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i+1)), input.substring(i+1));
+            return "done";
         }
         if (command[0].equals("sendToAll")) {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToAll(input.substring(10));
+            return "done";
         }
         if (command[0].equals("setTeamChoice")) {
             String teamName = command[1];
@@ -126,17 +132,29 @@ public class Server {
             String choice = "2";
             MainMenuController.team.put(token, teamName);
             MainMenuController.choice.put(token, choice);
+            return "done";
         }
         if (command[0].equals("setUserChoice")) {
             MainMenuController.username.put(command[2], command[1]);
             MainMenuController.choice.put(command[2], "1");
+            return "done";
         }
         if (command[0].equals("setChoice")) {
             MainMenuController.choice.put(command[1], "3");
+            return "done";
         }
-
-
-
+        if (command[0].equals("taskIdTaskPage")) {
+            return TasksPageController.getTaskId(command[1]) + "";
+        }
+        if (command[0].equals("editTitle")) {
+            return TasksPageController.editTitle(TasksPageController.getTaskId(command[2]), command[1]);
+        }
+        if (command[0].equals("editDescription")) {
+            TasksPageController.editDescription(TasksPageController.getTaskId(command[2]), command[1]);
+        }
+        if (command[0].equals("editPriority")) {
+            TasksPageController.editPriority(TasksPageController.getTaskId(command[1]), Integer.parseInt((String) newPriorityChoiceBox.getValue()));
+        }
         return " ";
     }
 }

@@ -1,14 +1,16 @@
 package view;
 
-import controller.TasksPageController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.DatabaseHandler;
+import models.User;
 
-import javax.xml.crypto.Data;
+import javax.jws.soap.SOAPBinding;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -32,7 +34,11 @@ public class TaskPageGraphic implements Initializable {
     public ChoiceBox assignUserChoiceBox;
     public Label removeAssignedUserAlert;
     public ChoiceBox removeAssignedUserChoiceBox;
+    private int taskId = Integer.parseInt(AppController.getResult("taskIdTaskPage " + User.getToken()));
     SceneController sceneController = new SceneController();
+
+    public TaskPageGraphic() throws IOException {
+    }
 
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
@@ -40,9 +46,9 @@ public class TaskPageGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int taskId = TasksPageController.getTaskId();
-        String taskTitle = TasksPageController.getTaskTitle();
         try {
+            String task = AppController.getResult("taskIdTaskPage " + User.getToken());
+            int taskId = Integer.parseInt(task);
             if (taskInfoLabel != null) {
                 taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + DatabaseHandler.getTaskTitleByTaskId(taskId) +
                         "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
@@ -53,25 +59,25 @@ public class TaskPageGraphic implements Initializable {
                         "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
             }
             if (currentTitle != null)
-                currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
+                currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(taskId));
             if (currentDescription != null)
-                currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(TasksPageController.getTaskId()));
+                currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(taskId));
             if (assignUserChoiceBox != null) {
-                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
-                assignUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
+                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+                assignUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(taskId))));
             }
             if (currentDeadline != null)
-                currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(TasksPageController.getTaskId()));
+                currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(taskId));
             if (currentPriority != null) {
                 newPriorityChoiceBox.getItems().addAll("1", "2", "3", "4");
-                currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(TasksPageController.getTaskId()));
+                currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(taskId));
             }
             if (removeAssignedUserAlert != null) {
-                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(TasksPageController.getTaskId()).toString());
-                removeAssignedUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(TasksPageController.getTaskId()))));
+                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+                removeAssignedUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(taskId))));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -80,12 +86,12 @@ public class TaskPageGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
     }
 
-    public void submitEditTaskTitle(ActionEvent actionEvent) throws SQLException {
+    public void submitEditTaskTitle(ActionEvent actionEvent) throws SQLException, IOException {
         if (newTitleTextField.getText().isEmpty()){
             editTitleAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editTitle(TasksPageController.getTaskId(), newTitleTextField.getText());
+        String result = AppController.getResult("editTitle " + newTitleTextField.getText() + " " + User.getToken());
         editTitleAlert.setText(result);
     }
 
@@ -93,12 +99,12 @@ public class TaskPageGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.EDIT_TITLE_TASK.getLabel());
     }
 
-    public void submitEditTaskDescription(ActionEvent actionEvent) throws SQLException {
+    public void submitEditTaskDescription(ActionEvent actionEvent) throws SQLException, IOException {
         if (newDescriptionTextField.getText().isEmpty()){
             editDescriptionAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editDescription(TasksPageController.getTaskId(), newDescriptionTextField.getText());
+        String result = AppController.getResult("editDescription " + newDescriptionTextField.getText() + " " + User.getToken());
         editDescriptionAlert.setText(result);
     }
 
@@ -106,12 +112,13 @@ public class TaskPageGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.EDIT_DESCRIPTION_TASK.getLabel());
     }
 
-    public void submitEditTaskPriority(ActionEvent actionEvent) throws SQLException {
+    public void submitEditTaskPriority(ActionEvent actionEvent) throws SQLException, IOException {
         if (((String)newPriorityChoiceBox.getValue()).isEmpty()){
             editPriorityAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editPriority(TasksPageController.getTaskId(), Integer.parseInt((String) newPriorityChoiceBox.getValue()));
+        zasdgsga
+        String result = AppController.getResult("editPriority " + (String) newPriorityChoiceBox.getValue() + " " + User.getToken());
         editPriorityAlert.setText(result);
     }
 
