@@ -7,6 +7,7 @@ public class User {
     private static ArrayList<User> allUsers = new ArrayList<>();
     private static ArrayList<String> allEmails = new ArrayList<>();
     private static String token;
+    private static String activeUser;
     private ArrayList<Team> teamsOfUser;
     private ArrayList<String> notifications;
     private ArrayList<LocalDateTime> loginTimes;
@@ -119,5 +120,13 @@ public class User {
 
     public static void setToken(String token) {
         User.token = token;
+    }
+
+    public static String getActiveUser() {
+        return activeUser;
+    }
+
+    public static void setActiveUser(String activeUser) {
+        User.activeUser = activeUser;
     }
 }

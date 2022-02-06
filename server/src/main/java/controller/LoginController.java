@@ -50,7 +50,7 @@ public class LoginController {
             return "invalid role";
         else {
             DatabaseHandler.createUser(username, password, email, role);
-            return ("user created successfully!");
+            return ("userCreatedSuccessfully");
         }
     }
 }

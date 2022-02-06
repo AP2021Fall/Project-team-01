@@ -1,13 +1,11 @@
 package view;
 
-import controller.LoginController;
+import appController.AppController;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import sun.tools.jar.Main;
 
 
 public class RegisterMenuGraphic {
@@ -30,9 +28,10 @@ public class RegisterMenuGraphic {
             alert.setText("please fill out all fields");
             return;
         }
-        String result = LoginController.createUser(usernameString, password1String,
-                password2String, emailString, roleString);
-        if (result.equals("user created successfully!")) {
+        AppController.getOutputStream().writeUTF("register " + usernameString + " " + password1String + " " + password2String + " " + emailString + " " + roleString);
+        AppController.getOutputStream().flush();
+        String result = AppController.getInputStream().readUTF();
+        if (result.equals("userCreatedSuccessfully")) {
             sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
             return;
         }

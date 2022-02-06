@@ -23,6 +23,7 @@ public class LoginMenuGraphic {
             String[] results = result.split("\\s");
             if (results[0].equals("userLoggedInSuccessfully")) {
                 User.setToken(results[1]);
+                User.setActiveUser(username.getText());
                 switch (getRole(username.getText())) {
                     case "member":
                         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
