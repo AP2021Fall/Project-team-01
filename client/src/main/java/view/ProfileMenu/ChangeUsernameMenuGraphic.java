@@ -1,7 +1,6 @@
 package view.ProfileMenu;
 
 import appController.AppController;
-import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;

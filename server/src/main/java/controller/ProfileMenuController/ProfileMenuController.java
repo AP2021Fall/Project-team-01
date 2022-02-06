@@ -39,23 +39,16 @@ public class ProfileMenuController {
         else {
             DatabaseHandler.changeUsername(activeUser.getUsername(), newUsername);
             activeUser.setUsername(newUsername);
-                return "username successfully changed";
+            return "username successfully changed";
         }
     }
 
-    public static ArrayList<String> showTeams() throws SQLException {
-        return (DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername()));
+    public static ArrayList<String> showTeams(String token) throws SQLException {
+        return (DatabaseHandler.getUserTeams(User.getLoginUsers().get(token).getUsername()));
     }
 
     public static String showTeam(String teamName) throws SQLException {
-        return (teamName + ":" +"\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName)+"\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
-    }
-
-
-    public static String showMyProfile() {
-        User user = LoginController.getActiveUser();
-        return ("username: " + user.getUsername() + "\nemail address: " + user.getEmail() + "\nrole: " + user.getRole() +
-                "\nscore: " + user.getPoint());
+        return (teamName + ":" + "\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName) + "\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
     public static String showMyProfile(String token) throws SQLException {
@@ -68,9 +61,9 @@ public class ProfileMenuController {
     }
 
 
-    public static String showLogs() throws SQLException {
+    public static String showLogs(String token) throws SQLException {
         ArrayList<LocalDateTime> logs = new ArrayList<>();
-        logs = DatabaseHandler.getLogsByUsername(LoginController.getActiveUser().getUsername());
+        logs = DatabaseHandler.getLogsByUsername(User.getLoginUsers().get(token).getUsername());
         StringBuilder stringLogs = new StringBuilder();
         for (LocalDateTime log : logs)
             stringLogs.append(log).append("\n");

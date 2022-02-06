@@ -1,8 +1,6 @@
 package view.ProfileMenu;
 
 import appController.AppController;
-import controller.LoginController;
-import controller.ProfileMenuController.ProfileMenuController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class showMyProfileGraphic implements Initializable {
-    public TextArea textMyProfile ;
+    public TextArea textMyProfile;
     public SceneController sceneController = new SceneController();
     public ImageView profileImage;
 
@@ -40,7 +38,7 @@ public class showMyProfileGraphic implements Initializable {
         String username = User.getActiveUsername();
         String path = "D:\\Project-team-01\\Jira\\src\\main\\resources\\images\\" + username + ".png";
         File file = new File(path);
-        if (file.exists()){
+        if (file.exists()) {
             try {
                 InputStream inputStream = new FileInputStream(path);
                 Image image = new Image(inputStream);

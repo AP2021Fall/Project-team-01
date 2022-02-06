@@ -55,15 +55,20 @@ public class Server {
         if (command[0].equals("register")) {
             return LoginController.createUser(command[1], command[2],
                     command[3], command[4], command[5]);
-        }
-        if (command[0].equals("ChangePassword")){
+        }if (command[0].equals("ShowMyProfile")){
+            return ProfileMenuController.showMyProfile(command[1]);
+        }if (command[0].equals("ShowLogs")){
+            return ProfileMenuController.showLogs(command[1]);
+        }if (command[0].equals("ChangePassword")){
             return ChangePasswordMenuController.changePassword(command[1], command[2], command[3]);
         }if (command[0].equals("ChangeUsername")){
             return ProfileMenuController.changeUsername(command[1], command[2]);
         }if (command[0].equals("ShowNotifications")){
             return ProfileMenuController.showNotifications(command[1]).toString();
-        }if (command[0].equals("ShowMyProfile")){
-            return ProfileMenuController.showMyProfile(command[1]);
+        }if (command[0].equals("ShowMyTeams")){
+            return new Gson().toJson(ProfileMenuController.showTeams(command[1]));
+        }if (command[0].equals("ShowTeam")){
+            return ProfileMenuController.showTeam(command[1]);
         }
         if (command[0].equals("getTasksByUsername")) {
             return  new Gson().toJson(DatabaseHandler.getTasksByUsername(command[1]));

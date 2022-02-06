@@ -1,6 +1,8 @@
 package view.ProfileMenu;
 
-import controller.ProfileMenuController.ProfileMenuController;
+import appController.AppController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -10,12 +12,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class showTeamsMenuGraphic implements Initializable {
@@ -28,8 +32,13 @@ public class showTeamsMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> myTeams = new ArrayList<>();
         try {
-            myTeams = ProfileMenuController.showTeams();
-        } catch (SQLException e) {
+            AppController.getOutputStream().writeUTF("ShowMyTeams " + User.getToken());
+            AppController.getOutputStream().flush();
+            String json = AppController.getInputStream().readUTF();
+            myTeams = new Gson().fromJson(json,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        } catch (IOException e) {
             e.printStackTrace();
         }
         VBox vBox = new VBox();
@@ -39,8 +48,10 @@ public class showTeamsMenuGraphic implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     try {
-                        textArea.setText(ProfileMenuController.showTeam(string));
-                    } catch (SQLException e) {
+                        AppController.getOutputStream().writeUTF("ShowTeam " + string);
+                        AppController.getOutputStream().flush();
+                        textArea.setText(AppController.getInputStream().readUTF());
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

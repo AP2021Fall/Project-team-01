@@ -3,7 +3,6 @@ package models;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -273,10 +272,12 @@ public class DatabaseHandler {
         String sql = Queries.GET_ALL_USERNAMES;
         return getArraylistString(sql);
     }
+
     public static ArrayList<String> getAllUsersSortedByName() throws SQLException {
         String sql = Queries.GET_ALL_USERNAMES_SORTED_BY_NAME;
         return getArraylistString(sql);
     }
+
     public static ArrayList<String> getAllUsersSortedByScore() throws SQLException {
         String sql = Queries.GET_ALL_USERNAMES_SORTED_BY_SCORE;
         return getArraylistString(sql);
@@ -1025,13 +1026,13 @@ public class DatabaseHandler {
         } else {
             sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER, username);
         }
-            ArrayList<String> answer = new ArrayList<>();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-            while (result.next()) {
-                answer.add(result.getInt(1) + " " + result.getString(2));
-            }
-            return answer;
+        ArrayList<String> answer = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            answer.add(result.getInt(1) + " " + result.getString(2));
+        }
+        return answer;
     }
 
     public static int getNumDeadline(int id) throws SQLException {
@@ -1070,6 +1071,7 @@ public class DatabaseHandler {
         }
         return answer;
     }
+
     public static ArrayList<String> sortTaskTitlesByDeadline(String username) throws SQLException {
         String sql;
         if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
@@ -1085,6 +1087,7 @@ public class DatabaseHandler {
         }
         return answer;
     }
+
     public static ArrayList<String> sortTaskTitlesByTaskTitle(String username) throws SQLException {
         String sql;
         if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
@@ -1105,18 +1108,22 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_DESCRIPTION, taskId);
         return getString(sql);
     }
+
     public static String getTaskPriorityByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_PRIORITY, taskId);
         return getString(sql);
     }
+
     public static String getTaskCreationTimeByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_CREATING_DATE_BY_TASK_ID, taskId);
         return getString(sql);
     }
+
     public static String getTaskDeadlineByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_DEADLINE, taskId);
         return getString(sql);
     }
+
     public static ArrayList<String> getTaskCommentsByTaskId(int taskId) throws SQLException {
         String sql = String.format(Queries.GET_COMMENT, taskId);
         Statement statement = connection.createStatement();
