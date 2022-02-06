@@ -1,4 +1,6 @@
 import controller.LoginController;
+import controller.ProfileMenuController.ChangePasswordMenuController;
+import controller.ProfileMenuController.ProfileMenuController;
 import models.DatabaseHandler;
 
 import java.io.DataInputStream;
