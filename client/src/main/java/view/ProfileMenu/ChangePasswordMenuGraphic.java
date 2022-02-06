@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -40,7 +41,7 @@ public class ChangePasswordMenuGraphic {
             return;
         }
 
-        AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + newPass);
+        AppController.getOutputStream().writeUTF("ChangePassword " + oldPass + newPass + User.getToken());
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
 //        String result = ChangePasswordMenuController.changePassword(oldPass, newPass);

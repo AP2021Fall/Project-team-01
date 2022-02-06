@@ -5,6 +5,7 @@ import controller.ProfileMenuController.ProfileMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -31,7 +32,7 @@ public class ChangeUsernameMenuGraphic {
             return;
         }
 
-        AppController.getOutputStream().writeUTF("ChangeUsername " + newUsername);
+        AppController.getOutputStream().writeUTF("ChangeUsername " + newUsername + User.getToken());
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
 //        String result = ProfileMenuController.changeUsername(newUsername.getText());
