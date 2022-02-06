@@ -3,8 +3,6 @@ package view.TeamMenu;
 import appController.AppController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import controller.LoginController;
-import controller.TeamMenuController.TeamSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -44,18 +43,20 @@ public class TeamMenuGraphic implements Initializable {
                     String teamName = listViewTeams.getSelectionModel().getSelectedItem();
                     if (teamName != null) {
                         try {
-                            TeamSelectionController.enterTeam(teamName);
-                            if (LoginController.getActiveUser().getRole().equals("member"))
+                            AppController.getOutputStream().writeUTF("SelectTeam " + teamName + " " + User.getToken());
+                            AppController.getOutputStream().flush();
+                            String result = AppController.getInputStream().readUTF();
+                            if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("member"))
                                 sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
-                            else if (LoginController.getActiveUser().getRole().equals("leader"))
+                            else if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader"))
                                 sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
-                        } catch (SQLException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
             });
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -86,6 +87,7 @@ public class TeamMenuGraphic implements Initializable {
                 new TypeToken<List<String>>() {
                 }.getType());
         ObservableList<String> items = FXCollections.observableArrayList (myTeams);
+        return items;
     }
 
 }

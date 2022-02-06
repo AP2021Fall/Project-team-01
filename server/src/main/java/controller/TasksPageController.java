@@ -6,17 +6,23 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 public class TasksPageController {
-    private static String taskIdAndTaskTitle;
+    private static HashMap<String, String> taskIdAndTaskTitle = new HashMap<>();
 
-    public static String getTaskIdAndTaskTitle() {
+    public static HashMap<String, String> getTaskIdAndTaskTitle() {
         return taskIdAndTaskTitle;
     }
-
-    public static void setTaskIdAndTaskTitle(String taskIdAndTaskTitle) {
-        TasksPageController.taskIdAndTaskTitle = taskIdAndTaskTitle;
-    }
+    //    private static String taskIdAndTaskTitle;
+//
+//    public static String getTaskIdAndTaskTitle() {
+//        return taskIdAndTaskTitle;
+//    }
+//
+//    public static void setTaskIdAndTaskTitle(String taskIdAndTaskTitle) {
+//        TasksPageController.taskIdAndTaskTitle = taskIdAndTaskTitle;
+//    }
     
     public static int getTaskId(){
         String[] strings = getTaskIdAndTaskTitle().split(" ");

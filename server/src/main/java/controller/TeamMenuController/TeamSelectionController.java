@@ -10,20 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamSelectionController {
-    public static void enterTeam(String teamName) throws SQLException {
+    public static void enterTeam(String teamName, String token) throws SQLException {
         Team team = new Team();
         team.setName(teamName);
         team.setId(DatabaseHandler.getTeamIdByTeamName(teamName));
-        TeamMenuController.setTeam(team);
-        MenuController.currentMenu = Menus.TEAM_MENU;
-        TeamMenuController.showTeamMenu();
-
+        TeamMenuController.getCurrentTeam().put(token, team);
     }
 
     public static ArrayList<String> showTeams() throws SQLException {
         ArrayList<String> teamsOfUser = DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername());
         return teamsOfUser;
-
     }
 
 }

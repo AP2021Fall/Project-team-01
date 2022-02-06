@@ -10,26 +10,17 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TeamMenuController {
-    private static Team currentTeam;
+    private static HashMap<String , Team> currentTeam = new HashMap<>();
 
-    public static Team getTeam() {
+    public static HashMap<String, Team> getCurrentTeam() {
         return currentTeam;
     }
 
-    public static void setTeam(Team team) {
-        TeamMenuController.currentTeam = team;
-    }
-
-    public static void showTeamMenu() {
-        System.out.println("Enter Menu");
-        System.out.println("Scoreboard");
-        System.out.println("BoardMenu");
-        System.out.println("Roadmap");
-        System.out.println("ChatRoom");
-        System.out.println("Tasks");
-        System.out.println("back");
+    public static void setCurrentTeam(HashMap<String, Team> currentTeam) {
+        TeamMenuController.currentTeam = currentTeam;
     }
 
     public static void showAllTasksLeader() throws SQLException {

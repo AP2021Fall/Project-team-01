@@ -45,7 +45,7 @@ public class LoginMenuGraphic {
 
     }
 
-    private String getRole(String username) throws IOException {
+    public static String getRole(String username) throws IOException {
         AppController.getOutputStream().writeUTF("role " + username);
         AppController.getOutputStream().flush();
         return AppController.getInputStream().readUTF();
