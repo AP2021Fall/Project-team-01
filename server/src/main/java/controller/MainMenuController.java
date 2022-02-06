@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 public class MainMenuController {
 
-    public static int choice;
+    public static HashMap<String, String> choice = new HashMap<>();
     public static String team;
-    public static String username;
+    public static HashMap<String, String> username;
     public static String pendingTeam;
     private static HashMap<String, String> changeRoleUsername = new HashMap<>();
 
@@ -51,13 +51,13 @@ public class MainMenuController {
         }
     }
 
-    public static void sendNotificationToUser(String notification, String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader") ||
-                LoginController.getActiveUser().getRole().equals("admin")) {
+    public static void sendNotificationToUser(String notification, String username, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("leader") ||
+                User.getLoginUsers().get(token).getRole().equals("admin")) {
             if (!DatabaseHandler.doesUsernameExist(username)) {
                 System.out.println("No user exists with this username !");
             } else {
-                DatabaseHandler.sendNotificationToUser(LoginController.getActiveUser().getUsername() + ": " + notification, username);
+                DatabaseHandler.sendNotificationToUser(User.getLoginUsers().get(token).getUsername() + ": " + notification, username);
                 System.out.println("notification sent successfully");
             }
         } else

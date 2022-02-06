@@ -93,6 +93,16 @@ public class Server {
         if (command[0].equals("rejectTeams")) {
             MainMenuController.rejectTeams(MainMenuController.pendingTeam.split("      "));
         }
+        if (command[0].equals("pendingTeam")) {
+            MainMenuController.pendingTeam = command[1];
+        }
+        if (command[0].equals("choice")) {
+            return MainMenuController.choice.get(command[1]);
+        }
+        if (command[0].equals("sendToUser")) {
+            int i = input.lastIndexOf(' ');
+            MainMenuController.sendNotificationToUser(input.substring(11, i),MainMenuController.username.get(input.substring(i+1)),input.substring(i+1));
+        }
 
         return " ";
     }
