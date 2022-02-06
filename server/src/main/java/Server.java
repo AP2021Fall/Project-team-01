@@ -111,6 +111,21 @@ public class Server {
             int i = input.lastIndexOf(' ');
             MainMenuController.sendNotificationToAll(input.substring(10));
         }
+        if (command[0].equals("setTeamChoice")) {
+            String teamName = command[1];
+            String token = command[2];
+            String choice = "2";
+            MainMenuController.team.put(token, teamName);
+            MainMenuController.choice.put(token, choice);
+        }
+        if (command[0].equals("setUserChoice")) {
+            MainMenuController.username.put(command[2], command[1]);
+            MainMenuController.choice.put(command[2], "1");
+        }
+        if (command[0].equals("setChoice")) {
+            MainMenuController.choice.put(command[1], "3");
+        }
+
 
 
         return " ";
