@@ -17,12 +17,12 @@ public class ScoreBoardController {
         ScoreBoardController.usernameToRemove = usernameToRemove;
     }
 
-    public static void showScoreboard() throws SQLException {
+    public static void showScoreboard(String token) throws SQLException {
         ArrayList<Integer> tasksId = DatabaseHandler.getAllTasks();
         for (Integer list : tasksId) {
             BoardMenuController.updateTasks(list);
         }
-        ArrayList<String> show = DatabaseHandler.showScoreboard(TeamMenuController.getTeam().getName());
+        ArrayList<String> show = DatabaseHandler.showScoreboard(TeamMenuController.getCurrentTeam().get(token).getName());
         for (int i = 0; i < show.size(); i++)
             System.out.println(show.get(i));
     }

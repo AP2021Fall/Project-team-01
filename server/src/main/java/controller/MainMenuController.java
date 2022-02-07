@@ -16,8 +16,8 @@ public class MainMenuController {
     public static String pendingTeam;
     private static HashMap<String, String> changeRoleUsername = new HashMap<>();
 
-    public static void showTeams() throws SQLException {
-        User user = LoginController.getActiveUser();
+    public static void showTeams(String token) throws SQLException {
+        User user = User.getLoginUsers().get(token);
         if (user.getRole().equalsIgnoreCase("leader")) {
             ArrayList<String> arrayList = DatabaseHandler.getUserTeams(user.getUsername());
             if (arrayList.isEmpty())
@@ -84,7 +84,6 @@ public class MainMenuController {
     }
 
     public static void showProfile(String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
                 System.out.println("username: " + username + " email address: " +
                         DatabaseHandler.getEmailByUsername(username) + " role: " +
@@ -92,12 +91,9 @@ public class MainMenuController {
             } else {
                 System.out.println("There is no user with this username");
             }
-        } else
-            System.out.println("You do not have access to this section");
-    }
+        }
 
     public static void banUser(String username) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
             if (DatabaseHandler.doesUsernameExist(username)) {
                 if (DatabaseHandler.getRoleByUsername(username).equals("leader"))
                     DatabaseHandler.banLeader(username);
@@ -106,9 +102,7 @@ public class MainMenuController {
                 System.out.println("username banned");
             } else
                 System.out.println("There is no user with this username");
-        } else
-            System.out.println("You do not have access to this section");
-    }
+        }
 
     public static void showPendingTeams() throws SQLException {
         ArrayList<String> pendingTeams = DatabaseHandler.getPendingTeams();
@@ -125,8 +119,8 @@ public class MainMenuController {
         DatabaseHandler.rejectPendingTeams(teams);
     }
 
-    public static void showScoreboard(String teamName) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("admin")) {
+    public static void showScoreboard(String teamName, String token) throws SQLException {
+        if (User.getLoginUsers().get(token).getRole().equals("admin")) {
             if (DatabaseHandler.doesTeamExist(teamName)) {
                 ArrayList<String> show = DatabaseHandler.showScoreboard(teamName);
                 for (int i = 0; i < show.size(); i++)

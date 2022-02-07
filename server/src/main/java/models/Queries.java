@@ -1,8 +1,6 @@
 package models;
 
-import view.MenusFxml;
 
-import java.util.Locale;
 
 public class Queries {
     public static final String CREATE_USER =

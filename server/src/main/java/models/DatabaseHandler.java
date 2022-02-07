@@ -1021,7 +1021,7 @@ public class DatabaseHandler {
 
     public static ArrayList<String> getTasksByUsername(String username) throws SQLException {
         String sql;
-        if (LoginController.getActiveUser().getRole().equals("member")) {
+        if (DatabaseHandler.getRoleByUsername(username).equals("member")) {
             sql = String.format(Queries.GET_TASK_BY_USERNAME, username);
         } else {
             sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER, username);

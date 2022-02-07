@@ -179,7 +179,7 @@ public class TeamMenuController {
 
     public static void showScoreboardToLeader(String token) throws SQLException {
         if (User.getLoginUsers().get(token).getRole().equals("leader")) {
-            ScoreBoardController.showScoreboard();
+            ScoreBoardController.showScoreboard(token);
         } else
             System.out.println("You do not have the permission to do this action!");
     }
