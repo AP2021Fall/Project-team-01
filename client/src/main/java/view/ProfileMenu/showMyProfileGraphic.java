@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -85,7 +86,11 @@ public class showMyProfileGraphic implements Initializable {
             dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 
-    public void goToMainMenu(ActionEvent actionEvent) {
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 

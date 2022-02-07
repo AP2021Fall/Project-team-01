@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -60,7 +61,11 @@ public class ChangePasswordMenuGraphic {
         sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
     }
 
-    public void goToMainMenu(ActionEvent actionEvent) {
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
