@@ -206,7 +206,7 @@ public class Server {
             return new Gson().toJson(DatabaseHandler.showChatroom(TeamMenuController.getCurrentTeam().get(command[1]).getId()));
         }
         if (command[0].equals("ShowProfile")) {
-            return ProfileMenuController.showMyProfile();
+            return ProfileMenuController.showMyProfile(command[1]);
         }
         if (command[0].equals("UsernameToRemove")) {
             return ScoreBoardController.getUsernameToRemove().get(command[1]);

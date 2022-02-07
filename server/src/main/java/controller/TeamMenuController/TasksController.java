@@ -2,13 +2,14 @@ package controller.TeamMenuController;
 
 import controller.LoginController;
 import models.DatabaseHandler;
+import models.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TasksController {
-    public static void showTasks() throws SQLException {
-        ArrayList<String> show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getTeam().getId());
+    public static void showTasks(String token) throws SQLException {
+        ArrayList<String> show = DatabaseHandler.getTeamTasksByTeamId(TeamMenuController.getCurrentTeam().get(token).getId());
         for (int i = 0; i < show.size(); i++)
             System.out.println(show.get(i));
         if (show.size() == 0)
@@ -16,9 +17,9 @@ public class TasksController {
 
     }
 
-    public static void showTaskById(int taskId) throws SQLException {
+    public static void showTaskById(int taskId, String token) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
-            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
+            if (DatabaseHandler.isUsernameTeamMate(User.getLoginUsers().get(token).getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
                 String show = DatabaseHandler.getDetailOfTask(taskId);
                 System.out.println(show);
             } else {

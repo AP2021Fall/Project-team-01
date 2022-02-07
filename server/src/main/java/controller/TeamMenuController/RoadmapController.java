@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RoadmapController {
-    public static void showRoadmap() throws SQLException {
-        ArrayList<String> show = DatabaseHandler.showRoadmap(TeamMenuController.getTeam().getId());
+    public static void showRoadmap(String token) throws SQLException {
+        ArrayList<String> show = DatabaseHandler.showRoadmap(TeamMenuController.getCurrentTeam().get(token).getId());
         for (int i = 0; i < show.size();i++)
             System.out.println(show.get(i));
         if (show.size()==0)

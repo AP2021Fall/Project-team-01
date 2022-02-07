@@ -1,10 +1,8 @@
 package controller.TeamMenuController;
 
-import controller.LoginController;
 import models.DatabaseHandler;
 import models.Team;
-import view.MenuController;
-import view.Menus;
+import models.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +15,8 @@ public class TeamSelectionController {
         TeamMenuController.getCurrentTeam().put(token, team);
     }
 
-    public static ArrayList<String> showTeams() throws SQLException {
-        ArrayList<String> teamsOfUser = DatabaseHandler.getUserTeams(LoginController.getActiveUser().getUsername());
+    public static ArrayList<String> showTeams(String token) throws SQLException {
+        ArrayList<String> teamsOfUser = DatabaseHandler.getUserTeams(User.getLoginUsers().get(token).getUsername());
         return teamsOfUser;
     }
 

@@ -11,22 +11,22 @@ import java.util.ArrayList;
 
 public class ProfileMenuController {
 
-    public static String changePassword(String oldPassword, String newPassword) throws SQLException {
-        if (!LoginController.getActiveUser().getPassword().equals(oldPassword)) {
+    public static String changePassword(String oldPassword, String newPassword, String token) throws SQLException {
+        if (!User.getLoginUsers().get(token).getPassword().equals(oldPassword)) {
             return "wrong old password";
         } else if (oldPassword.equals(newPassword)) {
             return "please enter a new password";
         } else if (!Regex.isPasswordStrong(newPassword)) {
             return "Please Choose A strong Password (Containing at least 8 characters including 1 digit and 1 Capital Letter)";
         } else {
-            DatabaseHandler.changePassword(LoginController.getActiveUser().getUsername(), newPassword);
-            LoginController.getActiveUser().setPassword(newPassword);
+            DatabaseHandler.changePassword(User.getLoginUsers().get(token).getUsername(), newPassword);
+            User.getLoginUsers().get(token).setPassword(newPassword);
             return "password changed successfully";
         }
     }
 
     public static String changeUsername(String newUsername, String token) throws SQLException {
-        User activeUser = LoginController.getActiveUser();
+        User activeUser = User.getLoginUsers().get(token);
         if (newUsername.length() < 4)
             return "Your new username must include at least 4 characters!";
         else if (DatabaseHandler.doesUsernameExist(newUsername))
@@ -57,7 +57,6 @@ public class ProfileMenuController {
     }
 
     public static String showProfile(String username) throws SQLException {
-//        String username = User.getLoginUsers().get(token).getUsername();
         String email = DatabaseHandler.getEmailByUsername(username);
         String role = DatabaseHandler.getUserRole(username);
         int point = DatabaseHandler.getPointsOfUser(username);
