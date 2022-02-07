@@ -61,14 +61,12 @@ public class TeamMenuGraphic implements Initializable {
         }
     }
 
-
     public void goToMainMenu(ActionEvent actionEvent) throws IOException {
-        String role = AppController.getResult("role " + User.getActiveUsername());
-        if (role.equals("leader")) {
-            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
             return;
         }
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
     }
 
     public void search(ActionEvent actionEvent) throws SQLException, IOException {

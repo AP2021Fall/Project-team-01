@@ -65,9 +65,12 @@ public class RoadMapMenuGraphic implements Initializable {
         }
     }
 
-    //member or leader or admin
-    public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
+            return;
+        }
+        sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
     }
 
     public void search(ActionEvent actionEvent) throws IOException {

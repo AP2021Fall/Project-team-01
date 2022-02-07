@@ -32,13 +32,12 @@ public class CreateNewTaskMenuGraphic implements Initializable {
         }
     }
 
-    //it should be leader main menu
-    public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
     }
 
     public void backToTasksMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.TASKS_MENU.getLabel());
+        sceneController.switchScene(MenusFxml.TASKS_MENU_LEADER.getLabel());
     }
 
     public void createNewTask(ActionEvent actionEvent) throws SQLException, IOException {
@@ -53,7 +52,7 @@ public class CreateNewTaskMenuGraphic implements Initializable {
         AppController.getOutputStream().writeUTF("createTask " + title + " " + creationDate + " " + deadline + " " + teamName);
         AppController.getOutputStream().flush();
         String result = AppController.getInputStream().readUTF();
-        if (result.equals("task created successfully")){
+        if (result.equals("task created successfully")) {
             taskTitle.clear();
             taskDeadline.clear();
             taskCreationDate.clear();
