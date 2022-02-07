@@ -26,16 +26,16 @@ public class UsersGraphic implements Initializable {
     public ChoiceBox choiceBox;
     public SceneController sceneController = new SceneController();
     public TextField search;
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getAllUsersSortedByName());
+    public ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsersSortedByName"));
 
-    public UsersGraphic() throws SQLException {
+    public UsersGraphic() throws SQLException, IOException {
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getAllUsers());
+            ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsers"));
             listView.setItems(items);
             listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -49,7 +49,7 @@ public class UsersGraphic implements Initializable {
                     sceneController.switchScene(MenusFxml.USERS_OPTIONS.getLabel());
                 }
             });
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         choiceBox.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,13 +59,13 @@ public class UsersGraphic implements Initializable {
                     ObservableList<String> items;
                     String sort = (String) choiceBox.getValue();
                     if (sort.equals("name"))
-                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsersSortedByName());
+                        items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsersSortedByName"));
                     else if (sort.equals("score"))
-                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsersSortedByScore());
+                        items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsersSortedByScore"));
                     else
-                        items = FXCollections.observableArrayList(DatabaseHandler.getAllUsers());
+                        items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsers"));
                     listView.setItems(items);
-                } catch (SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

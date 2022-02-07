@@ -247,6 +247,12 @@ public class Server {
         if (command[0].equals("DsortTaskTitlesByDeadline")) {
             return getJson(DatabaseHandler.sortTaskTitlesByDeadline(command[1]));
         }
+        if (command[0].equals("DsortTaskTitlesByPriority")) {
+            return getJson(DatabaseHandler.sortTaskTitlesByPriority(command[1]));
+        }
+        if (command[0].equals("DsortTaskTitlesByTaskTitle")) {
+            return getJson(DatabaseHandler.sortTaskTitlesByTaskTitle(command[1]));
+        }
         if (command[0].equals("DgetUserTeams")) {
             return getJson(DatabaseHandler.getUserTeams(command[1]));
         }
@@ -309,6 +315,9 @@ public class Server {
         }
         if (command[0].equals("DgetTeamIdByTaskId")) {
             return DatabaseHandler.getTeamIdByTaskId(Integer.parseInt(command[1])) + "";
+        }
+        if (command[0].equals("DgetAllUsersSortedByName")) {
+            return getJson(DatabaseHandler.getAllUsersSortedByName());
         }
         if (command[0].equals("DgetCategories")) {
             return getJson(DatabaseHandler.getCategories(command[1], Integer.parseInt(command[2])));
