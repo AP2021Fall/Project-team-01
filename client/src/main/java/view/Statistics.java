@@ -1,11 +1,14 @@
 package view;
 
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -18,18 +21,20 @@ public class Statistics implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            String text = ("number of all users : " + DatabaseHandler.getAllUsers().size() + "\n"
-            + "number of all teams : " + DatabaseHandler.getTeams().size() + "\n"
-            + "number of done tasks : " + DatabaseHandler.allDoneTasks().size() + "\n"
-            + "number of failed tasks : " + DatabaseHandler.allFailedTasks().size() + "\n"
+
+            String text = ("number of all users : " + AppController.getArraylistResult("DgetAllUsers").size() + "\n"
+            + "number of all teams : " + AppController.getArraylistResult("DgetTeams").size() + "\n"
+            + "number of done tasks : " + AppController.getArraylistResult("DallDoneTasks").size() + "\n"
+            + "number of failed tasks : " + AppController.getArraylistResult("DallFailedTasks").size() + "\n"
             + "top 3 users : \n");
-            Iterator iterator = DatabaseHandler.getAllUsersSortedByScore().iterator();
+            ArrayList<String> arrayList = AppController.getArraylistResult("DgetAllUsersSortedByScore");
+            Iterator iterator =  arrayList.iterator();
             for (int i = 0; i < 3; i++) {
                 if (iterator.hasNext())
-                    text = text + DatabaseHandler.getAllUsersSortedByScore().get(i) + "\n";
+                    text = text + arrayList.get(i) + "\n";
             }
             textArea.setText(text);
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

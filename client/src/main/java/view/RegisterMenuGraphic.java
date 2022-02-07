@@ -28,9 +28,7 @@ public class RegisterMenuGraphic {
             alert.setText("please fill out all fields");
             return;
         }
-        AppController.getOutputStream().writeUTF("register " + usernameString + " " + password1String + " " + password2String + " " + emailString + " " + roleString);
-        AppController.getOutputStream().flush();
-        String result = AppController.getInputStream().readUTF();
+        String result = AppController.getResult("register " + usernameString + " " + password1String + " " + password2String + " " + emailString + " " + roleString);
         if (result.equals("userCreatedSuccessfully")) {
             sceneController.switchScene(MenusFxml.LOGIN_MENU.getLabel());
             return;

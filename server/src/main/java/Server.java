@@ -225,7 +225,39 @@ public class Server {
         if (command[0].equals("DsortTaskTitlesByDeadline")) {
             return getJson(DatabaseHandler.sortTaskTitlesByDeadline(command[1]));
         }
-
+        if (command[0].equals("DgetUserTeams")) {
+            return getJson(DatabaseHandler.getUserTeams(command[1]));
+        }
+        if (command[0].equals("DgetPendingTeams")) {
+            return getJson(DatabaseHandler.getPendingTeams());
+        }
+        if (command[0].equals("DdoesTeamExistForUser")) {
+            if (DatabaseHandler.doesTeamExistForUser(command[1], command[2]) {
+                return "y";
+            }
+            return "n";
+        }
+        if (command[0].equals("DdoesUsernameExist")) {
+            if (DatabaseHandler.doesUsernameExist(command[1])) {
+                return "y";
+            }
+            return "n";
+        }
+        if (command[0].equals("DgetAllUsers")) {
+            return getJson(DatabaseHandler.getAllUsers());
+        }
+        if (command[0].equals("DgetTeams")) {
+            return getJson(DatabaseHandler.getTeams());
+        }
+        if (command[0].equals("DallDoneTasks")) {
+            return getJson(DatabaseHandler.allDoneTasks());
+        }
+        if (command[0].equals("DallFailedTasks")) {
+            return getJson(DatabaseHandler.allFailedTasks());
+        }
+        if (command[0].equals("DgetAllUsersSortedByScore")) {
+            return getJson(DatabaseHandler.getAllUsersSortedByScore());
+        }
 
 
         return " ";

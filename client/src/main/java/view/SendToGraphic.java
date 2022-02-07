@@ -21,7 +21,8 @@ public class SendToGraphic{
     public void next(ActionEvent actionEvent) throws SQLException, IOException {
         String choice = (String) choiceBox.getValue();
         if (choice.equals("team")) {
-            if (!DatabaseHandler.doesTeamExistForUser(getter.getText(), User.getActiveUsername())){
+            String result = AppController.getResult("DdoesTeamExistForUser " + getter.getText() + " " + User.getActiveUsername());
+            if (result.equals("n")){
                 alert.setText("you do not have team with this name");
                 return;
             }
@@ -30,7 +31,8 @@ public class SendToGraphic{
             return;
         }
         if (choice.equals("user")) {
-            if (!DatabaseHandler.doesUsernameExist(getter.getText())) {
+            String result = AppController.getResult("DdoesUsernameExist " + getter.getText());
+            if (result.equals("n")) {
                 alert.setText("invalid username");
                 return;
             }

@@ -25,9 +25,9 @@ public class CreateNewTaskMenuGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ArrayList<String> teamsOfLeader = DatabaseHandler.getUserTeams(User.getActiveUsername());
+            ArrayList<String> teamsOfLeader = AppController.getArraylistResult("DgetUserTeams " + User.getActiveUsername());
             teamNameChoiceBox.getItems().addAll(teamsOfLeader);
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

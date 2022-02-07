@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PendingTeamsGraphic implements Initializable {
@@ -23,8 +22,8 @@ public class PendingTeamsGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> items = null;
         try {
-            items = FXCollections.observableArrayList (DatabaseHandler.getPendingTeams());
-        } catch (SQLException e) {
+            items = FXCollections.observableArrayList (AppController.getArraylistResult("DgetPendingTeams"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         listView.setItems(items);
