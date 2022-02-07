@@ -3,7 +3,6 @@ package view.TeamMenu;
 import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
-import models.DatabaseHandler;
 import models.User;
 import view.MenusFxml;
 import view.SceneController;
@@ -23,8 +22,9 @@ public class SelectedTaskOptionsGraphic {
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
         String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
-        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(selectedTask,
-                teamId), User.getActiveUsername())) {
+        String taskId = AppController.getResult("DgetTaskIdByTaskTitle " + selectedTask + " " + teamId);
+        String bool = AppController.getResult("DisUsernameAssigned " + taskId + " " + User.getActiveUsername());
+        if (bool.equals("n")) {
             alert.setText("This task is not aligned to you");
             return;
         }
@@ -35,8 +35,9 @@ public class SelectedTaskOptionsGraphic {
     public void forceCategory(ActionEvent actionEvent) throws SQLException, IOException {
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
-        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(selectedTask,
-                teamId), User.getActiveUsername())) {
+        String taskId = AppController.getResult("DgetTaskIdByTaskTitle " + selectedTask + " " + teamId);
+        String bool = AppController.getResult("DisUsernameAssigned " + taskId + " " + User.getActiveUsername());
+        if (bool.equals("n")) {
             alert.setText("This task is not aligned to you");
         } else {
             sceneController.switchScene(MenusFxml.FORCE_TASK.getLabel());

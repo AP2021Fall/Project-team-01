@@ -364,6 +364,13 @@ public class Server {
         if (command[0].equals("DgetFailedTasksTitle")) {
             return getJson(DatabaseHandler.getFailedTasksTitle(command[1], Integer.parseInt(command[2])));
         }
+        if (command[0].equals("DisUsernameAssigned")) {
+            if (DatabaseHandler.isUsernameAssigned(Integer.parseInt(command[1]), command[2])) {
+                return "y";
+            }
+            return "n";
+        }
+
         return " ";
     }
 
