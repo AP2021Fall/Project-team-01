@@ -1,13 +1,14 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TeamMenuController.BoardMenuController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
+import models.DatabaseHandler;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class SelectedTaskOptionsGraphic {
@@ -18,19 +19,24 @@ public class SelectedTaskOptionsGraphic {
         //TODO task Page
     }
 
-    public void moveNext(ActionEvent actionEvent) throws SQLException {
-        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(BoardMenuController.getSelectedTask(),
-                TeamMenuController.getTeam().getId()), LoginController.getActiveUser().getUsername())) {
+    public void moveNext(ActionEvent actionEvent) throws SQLException, IOException {
+        int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
+        String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
+        String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
+        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(selectedTask,
+                teamId), User.getActiveUsername())) {
             alert.setText("This task is not aligned to you");
             return;
         }
-        BoardMenuController.taskToNext(BoardMenuController.getSelectedTask(), BoardMenuController.getActiveBoard());
+        AppController.getResult("TaskToNext " + selectedTask + " " + activeBoard + " " + User.getToken());
         sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
     }
 
-    public void forceCategory(ActionEvent actionEvent) throws SQLException {
-        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(BoardMenuController.getSelectedTask(),
-                TeamMenuController.getTeam().getId()), LoginController.getActiveUser().getUsername())) {
+    public void forceCategory(ActionEvent actionEvent) throws SQLException, IOException {
+        int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
+        String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
+        if (!DatabaseHandler.isUsernameAssigned(DatabaseHandler.getTaskIdByTaskTitle(selectedTask,
+                teamId), User.getActiveUsername())) {
             alert.setText("This task is not aligned to you");
         } else {
             sceneController.switchScene(MenusFxml.FORCE_TASK.getLabel());

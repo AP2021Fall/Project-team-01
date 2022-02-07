@@ -1,7 +1,6 @@
 package view.TeamMenu;
 
 import appController.AppController;
-import controller.TeamMenuController.BoardMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,13 +31,13 @@ public class AddCategoryToBoard {
 
     public void back(ActionEvent actionEvent) throws SQLException, IOException {
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
-        String activeBoard = AppController.getResult("GetActiveBoard " + User.getActiveUsername())
+        String activeBoard = AppController.getResult("GetActiveBoard " + User.getActiveUsername());
         DatabaseHandler.removeBoard(activeBoard, teamId);
         sceneController.switchScene(MenusFxml.CREATE_BOARD_NAME.getLabel());
     }
 
-    public void next(ActionEvent actionEvent) throws SQLException {
-        String result = BoardMenuController.completeBoardFirstStepSelect();
+    public void next(ActionEvent actionEvent) throws SQLException, IOException {
+        String result = AppController.getResult("CompleteBoardFirstStepSelect " + User.getToken());
         alert.setText(result);
         if (result.equals("first step completed"))
             sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());

@@ -1,9 +1,6 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TasksPageController;
-import controller.TeamMenuController.BoardMenuController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -11,9 +8,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import models.DatabaseHandler;
+import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +32,9 @@ public class SelectedBoardMenuGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ArrayList<String> categories = DatabaseHandler.getCategories(BoardMenuController.getActiveBoard(), TeamMenuController.getTeam().getId());
+            int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
+            String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
+            ArrayList<String> categories = DatabaseHandler.getCategories(activeBoard, teamId);
             int columns = categories.size() + 2;
             for (int i = 0; i < columns; i++){
                 VBox vBox = new VBox();
@@ -40,34 +43,42 @@ public class SelectedBoardMenuGraphic implements Initializable {
                 ArrayList<String> tasksTitle = new ArrayList<>();
                 if (i == columns -1) {
                     vBox.getChildren().add(new Text("Done tasks"));
-                     tasksTitle = DatabaseHandler.getDoneTasksTitle(BoardMenuController.getActiveBoard(),
-                            TeamMenuController.getTeam().getId());
+                     tasksTitle = DatabaseHandler.getDoneTasksTitle(activeBoard,
+                            teamId);
                 } else if (i == columns - 2) {
                     vBox.getChildren().add(new Text("Failed tasks"));
-                    tasksTitle = DatabaseHandler.getFailedTasksTitle(BoardMenuController.getActiveBoard(),
-                            TeamMenuController.getTeam().getId());
+                    tasksTitle = DatabaseHandler.getFailedTasksTitle(activeBoard,
+                            teamId);
                 } else {
                     vBox.getChildren().add(new Text(categories.get(i)));
                     tasksTitle = DatabaseHandler.getTaskOfCategory(categories.get(i),
-                            BoardMenuController.getActiveBoard(), TeamMenuController.getTeam().getId());
+                            activeBoard,teamId);
                 }
                 for (String taskTitle : tasksTitle) {
                     Text text = new Text(taskTitle);
                     text.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            BoardMenuController.setSelectedTask(text.getText());
+                            try {
+                                AppController.getResult("SetSelectedTask " + text.getText() + " " + User.getToken());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
                             String TaskTitle = text.getText();
                             try {
-                                TasksPageController.setTaskIdAndTaskTitle(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()) + " " + taskTitle);
-                            } catch (SQLException e) {
+                                AppController.getResult("setTaskIdAndTaskTitle2 " + DatabaseHandler.getTaskIdByTaskTitle(taskTitle, teamId) + " " + taskTitle + " " + User.getToken());
+                            } catch (SQLException | IOException e) {
                                 e.printStackTrace();
                             }
 
-                            if (LoginController.getActiveUser().getRole().equals("leader")) {
-                                sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
-                                return;
+                            try {
+                                if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+                                    sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                                    return;
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                             sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                         }
@@ -76,7 +87,7 @@ public class SelectedBoardMenuGraphic implements Initializable {
                 }
                 hBox.getChildren().add(vBox);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
