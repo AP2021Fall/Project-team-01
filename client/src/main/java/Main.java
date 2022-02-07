@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 public class Main extends Application {
     public static void main(String[] args) throws SQLException {
-        DatabaseHandler.connect();
         AppController.setupConnection();
         launch(args);
     }

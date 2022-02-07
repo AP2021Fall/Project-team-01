@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDateTime;
 
 public class AppController {
     private static DataInputStream inputStream;
@@ -43,9 +42,9 @@ public class AppController {
         outputStream.writeUTF(command);
         outputStream.flush();
         String json = inputStream.readUTF();
-        return new Gson().fromJson(json, new Gson().fromJson(json,
+        return new Gson().fromJson(json,
                 new TypeToken<List<String>>() {
-                }.getType()));
+                }.getType());
     }
 
 }

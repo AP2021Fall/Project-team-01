@@ -6,6 +6,7 @@ import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
 import controller.TeamMenuController.*;
 import models.DatabaseHandler;
+import models.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -61,7 +62,7 @@ public class Server {
                     command[3], command[4], command[5]);
         }
         if (command[0].equals("ShowMyProfile")) {
-            return ProfileMenuController.showProfile(command[1]);
+            return ProfileMenuController.showProfile(User.getLoginUsers().get(command[1]).getUsername());
         }
         if (command[0].equals("ShowLogs")) {
             return ProfileMenuController.showLogs(command[1]);
@@ -193,7 +194,8 @@ public class Server {
             return teamId.toString();
         }
         if (command[0].equals("SelectUsernameToRemove")) {
-            return ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
+            ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
+            return "done";
         }
         if (command[0].equals("banUser")) {
             MainMenuController.banUser(ScoreBoardController.getUsernameToRemove().get(command[1]));
@@ -206,7 +208,7 @@ public class Server {
             return new Gson().toJson(DatabaseHandler.showChatroom(TeamMenuController.getCurrentTeam().get(command[1]).getId()));
         }
         if (command[0].equals("ShowProfile")) {
-            return ProfileMenuController.showMyProfile(command[1]);
+            return ProfileMenuController.showProfile(command[1]);
         }
         if (command[0].equals("UsernameToRemove")) {
             return ScoreBoardController.getUsernameToRemove().get(command[1]);
