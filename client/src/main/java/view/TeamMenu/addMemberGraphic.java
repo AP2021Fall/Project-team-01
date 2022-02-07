@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class addMemberGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getAllUsers());
     public VBox taskShow;
     public ScrollPane scroll;
     public TextField searchBar;
@@ -51,9 +50,10 @@ public class addMemberGraphic implements Initializable {
         taskShow.setPrefWidth(320);
         try {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
-            ArrayList<String> tasks = DatabaseHandler.getAllUsers();
+            ArrayList<String> tasks = AppController.getArraylistResult("DgetAllUsers ");
             for (String str : tasks) {
-                if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                Boolean isUsernameTeamMate = Boolean.parseBoolean(AppController.getResult("DisUsernameTeamMate " + str + " " + teamId));
+                if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
                     HBox hBox = new HBox();
                     Text text = new Text('\n' + str);
                     text.setFill(Color.WHITE);
@@ -63,13 +63,13 @@ public class addMemberGraphic implements Initializable {
                         public void handle(MouseEvent event) {
                             try {
 
-                                if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                    DatabaseHandler.addMemberToTeam(str, teamId);
+                                if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
+                                    AppController.getResult("DaddMemberToTeam " + str + " " + teamId);
                                     alert.setText("member added to team successfully");
 
                                 } else
                                     alert.setText("you can not add twice");
-                            } catch (SQLException e) {
+                            } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -83,18 +83,20 @@ public class addMemberGraphic implements Initializable {
             tasks.add("\n");
             tasks.add("\n");
             taskShow.setAlignment(Pos.TOP_LEFT);
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
     public void search(ActionEvent actionEvent) throws SQLException, IOException {
+        ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetAllUsers "));
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         taskShow.getChildren().clear();
         List<String> list = searchList(searchBar.getText(), items);
         for (String str : list) {
-            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+            Boolean isUsernameTeamMate = Boolean.parseBoolean(AppController.getResult("DisUsernameTeamMate " + str + " " + teamId));
+            if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
                 HBox hBox = new HBox();
                 Text text = new Text(str);
                 hBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -102,13 +104,13 @@ public class addMemberGraphic implements Initializable {
                     public void handle(MouseEvent event) {
                         try {
 
-                            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                DatabaseHandler.addMemberToTeam(str, teamId);
+                            if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
+                                AppController.getResult("DaddMemberToTeam " + str + " " + teamId);
                                 alert.setText("member added to team successfully");
 
                             } else
                                 alert.setText("you can not add twice");
-                        } catch (SQLException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -138,9 +140,10 @@ public class addMemberGraphic implements Initializable {
     public void sortByPoints(ActionEvent actionEvent) throws SQLException, IOException {
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         taskShow.getChildren().clear();
-        ArrayList<String> tasks = DatabaseHandler.getAllUsersSortedByScore();
+        ArrayList<String> tasks = AppController.getArraylistResult("DgetAllUsersSortedByScore ");
         for (String str : tasks) {
-            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+            Boolean isUsernameTeamMate = Boolean.parseBoolean(AppController.getResult("DisUsernameTeamMate " + str + " " + teamId));
+            if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
 
                 HBox hBox = new HBox();
                 Text text = new Text('\n' + str);
@@ -148,12 +151,12 @@ public class addMemberGraphic implements Initializable {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-                            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                DatabaseHandler.addMemberToTeam(str, teamId);
+                            if ((!isUsernameTeamMate) && LoginMenuGraphic.getRole(str).equals("member")) {
+                                AppController.getResult("DaddMemberToTeam " + str + " " + teamId);
                                 alert.setText("member added to team successfully");
                             } else
                                 alert.setText("you can not add twice");
-                        } catch (SQLException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }

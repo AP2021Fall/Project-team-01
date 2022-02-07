@@ -32,7 +32,7 @@ public class AddCategoryToBoard {
     public void back(ActionEvent actionEvent) throws SQLException, IOException {
         int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         String activeBoard = AppController.getResult("GetActiveBoard " + User.getActiveUsername());
-        DatabaseHandler.removeBoard(activeBoard, teamId);
+        AppController.getResult("DremoveBoard " + activeBoard + " " + teamId);
         sceneController.switchScene(MenusFxml.CREATE_BOARD_NAME.getLabel());
     }
 
