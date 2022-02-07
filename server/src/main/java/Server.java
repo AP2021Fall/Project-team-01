@@ -185,6 +185,7 @@ public class Server {
         }
         if (command[0].equals("setTaskIdAndTaskTitle2")) {
             TasksPageController.getTaskIdAndTaskTitle().put(command[3], command[1] + " " + command[2]);
+            return "done";
         }
         if (command[0].equals("CurrentTeamName")) {
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
@@ -313,6 +314,9 @@ public class Server {
             return DatabaseHandler.getTaskTitleByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskDescriptionByTaskId")) {
+            if (DatabaseHandler.getTaskDescriptionByTaskId(Integer.parseInt(command[1])) == null) {
+                return "null";
+            }
             return DatabaseHandler.getTaskDescriptionByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskCreationTimeByTaskId")) {
