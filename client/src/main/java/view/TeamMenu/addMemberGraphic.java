@@ -1,7 +1,6 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,9 +17,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.DatabaseHandler;
+import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class addMemberGraphic implements Initializable {
-
     public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getAllUsers());
     public VBox taskShow;
     public ScrollPane scroll;
@@ -38,7 +39,7 @@ public class addMemberGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
     public Label alert;
 
-    public addMemberGraphic() throws SQLException {
+    public addMemberGraphic() throws SQLException, IOException {
     }
 
     @Override
@@ -50,9 +51,10 @@ public class addMemberGraphic implements Initializable {
         scroll.setContent(taskShow);
         taskShow.setPrefWidth(320);
         try {
+            int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
             ArrayList<String> tasks = DatabaseHandler.getAllUsers();
             for (String str : tasks) {
-                if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
                     HBox hBox = new HBox();
                     Text text = new Text('\n' + str);
                     text.setFill(Color.WHITE);
@@ -62,8 +64,8 @@ public class addMemberGraphic implements Initializable {
                         public void handle(MouseEvent event) {
                             try {
 
-                                if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                    DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                                if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                    DatabaseHandler.addMemberToTeam(str, teamId);
                                     alert.setText("member added to team successfully");
 
                                 } else
@@ -82,17 +84,18 @@ public class addMemberGraphic implements Initializable {
             tasks.add("\n");
             tasks.add("\n");
             taskShow.setAlignment(Pos.TOP_LEFT);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void search(ActionEvent actionEvent) throws SQLException {
+    public void search(ActionEvent actionEvent) throws SQLException, IOException {
+        int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         taskShow.getChildren().clear();
         List<String> list = searchList(searchBar.getText(), items);
         for (String str : list) {
-            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
                 HBox hBox = new HBox();
                 Text text = new Text(str);
                 hBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -100,8 +103,8 @@ public class addMemberGraphic implements Initializable {
                     public void handle(MouseEvent event) {
                         try {
 
-                            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                DatabaseHandler.addMemberToTeam(str, teamId);
                                 alert.setText("member added to team successfully");
 
                             } else
@@ -126,19 +129,19 @@ public class addMemberGraphic implements Initializable {
         }).collect(Collectors.toList());
     }
 
-    public void back(ActionEvent actionEvent) {
-        if (LoginController.getActiveUser().getRole().equals("leader"))
+    public void back(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader"))
             sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
         else
             sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 
-    public void sortByPoints(ActionEvent actionEvent) throws SQLException {
+    public void sortByPoints(ActionEvent actionEvent) throws SQLException, IOException {
+        int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
         taskShow.getChildren().clear();
         ArrayList<String> tasks = DatabaseHandler.getAllUsersSortedByScore();
-
         for (String str : tasks) {
-            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
 
                 HBox hBox = new HBox();
                 Text text = new Text('\n' + str);
@@ -146,11 +149,9 @@ public class addMemberGraphic implements Initializable {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-
-                            if ((!DatabaseHandler.isUsernameTeamMate(str, TeamMenuController.getTeam().getId())) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
-                                DatabaseHandler.addMemberToTeam(str, TeamMenuController.getTeam().getId());
+                            if ((!DatabaseHandler.isUsernameTeamMate(str, teamId)) && DatabaseHandler.getRoleByUsername(str).equals("member")) {
+                                DatabaseHandler.addMemberToTeam(str, teamId);
                                 alert.setText("member added to team successfully");
-
                             } else
                                 alert.setText("you can not add twice");
                         } catch (SQLException e) {

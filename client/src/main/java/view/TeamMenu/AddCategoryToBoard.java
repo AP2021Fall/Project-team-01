@@ -1,14 +1,16 @@
 package view.TeamMenu;
 
+import appController.AppController;
 import controller.TeamMenuController.BoardMenuController;
-import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.DatabaseHandler;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddCategoryToBoard {
@@ -18,19 +20,21 @@ public class AddCategoryToBoard {
     public Label alert;
     public SceneController sceneController = new SceneController();
 
-    public void add(ActionEvent actionEvent) throws SQLException {
+    public void add(ActionEvent actionEvent) throws SQLException, IOException {
         String category = categoryName.getText();
         if (column.getText().isEmpty()) {
-            String result = BoardMenuController.addCategorySelect(category);
+            String result = AppController.getResult("AddCategorySelect " + category + " " + User.getToken());
             alert.setText(result);
             return;
         }
-        String result = BoardMenuController.addCategoryToColumnSelect(category, column.getText());
+        String result = AppController.getResult("AddCategoryToColumnSelect " + category + " " + column.getText() + " " + User.getToken());
         alert.setText(result);
     }
 
-    public void back(ActionEvent actionEvent) throws SQLException {
-        DatabaseHandler.removeBoard(BoardMenuController.getActiveBoard(), TeamMenuController.getTeam().getId());
+    public void back(ActionEvent actionEvent) throws SQLException, IOException {
+        int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
+        String activeBoard = AppController.getResult("GetActiveBoard " + User.getActiveUsername())
+        DatabaseHandler.removeBoard(activeBoard, teamId);
         sceneController.switchScene(MenusFxml.CREATE_BOARD_NAME.getLabel());
     }
 
