@@ -27,8 +27,8 @@ public class BoardMenuGraphic implements Initializable {
         ObservableList<String> items = null;
         try {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
-            items = FXCollections.observableArrayList (DatabaseHandler.getBoardsOfTeam(teamId));
-        } catch (SQLException | IOException e) {
+            items = FXCollections.observableArrayList (AppController.getArraylistResult("DgetBoardsOfTeam " + teamId));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         boardsList.setItems(items);

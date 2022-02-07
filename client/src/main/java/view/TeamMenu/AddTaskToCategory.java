@@ -8,14 +8,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import models.DatabaseHandler;
 import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddTaskToCategory implements Initializable {
@@ -29,22 +27,23 @@ public class AddTaskToCategory implements Initializable {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
             String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
             String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
-            items = FXCollections.observableArrayList (DatabaseHandler.getCategories(activeBoard, teamId));
+            items = FXCollections.observableArrayList (AppController.getArraylistResult("DgetCategories " + activeBoard + " " + teamId));
             listView.setItems(items);
             listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String category = (String) listView.getSelectionModel().getSelectedItem();
                     try {
-                        DatabaseHandler.addTaskToBoard(DatabaseHandler.getTaskIdByTaskTitle(selectedTask, teamId), activeBoard);
-                        DatabaseHandler.addToCategory(category, selectedTask, activeBoard, teamId);
+                        int taskId = Integer.parseInt(AppController.getResult("DgetTaskIdByTaskTitle " + selectedTask + " " + teamId));
+                        AppController.getResult("DaddTaskToBoard " + taskId + " " + activeBoard);
+                        AppController.getResult("DaddToCategory " + category + " " + selectedTask + " " + activeBoard + " " + teamId);
                         sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
-                    } catch (SQLException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
