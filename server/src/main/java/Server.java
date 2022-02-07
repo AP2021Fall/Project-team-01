@@ -325,7 +325,7 @@ public class Server {
             return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskDeadlineByTaskId")) {
-            return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
+            return DatabaseHandler.getTaskDeadlineByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskCommentsByTaskId")) {
             return getJson(DatabaseHandler.getTaskCommentsByTaskId(Integer.parseInt(command[1])));
