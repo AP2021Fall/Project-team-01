@@ -364,6 +364,22 @@ public class Server {
         if (command[0].equals("DgetFailedTasksTitle")) {
             return getJson(DatabaseHandler.getFailedTasksTitle(command[1], Integer.parseInt(command[2])));
         }
+        if (command[0].equals("DremoveBoard")) {
+            DatabaseHandler.removeBoard(command[1], Integer.parseInt(command[2]));
+            return "";
+        }
+        if (command[0].equals("DgetTasksByUsernameOutOfBoard")) {
+            return getJson(DatabaseHandler.getTasksByUsernameOutOfBoard(command[1], Integer.parseInt(command[2])));
+        }
+        if (command[0].equals("DisUsernameTeamMate")) {
+            Boolean bool = DatabaseHandler.isUsernameTeamMate(command[1], Integer.parseInt(command[2]));
+            return bool.toString();
+        }
+        if (command[0].equals("DaddMemberToTeam")) {
+            DatabaseHandler.addMemberToTeam(command[1], Integer.parseInt(command[2]));
+            return "";
+        }
+
         return " ";
     }
 

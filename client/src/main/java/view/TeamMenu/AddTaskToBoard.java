@@ -8,14 +8,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import models.DatabaseHandler;
 import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddTaskToBoard implements Initializable {
@@ -28,8 +26,8 @@ public class AddTaskToBoard implements Initializable {
         ObservableList<String> items = null;
         try {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
-            items = FXCollections.observableArrayList (DatabaseHandler.getTasksByUsernameOutOfBoard(User.getActiveUsername(), teamId));
-        } catch (SQLException | IOException e) {
+            items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetTasksByUsernameOutOfBoard " + User.getActiveUsername() + " " + teamId));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         listView.setItems(items);
