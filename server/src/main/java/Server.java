@@ -258,6 +258,15 @@ public class Server {
         if (command[0].equals("DgetAllUsersSortedByScore")) {
             return getJson(DatabaseHandler.getAllUsersSortedByScore());
         }
+        if (command[0].equals("DgetTaskPriorityByTaskId")) {
+            return DatabaseHandler.getTaskPriorityByTaskId(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DgetTaskTitleByTaskId")) {
+            return DatabaseHandler.getTaskTitleByTaskId(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DgetTaskDescriptionByTaskId")) {
+            return DatabaseHandler.getTaskDescriptionByTaskId(Integer.parseInt(command[1]));
+        }
 
 
         return " ";

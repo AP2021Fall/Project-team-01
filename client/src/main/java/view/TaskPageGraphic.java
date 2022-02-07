@@ -48,9 +48,9 @@ public class TaskPageGraphic implements Initializable {
             String task = AppController.getResult("taskIdTaskPage " + User.getToken());
             int taskId = Integer.parseInt(task);
             if (taskInfoLabel != null) {
-                taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + DatabaseHandler.getTaskTitleByTaskId(taskId) +
-                        "\nTask Priority: " + DatabaseHandler.getTaskPriorityByTaskId(taskId) +
-                        "\nTask Description: " + DatabaseHandler.getTaskDescriptionByTaskId(taskId) +
+                taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + AppController.getArraylistResult("DgetTaskTitleByTaskId " + taskId) +
+                        "\nTask Priority: " + AppController.getArraylistResult("DgetTaskPriorityByTaskId " + taskId) +
+                        "\nTask Description: " + AppController.getArraylistResult("DgetTaskDescriptionByTaskId " + taskId) +
                         "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
                         "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
                         "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
