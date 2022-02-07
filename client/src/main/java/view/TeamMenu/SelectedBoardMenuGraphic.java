@@ -23,7 +23,11 @@ public class SelectedBoardMenuGraphic implements Initializable {
     public HBox hBox;
     public SceneController sceneController = new SceneController();
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
     }
 
@@ -61,22 +65,6 @@ public class SelectedBoardMenuGraphic implements Initializable {
                                 e.printStackTrace();
                             }
                             sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
-                            String TaskTitle = text.getText();
-                            try {
-                                AppController.getResult("setTaskIdAndTaskTitle2 " + AppController.getResult("DgetTaskIdByTaskTitle " + taskTitle + " " + teamId) + " " + taskTitle + " " + User.getToken());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
-                                    sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
-                                    return;
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                         }
                     });
                     vBox.getChildren().add(text);

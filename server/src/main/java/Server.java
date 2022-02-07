@@ -108,7 +108,6 @@ public class Server {
             String taskName = command[1];
             String token = command[2];
             int currentTeamId = TeamMenuController.getCurrentTeam().get(token).getId();
-//                    DatabaseHandler.getTeamIdByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
             TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId) + " " + taskName);
             return "done";
         }
@@ -176,7 +175,7 @@ public class Server {
             return TasksPageController.editPriority(TasksPageController.getTaskId(command[2]), Integer.parseInt(command[1]), command[2]);
         }
         if (command[0].equals("editDeadLine")) {
-            return TasksPageController.editDeadline(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+            return TasksPageController.editDeadline(TasksPageController.getTaskId(command[2]), command[2], command[2]);
         }
         if (command[0].equals("editAssigned")) {
             return TasksPageController.addAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
@@ -325,7 +324,7 @@ public class Server {
             return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskDeadlineByTaskId")) {
-            return DatabaseHandler.getTaskDeadlineByTaskId(Integer.parseInt(command[1]));
+            return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
         }
         if (command[0].equals("DgetTaskCommentsByTaskId")) {
             return getJson(DatabaseHandler.getTaskCommentsByTaskId(Integer.parseInt(command[1])));

@@ -4,6 +4,7 @@ import appController.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -15,7 +16,23 @@ public class SelectedTaskOptionsGraphic {
     public Text alert;
 
     public void details(ActionEvent actionEvent) {
-        //TODO task Page
+        try {
+            String taskTitle = AppController.getResult("GetSelectedTask " + User.getToken());
+            String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
+            AppController.getResult("setTaskIdAndTaskTitle2 " + AppController.getResult("DgetTaskIdByTaskTitle " + taskTitle + " " + teamId) + " " + taskTitle + " " + User.getToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+                sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
     }
 
     public void moveNext(ActionEvent actionEvent) throws SQLException, IOException {

@@ -55,7 +55,7 @@ public class SelectedTeamMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.SCOREBOARD.getLabel());
     }
 
-    public void backToTeamMenu(ActionEvent actionEvent) {
+    public void backToTeamMenu(ActionEvent actionEvent) throws IOException {
         sceneController.switchScene(MenusFxml.TEAM_MENU.getLabel());
     }
 

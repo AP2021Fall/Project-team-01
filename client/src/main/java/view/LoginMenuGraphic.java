@@ -27,6 +27,7 @@ public class LoginMenuGraphic {
                 switch (getRole(username.getText())) {
                     case "member":
                         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+                        break;
                     case "leader":
                         sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
                         break;

@@ -63,10 +63,10 @@ public class TeamMenuGraphic implements Initializable {
 
     public void goToMainMenu(ActionEvent actionEvent) throws IOException {
         if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
-            sceneController.switchScene(MenusFxml.BOARD_MENU_L.getLabel());
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
             return;
         }
-        sceneController.switchScene(MenusFxml.BOARD_MENU.getLabel());
+        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
     public void search(ActionEvent actionEvent) throws SQLException, IOException {

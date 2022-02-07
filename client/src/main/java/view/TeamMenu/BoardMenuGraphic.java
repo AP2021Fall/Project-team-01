@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -45,7 +46,11 @@ public class BoardMenuGraphic implements Initializable {
         });
     }
 
-    public void BackToSelectedTeamMenu(ActionEvent actionEvent) {
+    public void BackToSelectedTeamMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 

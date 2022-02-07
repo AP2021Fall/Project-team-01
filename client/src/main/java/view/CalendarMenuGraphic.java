@@ -94,7 +94,11 @@ public class CalendarMenuGraphic implements Initializable {
         }).collect(Collectors.toList());
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
