@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import models.DatabaseHandler;
 import models.User;
 import view.LoginMenuGraphic;
 import view.MenusFxml;
@@ -16,7 +15,6 @@ import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -34,25 +32,23 @@ public class SelectedBoardMenuGraphic implements Initializable {
         try {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
             String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
-            ArrayList<String> categories = DatabaseHandler.getCategories(activeBoard, teamId);
+            ArrayList<String> categories = AppController.getArraylistResult("DgetCategories " + activeBoard + " " + teamId);
             int columns = categories.size() + 2;
-            for (int i = 0; i < columns; i++){
+            for (int i = 0; i < columns; i++) {
                 VBox vBox = new VBox();
                 vBox.setPrefHeight(250);
                 vBox.setPrefWidth(100);
                 ArrayList<String> tasksTitle = new ArrayList<>();
-                if (i == columns -1) {
+                if (i == columns - 1) {
                     vBox.getChildren().add(new Text("Done tasks"));
-                     tasksTitle = DatabaseHandler.getDoneTasksTitle(activeBoard,
-                            teamId);
+                    tasksTitle = AppController.getArraylistResult("DgetDoneTasksTitle " + activeBoard + " " + teamId);
                 } else if (i == columns - 2) {
                     vBox.getChildren().add(new Text("Failed tasks"));
-                    tasksTitle = DatabaseHandler.getFailedTasksTitle(activeBoard,
-                            teamId);
+                    tasksTitle = AppController.getArraylistResult("DgetFailedTasksTitle " + activeBoard + " " + teamId);
                 } else {
                     vBox.getChildren().add(new Text(categories.get(i)));
-                    tasksTitle = DatabaseHandler.getTaskOfCategory(categories.get(i),
-                            activeBoard,teamId);
+                    tasksTitle = AppController.getArraylistResult("DgetTaskOfCategory " + categories.get(i) + " " +
+                            activeBoard + " " + teamId);
                 }
                 for (String taskTitle : tasksTitle) {
                     Text text = new Text(taskTitle);
@@ -67,8 +63,8 @@ public class SelectedBoardMenuGraphic implements Initializable {
                             sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
                             String TaskTitle = text.getText();
                             try {
-                                AppController.getResult("setTaskIdAndTaskTitle2 " + DatabaseHandler.getTaskIdByTaskTitle(taskTitle, teamId) + " " + taskTitle + " " + User.getToken());
-                            } catch (SQLException | IOException e) {
+                                AppController.getResult("setTaskIdAndTaskTitle2 " + AppController.getResult("DgetTaskIdByTaskTitle " + taskTitle + " " + teamId) + " " + taskTitle + " " + User.getToken());
+                            } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
@@ -87,7 +83,7 @@ public class SelectedBoardMenuGraphic implements Initializable {
                 }
                 hBox.getChildren().add(vBox);
             }
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

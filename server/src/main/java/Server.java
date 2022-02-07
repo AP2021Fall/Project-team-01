@@ -310,6 +310,33 @@ public class Server {
         if (command[0].equals("DgetTeamIdByTaskId")) {
             return DatabaseHandler.getTeamIdByTaskId(Integer.parseInt(command[1])) + "";
         }
+        if (command[0].equals("DgetCategories")) {
+            return getJson(DatabaseHandler.getCategories(command[1], Integer.parseInt(command[2])));
+        }
+        if (command[0].equals("DgetTaskIdByTaskTitle")) {
+            Integer taskId = DatabaseHandler.getTaskIdByTaskTitle(command[1], Integer.parseInt(command[2]));
+            return taskId.toString();
+        }
+        if (command[0].equals("DaddTaskToBoard")) {
+            DatabaseHandler.addTaskToBoard(Integer.parseInt(command[1]), command[2]);
+            return "";
+        }
+        if (command[0].equals("DaddToCategory")) {
+            DatabaseHandler.addToCategory(command[1], command[2], command[3], Integer.parseInt(command[4]));
+            return "";
+        }
+        if (command[0].equals("DgetBoardsOfTeam")) {
+            return getJson(DatabaseHandler.getBoardsOfTeam(Integer.parseInt(command[1])));
+        }
+        if (command[0].equals("DgetTaskOfCategory")) {
+            return getJson(DatabaseHandler.getTaskOfCategory(command[1], command[2], Integer.parseInt(command[3])));
+        }
+        if (command[0].equals("DgetDoneTasksTitle")) {
+            return getJson(DatabaseHandler.getDoneTasksTitle(command[1], Integer.parseInt(command[2])));
+        }
+        if (command[0].equals("DgetFailedTasksTitle")) {
+            return getJson(DatabaseHandler.getFailedTasksTitle(command[1], Integer.parseInt(command[2])));
+        }
 
 
 

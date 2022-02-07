@@ -8,14 +8,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import models.DatabaseHandler;
 import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ForceTaskGraphic implements Initializable {
@@ -29,7 +27,7 @@ public class ForceTaskGraphic implements Initializable {
             int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
             String selectedTask = AppController.getResult("GetSelectedTask " + User.getToken());
             String activeBoard = AppController.getResult("GetActiveBoard " + User.getToken());
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getCategories(activeBoard, teamId));
+            ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetCategories " + activeBoard + " " + teamId));
             categories.setItems(items);
             categories.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -43,7 +41,7 @@ public class ForceTaskGraphic implements Initializable {
                     }
                 }
             });
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
