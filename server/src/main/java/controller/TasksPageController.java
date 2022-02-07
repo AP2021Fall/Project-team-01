@@ -16,13 +16,13 @@ public class TasksPageController {
         return taskIdAndTaskTitle;
     }
 
-    public static int getTaskId(String token){
+    public static int getTaskId(String token) {
         String[] strings = getTaskIdAndTaskTitle().get(token).split(" ");
         return Integer.parseInt(strings[0]);
     }
 
-    public static String getTaskTitle() {
-        String[] strings = TasksPageController.getTaskIdAndTaskTitle().split(" ");
+    public static String getTaskTitle(String token) {
+        String[] strings = TasksPageController.getTaskIdAndTaskTitle().get(token).split(" ");
         return strings[1];
     }
 
@@ -120,9 +120,9 @@ public class TasksPageController {
         }
     }
 
-    public static void showComments(int taskId) throws SQLException {
+    public static void showComments(int taskId, String token) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
-            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
+            if (DatabaseHandler.isUsernameTeamMate(User.getLoginUsers().get(token).getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
                 System.out.println(DatabaseHandler.showCommentsByTaskId(taskId));
             } else
                 System.out.println("this task doesn't belong to your team");
@@ -130,10 +130,10 @@ public class TasksPageController {
             System.out.println("task does not exist!");
     }
 
-    public static void addComment(int taskId, String comment) throws SQLException {
+    public static void addComment(int taskId, String comment, String token) throws SQLException {
         if (DatabaseHandler.doesTaskExist(taskId)) {
-            if (DatabaseHandler.isUsernameTeamMate(LoginController.getActiveUser().getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
-                DatabaseHandler.addCommentByTaskId(taskId, comment, LoginController.getActiveUser().getUsername());
+            if (DatabaseHandler.isUsernameTeamMate(User.getLoginUsers().get(token).getUsername(), DatabaseHandler.getTeamIdByTaskId(taskId))) {
+                DatabaseHandler.addCommentByTaskId(taskId, comment, User.getLoginUsers().get(token).getUsername());
                 System.out.println("your comment added successfully!");
             } else
                 System.out.println("you are not a member of this task's team!");

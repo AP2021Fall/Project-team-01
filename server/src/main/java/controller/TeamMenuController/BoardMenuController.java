@@ -1,10 +1,7 @@
 package controller.TeamMenuController;
 
-import controller.LoginController;
-import models.Board;
 import models.DatabaseHandler;
 import models.User;
-import view.Regex;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -457,7 +454,7 @@ public class BoardMenuController {
                 ArrayList<String> tasks = DatabaseHandler.getTaskOfCategory(categoryName, boardName, teamId);
                 if (tasks.size() != 0) {
                     for (String str : tasks)
-                        System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(teamId)
+                        System.out.println("Task" + str + "by" + DatabaseHandler.getLeaderByTeamName(TeamMenuController.getCurrentTeam().get(token).getName())
                                 + "is in progress");
                 } else
                     System.out.println("no task for this category");
