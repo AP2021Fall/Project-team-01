@@ -50,13 +50,13 @@ public class ProfileMenuController {
         return (teamName + ":" + "\nleader: " + DatabaseHandler.getLeaderByTeamName(teamName) + "\nmembers: " + DatabaseHandler.getMembersByTeamName(teamName));
     }
 
-    public static String showMyProfile() {
+    public static String showMyProfile(String token) {
         User user = User.getLoginUsers().get(token);
         return ("username: " + user.getUsername() + "\nemail address: " + user.getEmail() + "\nrole: " + user.getRole() +
                 "\nscore: " + user.getPoint());
     }
 
-    public static String showMyProfile(String username) throws SQLException {
+    public static String showProfile(String username) throws SQLException {
 //        String username = User.getLoginUsers().get(token).getUsername();
         String email = DatabaseHandler.getEmailByUsername(username);
         String role = DatabaseHandler.getUserRole(username);

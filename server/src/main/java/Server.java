@@ -61,7 +61,7 @@ public class Server {
                     command[3], command[4], command[5]);
         }
         if (command[0].equals("ShowMyProfile")) {
-            return ProfileMenuController.showMyProfile(command[1]);
+            return ProfileMenuController.showProfile(command[1]);
         }
         if (command[0].equals("ShowLogs")) {
             return ProfileMenuController.showLogs(command[1]);
