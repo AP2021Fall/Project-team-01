@@ -62,7 +62,9 @@ public class TaskPageGraphic implements Initializable {
                 currentDescription.setText(AppController.getResult("DgetTaskDescriptionByTaskId " + taskId));
             if (assignUserChoiceBox != null) {
                 currentAssignedUsers.setText(AppController.getArraylistResult("DgetTaskAssignedUsersByTaskId " + taskId).toString());
-                assignUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + AppController.getResult("getTeamNameByTeamId " + AppController.getResult("getTeamIdByTaskId " + taskId))));
+                String teamId = AppController.getResult("DgetTeamIdByTaskId " + taskId);
+                String teamName = AppController.getResult("DgetTeamNameByTeamId " + teamId);
+                assignUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + teamName));
             }
             if (currentDeadline != null)
                 currentDeadline.setText(AppController.getResult("DgetTaskDeadlineByTaskId " + taskId));
@@ -72,7 +74,7 @@ public class TaskPageGraphic implements Initializable {
             }
             if (removeAssignedUserAlert != null) {
                 currentAssignedUsers.setText(AppController.getArraylistResult("DgetTaskAssignedUsersByTaskId " + taskId).toString());
-                removeAssignedUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + AppController.getResult("getTeamNameByTeamId " + AppController.getResult("getTeamIdByTaskId " + taskId))));
+                removeAssignedUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + AppController.getResult("DgetTeamNameByTeamId " + AppController.getResult("DgetTeamIdByTaskId " + taskId))));
             }
 
         } catch (IOException e) {
