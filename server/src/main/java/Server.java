@@ -260,7 +260,7 @@ public class Server {
             return getJson(DatabaseHandler.getPendingTeams());
         }
         if (command[0].equals("DdoesTeamExistForUser")) {
-            if (DatabaseHandler.doesTeamExistForUser(command[1], command[2]) {
+            if (DatabaseHandler.doesTeamExistForUser(command[1], command[2])) {
                 return "y";
             }
             return "n";
