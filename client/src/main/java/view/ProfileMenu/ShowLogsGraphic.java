@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -36,7 +37,11 @@ public class ShowLogsGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
     }
 
-    public void goToMainMenu(ActionEvent actionEvent) {
+    public void goToMainMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
