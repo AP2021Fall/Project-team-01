@@ -1,6 +1,5 @@
 package view;
 
-import controller.LoginController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import models.DatabaseHandler;
+import models.User;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TasksMenuLeaderGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(User.getActiveUsername()));
     public TextField searchTextField;
     public ChoiceBox tasksSortChoiceBox;
     public ListView<String> tasksListView;
@@ -34,7 +34,7 @@ public class TasksMenuLeaderGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ArrayList<String> allTasks = DatabaseHandler.getTasksByUsername(LoginController.getActiveUser().getUsername());
+            ArrayList<String> allTasks = DatabaseHandler.getTasksByUsername(User.getActiveUsername());
             ObservableList<String> items = FXCollections.observableArrayList(allTasks);
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -50,7 +50,7 @@ public class TasksMenuLeaderGraphic implements Initializable {
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(User.getActiveUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -58,7 +58,7 @@ public class TasksMenuLeaderGraphic implements Initializable {
                 } else if ("Deadline".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(User.getActiveUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -66,7 +66,7 @@ public class TasksMenuLeaderGraphic implements Initializable {
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(User.getActiveUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

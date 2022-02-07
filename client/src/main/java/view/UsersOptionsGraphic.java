@@ -1,9 +1,10 @@
 package view;
 
-import controller.MainMenuController;
-import controller.TeamMenuController.ScoreBoardController;
+import appController.AppController;
 import javafx.event.ActionEvent;
+import models.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class UsersOptionsGraphic {
@@ -13,8 +14,8 @@ public class UsersOptionsGraphic {
         sceneController.switchScene(MenusFxml.SHOW_PROFILE_MENU.getLabel());
     }
 
-    public void ban(ActionEvent actionEvent) throws SQLException {
-        MainMenuController.banUser(ScoreBoardController.usernameToRemove);
+    public void ban(ActionEvent actionEvent) throws SQLException, IOException {
+        AppController.getResult("banUser " + User.getToken());
         sceneController.switchScene(MenusFxml.USERS.getLabel());
     }
 

@@ -1,6 +1,6 @@
 package view;
 
-import controller.TeamMenuController.ScoreBoardController;
+import appController.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +11,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import models.DatabaseHandler;
+import models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -39,7 +41,12 @@ public class UsersGraphic implements Initializable {
             listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    ScoreBoardController.usernameToRemove = (String) listView.getSelectionModel().getSelectedItem();
+                    String username = (String) listView.getSelectionModel().getSelectedItem();
+                    try {
+                        AppController.getResult("SelectUsernameToRemove " + username + " " + User.getToken());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     sceneController.switchScene(MenusFxml.USERS_OPTIONS.getLabel());
                 }
             });

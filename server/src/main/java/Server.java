@@ -151,25 +151,31 @@ public class Server {
             return TasksPageController.editTitle(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editDescription")) {
-            TasksPageController.editDescription(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+            return TasksPageController.editDescription(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editPriority")) {
-            TasksPageController.editPriority(TasksPageController.getTaskId(command[2]), Integer.parseInt(command[1]), command[2]);
+            return TasksPageController.editPriority(TasksPageController.getTaskId(command[2]), Integer.parseInt(command[1]), command[2]);
         }
         if (command[0].equals("editDeadLine")) {
-            TasksPageController.editDeadline(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+            return TasksPageController.editDeadline(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editAssigned")) {
-            TasksPageController.addAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+            return TasksPageController.addAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editRemoveAssigned")) {
-            TasksPageController.removeAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+            return TasksPageController.removeAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+        }
+        if (command[0].equals("setTaskIdAndTaskTitle2")) {
+            TasksPageController.getTaskIdAndTaskTitle().put(command[2], command[1]);
         }
         if (command[0].equals("CurrentTeamName")){
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
         }
         if (command[0].equals("SelectUsernameToRemove")){
             return ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
+        }
+        if (command[0].equals("banUser")) {
+            MainMenuController.banUser(ScoreBoardController.getUsernameToRemove().get(command[1]));
         }
         if (command[0].equals("SendMessage")){
             ChatroomController.sendMessage(command[1], command[2]);
