@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.User;
+import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
@@ -72,7 +73,11 @@ public class ChatroomGraphic implements Initializable {
         }
     }
 
-    public void BackToTeamMenu(ActionEvent actionEvent) {
+    public void BackToTeamMenu(ActionEvent actionEvent) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")){
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
+            return;
+        }
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
     }
 
