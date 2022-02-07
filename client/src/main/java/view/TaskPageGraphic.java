@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import models.DatabaseHandler;
 import models.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -113,12 +112,12 @@ public class TaskPageGraphic implements Initializable {
     }
 
     public void submitEditTaskPriority(ActionEvent actionEvent) throws SQLException, IOException {
-        if (((String)newPriorityChoiceBox.getValue()).isEmpty()){
+        if (((String)newPriorityChoiceBox.getValue()).isEmpty()) {
             editPriorityAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        zasdgsga
-        String result = AppController.getResult("editPriority " + (String) newPriorityChoiceBox.getValue() + " " + User.getToken());
+        String priority = (String) newPriorityChoiceBox.getValue();
+        String result = AppController.getResult("editPriority " + priority + " " + User.getToken());
         editPriorityAlert.setText(result);
     }
 
@@ -126,12 +125,12 @@ public class TaskPageGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.EDIT_PRIORITY_TASK.getLabel());
     }
 
-    public void submitEditTaskDeadline(ActionEvent actionEvent) throws SQLException {
+    public void submitEditTaskDeadline(ActionEvent actionEvent) throws SQLException, IOException {
         if (newDeadlineTextField.getText().isEmpty()){
             editDeadlineAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editDeadline(TasksPageController.getTaskId(), newDeadlineTextField.getText());
+        String result = AppController.getResult("editDeadLine " + newDeadlineTextField.getText() + " " + User.getToken());
         editDeadlineAlert.setText(result);
     }
 
@@ -139,12 +138,13 @@ public class TaskPageGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.EDIT_DEADLINE_TASK.getLabel());
     }
 
-    public void submitTaskAssignUser(ActionEvent actionEvent) throws SQLException {
+    public void submitTaskAssignUser(ActionEvent actionEvent) throws SQLException, IOException {
         if (((String)assignUserChoiceBox.getValue()).isEmpty()){
             addAssignedUserAlert.setText("PLEASE CHOOSE THE USER!");
             return;
         }
-        String result = TasksPageController.addAssignedUser(TasksPageController.getTaskId(), (String) assignUserChoiceBox.getValue());
+        String assigned = (String) assignUserChoiceBox.getValue();
+        String result = AppController.getResult("editAssigned " + assigned + " " + User.getToken());
         addAssignedUserAlert.setText(result);
     }
 
@@ -153,12 +153,13 @@ public class TaskPageGraphic implements Initializable {
     }
 
 
-    public void submitTaskRemoveAssignedUser(ActionEvent actionEvent) throws SQLException {
+    public void submitTaskRemoveAssignedUser(ActionEvent actionEvent) throws SQLException, IOException {
         if (((String)removeAssignedUserChoiceBox.getValue()).isEmpty()){
             removeAssignedUserAlert.setText("PLEASE CHOOSE THE USER!");
             return;
         }
-        String result = TasksPageController.removeAssignedUser(TasksPageController.getTaskId(), (String) removeAssignedUserChoiceBox.getValue());
+        String assigned = (String) removeAssignedUserChoiceBox.getValue();
+        String result = AppController.getResult("editRemoveAssigned " + assigned + " " + User.getToken());
         removeAssignedUserAlert.setText(result);
     }
 

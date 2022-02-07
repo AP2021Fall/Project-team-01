@@ -148,13 +148,22 @@ public class Server {
             return TasksPageController.getTaskId(command[1]) + "";
         }
         if (command[0].equals("editTitle")) {
-            return TasksPageController.editTitle(TasksPageController.getTaskId(command[2]), command[1]);
+            return TasksPageController.editTitle(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editDescription")) {
-            TasksPageController.editDescription(TasksPageController.getTaskId(command[2]), command[1]);
+            TasksPageController.editDescription(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("editPriority")) {
-            TasksPageController.editPriority(TasksPageController.getTaskId(command[1]), Integer.parseInt((String) newPriorityChoiceBox.getValue()));
+            TasksPageController.editPriority(TasksPageController.getTaskId(command[2]), Integer.parseInt(command[1]), command[2]);
+        }
+        if (command[0].equals("editDeadLine")) {
+            TasksPageController.editDeadline(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+        }
+        if (command[0].equals("editAssigned")) {
+            TasksPageController.addAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
+        }
+        if (command[0].equals("editRemoveAssigned")) {
+            TasksPageController.removeAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("CurrentTeamName")){
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
