@@ -4,10 +4,7 @@ import controller.MainMenuController;
 import controller.ProfileMenuController.ChangePasswordMenuController;
 import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
-import controller.TeamMenuController.ChatroomController;
-import controller.TeamMenuController.ScoreBoardController;
-import controller.TeamMenuController.TeamMenuController;
-import controller.TeamMenuController.TeamSelectionController;
+import controller.TeamMenuController.*;
 import models.DatabaseHandler;
 
 import java.io.*;
@@ -159,6 +156,10 @@ public class Server {
         if (command[0].equals("CurrentTeamName")){
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
         }
+        if (command[0].equals("CurrentTeamId")){
+            Integer teamId = TeamMenuController.getCurrentTeam().get(command[1]).getId();
+            return teamId.toString();
+        }
         if (command[0].equals("SelectUsernameToRemove")){
             return ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
         }
@@ -174,6 +175,26 @@ public class Server {
         }
         if (command[0].equals("UsernameToRemove")){
             return ScoreBoardController.getUsernameToRemove().get(command[1]);
+        }
+        if (command[0].equals("SetActiveBoard")){
+            BoardMenuController.getActiveBoard().put(command[2], command[1]);
+            return "";
+        }
+        if (command[0].equals("GetActiveBoard")){
+            return BoardMenuController.getActiveBoard().get( command[1]);
+        }
+        if (command[0].equals("CreateBoard")){
+            return BoardMenuController.createBoard(command[1], command[2]);
+        }
+        if (command[0].equals("SelectBoard")){
+            BoardMenuController.selectBoard(command[1], command[2]);
+            return "";
+        }
+        if (command[0].equals("AddCategorySelect")){
+            return BoardMenuController.addCategorySelect(command[1], command[2]);
+        }
+        if (command[0].equals("AddCategoryToColumnSelect")){
+            return BoardMenuController.addCategoryToColumnSelect(command[1], command[2], command[3]);
         }
 
 
