@@ -48,34 +48,34 @@ public class TaskPageGraphic implements Initializable {
             String task = AppController.getResult("taskIdTaskPage " + User.getToken());
             int taskId = Integer.parseInt(task);
             if (taskInfoLabel != null) {
-                taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + AppController.getArraylistResult("DgetTaskTitleByTaskId " + taskId) +
-                        "\nTask Priority: " + AppController.getArraylistResult("DgetTaskPriorityByTaskId " + taskId) +
-                        "\nTask Description: " + AppController.getArraylistResult("DgetTaskDescriptionByTaskId " + taskId) +
-                        "\nTask Creation Time: " + DatabaseHandler.getTaskCreationTimeByTaskId(taskId) +
-                        "\nTask Deadline: " + DatabaseHandler.getTaskDeadlineByTaskId(taskId) +
-                        "\nTask Comments: " + DatabaseHandler.getTaskCommentsByTaskId(taskId).toString() +
-                        "\nTask Assigned Users: " + DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
+                taskInfoLabel.setText("Task Id: " + taskId + "\nTask Title: " + AppController.getResult("DgetTaskTitleByTaskId " + taskId) +
+                        "\nTask Priority: " + AppController.getResult("DgetTaskPriorityByTaskId " + taskId) +
+                        "\nTask Description: " + AppController.getResult("DgetTaskDescriptionByTaskId " + taskId) +
+                        "\nTask Creation Time: " + AppController.getResult("DgetTaskCreationTimeByTaskId " + taskId) +
+                        "\nTask Deadline: " + AppController.getResult("DgetTaskDeadlineByTaskId " + taskId) +
+                        "\nTask Comments: " + AppController.getArraylistResult("DgetTaskCommentsByTaskId " + taskId).toString() +
+                        "\nTask Assigned Users: " + AppController.getArraylistResult("DgetTaskAssignedUsersByTaskId " + taskId).toString());
             }
             if (currentTitle != null)
-                currentTitle.setText(DatabaseHandler.getTaskPriorityByTaskId(taskId));
+                currentTitle.setText(AppController.getResult("DgetTaskPriorityByTaskId " + taskId));
             if (currentDescription != null)
-                currentDescription.setText(DatabaseHandler.getTaskDescriptionByTaskId(taskId));
+                currentDescription.setText(AppController.getResult("DgetTaskDescriptionByTaskId " + taskId));
             if (assignUserChoiceBox != null) {
-                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
-                assignUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(taskId))));
+                currentAssignedUsers.setText(AppController.getArraylistResult("DgetTaskAssignedUsersByTaskId " + taskId).toString());
+                assignUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + AppController.getResult("getTeamNameByTeamId " + AppController.getResult("getTeamIdByTaskId " + taskId))));
             }
             if (currentDeadline != null)
-                currentDeadline.setText(DatabaseHandler.getTaskDeadlineByTaskId(taskId));
+                currentDeadline.setText(AppController.getResult("DgetTaskDeadlineByTaskId " + taskId));
             if (currentPriority != null) {
                 newPriorityChoiceBox.getItems().addAll("1", "2", "3", "4");
-                currentPriority.setText(DatabaseHandler.getTaskPriorityByTaskId(taskId));
+                currentPriority.setText(AppController.getResult("DgetTaskPriorityByTaskId " + taskId));
             }
             if (removeAssignedUserAlert != null) {
-                currentAssignedUsers.setText(DatabaseHandler.getTaskAssignedUsersByTaskId(taskId).toString());
-                removeAssignedUserChoiceBox.getItems().addAll(DatabaseHandler.getMembersByTeamName(DatabaseHandler.getTeamNameByTeamId(DatabaseHandler.getTeamIdByTaskId(taskId))));
+                currentAssignedUsers.setText(AppController.getArraylistResult("DgetTaskAssignedUsersByTaskId " + taskId).toString());
+                removeAssignedUserChoiceBox.getItems().addAll(AppController.getArraylistResult("DgetMembersByTeamName " + AppController.getResult("getTeamNameByTeamId " + AppController.getResult("getTeamIdByTaskId " + taskId))));
             }
 
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

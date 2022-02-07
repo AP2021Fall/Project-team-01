@@ -165,7 +165,7 @@ public class Server {
             return TasksPageController.removeAssignedUser(TasksPageController.getTaskId(command[2]), command[1], command[2]);
         }
         if (command[0].equals("setTaskIdAndTaskTitle2")) {
-            TasksPageController.getTaskIdAndTaskTitle().put(command[2], command[1]);
+            TasksPageController.getTaskIdAndTaskTitle().put(command[3], command[1] + " " + command[2]);
         }
         if (command[0].equals("CurrentTeamName")){
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
@@ -267,6 +267,29 @@ public class Server {
         if (command[0].equals("DgetTaskDescriptionByTaskId")) {
             return DatabaseHandler.getTaskDescriptionByTaskId(Integer.parseInt(command[1]));
         }
+        if (command[0].equals("DgetTaskCreationTimeByTaskId")) {
+            return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DgetTaskDeadlineByTaskId")) {
+            return DatabaseHandler.getTaskCreationTimeByTaskId(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DgetTaskCommentsByTaskId")) {
+            return getJson(DatabaseHandler.getTaskCommentsByTaskId(Integer.parseInt(command[1])));
+        }
+        if (command[0].equals("DgetTaskAssignedUsersByTaskId")) {
+            return getJson(DatabaseHandler.getTaskAssignedUsersByTaskId(Integer.parseInt(command[1])));
+        }
+        if (command[0].equals("DgetMembersByTeamName")) {
+            return getJson(DatabaseHandler.getMembersByTeamName(command[1]));
+        }
+        if (command[0].equals("DgetTeamNameByTeamId")) {
+            return DatabaseHandler.getTeamNameByTeamId(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DgetTeamIdByTaskId")) {
+            return DatabaseHandler.getTeamIdByTaskId(Integer.parseInt(command[1])) + "";
+        }
+
+
 
 
         return " ";
