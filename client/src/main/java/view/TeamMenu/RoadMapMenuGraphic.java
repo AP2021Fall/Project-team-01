@@ -86,13 +86,13 @@ public class RoadMapMenuGraphic implements Initializable {
 
     public void showTasksInfo() throws SQLException, IOException {
         String teamName = AppController.getResult("CurrentTeamName");
-        TasksInfo.setText("Total Tasks: " + DatabaseHandler.getTasksTitleByTeamName(teamName).size() +
-                "\nDone Tasks: " + DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size() +
-                "\nIn Progress Tasks: " + DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size() +
-                "\nFailed Tasks: " + DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size());
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("Done", DatabaseHandler.getDoneTasksTitleByTeamName(teamName).size()),
-                new PieChart.Data("InProgress", DatabaseHandler.getInProgressTasksTitleByTeamName(teamName).size()),
-                new PieChart.Data("\nFailed", DatabaseHandler.getFailedTasksTitleByTeamName(teamName).size()));
+        TasksInfo.setText("Total Tasks: " + AppController.getArraylistResult("DgetTasksTitleByTeamName " + teamName).size() +
+                "\nDone Tasks: " + AppController.getArraylistResult("DgetDoneTasksTitleByTeamName " + teamName).size() +
+                "\nIn Progress Tasks: " + AppController.getArraylistResult("DgetInProgressTasksTitleByTeamName " + teamName).size() +
+                "\nFailed Tasks: " + AppController.getArraylistResult("DgetFailedTasksTitleByTeamName " + teamName).size());
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("Done", AppController.getArraylistResult("DgetDoneTasksTitleByTeamName " + teamName).size()),
+                new PieChart.Data("InProgress", AppController.getArraylistResult("DgetInProgressTasksTitleByTeamName " + teamName).size()),
+                new PieChart.Data("\nFailed", AppController.getArraylistResult("DgetFailedTasksTitleByTeamName " + teamName).size()));
         TasksChart.setData(pieChartData);
     }
 

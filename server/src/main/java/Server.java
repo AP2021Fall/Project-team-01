@@ -370,6 +370,19 @@ public class Server {
             }
             return "n";
         }
+        if (command[0].equals("DgetTasksTitleByTeamName")) {
+            return getJson(DatabaseHandler.getTasksTitleByTeamName(command[1]));
+        }
+        if (command[0].equals("DgetDoneTasksTitleByTeamName")) {
+            return getJson(DatabaseHandler.getDoneTasksTitleByTeamName(command[1]));
+        }
+        if (command[0].equals("DgetInProgressTasksTitleByTeamName")) {
+            return getJson(DatabaseHandler.getInProgressTasksTitleByTeamName(command[1]));
+        }
+        if (command[0].equals("DgetFailedTasksTitleByTeamName")) {
+            return getJson(DatabaseHandler.getFailedTasksTitleByTeamName(command[1]));
+        }
+
 
         return " ";
     }
