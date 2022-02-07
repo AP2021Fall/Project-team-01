@@ -35,6 +35,7 @@ public class ForceTaskGraphic implements Initializable {
                     String category = (String) categories.getSelectionModel().getSelectedItem();
                     try {
                         AppController.getResult("ForceTaskToCategorySelect " + category + " " + selectedTask + " " + User.getToken());
+                        AppController.getResult("sendToTeam " + "taskTitle: " + selectedTask + " moved next! " + User.getToken());
                         sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
                     } catch (IOException e) {
                         e.printStackTrace();

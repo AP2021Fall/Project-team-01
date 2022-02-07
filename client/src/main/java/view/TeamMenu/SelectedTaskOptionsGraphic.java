@@ -46,6 +46,10 @@ public class SelectedTaskOptionsGraphic {
             return;
         }
         AppController.getResult("TaskToNext " + selectedTask + " " + activeBoard + " " + User.getToken());
+
+        String teamName = AppController.getResult("CurrentTeamName " + User.getToken());
+        AppController.getResult("setTeamChoice " + teamName + " " + User.getToken());
+        AppController.getResult("sendToTeam " + "taskId: " + taskId + " moved next! " + User.getToken());
         sceneController.switchScene(MenusFxml.SELECTED_BOARD_MENU.getLabel());
     }
 

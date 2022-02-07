@@ -51,4 +51,8 @@ public class showNotificationsGraphic implements Initializable {
     public void goToMainMenu(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
+
+    public void RefreshNotifications(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.SHOW_NOTIFICATION_MENU.getLabel());
+    }
 }

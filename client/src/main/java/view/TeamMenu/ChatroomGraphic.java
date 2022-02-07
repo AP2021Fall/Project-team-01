@@ -33,6 +33,11 @@ public class ChatroomGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
 
     public void sendMessage() throws SQLException, IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")){
+            String teamName = AppController.getResult("CurrentTeamName " + User.getToken());
+            AppController.getResult("setTeamChoice " + teamName + " " + User.getToken());
+            AppController.getResult("sendToTeam " + "Leader Sent A Message! " + " " + User.getToken());
+        }
         AppController.getResult("SendMessage " + input_String.getText() + " " + User.getToken());
         chatShow.getChildren().clear();
         ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
@@ -82,18 +87,6 @@ public class ChatroomGraphic implements Initializable {
     }
 
     public void RefreshChatroom(ActionEvent actionEvent) throws IOException {
-        chatShow.getChildren().clear();
-        ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
-        for (String str : chats){
-            Text text = new Text(str);
-            text.setFill(Color.WHITE);
-            Font font = new Font("Book Antiqua" , 20);
-            text.setFont(font);
-            chatShow.getChildren().add(text);
-        }
-        chats.add("\n");
-        chats.add("\n");
-        chatShow.setAlignment(Pos.TOP_LEFT);
-        input_String.clear();
+        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
     }
 }
