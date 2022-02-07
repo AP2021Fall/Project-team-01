@@ -22,20 +22,20 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TasksMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(User.getActiveUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetTasksByUsername " + User.getActiveUsername()));
     public TextField searchTextField;
     public ChoiceBox tasksSortChoiceBox;
     public ListView<String> tasksListView;
     public SceneController sceneController = new SceneController();
 
-    public TasksMenuGraphic() throws SQLException {
+    public TasksMenuGraphic() throws SQLException, IOException {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ArrayList<String> allTasks = DatabaseHandler.getTasksByUsername(User.getActiveUsername());
+            ArrayList<String> allTasks = AppController.getArraylistResult("DgetTasksByUsername " + User.getActiveUsername());
             ObservableList<String> items = FXCollections.observableArrayList(allTasks);
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -60,29 +60,29 @@ public class TasksMenuGraphic implements Initializable {
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableArrayList(DatabaseHandler.sortTaskTitlesByPriority(User.getActiveUsername())));
-                    } catch (SQLException e) {
+                        tasksListView.setItems(FXCollections.observableArrayList(AppController.getArraylistResult("DsortTaskTitlesByPriority " + User.getActiveUsername())));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 } else if ("DeadLine".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByDeadline(User.getActiveUsername())));
-                    } catch (SQLException e) {
+                        tasksListView.setItems(FXCollections.observableList(AppController.getArraylistResult("DsortTaskTitlesByDeadline " + User.getActiveUsername())));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByTaskTitle(User.getActiveUsername())));
-                    } catch (SQLException e) {
+                        tasksListView.setItems(FXCollections.observableList(AppController.getArraylistResult("DsortTaskTitlesByTaskTitle " + User.getActiveUsername())));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

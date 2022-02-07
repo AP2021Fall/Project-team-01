@@ -247,6 +247,12 @@ public class Server {
         if (command[0].equals("DsortTaskTitlesByDeadline")) {
             return getJson(DatabaseHandler.sortTaskTitlesByDeadline(command[1]));
         }
+        if (command[0].equals("DsortTaskTitlesByPriority")) {
+            return getJson(DatabaseHandler.sortTaskTitlesByPriority(command[1]));
+        }
+        if (command[0].equals("DsortTaskTitlesByTaskTitle")) {
+            return getJson(DatabaseHandler.sortTaskTitlesByTaskTitle(command[1]));
+        }
         if (command[0].equals("DgetUserTeams")) {
             return getJson(DatabaseHandler.getUserTeams(command[1]));
         }
