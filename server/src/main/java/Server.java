@@ -316,6 +316,9 @@ public class Server {
         if (command[0].equals("DgetTeamIdByTaskId")) {
             return DatabaseHandler.getTeamIdByTaskId(Integer.parseInt(command[1])) + "";
         }
+        if (command[0].equals("DgetAllUsersSortedByName")) {
+            return getJson(DatabaseHandler.getAllUsersSortedByName());
+        }
 
 
 
