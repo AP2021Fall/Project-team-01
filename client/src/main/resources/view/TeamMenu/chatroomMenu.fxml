@@ -10,11 +10,16 @@
    <children>
       <Button layoutX="590.0" layoutY="505.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="23.0" prefWidth="83.0" style="-fx-background-color: #808CF2;" text="Send" />
       <TextField fx:id="input_String" layoutX="166.0" layoutY="505.0" prefHeight="12.0" prefWidth="392.0" promptText="Enter your Message" />
-      <Button  layoutX="735.0" layoutY="393.0" mnemonicParsing="false" onAction="#BackToTeamMenu" prefHeight="49.0" prefWidth="97.0" style="-fx-background-color: #E81232;" text="BACK" textFill="WHITE">
+      <Button layoutX="735.0" layoutY="393.0" mnemonicParsing="false" onAction="#BackToTeamMenu" prefHeight="49.0" prefWidth="97.0" style="-fx-background-color: #E81232;" text="BACK" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
       <ScrollPane fx:id="scrollPane" layoutX="157.0" layoutY="29.0" prefHeight="422.0" prefWidth="482.0" />
+      <Button layoutX="735.0" layoutY="29.0" mnemonicParsing="false" onAction="#RefreshChatroom" prefHeight="49.0" prefWidth="97.0" style="-fx-background-color: #E81232;" text="REFRESH" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
