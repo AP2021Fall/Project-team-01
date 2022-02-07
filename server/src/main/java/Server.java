@@ -6,9 +6,10 @@ import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
 import controller.TeamMenuController.*;
 import models.DatabaseHandler;
-import models.User;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -51,45 +52,62 @@ public class Server {
             String username = command[1];
             String password = command[2];
             return LoginController.loginUser(username, password);
-        }if (command[0].equals("role")) {
+        }
+        if (command[0].equals("role")) {
             return DatabaseHandler.getRoleByUsername(command[1]);
-        }if (command[0].equals("register")) {
+        }
+        if (command[0].equals("register")) {
             return LoginController.createUser(command[1], command[2],
                     command[3], command[4], command[5]);
-        }if (command[0].equals("ShowMyProfile")){
+        }
+        if (command[0].equals("ShowMyProfile")) {
             return ProfileMenuController.showMyProfile(command[1]);
-        }if (command[0].equals("ShowLogs")){
+        }
+        if (command[0].equals("ShowLogs")) {
             return ProfileMenuController.showLogs(command[1]);
-        }if (command[0].equals("ChangePassword")){
+        }
+        if (command[0].equals("ChangePassword")) {
             return ChangePasswordMenuController.changePassword(command[1], command[2], command[3]);
-        }if (command[0].equals("ChangeUsername")){
+        }
+        if (command[0].equals("ChangeUsername")) {
             return ProfileMenuController.changeUsername(command[1], command[2]);
-        }if (command[0].equals("ShowNotifications")){
+        }
+        if (command[0].equals("ShowNotifications")) {
             return ProfileMenuController.showNotifications(command[1]).toString();
-        }if (command[0].equals("ShowMyTeams")){
+        }
+        if (command[0].equals("ShowMyTeams")) {
             return new Gson().toJson(ProfileMenuController.showTeams(command[1]));
-        }if (command[0].equals("ShowTeam")){
+        }
+        if (command[0].equals("ShowTeam")) {
             return ProfileMenuController.showTeam(command[1]);
-        }if (command[0].equals("getTasksByUsername")) {
-            return  new Gson().toJson(DatabaseHandler.getTasksByUsername(command[1]));
-        }if (command[0].equals("createTask")) {
+        }
+        if (command[0].equals("getTasksByUsername")) {
+            return new Gson().toJson(DatabaseHandler.getTasksByUsername(command[1]));
+        }
+        if (command[0].equals("createTask")) {
             return TeamMenuController.createTask(command[1], command[2] + " " + command[3], command[4] + " " + command[5], command[6]);
-        }if (command[0].equals("createTeam")) {
+        }
+        if (command[0].equals("createTeam")) {
             return MainMenuController.createTeam(command[1], command[2]);
-        }if (command[0].equals("changeRole")) {
+        }
+        if (command[0].equals("changeRole")) {
             return MainMenuController.changeRoleToMember(command[1], command[2]);
-        }if (command[0].equals("SelectTeam")) {
+        }
+        if (command[0].equals("SelectTeam")) {
             TeamSelectionController.enterTeam(command[1], command[2]);
             return " ";
-        }if (command[0].equals("ShowMembersAndLeader")) {
+        }
+        if (command[0].equals("ShowMembersAndLeader")) {
             return new Gson().toJson(TeamMenuController.showMembersLeader(command[1]));
-        }if (command[0].equals("GetTasksTitleByTeamName")) {
+        }
+        if (command[0].equals("GetTasksTitleByTeamName")) {
             return new Gson().toJson(DatabaseHandler.getTasksTitleByTeamName(TeamMenuController.getCurrentTeam().get(command[1]).getName()));
-        }if (command[0].equals("SetTaskIdAndTaskTitle")) {
+        }
+        if (command[0].equals("SetTaskIdAndTaskTitle")) {
             String taskName = command[1];
-            String token = command [2];
+            String token = command[2];
             int currentTeamId = DatabaseHandler.getTeamIdByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
-            TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId)  + " " + taskName);
+            TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId) + " " + taskName);
             return "";
         }
         if (command[0].equals("changeRole1")) {
@@ -113,12 +131,12 @@ public class Server {
         }
         if (command[0].equals("sendToUser")) {
             int i = input.lastIndexOf(' ');
-            MainMenuController.sendNotificationToUser(input.substring(11, i),MainMenuController.username.get(input.substring(i+1)),input.substring(i+1));
+            MainMenuController.sendNotificationToUser(input.substring(11, i), MainMenuController.username.get(input.substring(i + 1)), input.substring(i + 1));
             return "done";
         }
         if (command[0].equals("sendToTeam")) {
             int i = input.lastIndexOf(' ');
-            MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i+1)), input.substring(i+1));
+            MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i + 1)), input.substring(i + 1));
             return "done";
         }
         if (command[0].equals("sendToAll")) {
@@ -167,71 +185,71 @@ public class Server {
         if (command[0].equals("setTaskIdAndTaskTitle2")) {
             TasksPageController.getTaskIdAndTaskTitle().put(command[3], command[1] + " " + command[2]);
         }
-        if (command[0].equals("CurrentTeamName")){
+        if (command[0].equals("CurrentTeamName")) {
             return TeamMenuController.getCurrentTeam().get(command[1]).getName();
         }
-        if (command[0].equals("CurrentTeamId")){
+        if (command[0].equals("CurrentTeamId")) {
             Integer teamId = TeamMenuController.getCurrentTeam().get(command[1]).getId();
             return teamId.toString();
         }
-        if (command[0].equals("SelectUsernameToRemove")){
+        if (command[0].equals("SelectUsernameToRemove")) {
             return ScoreBoardController.getUsernameToRemove().put(command[2], command[1]);
         }
         if (command[0].equals("banUser")) {
             MainMenuController.banUser(ScoreBoardController.getUsernameToRemove().get(command[1]));
         }
-        if (command[0].equals("SendMessage")){
+        if (command[0].equals("SendMessage")) {
             ChatroomController.sendMessage(command[1], command[2]);
             return "";
         }
-        if (command[0].equals("ShowChatroom")){
+        if (command[0].equals("ShowChatroom")) {
             return new Gson().toJson(DatabaseHandler.showChatroom(TeamMenuController.getCurrentTeam().get(command[1]).getId()));
         }
-        if (command[0].equals("ShowProfile")){
+        if (command[0].equals("ShowProfile")) {
             return ProfileMenuController.showMyProfile();
         }
-        if (command[0].equals("UsernameToRemove")){
+        if (command[0].equals("UsernameToRemove")) {
             return ScoreBoardController.getUsernameToRemove().get(command[1]);
         }
-        if (command[0].equals("SetActiveBoard")){
+        if (command[0].equals("SetActiveBoard")) {
             BoardMenuController.getActiveBoard().put(command[2], command[1]);
             return "";
         }
-        if (command[0].equals("GetActiveBoard")){
-            return BoardMenuController.getActiveBoard().get( command[1]);
+        if (command[0].equals("GetActiveBoard")) {
+            return BoardMenuController.getActiveBoard().get(command[1]);
         }
-        if (command[0].equals("CreateBoard")){
+        if (command[0].equals("CreateBoard")) {
             return BoardMenuController.createBoard(command[1], command[2]);
         }
-        if (command[0].equals("SelectBoard")){
+        if (command[0].equals("SelectBoard")) {
             BoardMenuController.selectBoard(command[1], command[2]);
             return "";
         }
-        if (command[0].equals("AddCategorySelect")){
+        if (command[0].equals("AddCategorySelect")) {
             return BoardMenuController.addCategorySelect(command[1], command[2]);
         }
-        if (command[0].equals("AddCategoryToColumnSelect")){
+        if (command[0].equals("AddCategoryToColumnSelect")) {
             return BoardMenuController.addCategoryToColumnSelect(command[1], command[2], command[3]);
         }
-        if (command[0].equals("CompleteBoardFirstStepSelect")){
+        if (command[0].equals("CompleteBoardFirstStepSelect")) {
             return BoardMenuController.completeBoardFirstStepSelect(command[1]);
         }
-        if (command[0].equals("SetSelectedTask")){
+        if (command[0].equals("SetSelectedTask")) {
             BoardMenuController.getSelectedTaskTitle().put(command[2], command[1]);
             return "";
         }
-        if (command[0].equals("GetSelectedTask")){
+        if (command[0].equals("GetSelectedTask")) {
             return BoardMenuController.getSelectedTaskTitle().get(command[1]);
         }
-        if (command[0].equals("ForceTaskToCategorySelect")){
+        if (command[0].equals("ForceTaskToCategorySelect")) {
             BoardMenuController.forceTaskToCategorySelect(command[1], command[2], command[3]);
             return "";
         }
-        if (command[0].equals("DeleteMemberFromTeam")){
+        if (command[0].equals("DeleteMemberFromTeam")) {
             TeamMenuController.deleteMemberFromTeam(command[1], command[2]);
             return "";
         }
-        if (command[0].equals("TaskToNext")){
+        if (command[0].equals("TaskToNext")) {
             BoardMenuController.taskToNext(command[1], command[2], command[3]);
             return "";
         }
@@ -260,7 +278,7 @@ public class Server {
             return getJson(DatabaseHandler.getPendingTeams());
         }
         if (command[0].equals("DdoesTeamExistForUser")) {
-            if (DatabaseHandler.doesTeamExistForUser(command[1], command[2]) {
+            if (DatabaseHandler.doesTeamExistForUser(command[1], command[2])) {
                 return "y";
             }
             return "n";
@@ -346,10 +364,6 @@ public class Server {
         if (command[0].equals("DgetFailedTasksTitle")) {
             return getJson(DatabaseHandler.getFailedTasksTitle(command[1], Integer.parseInt(command[2])));
         }
-
-
-
-
         return " ";
     }
 
