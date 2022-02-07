@@ -1,9 +1,6 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TeamMenuController.BoardMenuController;
-import controller.TeamMenuController.ScoreBoardController;
-import controller.TeamMenuController.TeamMenuController;
+import appController.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,9 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import models.DatabaseHandler;
+import models.User;
 import view.MenusFxml;
 import view.SceneController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -28,15 +27,20 @@ public class AddTaskToBoard implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> items = null;
         try {
-            items = FXCollections.observableArrayList (DatabaseHandler.getTasksByUsernameOutOfBoard(LoginController.getActiveUser().getUsername(), TeamMenuController.getTeam().getId()));
-        } catch (SQLException e) {
+            int teamId = Integer.parseInt(AppController.getResult("CurrentTeamId " + User.getToken()));
+            items = FXCollections.observableArrayList (DatabaseHandler.getTasksByUsernameOutOfBoard(User.getActiveUsername(), teamId));
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
         listView.setItems(items);
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                BoardMenuController.setSelectedTask((String) listView.getSelectionModel().getSelectedItem());
+                try {
+                    AppController.getResult("SetSelectedTask " + listView.getSelectionModel().getSelectedItem() + " " + User.getToken());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 sceneController.switchScene(MenusFxml.ADD_CATEGORY_TO_TASK.getLabel());
             }
         });

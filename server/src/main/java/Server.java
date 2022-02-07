@@ -211,6 +211,28 @@ public class Server {
         if (command[0].equals("AddCategoryToColumnSelect")){
             return BoardMenuController.addCategoryToColumnSelect(command[1], command[2], command[3]);
         }
+        if (command[0].equals("CompleteBoardFirstStepSelect")){
+            return BoardMenuController.completeBoardFirstStepSelect(command[1]);
+        }
+        if (command[0].equals("SetSelectedTask")){
+            BoardMenuController.getSelectedTaskTitle().put(command[2], command[1]);
+            return "";
+        }
+        if (command[0].equals("GetSelectedTask")){
+            return BoardMenuController.getSelectedTaskTitle().get(command[1]);
+        }
+        if (command[0].equals("ForceTaskToCategorySelect")){
+            BoardMenuController.forceTaskToCategorySelect(command[1], command[2], command[3]);
+            return "";
+        }
+        if (command[0].equals("DeleteMemberFromTeam")){
+            TeamMenuController.deleteMemberFromTeam(command[1], command[2]);
+            return "";
+        }
+        if (command[0].equals("TaskToNext")){
+            BoardMenuController.taskToNext(command[1], command[2], command[3]);
+            return "";
+        }
 
 
         return " ";

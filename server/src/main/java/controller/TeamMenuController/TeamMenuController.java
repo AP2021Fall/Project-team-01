@@ -3,6 +3,7 @@ package controller.TeamMenuController;
 import controller.LoginController;
 import models.DatabaseHandler;
 import models.Team;
+import models.User;
 import view.Regex;
 
 import java.sql.SQLException;
@@ -100,12 +101,13 @@ public class TeamMenuController {
             System.out.println("You do not have the permission to do this action!");
     }
 
-    public static void deleteMemberFromTeam(String name) throws SQLException {
-        if (LoginController.getActiveUser().getRole().equals("leader")) {
+    public static void deleteMemberFromTeam(String name, String token) throws SQLException {
+        int teamId = TeamMenuController.getCurrentTeam().get(token).getId();
+        if (User.getLoginUsers().get(token).getRole().equals("leader")) {
             if (DatabaseHandler.doesUsernameExist(name)) {
                 if (DatabaseHandler.isUserMember(name))
-                    if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getTeam().getName()))
-                        DatabaseHandler.removeMemberFromTeam(name, TeamMenuController.getTeam().getId());
+                    if (DatabaseHandler.isUserInTeam(name, TeamMenuController.getCurrentTeam().get(token).getName()))
+                        DatabaseHandler.removeMemberFromTeam(name, teamId);
                     else
                         System.out.println("This user is not in your team to remove it");
                 else
