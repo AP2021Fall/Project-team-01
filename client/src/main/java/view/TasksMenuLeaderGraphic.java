@@ -1,5 +1,6 @@
 package view;
 
+import appController.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import models.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,20 +22,20 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TasksMenuLeaderGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(User.getActiveUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetTasksByUsername " + User.getActiveUsername()));
     public TextField searchTextField;
     public ChoiceBox tasksSortChoiceBox;
     public ListView<String> tasksListView;
     public SceneController sceneController = new SceneController();
 
-    public TasksMenuLeaderGraphic() throws SQLException {
+    public TasksMenuLeaderGraphic() throws SQLException, IOException {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tasksSortChoiceBox.getItems().addAll("Priority", "TaskTitle", "DeadLine");
-            ArrayList<String> allTasks = DatabaseHandler.getTasksByUsername(User.getActiveUsername());
+            ArrayList<String> allTasks = AppController.getArraylistResult("DgetTasksByUsername " + User.getActiveUsername());
             ObservableList<String> items = FXCollections.observableArrayList(allTasks);
             tasksListView.setItems(items);
             tasksListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -49,29 +51,29 @@ public class TasksMenuLeaderGraphic implements Initializable {
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(User.getActiveUsername()));
-                    } catch (SQLException e) {
+                        tasksListView.getItems().addAll(AppController.getArraylistResult("DsortTaskTitlesByPriority " + User.getActiveUsername()));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 } else if ("Deadline".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(User.getActiveUsername()));
-                    } catch (SQLException e) {
+                        tasksListView.getItems().addAll(AppController.getArraylistResult("DsortTaskTitlesByDeadline " + User.getActiveUsername()));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(User.getActiveUsername()));
-                    } catch (SQLException e) {
+                        tasksListView.getItems().addAll(AppController.getArraylistResult("DsortTaskTitlesByTaskTitle " + User.getActiveUsername()));
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
