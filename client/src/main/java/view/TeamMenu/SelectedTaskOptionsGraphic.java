@@ -5,7 +5,6 @@ import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
-import models.DatabaseHandler;
 import view.MenusFxml;
 import view.SceneController;
 

@@ -3,7 +3,6 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import models.DatabaseHandler;
 
 import java.net.URL;
 import java.sql.SQLException;

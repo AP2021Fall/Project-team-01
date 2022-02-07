@@ -15,7 +15,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import models.DatabaseHandler;
 import models.User;
 
 import java.io.IOException;
@@ -28,12 +27,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class CalendarMenuGraphic implements Initializable {
-    public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksByUsername(User.getActiveUsername()));
+    public ObservableList<String> items = FXCollections.observableArrayList(AppController.getArraylistResult("DgetTasksByUsername " + User.getActiveUsername()));
     public VBox taskShow;
     public ScrollPane scroll;
     public TextField searchBar;
     public SceneController sceneController = new SceneController();
-    public CalendarMenuGraphic() throws SQLException {
+    public CalendarMenuGraphic() throws SQLException, IOException {
     }
 
     @Override
@@ -61,18 +60,20 @@ public class CalendarMenuGraphic implements Initializable {
                 String[] get ;
                 get = str.split(" ");
                 int id = Integer.parseInt(get[0]);
-                if ( DatabaseHandler.getNumDeadline(id) == 0)
+                String result = AppController.getResult("DgetNumDeadline " + id);
+                int state = Integer.parseInt(result);
+                if ( state == 0)
                 hBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-                if ( DatabaseHandler.getNumDeadline(id) == 1)
+                if ( state == 1)
                     hBox.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-                if ( DatabaseHandler.getNumDeadline(id) == 2)
+                if ( state == 2)
                     hBox.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
                 taskShow.getChildren().add(hBox);
             }
             tasks.add("\n");
             tasks.add("\n");
             taskShow.setAlignment(Pos.TOP_LEFT);
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -97,9 +98,9 @@ public class CalendarMenuGraphic implements Initializable {
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
     }
 
-    public void sortDeadline(ActionEvent actionEvent) throws SQLException {
+    public void sortDeadline(ActionEvent actionEvent) throws SQLException, IOException {
         taskShow.getChildren().clear();
-        ArrayList<String> tasks = DatabaseHandler.sortTaskTitlesByDeadline(User.getActiveUsername());
+        ArrayList<String> tasks = AppController.getArraylistResult("DsortTaskTitlesByDeadline " + User.getActiveUsername());
         for (String str : tasks) {
             HBox hBox = new HBox();
             Text text = new Text('\n' + str);
@@ -111,11 +112,13 @@ public class CalendarMenuGraphic implements Initializable {
             String[] get ;
             get = str.split(" ");
             int id = Integer.parseInt(get[0]);
-            if ( DatabaseHandler.getNumDeadline(id) == 0)
+            String result = AppController.getResult("DgetNumDeadline " + id);
+            int state = Integer.parseInt(result);
+            if ( state == 0)
                 hBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            if ( DatabaseHandler.getNumDeadline(id) == 1)
+            if ( state == 1)
                 hBox.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-            if ( DatabaseHandler.getNumDeadline(id) == 2)
+            if ( state == 2)
                 hBox.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
             taskShow.getChildren().add(hBox);
         }

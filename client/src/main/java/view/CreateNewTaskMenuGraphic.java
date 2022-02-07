@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import models.DatabaseHandler;
 import models.User;
 
 import java.io.IOException;

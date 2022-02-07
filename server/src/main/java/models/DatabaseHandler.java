@@ -1036,8 +1036,8 @@ public class DatabaseHandler {
     }
 
     public static int getNumDeadline(int id) throws SQLException {
-        String sql1 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND username = '%s'";
-        String sql2 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(`deadline date`, NOW()) <= 10 AND username = '%s'";
+        String sql1 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND tasks.id = " + id;
+        String sql2 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(`deadline date`, NOW()) <= 10 AND tasks.id = " + id;
         if (doesExist(sql1))
             return 0;
         if (doesExist(sql2))

@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import models.DatabaseHandler;
 
 import java.io.IOException;
 import java.net.URL;

@@ -9,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import models.DatabaseHandler;
 import view.MenusFxml;
 import view.SceneController;
 

@@ -6,11 +6,13 @@ import controller.ProfileMenuController.ProfileMenuController;
 import controller.TasksPageController;
 import controller.TeamMenuController.*;
 import models.DatabaseHandler;
+import models.User;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Server {
@@ -214,8 +216,22 @@ public class Server {
 
 
         //DataBase commands :(
+        if (command[0].equals("DgetTasksByUsername")) {
+            return getJson(DatabaseHandler.getTasksByUsername(command[1]));
+        }
+        if (command[0].equals("DgetNumDeadline")) {
+            return DatabaseHandler.getNumDeadline(Integer.parseInt(command[1])) + "";
+        }
+        if (command[0].equals("DsortTaskTitlesByDeadline")) {
+            return getJson(DatabaseHandler.sortTaskTitlesByDeadline(command[1]));
+        }
+
 
 
         return " ";
+    }
+
+    private static String getJson(ArrayList<String> a) {
+        return new Gson().toJson(a);
     }
 }
