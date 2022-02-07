@@ -19,6 +19,7 @@ import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,13 +41,15 @@ public class RoadMapMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             showTasksInfo();
-            listViewTasks.setItems(getTaskTitles());
+            ArrayList<String> taskTitles = AppController.getArraylistResult("GetTasksTitleByTeamName " + User.getToken());
+            ObservableList<String> items = FXCollections.observableArrayList (taskTitles);
+            listViewTasks.setItems(items);
             listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = listViewTasks.getSelectionModel().getSelectedItem();
                     try {
-                        String result = AppController.getResult("SetTaskIdAndTaskTitle " + taskName + " " + User.getToken());
+                        AppController.getResult("SetTaskIdAndTaskTitle " + taskName + " " + User.getToken());
                         if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
                             sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
                             return;
@@ -68,8 +71,10 @@ public class RoadMapMenuGraphic implements Initializable {
     }
 
     public void search(ActionEvent actionEvent) throws IOException {
+        ArrayList<String> taskTitles = AppController.getArraylistResult("GetTasksTitleByTeamName " + User.getToken());
+        ObservableList<String> items = FXCollections.observableArrayList (taskTitles);
         listViewTasks.getItems().clear();
-        listViewTasks.getItems().addAll(searchList(searchBar.getText(), getTaskTitles()));
+        listViewTasks.getItems().addAll(searchList(searchBar.getText(), items));
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
@@ -85,7 +90,7 @@ public class RoadMapMenuGraphic implements Initializable {
     }
 
     public void showTasksInfo() throws SQLException, IOException {
-        String teamName = AppController.getResult("CurrentTeamName");
+        String teamName = AppController.getResult("CurrentTeamName " + User.getToken());
         TasksInfo.setText("Total Tasks: " + AppController.getArraylistResult("DgetTasksTitleByTeamName " + teamName).size() +
                 "\nDone Tasks: " + AppController.getArraylistResult("DgetDoneTasksTitleByTeamName " + teamName).size() +
                 "\nIn Progress Tasks: " + AppController.getArraylistResult("DgetInProgressTasksTitleByTeamName " + teamName).size() +
@@ -96,12 +101,4 @@ public class RoadMapMenuGraphic implements Initializable {
         TasksChart.setData(pieChartData);
     }
 
-    public ObservableList<String> getTaskTitles() throws IOException {
-        String json = AppController.getResult("GetTasksTitleByTeamName ");
-        ArrayList<String> taskTitles = new Gson().fromJson(json,
-                new TypeToken<List<String>>() {
-                }.getType());
-        ObservableList<String> items = FXCollections.observableArrayList (taskTitles);
-        return items;
-    }
 }

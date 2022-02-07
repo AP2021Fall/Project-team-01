@@ -107,9 +107,10 @@ public class Server {
         if (command[0].equals("SetTaskIdAndTaskTitle")) {
             String taskName = command[1];
             String token = command[2];
-            int currentTeamId = DatabaseHandler.getTeamIdByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
+            int currentTeamId = TeamMenuController.getCurrentTeam().get(token).getId();
+//                    DatabaseHandler.getTeamIdByTeamName(TeamMenuController.getCurrentTeam().get(token).getName());
             TasksPageController.getTaskIdAndTaskTitle().put(token, DatabaseHandler.getTaskIdByTaskTitle(taskName, currentTeamId) + " " + taskName);
-            return "";
+            return "done";
         }
         if (command[0].equals("changeRole1")) {
             MainMenuController.changeRole(ScoreBoardController.getUsernameToRemove().get(command[2]), command[1], command[2]);
@@ -201,8 +202,9 @@ public class Server {
             MainMenuController.banUser(ScoreBoardController.getUsernameToRemove().get(command[1]));
         }
         if (command[0].equals("SendMessage")) {
-            ChatroomController.sendMessage(command[1], command[2]);
-            return "";
+            int i = input.lastIndexOf(' ');
+            ChatroomController.sendMessage(input.substring(12, i), input.substring(i+1));
+            return "done";
         }
         if (command[0].equals("ShowChatroom")) {
             return new Gson().toJson(DatabaseHandler.showChatroom(TeamMenuController.getCurrentTeam().get(command[1]).getId()));

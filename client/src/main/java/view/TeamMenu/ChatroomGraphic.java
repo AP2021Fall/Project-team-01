@@ -32,7 +32,7 @@ public class ChatroomGraphic implements Initializable {
     public SceneController sceneController = new SceneController();
 
     public void sendMessage() throws SQLException, IOException {
-        AppController.getResult("SendMessage " + input_String.getText() + User.getToken());
+        AppController.getResult("SendMessage " + input_String.getText() + " " + User.getToken());
         chatShow.getChildren().clear();
         ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
         for (String str : chats){
