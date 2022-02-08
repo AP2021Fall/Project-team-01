@@ -151,9 +151,13 @@ public class TaskPageGraphic implements Initializable {
         String assigned = (String) assignUserChoiceBox.getValue();
         String result = AppController.getResult("editAssigned " + assigned + " " + User.getToken());
 
-        String teamName = AppController.getResult("CurrentTeamName " + User.getToken());
-        AppController.getResult("setTeamChoice " + teamName + " " + User.getToken());
-        AppController.getResult("sendToTeam " + "User: " + assigned + "assigned to task! "+ User.getToken());
+        if (result.split(" ")[3].equals("successfully!")) {
+            String taskId = AppController.getResult("taskIdTaskPage " + User.getToken());
+            String teamId = AppController.getResult("DgetTeamIdByTaskId " + taskId);
+            String teamName = AppController.getResult("DgetTeamNameByTeamId " + teamId);
+            AppController.getResult("setTeamChoice " + teamName + " " + User.getToken());
+            AppController.getResult("sendToTeam " + "User: " + assigned + " assigned to task! " + User.getToken());
+        }
         addAssignedUserAlert.setText(result);
     }
 

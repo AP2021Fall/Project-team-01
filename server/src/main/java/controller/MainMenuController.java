@@ -66,17 +66,13 @@ public class MainMenuController {
     }
 
     public static void sendNotificationToTeam(String notification, String teamName, String token) throws SQLException {
-        if (User.getLoginUsers().get(token).getRole().equals("leader") ||
-                User.getLoginUsers().get(token).getRole().equals("admin")) {
-            if (DatabaseHandler.doesTeamExistForUser(teamName, User.getLoginUsers().get(token).getUsername())
-                    || User.getLoginUsers().get(token).getRole().equals("admin")) {
-                DatabaseHandler.sendNotificationToTeam(User.getLoginUsers().get(token).getUsername() + ": " + notification, teamName);
-                System.out.println("notification sent successfully");
-            } else {
-                System.out.println("No team exists with this name !");
-            }
-        } else
-            System.out.println("You do not have access to this section");
+        if (DatabaseHandler.doesTeamExistForUser(teamName, User.getLoginUsers().get(token).getUsername())
+                || User.getLoginUsers().get(token).getRole().equals("admin")) {
+            DatabaseHandler.sendNotificationToTeam(User.getLoginUsers().get(token).getUsername() + ": " + notification, teamName);
+            System.out.println("notification sent successfully");
+        } else {
+            System.out.println("No team exists with this name !");
+        }
     }
 
     public static void sendNotificationToAll(String notification) throws SQLException {
@@ -84,25 +80,25 @@ public class MainMenuController {
     }
 
     public static void showProfile(String username) throws SQLException {
-            if (DatabaseHandler.doesUsernameExist(username)) {
-                System.out.println("username: " + username + " email address: " +
-                        DatabaseHandler.getEmailByUsername(username) + " role: " +
-                        DatabaseHandler.getRoleByUsername(username));
-            } else {
-                System.out.println("There is no user with this username");
-            }
+        if (DatabaseHandler.doesUsernameExist(username)) {
+            System.out.println("username: " + username + " email address: " +
+                    DatabaseHandler.getEmailByUsername(username) + " role: " +
+                    DatabaseHandler.getRoleByUsername(username));
+        } else {
+            System.out.println("There is no user with this username");
         }
+    }
 
     public static void banUser(String username) throws SQLException {
-            if (DatabaseHandler.doesUsernameExist(username)) {
-                if (DatabaseHandler.getRoleByUsername(username).equals("leader"))
-                    DatabaseHandler.banLeader(username);
-                else if (DatabaseHandler.getRoleByUsername(username).equals("member"))
-                    DatabaseHandler.banMember(username);
-                System.out.println("username banned");
-            } else
-                System.out.println("There is no user with this username");
-        }
+        if (DatabaseHandler.doesUsernameExist(username)) {
+            if (DatabaseHandler.getRoleByUsername(username).equals("leader"))
+                DatabaseHandler.banLeader(username);
+            else if (DatabaseHandler.getRoleByUsername(username).equals("member"))
+                DatabaseHandler.banMember(username);
+            System.out.println("username banned");
+        } else
+            System.out.println("There is no user with this username");
+    }
 
     public static void showPendingTeams() throws SQLException {
         ArrayList<String> pendingTeams = DatabaseHandler.getPendingTeams();
