@@ -1,6 +1,7 @@
 package models;
 
 
+import java.util.Locale;
 
 public class Queries {
     public static final String CREATE_USER =
@@ -253,4 +254,6 @@ public class Queries {
             "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER =
             "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
+    public static final String SET_CHATROOM =
+            "UPDATE teams SET chatroom = '%s' WHERE teams.id = %d";
 }

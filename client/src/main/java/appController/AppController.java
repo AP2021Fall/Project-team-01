@@ -38,6 +38,10 @@ public class AppController {
         return inputStream.readUTF();
     }
 
+    public static String toJson(ArrayList<String> arrayList) {
+        return new Gson().toJson(arrayList);
+    }
+
     public static ArrayList<String> getArraylistResult(String command) throws IOException {
         outputStream.writeUTF(command);
         outputStream.flush();

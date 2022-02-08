@@ -407,6 +407,10 @@ public class Server {
             DatabaseHandler.addMemberToTeam(command[1], Integer.parseInt(command[2]));
             return "";
         }
+        if (command[0].equals("DsetChatroom")) {
+            int i = input.lastIndexOf(' ');
+            DatabaseHandler.setChatroom(input.substring(13,i), Integer.parseInt(input.substring(i+1)));
+        }
 
         return " ";
     }

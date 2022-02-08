@@ -1,12 +1,16 @@
 package view.ProfileMenu;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import models.User;
 import view.LoginMenuGraphic;
 import view.MenusFxml;
 import view.SceneController;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ProfileMenuGraphic {
     public SceneController sceneController = new SceneController();

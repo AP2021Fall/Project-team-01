@@ -465,6 +465,11 @@ public class DatabaseHandler {
         return getGsonArraylistStrings(sql);
     }
 
+    public static void setChatroom(String chats, int teamId) throws SQLException {
+        String sql = String.format(Queries.SET_CHATROOM, chats, teamId);
+        execute(sql);
+    }
+
     public static ArrayList<String> getTeamTasksByTeamId(int teamId) throws SQLException {
         String sql = String.format(Queries.GET_TASKS_BY_TEAM_ID, teamId);
         ArrayList<String> answer = new ArrayList<>();
