@@ -79,9 +79,9 @@ public class TasksPageController {
                 if (DatabaseHandler.doesUsernameExist(username)) {
                     if (!DatabaseHandler.isUsernameAssigned(taskId, username)) {
                         DatabaseHandler.assignUser(taskId, username);
-                        return "user:" + username + "added successfully!";
+                        return "user: " + username + " added successfully!";
                     }
-                    return "username:" + username + "already assigned!";
+                    return "username: " + username + " already assigned!";
                 }
                 return "there is not any user with this username:" + username;
             }

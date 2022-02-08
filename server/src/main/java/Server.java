@@ -137,7 +137,8 @@ public class Server {
         }
         if (command[0].equals("sendToTeam")) {
             int i = input.lastIndexOf(' ');
-            MainMenuController.sendNotificationToTeam(input.substring(11, i), MainMenuController.team.get(input.substring(i + 1)), input.substring(i + 1));
+            String teamName = MainMenuController.team.get(input.substring(i + 1));
+            MainMenuController.sendNotificationToTeam(input.substring(11, i), teamName, input.substring(i + 1));
             return "done";
         }
         if (command[0].equals("sendToAll")) {
