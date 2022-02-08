@@ -74,8 +74,12 @@ public class ProfileMenuController {
         return stringLogs.toString();
     }
 
-    public static ArrayList<String> showNotifications(String token) throws SQLException {
+    public static String showNotifications(String token) throws SQLException {
         String username = User.getLoginUsers().get(token).getUsername();
-        return (DatabaseHandler.getNotifications(username));
+        ArrayList<String> notifications = DatabaseHandler.getNotifications(username);
+        StringBuilder stringNotifications = new StringBuilder();
+        for (String notification : notifications)
+            stringNotifications.append(notification).append("\n");
+        return stringNotifications.toString();
     }
 }

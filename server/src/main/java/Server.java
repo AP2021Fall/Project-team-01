@@ -74,7 +74,7 @@ public class Server {
             return ProfileMenuController.changeUsername(command[1], command[2]);
         }
         if (command[0].equals("ShowNotifications")) {
-            return ProfileMenuController.showNotifications(command[1]).toString();
+            return ProfileMenuController.showNotifications(command[1]);
         }
         if (command[0].equals("ShowMyTeams")) {
             return new Gson().toJson(ProfileMenuController.showTeams(command[1]));
