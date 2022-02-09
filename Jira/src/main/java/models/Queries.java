@@ -257,4 +257,6 @@ public class Queries {
             "SELECT title FROM tasks WHERE state = 0";
     public static final String GET_TEAMS =
             "SELECT leader FROM teams";
+    public static final String GET_TASK_BY_USERNAME_LEADER_OUT =
+            "SELECT tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s' AND board_name IS NULL AND team_id = %d";
 }
