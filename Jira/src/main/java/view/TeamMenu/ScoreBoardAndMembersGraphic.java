@@ -75,7 +75,7 @@ public class ScoreBoardAndMembersGraphic implements Initializable {
 
     public void sortByPoints(ActionEvent actionEvent) throws SQLException {
         membersList.getItems().clear();
-        ArrayList<String> help = DatabaseHandler.getAllUsersSortedByScore();
+        ArrayList<String> help = DatabaseHandler.getTeamUsersSortedByScore(TeamMenuController.getTeam().getId());
         membersList.getItems().addAll(help);
     }
 }

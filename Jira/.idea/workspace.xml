@@ -5,70 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499a8aee-dd14-4035-9d37-db9d9e281514" name="Changes" comment="graphic">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_271.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/AddAssignedUserTask.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/RemoveAssignedUserTask.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Queries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Queries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CreateNewTaskMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CreateNewTaskMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/ProfileMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/ProfileMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Statistics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/showNotificationsGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/showNotificationsGraphic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TasksMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TasksMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TasksMenuLeaderGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TasksMenuLeaderGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddCategoryToBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddTaskToBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddTaskToCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/BoardMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/BoardMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ChatroomGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ChatroomGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/RoadMapMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/RoadMapMenuGraphic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedBoardMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedBoardMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTeamMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTeamMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ShowProfileGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ShowProfileGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/TeamMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/TeamMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/UsersGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/UsersGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/janatan.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/janatan.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/AddAssignedUserTask.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/adminMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/adminMainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/changePasswordMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/changePasswordMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/RemoveAssignedUserTask.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TaskPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TaskPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TaskPageLeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TaskPageLeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/OptionsMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/OptionsMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addCategoryToBoard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addCategoryToBoard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addMember.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addMember.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addTaskToBoard.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addTaskToCategory.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/boardMenuL.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/boardMenuL.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/createBoardName.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/createBoardName.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/forceTask.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/forceTask.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/memberOptionsMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/memberOptionsMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/scoreboardAndMembersMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/scoreboardAndMembersMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedBoardMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedBoardMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedTaskOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedTaskOptions.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/showProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/showProfile.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/createTeam.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/createTeam.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/leaderMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/leaderMainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/loginMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/loginMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/newLeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/newLeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/newRole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/newRole.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/pendingOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/pendingOptions.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/pendingTeam.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/pendingTeam.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/registerMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/registerMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendNotification.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendNotification.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendTo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendTo.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendToAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendToAdmin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/statistics.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/users.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/users.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/usersOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/usersOptions.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTaskOptionsGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTaskOptionsGraphic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,14 +176,7 @@
       <workItem from="1644141032620" duration="9527000" />
       <workItem from="1644399254836" duration="104000" />
       <workItem from="1644399394229" duration="99000" />
-      <workItem from="1644399513903" duration="1921000" />
-    </task>
-    <task id="LOCAL-00072" summary="graphic">
-      <created>1643574494539</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1643574494539</updated>
+      <workItem from="1644399513903" duration="7276000" />
     </task>
     <task id="LOCAL-00073" summary="graphic">
       <created>1643576246757</created>
@@ -575,7 +514,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644081532803</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="graphic">
+      <created>1644402349019</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1644402349020</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

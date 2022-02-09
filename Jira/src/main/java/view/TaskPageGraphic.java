@@ -115,7 +115,8 @@ public class TaskPageGraphic implements Initializable {
             editPriorityAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editPriority(TasksPageController.getTaskId(), (int)newPriorityChoiceBox.getValue());
+        String priority = (String) newPriorityChoiceBox.getValue();
+        String result = TasksPageController.editPriority(TasksPageController.getTaskId(), Integer.parseInt(priority));
         editPriorityAlert.setText(result);
     }
 
@@ -129,7 +130,7 @@ public class TaskPageGraphic implements Initializable {
             return;
         }
         String result = TasksPageController.editDeadline(TasksPageController.getTaskId(), newDeadlineTextField.getText());
-        editPriorityAlert.setText(result);
+        editDeadlineAlert.setText(result);
     }
 
     public void goToEditDeadlineMenu(ActionEvent actionEvent) throws SQLException {

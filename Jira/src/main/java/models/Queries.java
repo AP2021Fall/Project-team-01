@@ -241,5 +241,13 @@ public class Queries {
             "SELECT username FROM users ORDER BY point";
     public static final String GET_TASKS_BY_TEAM_NAME =
             "SELECT id, title FROM tasks WHERE team_id = %d";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY priority";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY `deadline date`";
+    public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER =
+            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
 
+    public static String GET_Team_USERNAMES_SORTED_BY_SCORE =
+            "SELECT u.username FROM teams JOIN `username-team_id` ut ON teams.id = ut.team_id JOIN users u ON u.username = ut.username WHERE team_id = %d ORDER BY u.point";
 }

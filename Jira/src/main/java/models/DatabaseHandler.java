@@ -281,6 +281,11 @@ public class DatabaseHandler {
         return getArraylistString(sql);
     }
 
+    public static ArrayList<String> getTeamUsersSortedByScore(int teamId) throws SQLException {
+        String sql = String.format(Queries.GET_Team_USERNAMES_SORTED_BY_SCORE, teamId);
+        return getArraylistString(sql);
+    }
+
     public static void sendNotificationToAll(String notification) throws SQLException {
         ArrayList<String> usernames = getAllUsers();
         for (String i : usernames) {
@@ -1034,8 +1039,8 @@ public class DatabaseHandler {
     }
 
     public static int getNumDeadline(int id) throws SQLException {
-        String sql1 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND username = '%s'";
-        String sql2 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(`deadline date`, NOW()) <= 10 AND username = '%s'";
+        String sql1 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`, NOW()) > 10 AND tasks.id = " + id;
+        String sql2 = "SELECT `deadline date` FROM tasks JOIN `username-task_id` ON tasks.id = `username-task_id`.task_id WHERE state = 3 AND DATEDIFF(`deadline date`,NOW()) >= 4 AND DATEDIFF(`deadline date`, NOW()) <= 10 AND tasks.id = " + id;
         if (doesExist(sql1))
             return 0;
         if (doesExist(sql2))
@@ -1055,7 +1060,12 @@ public class DatabaseHandler {
     }
 
     public static ArrayList<String> sortTaskTitlesByPriority(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -1064,8 +1074,14 @@ public class DatabaseHandler {
         }
         return answer;
     }
+
     public static ArrayList<String> sortTaskTitlesByDeadline(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -1075,7 +1091,12 @@ public class DatabaseHandler {
         return answer;
     }
     public static ArrayList<String> sortTaskTitlesByTaskTitle(String username) throws SQLException {
-        String sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE, username);
+        String sql;
+        if (DatabaseHandler.getRoleByUsername(username).equals("leader")) {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER, username);
+        } else {
+            sql = String.format(Queries.GET_TASK_BY_USERNAME_SORTED_BY_TITLE, username);
+        }
         ArrayList<String> answer = new ArrayList<>();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);

@@ -88,11 +88,42 @@ public class CalendarMenuGraphic implements Initializable {
     }
 
 
-    public void search(ActionEvent actionEvent) {
+    public void search(ActionEvent actionEvent) throws SQLException {
         taskShow.getChildren().clear();
         List<String> list = searchList(searchBar.getText(), items);
-        for (String str : list)
-            taskShow.getChildren().add(new Text(str));
+        for (String str : list) {
+            HBox hBox = new HBox();
+            Text text = new Text('\n' + str);
+            text.setFill(Color.WHITE);
+            Font font = new Font("Book Antiqua", 20);
+            text.setFont(font);
+            hBox.setPrefHeight(60);
+            hBox.setOnMouseClicked( new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event) {
+                    String help = text.getText();
+                    String[] strings = help.split("\n");
+                    String taskName = strings[1];
+                    TasksPageController.setTaskIdAndTaskTitle(taskName);
+                    if (LoginController.getActiveUser().getRole().equals("leader")) {
+                        sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                        return;
+                    }
+                    sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
+                }
+            });
+            hBox.getChildren().add(text);
+            String[] get ;
+            get = str.split(" ");
+            int id = Integer.parseInt(get[0]);
+            if ( DatabaseHandler.getNumDeadline(id) == 0)
+                hBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            if ( DatabaseHandler.getNumDeadline(id) == 1)
+                hBox.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+            if ( DatabaseHandler.getNumDeadline(id) == 2)
+                hBox.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+            taskShow.getChildren().add(hBox);
+        }
     }
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
@@ -120,6 +151,20 @@ public class CalendarMenuGraphic implements Initializable {
             Font font = new Font("Book Antiqua", 20);
             text.setFont(font);
             hBox.setPrefHeight(60);
+            hBox.setOnMouseClicked( new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event) {
+                    String help = text.getText();
+                    String[] strings = help.split("\n");
+                    String taskName = strings[1];
+                    TasksPageController.setTaskIdAndTaskTitle(taskName);
+                    if (LoginController.getActiveUser().getRole().equals("leader")) {
+                        sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                        return;
+                    }
+                    sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
+                }
+            });
             hBox.getChildren().add(text);
             String[] get ;
             get = str.split(" ");

@@ -9,6 +9,7 @@ import view.SceneController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class showNotificationsGraphic implements Initializable {
@@ -38,7 +39,12 @@ public class showNotificationsGraphic implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            textNotifications.setText(ProfileMenuController.showNotifications().toString());
+            ArrayList<String> notifications = ProfileMenuController.showNotifications();
+            StringBuilder notification = new StringBuilder();
+            for (String i : notifications) {
+                notification.append(i).append("\n");
+            }
+            textNotifications.setText(notification.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
