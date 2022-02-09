@@ -1,7 +1,5 @@
 package models;
 
-import view.MenusFxml;
-
 import java.util.Locale;
 
 public class Queries {
@@ -221,8 +219,6 @@ public class Queries {
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s'";
     public static final String GET_TASK_BY_USERNAME_LEADER =
             "SELECT tasks.id, tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s'";
-    public static final String GET_TASK_BY_USERNAME_LEADER_OUT =
-            "SELECT tasks.title FROM tasks JOIN teams on tasks.team_id = teams.id WHERE teams.leader = '%s' AND board_name IS NULL AND team_id = %d";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY `deadline date`";
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE =
@@ -230,7 +226,7 @@ public class Queries {
     public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY =
             "SELECT id, title FROM tasks JOIN `username-task_id` `u-ti` on tasks.id = `u-ti`.task_id WHERE username = '%s' ORDER BY priority";
     public static final String GET_DESCRIPTION =
-            "SELECT description FROM tasks WHERE id = %d";
+            "SELECT title FROM tasks WHERE id = %d";
     public static final String GET_PRIORITY =
             "SELECT priority FROM tasks WHERE id = %d";
     public static final String GET_DEADLINE =
@@ -242,19 +238,8 @@ public class Queries {
     public static final String GET_ALL_USERNAMES_SORTED_BY_NAME =
             "SELECT username FROM users ORDER BY username";
     public static final String GET_ALL_USERNAMES_SORTED_BY_SCORE =
-            "SELECT username FROM users ORDER BY point DESC";
-    public static final String GET_TEAMS =
-            "SELECT leader FROM teams";
-    public static final String GET_DONE_TASKS =
-            "SELECT title FROM tasks WHERE state = 1";
-    public static final String GET_FAILED_TASKS =
-            "SELECT title FROM tasks WHERE state = 0";
-    public static final String GET_TASK_BY_USERNAME_SORTED_BY_PRIORITY_LEADER =
-            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY priority";
-    public static final String GET_TASK_BY_USERNAME_SORTED_BY_DEADLINE_LEADER =
-            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY `deadline date`";
-    public static final String GET_TASK_BY_USERNAME_SORTED_BY_TITLE_LEADER =
-            "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
+            "SELECT username FROM users ORDER BY point";
     public static final String GET_TASKS_BY_TEAM_NAME =
             "SELECT id, title FROM tasks WHERE team_id = %d";
+
 }

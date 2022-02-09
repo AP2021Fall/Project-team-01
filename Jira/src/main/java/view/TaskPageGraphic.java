@@ -1,5 +1,6 @@
 package view;
 
+import controller.LoginController;
 import controller.TasksPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -35,7 +36,10 @@ public class TaskPageGraphic implements Initializable {
     SceneController sceneController = new SceneController();
 
     public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        if(LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if(LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
     }
 
     @Override
@@ -111,7 +115,7 @@ public class TaskPageGraphic implements Initializable {
             editPriorityAlert.setText("PLEASE FILL OUT THE FIELD!");
             return;
         }
-        String result = TasksPageController.editPriority(TasksPageController.getTaskId(), Integer.parseInt((String) newPriorityChoiceBox.getValue()));
+        String result = TasksPageController.editPriority(TasksPageController.getTaskId(), (int)newPriorityChoiceBox.getValue());
         editPriorityAlert.setText(result);
     }
 
@@ -125,7 +129,7 @@ public class TaskPageGraphic implements Initializable {
             return;
         }
         String result = TasksPageController.editDeadline(TasksPageController.getTaskId(), newDeadlineTextField.getText());
-        editDeadlineAlert.setText(result);
+        editPriorityAlert.setText(result);
     }
 
     public void goToEditDeadlineMenu(ActionEvent actionEvent) throws SQLException {

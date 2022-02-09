@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="499a8aee-dd14-4035-9d37-db9d9e281514" name="Changes" comment="graphic">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_271.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Queries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Queries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CreateNewTaskMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CreateNewTaskMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/ProfileMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/ProfileMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Statistics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TasksMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TasksMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TasksMenuLeaderGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TasksMenuLeaderGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddCategoryToBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddTaskToBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/AddTaskToCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/BoardMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/BoardMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ChatroomGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ChatroomGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/RoadMapMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/RoadMapMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedBoardMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedBoardMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTeamMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTeamMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ShowProfileGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ShowProfileGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/TeamMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/TeamMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/UsersGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/UsersGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/janatan.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/janatan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/AddAssignedUserTask.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/adminMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/adminMainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/changePasswordMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/ProfileMenu/changePasswordMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/RemoveAssignedUserTask.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TaskPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TaskPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TaskPageLeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TaskPageLeader.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/OptionsMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/OptionsMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addCategoryToBoard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addCategoryToBoard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addMember.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addMember.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addTaskToBoard.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/addTaskToCategory.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/boardMenuL.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/boardMenuL.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/createBoardName.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/createBoardName.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/forceTask.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/forceTask.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/memberOptionsMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/memberOptionsMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/scoreboardAndMembersMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/scoreboardAndMembersMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedBoardMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedBoardMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedTaskOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/selectedTaskOptions.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/showProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/TeamMenu/showProfile.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/createTeam.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/createTeam.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/leaderMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/leaderMainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/loginMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/loginMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/newLeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/newLeader.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/newRole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/newRole.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/pendingOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/pendingOptions.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/pendingTeam.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/pendingTeam.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/registerMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/registerMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendNotification.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendNotification.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendTo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendTo.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/sendToAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/sendToAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/statistics.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/users.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/users.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/usersOptions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/usersOptions.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="CSS File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="21eLERQWWSNaFSDvV036RMd46tF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../libs/mysql-connector-java-8.0.27.jar" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="database.main" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Project-team-01\Jira\src\main\resources\view" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="view" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="LoginMenuGraphic" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.LoginMenuGraphic" />
+      <module name="Jira" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Jira" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ScoreBoardAndMembersGraphic" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.TeamMenu.ScoreBoardAndMembersGraphic" />
+      <module name="Jira" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.TeamMenu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Jira" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestClass" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestClass.EditDescriptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Jira" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestClass" />
+      <option name="METHOD_NAME" value="EditDescriptionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.ScoreBoardAndMembersGraphic" />
+        <item itemvalue="Application.LoginMenuGraphic" />
+        <item itemvalue="JUnit.TestClass" />
+        <item itemvalue="JUnit.TestClass.EditDescriptionTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="499a8aee-dd14-4035-9d37-db9d9e281514" name="Changes" comment="" />
+      <created>1638296495745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638296495745</updated>
+      <workItem from="1638296497467" duration="8959000" />
+      <workItem from="1639389113381" duration="1261000" />
+      <workItem from="1641971035846" duration="17795000" />
+      <workItem from="1642108407880" duration="3697000" />
+      <workItem from="1642146247104" duration="9891000" />
+      <workItem from="1642189416832" duration="2968000" />
+      <workItem from="1642225723606" duration="21085000" />
+      <workItem from="1642346174050" duration="20916000" />
+      <workItem from="1642499320217" duration="20008000" />
+      <workItem from="1642686666473" duration="2156000" />
+      <workItem from="1642700400321" duration="14008000" />
+      <workItem from="1642763140825" duration="19323000" />
+      <workItem from="1642826694681" duration="18761000" />
+      <workItem from="1642850589214" duration="53286000" />
+      <workItem from="1643366467470" duration="2901000" />
+      <workItem from="1643401967502" duration="1793000" />
+      <workItem from="1643437749340" duration="29968000" />
+      <workItem from="1643490514388" duration="679000" />
+      <workItem from="1643520751925" duration="11609000" />
+      <workItem from="1643535296285" duration="28929000" />
+      <workItem from="1643614564114" duration="10186000" />
+      <workItem from="1643647618733" duration="10620000" />
+      <workItem from="1643667894348" duration="1508000" />
+      <workItem from="1643797380844" duration="12418000" />
+      <workItem from="1643869263300" duration="8495000" />
+      <workItem from="1643961670982" duration="32524000" />
+      <workItem from="1644053156078" duration="20504000" />
+      <workItem from="1644140251522" duration="180000" />
+      <workItem from="1644141032620" duration="9527000" />
+      <workItem from="1644399254836" duration="104000" />
+      <workItem from="1644399394229" duration="99000" />
+      <workItem from="1644399513903" duration="1921000" />
+    </task>
+    <task id="LOCAL-00072" summary="graphic">
+      <created>1643574494539</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1643574494539</updated>
+    </task>
+    <task id="LOCAL-00073" summary="graphic">
+      <created>1643576246757</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1643576246757</updated>
+    </task>
+    <task id="LOCAL-00074" summary="graphic">
+      <created>1643618577101</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1643618577102</updated>
+    </task>
+    <task id="LOCAL-00075" summary="graphic">
+      <created>1643621644642</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1643621644642</updated>
+    </task>
+    <task id="LOCAL-00076" summary="graphic">
+      <created>1643629196633</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1643629196633</updated>
+    </task>
+    <task id="LOCAL-00077" summary="graphic">
+      <created>1643629304535</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1643629304535</updated>
+    </task>
+    <task id="LOCAL-00078" summary="graphic">
+      <created>1643651695887</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1643651695887</updated>
+    </task>
+    <task id="LOCAL-00079" summary="graphic">
+      <created>1643656327454</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1643656327455</updated>
+    </task>
+    <task id="LOCAL-00080" summary="graphic">
+      <created>1643656436775</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1643656436775</updated>
+    </task>
+    <task id="LOCAL-00081" summary="graphic">
+      <created>1643660115350</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1643660115351</updated>
+    </task>
+    <task id="LOCAL-00082" summary="graphic">
+      <created>1643669683669</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1643669683670</updated>
+    </task>
+    <task id="LOCAL-00083" summary="graphic">
+      <created>1643806625517</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1643806625523</updated>
+    </task>
+    <task id="LOCAL-00084" summary="graphic">
+      <created>1643810930088</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1643810930088</updated>
+    </task>
+    <task id="LOCAL-00085" summary="graphic">
+      <created>1643877139260</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1643877139261</updated>
+    </task>
+    <task id="LOCAL-00086" summary="graphic">
+      <created>1643878740515</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1643878740515</updated>
+    </task>
+    <task id="LOCAL-00087" summary="graphic">
+      <created>1643961902223</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1643961902223</updated>
+    </task>
+    <task id="LOCAL-00088" summary="graphic">
+      <created>1643964172438</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1643964172438</updated>
+    </task>
+    <task id="LOCAL-00089" summary="graphic">
+      <created>1643964677717</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1643964677717</updated>
+    </task>
+    <task id="LOCAL-00090" summary="graphic">
+      <created>1643965132898</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1643965132898</updated>
+    </task>
+    <task id="LOCAL-00091" summary="graphic">
+      <created>1643967554050</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1643967554050</updated>
+    </task>
+    <task id="LOCAL-00092" summary="graphic">
+      <created>1643967844088</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1643967844088</updated>
+    </task>
+    <task id="LOCAL-00093" summary="graphic">
+      <created>1643970712737</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1643970712738</updated>
+    </task>
+    <task id="LOCAL-00094" summary="graphic">
+      <created>1643978694209</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1643978694209</updated>
+    </task>
+    <task id="LOCAL-00095" summary="graphic">
+      <created>1643979797336</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1643979797336</updated>
+    </task>
+    <task id="LOCAL-00096" summary="graphic">
+      <created>1643982551743</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1643982551744</updated>
+    </task>
+    <task id="LOCAL-00097" summary="graphic">
+      <created>1643982642662</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1643982642662</updated>
+    </task>
+    <task id="LOCAL-00098" summary="graphic">
+      <created>1643983179984</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1643983179984</updated>
+    </task>
+    <task id="LOCAL-00099" summary="graphic">
+      <created>1643985637367</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1643985637367</updated>
+    </task>
+    <task id="LOCAL-00100" summary="graphic">
+      <created>1643990656696</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1643990656697</updated>
+    </task>
+    <task id="LOCAL-00101" summary="graphic">
+      <created>1643994398805</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1643994398805</updated>
+    </task>
+    <task id="LOCAL-00102" summary="graphic">
+      <created>1643994787946</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1643994787946</updated>
+    </task>
+    <task id="LOCAL-00103" summary="graphic">
+      <created>1643996022992</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1643996022992</updated>
+    </task>
+    <task id="LOCAL-00104" summary="graphic">
+      <created>1643996360497</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1643996360497</updated>
+    </task>
+    <task id="LOCAL-00105" summary="graphic">
+      <created>1643996569781</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1643996569781</updated>
+    </task>
+    <task id="LOCAL-00106" summary="graphic">
+      <created>1643996787856</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1643996787856</updated>
+    </task>
+    <task id="LOCAL-00107" summary="graphic">
+      <created>1643997201201</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1643997201201</updated>
+    </task>
+    <task id="LOCAL-00108" summary="graphic">
+      <created>1643999338680</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1643999338681</updated>
+    </task>
+    <task id="LOCAL-00109" summary="graphic">
+      <created>1643999702972</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1643999702972</updated>
+    </task>
+    <task id="LOCAL-00110" summary="graphic">
+      <created>1644002170888</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1644002170888</updated>
+    </task>
+    <task id="LOCAL-00111" summary="graphic">
+      <created>1644003470399</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1644003470399</updated>
+    </task>
+    <task id="LOCAL-00112" summary="graphic">
+      <created>1644005803281</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1644005803281</updated>
+    </task>
+    <task id="LOCAL-00113" summary="graphic">
+      <created>1644062291521</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1644062291522</updated>
+    </task>
+    <task id="LOCAL-00114" summary="graphic">
+      <created>1644064795851</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1644064795851</updated>
+    </task>
+    <task id="LOCAL-00115" summary="graphic">
+      <created>1644066443821</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1644066443821</updated>
+    </task>
+    <task id="LOCAL-00116" summary="graphic">
+      <created>1644074035514</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1644074035514</updated>
+    </task>
+    <task id="LOCAL-00117" summary="graphic">
+      <created>1644076408753</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1644076408754</updated>
+    </task>
+    <task id="LOCAL-00118" summary="graphic">
+      <created>1644077802284</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1644077802284</updated>
+    </task>
+    <task id="LOCAL-00119" summary="graphic">
+      <created>1644079740175</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1644079740175</updated>
+    </task>
+    <task id="LOCAL-00120" summary="graphic">
+      <created>1644081532803</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1644081532803</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="create models classes" />
+    <MESSAGE value="add database handler and queries" />
+    <MESSAGE value="update database handler and queries" />
+    <MESSAGE value="update2 database handler and queries" />
+    <MESSAGE value="add some functions to DatabaseHandler and Queries" />
+    <MESSAGE value="update" />
+    <MESSAGE value="mainMenu updated" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="ban user added to main menu" />
+    <MESSAGE value="send notif to all" />
+    <MESSAGE value="accept teams" />
+    <MESSAGE value="reject team add" />
+    <MESSAGE value="add showScoreboard" />
+    <MESSAGE value="update sql handler" />
+    <MESSAGE value="database handler update" />
+    <MESSAGE value="maven" />
+    <MESSAGE value="update DatabaseHandler" />
+    <MESSAGE value="fix bugs" />
+    <MESSAGE value="phase 1" />
+    <MESSAGE value="change role corrected" />
+    <MESSAGE value="send notification debug" />
+    <MESSAGE value="graphic" />
+    <option name="LAST_COMMIT_MESSAGE" value="graphic" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/view/TeamMenu/Chatroom.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Main_java$TestClass.ic" NAME="TestClass Coverage Results" MODIFIED="1642906055619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Main_java$TestClass_EditDescriptionTest.ic" NAME="TestClass.EditDescriptionTest Coverage Results" MODIFIED="1642906017787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

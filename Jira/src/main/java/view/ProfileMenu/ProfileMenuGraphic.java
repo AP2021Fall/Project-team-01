@@ -1,5 +1,6 @@
 package view.ProfileMenu;
 
+import controller.LoginController;
 import javafx.event.ActionEvent;
 import view.MenusFxml;
 import view.SceneController;
@@ -32,6 +33,11 @@ public class ProfileMenuGraphic {
     }
 
     public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("admin"))
+            sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
     }
 }

@@ -52,19 +52,19 @@ public class TasksMenuGraphic implements Initializable {
             });
 
             tasksSortChoiceBox.setOnAction((event) -> {
-                String value = (String) tasksSortChoiceBox.getValue();
+                Object value = tasksSortChoiceBox.getValue();
                 if ("Priority".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableArrayList(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername())));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByPriority(LoginController.getActiveUser().getUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
-                } else if ("DeadLine".equals(value)) {
+                } else if ("Deadline".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername())));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByDeadline(LoginController.getActiveUser().getUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -72,7 +72,7 @@ public class TasksMenuGraphic implements Initializable {
                 } else if ("TaskTitle".equals(value)) {
                     tasksListView.getItems().clear();
                     try {
-                        tasksListView.setItems(FXCollections.observableList(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername())));
+                        tasksListView.getItems().addAll(DatabaseHandler.sortTaskTitlesByTaskTitle(LoginController.getActiveUser().getUsername()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -97,7 +97,12 @@ public class TasksMenuGraphic implements Initializable {
     }
 
     public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("admin"))
+            sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
     }
 
     public void createNewTask(ActionEvent actionEvent) {

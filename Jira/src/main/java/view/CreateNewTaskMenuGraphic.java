@@ -34,7 +34,12 @@ public class CreateNewTaskMenuGraphic implements Initializable {
 
     //it should be leader main menu
     public void goToMainMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("admin"))
+            sceneController.switchScene(MenusFxml.ADMIN_MAIN_MENU.getLabel());
     }
 
     public void backToTasksMenu(ActionEvent actionEvent) {

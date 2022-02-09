@@ -1,7 +1,6 @@
 package view.TeamMenu;
 
 import controller.LoginController;
-import controller.TasksPageController;
 import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.ScoreBoardController;
 import controller.TeamMenuController.TeamMenuController;
@@ -44,7 +43,10 @@ public class BoardMenuGraphic implements Initializable {
     }
 
     public void BackToSelectedTeamMenu(ActionEvent actionEvent) {
+        if (LoginController.getActiveUser().getRole().equals("member"))
         sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
     }
 
     public void createBoard(ActionEvent actionEvent) {

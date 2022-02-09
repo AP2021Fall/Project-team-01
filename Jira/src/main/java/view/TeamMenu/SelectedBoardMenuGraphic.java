@@ -1,7 +1,5 @@
 package view.TeamMenu;
 
-import controller.LoginController;
-import controller.TasksPageController;
 import controller.TeamMenuController.BoardMenuController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
@@ -61,18 +59,6 @@ public class SelectedBoardMenuGraphic implements Initializable {
                         public void handle(MouseEvent event) {
                             BoardMenuController.setSelectedTask(text.getText());
                             sceneController.switchScene(MenusFxml.SELECTED_TASK_OPTIONS.getLabel());
-                            String TaskTitle = text.getText();
-                            try {
-                                TasksPageController.setTaskIdAndTaskTitle(DatabaseHandler.getTaskIdByTaskTitle(taskTitle, TeamMenuController.getTeam().getId()) + " " + taskTitle);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (LoginController.getActiveUser().getRole().equals("leader")) {
-                                sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
-                                return;
-                            }
-                            sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                         }
                     });
                     vBox.getChildren().add(text);
@@ -85,6 +71,6 @@ public class SelectedBoardMenuGraphic implements Initializable {
     }
 
     public void addTask(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.ADD_TASK_TO_BOARD.getLabel());
+
     }
 }

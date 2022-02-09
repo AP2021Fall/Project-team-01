@@ -1,5 +1,6 @@
 package view.TeamMenu;
 
+import controller.LoginController;
 import controller.TeamMenuController.ChatroomController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.event.ActionEvent;
@@ -73,6 +74,9 @@ public class ChatroomGraphic implements Initializable {
     }
 
     public void BackToTeamMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
     }
 }

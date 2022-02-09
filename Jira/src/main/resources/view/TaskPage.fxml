@@ -18,7 +18,7 @@
          <children>
             <Button layoutX="37.0" layoutY="274.0" mnemonicParsing="false" onAction="#goToMainMenu" text="MainMenu" />
             <Label fx:id="alert" layoutX="83.0" layoutY="221.0" />
-            <Label fx:id="taskInfoLabel" layoutX="55.0" layoutY="30.0" prefHeight="191.0" prefWidth="482.0" />
+            <Label fx:id="taskInfoLabel" layoutX="55.0" layoutY="30.0" prefHeight="191.0" prefWidth="199.0" />
          </children>
       </AnchorPane>
    </bottom>

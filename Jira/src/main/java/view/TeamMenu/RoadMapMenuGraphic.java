@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +21,8 @@ import view.SceneController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 public class RoadMapMenuGraphic implements Initializable {
     public AnchorPane anchorPane;
     public String teamName = TeamMenuController.getTeam().getName();
+    public int teamId = TeamMenuController.getTeam().getId();
     public ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
     public ListView<String> listViewTasks;
     public TextField searchBar;
@@ -42,23 +46,32 @@ public class RoadMapMenuGraphic implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             showTasksInfo();
-            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksTitleByTeamName(teamName));
+            ObservableList<String> items = FXCollections.observableArrayList(DatabaseHandler.getTasksIdTitleByTeamName(teamId));
             listViewTasks.setItems(items);
             listViewTasks.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     String taskName = listViewTasks.getSelectionModel().getSelectedItem();
+                    ProgressBar pb = new ProgressBar();
+                    String[] str = taskName.split(" ");
+                    int taskId=Integer.parseInt(str[0]);
                     try {
-                        TasksPageController.setTaskIdAndTaskTitle(DatabaseHandler.getTaskIdByTaskTitle(taskName, DatabaseHandler.getTeamIdByTeamName(teamName)) + " " + taskName);
+                       LocalDateTime start = DatabaseHandler.getCreationDateByTaskId(taskId);
+                       String finish = DatabaseHandler.getTaskDeadlineByTaskId(taskId);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                       LocalDateTime end = LocalDateTime.parse(finish , formatter);
+                       LocalDateTime now = LocalDateTime.now();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
+                    TasksPageController.setTaskIdAndTaskTitle(taskName);
                     if (LoginController.getActiveUser().getRole().equals("leader")) {
                         sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
                         return;
-                    }
+                    }else if (LoginController.getActiveUser().getRole().equals("member"))
                     sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
                 }
+
             });
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +80,10 @@ public class RoadMapMenuGraphic implements Initializable {
 
     //member or leader or admin
     public void goToMainMenu(ActionEvent actionEvent) {
+        if(LoginController.getActiveUser().getRole().equals("member"))
         sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if(LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
     }
 
     public void search(ActionEvent actionEvent) {
@@ -84,7 +100,10 @@ public class RoadMapMenuGraphic implements Initializable {
     }
 
     public void backToSelectedTeamMenu(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+        if (LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+        else if (LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
     }
 
     public void showTasksInfo() throws SQLException {

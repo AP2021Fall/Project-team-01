@@ -1,15 +1,18 @@
 package view;
 
 import controller.LoginController;
+import controller.TasksPageController;
 import controller.TeamMenuController.TeamMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -50,6 +53,20 @@ public class CalendarMenuGraphic implements Initializable {
                 Font font = new Font("Book Antiqua", 20);
                 text.setFont(font);
                 hBox.setPrefHeight(60);
+                hBox.setOnMouseClicked( new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event) {
+                        String help = text.getText();
+                        String[] strings = help.split("\n");
+                        String taskName = strings[1];
+                        TasksPageController.setTaskIdAndTaskTitle(taskName);
+                        if (LoginController.getActiveUser().getRole().equals("leader")) {
+                            sceneController.switchScene(MenusFxml.TASK_PAGE_LEADER.getLabel());
+                            return;
+                        }
+                        sceneController.switchScene(MenusFxml.TASK_PAGE.getLabel());
+                    }
+                });
                 hBox.getChildren().add(text);
                 String[] get ;
                 get = str.split(" ");
@@ -87,7 +104,10 @@ public class CalendarMenuGraphic implements Initializable {
     }
 
     public void back(ActionEvent actionEvent) {
-        sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        if(LoginController.getActiveUser().getRole().equals("member"))
+            sceneController.switchScene(MenusFxml.MEMBER_MAIN_MENU.getLabel());
+        else if(LoginController.getActiveUser().getRole().equals("leader"))
+            sceneController.switchScene(MenusFxml.LEADER_MAIN_MENU.getLabel());
     }
 
     public void sortDeadline(ActionEvent actionEvent) throws SQLException {
