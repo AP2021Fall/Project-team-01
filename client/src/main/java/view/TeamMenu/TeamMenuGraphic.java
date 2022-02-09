@@ -3,6 +3,7 @@ package view.TeamMenu;
 import appController.AppController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +36,61 @@ public class TeamMenuGraphic implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        update();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        thread.setDaemon(true);
+        thread.start();
         try {
+            listViewTeams.setItems(getItems());
+            listViewTeams.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String teamName = listViewTeams.getSelectionModel().getSelectedItem();
+                    if (teamName != null) {
+                        try {
+                            AppController.getOutputStream().writeUTF("SelectTeam " + teamName + " " + User.getToken());
+                            AppController.getOutputStream().flush();
+                            String result = AppController.getInputStream().readUTF();
+                            if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("member"))
+                                sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU.getLabel());
+                            else if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader"))
+                                sceneController.switchScene(MenusFxml.SELECTED_TEAM_MENU_LEADER.getLabel());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update() {
+        try {
+            listViewTeams.getItems().clear();
             listViewTeams.setItems(getItems());
             listViewTeams.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
