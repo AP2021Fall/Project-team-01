@@ -1,6 +1,7 @@
 package view.TeamMenu;
 
 import appController.AppController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import models.Task;
 import models.User;
 import view.LoginMenuGraphic;
 import view.MenusFxml;
@@ -47,7 +49,8 @@ public class ChatroomGraphic implements Initializable {
             AppController.getResult("sendToTeam " + "Leader Sent A Message! " + " " + User.getToken());
         }
         AppController.getResult("SendMessage " + input_String.getText() + " " + User.getToken());
-        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
+        input_String.clear();
+        update();
     }
 
     private void sendEditedMessage() throws IOException {
@@ -58,17 +61,12 @@ public class ChatroomGraphic implements Initializable {
         String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
         String json = AppController.toJson(chats);
         AppController.getResult("DsetChatroom " + json + " " + teamId);
-        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
+        update();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        chatShow = new VBox();
-        chatShow.getStyleClass().add("color-palette");
-        chatShow.setBackground(new Background(new BackgroundFill(Color.PURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
-        scrollPane.setContent(chatShow);
-        chatShow.setPrefWidth(463);
+    private void update() {
         try {
+            chatShow.getChildren().clear();
             String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
             String pinMessage = AppController.getResult("DgetPinMessage " + teamId);
             pin.setText(pinMessage);
@@ -124,9 +122,105 @@ public class ChatroomGraphic implements Initializable {
             chats.add("\n");
             chats.add("\n");
             chatShow.setAlignment(Pos.TOP_LEFT);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        update();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        thread.setDaemon(true);
+        thread.start();
+        chatShow = new VBox();
+        chatShow.getStyleClass().add("color-palette");
+        chatShow.setBackground(new Background(new BackgroundFill(Color.PURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+        scrollPane.setContent(chatShow);
+        chatShow.setPrefWidth(463);
+//        try {
+            update();
+//            String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
+//            String pinMessage = AppController.getResult("DgetPinMessage " + teamId);
+//            pin.setText(pinMessage);
+//            ContextMenu contextMenu = new ContextMenu();
+//            MenuItem menuItem1 = new MenuItem("Delete");
+//            MenuItem menuItem2 = new MenuItem("edit");
+//            MenuItem menuItem3 = new MenuItem("pin");
+//            contextMenu.getItems().addAll(menuItem1, menuItem2, menuItem3);
+//            menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    try {
+//                        deleteMessage(username, message);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    editMessage(username, message);
+//                }
+//            });
+//            menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    String teamId = null;
+//                    try {
+//                        teamId = AppController.getResult("CurrentTeamId " + User.getToken());
+//                        messagePin(message, teamId);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
+//            for (String str : chats) {
+//                Label label = new Label(str);
+//                label.setTextFill(Color.WHITE);
+//                Font font = new Font("Book Antiqua", 20);
+//                label.setFont(font);
+//                label.setContextMenu(contextMenu);
+//                label.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+//                    @Override
+//                    public void handle(ContextMenuEvent event) {
+//                        message = label.getText();
+//                        username = message.split(" ")[1];
+//                    }
+//                });
+//                chatShow.getChildren().add(label);
+//            }
+//            chats.add("\n");
+//            chats.add("\n");
+//            chatShow.setAlignment(Pos.TOP_LEFT);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void messagePin(String message, String teamId) throws IOException {
@@ -155,7 +249,7 @@ public class ChatroomGraphic implements Initializable {
         String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
         String json = AppController.toJson(chats);
         AppController.getResult("DsetChatroom " + json + " " + teamId);
-        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
+        update();
     }
 
     public void BackToTeamMenu(ActionEvent actionEvent) throws IOException {
@@ -167,6 +261,6 @@ public class ChatroomGraphic implements Initializable {
     }
 
     public void RefreshChatroom(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene(MenusFxml.CHATROOM_MENU.getLabel());
+        update();
     }
 }
