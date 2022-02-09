@@ -256,4 +256,10 @@ public class Queries {
             "SELECT tasks.id, title FROM tasks JOIN teams te on team_id = te.id WHERE leader = '%s' ORDER BY title";
     public static final String SET_CHATROOM =
             "UPDATE teams SET chatroom = '%s' WHERE teams.id = %d";
+    public static final String SET_PIN =
+            "UPDATE pin SET message = '%s' WHERE team_id = %d";
+    public static final String DOES_TEAM_PIN =
+            "SELECT message FROM pin WHERE team_id = %d";
+    public static final String UPDATE_PIN =
+            "INSERT INTO pin (message, team_id) VALUES ('%s', %d)";
 }

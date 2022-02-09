@@ -411,6 +411,14 @@ public class Server {
             int i = input.lastIndexOf(' ');
             DatabaseHandler.setChatroom(input.substring(13,i), Integer.parseInt(input.substring(i+1)));
         }
+        if (command[0].equals("DgetPinMessage")) {
+            return DatabaseHandler.getPinMessage(Integer.parseInt(command[1]));
+        }
+        if (command[0].equals("DsetPinMessage")) {
+            int i = input.lastIndexOf(' ');
+            DatabaseHandler.setPinMessage(input.substring(15, i), Integer.parseInt(input.substring(i+1)));
+            return "done";
+        }
 
         return " ";
     }

@@ -1170,4 +1170,26 @@ public class DatabaseHandler {
         String sql = String.format(Queries.GET_TASK_BY_USERNAME_LEADER_OUT, username, teamId);
         return getArraylistString(sql);
     }
+
+    public static boolean doesPinTeamExist(int teamId) throws SQLException {
+        String sql = String.format(Queries.DOES_TEAM_PIN, teamId);
+        return doesExist(sql);
+    }
+    public static void setPinMessage(String message, int teamId) throws SQLException {
+        String sql;
+        if (doesPinTeamExist(teamId)) {
+           sql = String.format(Queries.SET_PIN, message, teamId);
+        } else {
+            sql = String.format(Queries.UPDATE_PIN, message, teamId);
+        }
+        execute(sql);
+    }
+
+    public static String getPinMessage(int teamId) throws SQLException {
+        String sql = String.format(Queries.DOES_TEAM_PIN, teamId);
+        String result = getString(sql);
+        if (result == null)
+            return " ";
+        return result;
+    }
 }

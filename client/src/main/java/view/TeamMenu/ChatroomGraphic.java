@@ -69,6 +69,9 @@ public class ChatroomGraphic implements Initializable {
         scrollPane.setContent(chatShow);
         chatShow.setPrefWidth(463);
         try {
+            String teamId = AppController.getResult("CurrentTeamId " + User.getToken());
+            String pinMessage = AppController.getResult("DgetPinMessage " + teamId);
+            pin.setText(pinMessage);
             ContextMenu contextMenu = new ContextMenu();
             MenuItem menuItem1 = new MenuItem("Delete");
             MenuItem menuItem2 = new MenuItem("edit");
@@ -93,7 +96,13 @@ public class ChatroomGraphic implements Initializable {
             menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    pin.setText(message);
+                    String teamId = null;
+                    try {
+                        teamId = AppController.getResult("CurrentTeamId " + User.getToken());
+                        messagePin(message, teamId);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             ArrayList<String> chats = AppController.getArraylistResult("ShowChatroom " + User.getToken());
@@ -117,6 +126,13 @@ public class ChatroomGraphic implements Initializable {
             chatShow.setAlignment(Pos.TOP_LEFT);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void messagePin(String message, String teamId) throws IOException {
+        if (LoginMenuGraphic.getRole(User.getActiveUsername()).equals("leader")) {
+            pin.setText(AppController.getResult("DsetPinMessage " + message + " " + teamId));
+            pin.setText(message);
         }
     }
 
