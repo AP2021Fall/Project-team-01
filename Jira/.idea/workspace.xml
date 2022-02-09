@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499a8aee-dd14-4035-9d37-db9d9e281514" name="Changes" comment="graphic">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/AddAssignedUserTask.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/RemoveAssignedUserTask.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/Statistics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/statistics.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/DatabaseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Queries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Queries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CalendarMenuGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/showNotificationsGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProfileMenu/showNotificationsGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TaskPageGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/ScoreBoardAndMembersGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTaskOptionsGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/TeamMenu/SelectedTaskOptionsGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MemberMainMenuGraphic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MenusFxml.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/adminMainMenu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +54,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../libs/mysql-connector-java-8.0.27.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/view" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -66,6 +64,9 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Project-team-01\Jira\src\main\resources\view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Project-team-01\Jira\src\main\resources\view" />
@@ -176,14 +177,7 @@
       <workItem from="1644141032620" duration="9527000" />
       <workItem from="1644399254836" duration="104000" />
       <workItem from="1644399394229" duration="99000" />
-      <workItem from="1644399513903" duration="7276000" />
-    </task>
-    <task id="LOCAL-00073" summary="graphic">
-      <created>1643576246757</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1643576246757</updated>
+      <workItem from="1644399513903" duration="8907000" />
     </task>
     <task id="LOCAL-00074" summary="graphic">
       <created>1643618577101</created>
@@ -521,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644402349020</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="graphic">
+      <created>1644408797215</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1644408797215</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

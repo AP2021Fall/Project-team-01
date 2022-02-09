@@ -250,4 +250,11 @@ public class Queries {
 
     public static String GET_Team_USERNAMES_SORTED_BY_SCORE =
             "SELECT u.username FROM teams JOIN `username-team_id` ut ON teams.id = ut.team_id JOIN users u ON u.username = ut.username WHERE team_id = %d ORDER BY u.point";
+
+    public static final String GET_DONE_TASKS =
+            "SELECT title FROM tasks WHERE state = 1";
+    public static final String GET_FAILED_TASKS =
+            "SELECT title FROM tasks WHERE state = 0";
+    public static final String GET_TEAMS =
+            "SELECT leader FROM teams";
 }

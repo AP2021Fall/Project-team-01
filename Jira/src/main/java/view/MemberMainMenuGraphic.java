@@ -53,4 +53,8 @@ public class MemberMainMenuGraphic {
     public void users(ActionEvent actionEvent) {
         sceneController.switchScene(MenusFxml.USERS.getLabel());
     }
+
+    public void statistics(ActionEvent actionEvent) {
+        sceneController.switchScene(MenusFxml.STATISTIC.getLabel());
+    }
 }

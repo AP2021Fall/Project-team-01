@@ -1153,4 +1153,19 @@ public class DatabaseHandler {
         }
         return answer;
     }
+
+    public static ArrayList<String> allDoneTasks() throws SQLException {
+        String sql = String.format(Queries.GET_DONE_TASKS);
+        return getArraylistString(sql);
+    }
+
+    public static ArrayList<String> allFailedTasks() throws SQLException {
+        String sql = String.format(Queries.GET_FAILED_TASKS);
+        return getArraylistString(sql);
+    }
+
+    public static ArrayList<String> getTeams() throws SQLException {
+        String sql = String.format(Queries.GET_TEAMS);
+        return getArraylistString(sql);
+    }
 }

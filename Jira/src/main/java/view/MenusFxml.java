@@ -52,7 +52,8 @@ public enum MenusFxml {
     USERS("users.fxml"),
     USERS_OPTIONS("usersOptions.fxml"),
     NEW_LEADER("newLeader.fxml"),
-    NEW_ROLE("newRole.fxml");
+    NEW_ROLE("newRole.fxml"),
+    STATISTIC("statistics.fxml");
 
     private final String label;
 
